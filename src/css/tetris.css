@@ -1,0 +1,166 @@
+/* CSS Document */
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html,body {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: #FFF;
+    color: #FFF;
+    font-size: 0.679rem;
+    font-family: "微软雅黑";
+}
+
+.region {
+    background-color: #000;
+    /*border: #000 1px solid;*/
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius:2vw;
+}
+
+.tetris {
+    /*position: relative;*/
+    padding-top: 5px;
+    width: 61vw;
+    height: 132vw;
+    overflow: hidden;
+}
+
+.tetris_t{
+    width: 100%;
+    height: 100%;
+}
+
+.wall {
+    margin: 1px;
+    border-top: #575757 5px solid;
+    border-bottom: #575757 5px solid;
+    border-left: #808080 5px solid;
+    border-right: #808080 5px solid;
+    border-radius: 2vw;
+}
+
+.next {
+    position: relative;
+    width: 105px;
+    height: 100px;
+    padding-top: 5px;
+}
+
+.next_n{
+    width: 100%;
+    height:100%;
+}
+
+.grade {
+    width: 105px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+}
+
+.grade_text {
+    margin:0 25px;
+}
+
+.operator {
+    width: 125px;
+    /*height: 81px;*/
+    border: #fff 1px solid;
+    margin: 1px;
+    padding-bottom: 1vw;
+    border-radius: 1vw;
+}
+
+.block {
+    /*margin: 0px 0px 5px 5px;*/
+    width: 2vw;
+    height: 2vw;
+    position: absolute;
+    border-width: 1.5vw;
+    border-style: solid;
+    
+}
+
+
+.blocks {
+    margin-bottom:1vw;
+    margin-left: 1vw;
+    width: 2vw; /*235*/
+    height: 2vw;
+    border-width: 1.5vw;
+    border-style: solid;
+    /*border-radius: 5px;*/
+}
+
+.bkW {
+    background: #FFF;
+}
+
+.bkB {
+    background: #0795e8;
+}
+
+.borW {
+    /*border-color: #FFF;*/
+    border-color: #354;
+    /*border-color: rgba(0,0,0,0);*/
+}
+
+.borB {
+    border-color: #0795e8;
+}
+
+.borB_P {
+    border-color: #0795e8;
+}
+
+.bkPress {
+    background: #ff6a00;
+}
+
+.op {
+    width: 35px;
+    height: 33px;
+    line-height: 33px;
+    margin: 5px 0px 0px 5px;
+    text-align:center;
+    border-radius: 5px;
+}
+
+.fl {
+    float: left;
+}
+
+/*position*/
+.location {
+    position: absolute;
+}
+
+.timer_control {
+    width:105px;
+    text-align:center;
+}
+
+.ul_time {
+    list-style:none;
+}
+    .ul_time li {
+        float:right;
+    }
+.ul_li{
+    width:10px;
+}
+
+.ul_red {
+    color:#F00;
+}
+.ul_green {
+    color:#0a8920;
+}
+ 
