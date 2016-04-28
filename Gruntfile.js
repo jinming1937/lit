@@ -25,7 +25,7 @@ module.exports = function (grunt) {
 			}
 		},
 
- 		//jshint
+ 		//jshint 语法检查
  		jshint:{
  			build:['Gruntfile.js','src/js/*.js','src/*.js'],
  			options:{
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 	// 告诉grunt 我们将使用的插件
 	grunt.loadNpmTasks('grunt-contrib-uglify');//压缩js
 	grunt.loadNpmTasks('grunt-contrib-cssmin');//压缩css
-	//grunt.loadNpmTasks('grunt-contrib-jshint');//js/ css 语法检查
+	//grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
 	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
 	// 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
 	grunt.registerTask('default',['cssmin','uglify','watch']);
