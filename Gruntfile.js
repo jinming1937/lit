@@ -37,18 +37,43 @@ module.exports = function (grunt) {
 		watch:{
 			build:{
 				files:['src/*.js','src/*.css','src/js/*.js','src/css/*.css'],
-				tasks:['uglify'],
+				tasks:['uglify','jshint'],
 				options:{spawn:false}
 			}
 		}
+		
+		// open new webset
+		connect: {
+	        server: {
+	            options: {
+	                port: 8089,
+	                base: '192.168.30.90'
+	            }
+	        }
+    		},
+    		open: {
+	        kitchen: {
+	            path: 'http://xiaozhiga:3000/entry/serenBlank/index.html'
+	        }
+    		}
 	});
 	// 告诉grunt 我们将使用的插件
 	grunt.loadNpmTasks('grunt-contrib-uglify');//压缩js
 	grunt.loadNpmTasks('grunt-contrib-cssmin');//压缩css
-	//grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
+	grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
 	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
+	
 	// 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
-	grunt.registerTask('default',['cssmin','uglify','watch']);
+	/*
+	 * grunt.registerTask(taskName, [description, ] taskList);
+     * taskName：任务别名，descripation：任务描述，taskList：任务列表。
+	 */
+	grunt.registerTask('default',['jshint','cssmin','uglify','watch']);
+	// server
+	grunt.registerTask('server', 'Run server', [
+	   'connect',
+	   'watch'
+	]);
 };
 
 
