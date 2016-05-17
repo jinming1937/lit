@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 				banner:'/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build:{
-				src:['src/*.js','src/js/*.js'],
+				src:['entry/*.js','entry/js/*.js','entry/sevenBlock/js/*.js'],
 				dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
 			}
 		},
@@ -20,37 +20,40 @@ module.exports = function (grunt) {
 				banner:'/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build:{
-				src:['src/*.css','src/css/*.css'],
+				src:['entry/*.css','entry/css/*.css','entry/sevenBlock/css/*.css'],
 				dest:'build/<%-pkg.cssname%>-<%-pkg.version%>.css'	
 			}
 		},
 
- 		//jshint 语法检查
+ 		/*jshint 语法检查*/
  		jshint:{
- 			build:['Gruntfile.js','src/js/*.js','src/*.js'],
+ 			build:['entry/js/*.js','entry/*.js'],
  			options:{
  				jshintrc:'.jshintrc'
  			}
  		},
 
-		//watch
+		/*watch*/
 		watch:{
 			build:{
-				files:['src/*.js','src/*.css','src/js/*.js','src/css/*.css'],
-				tasks:['uglify','jshint'],
+				files:['entry/*.js','entry/*.css','entry/js/*.js','entry/css/*.css'],
+				tasks:['jshint','cssmin','uglify'],
 				options:{spawn:false}
 			}
-		}
+		},
 		
-		// open new webset
+		/*open new webset*/ 
 		connect: {
 	        server: {
 	            options: {
 	                port: 8089,
-	                base: '192.168.30.90'
+	                base:''
+	                //base:'xiaozhiga.com'  //??
+	                //base: '192.168.30.90'
 	            }
 	        }
     		},
+    		/* open new link */
     		open: {
 	        kitchen: {
 	            path: 'http://xiaozhiga:3000/entry/serenBlank/index.html'
@@ -58,99 +61,25 @@ module.exports = function (grunt) {
     		}
 	});
 	// 告诉grunt 我们将使用的插件
-	grunt.loadNpmTasks('grunt-contrib-uglify');//压缩js
-	grunt.loadNpmTasks('grunt-contrib-cssmin');//压缩css
-	grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
-	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
+//	grunt.loadNpmTasks('grunt-contrib-uglify');//压缩js
+//	grunt.loadNpmTasks('grunt-contrib-cssmin');//压缩css
+//	grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
+//	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
+//	grunt.loadNpmTasks('grunt-contrib-connect');//连接服务
+	
+	// Load the plugins
+    require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
+    //require('time-grunt')(grunt);
+
+	
+	
+	// server
+	grunt.registerTask('server', ['connect','watch']);
 	
 	// 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
 	/*
 	 * grunt.registerTask(taskName, [description, ] taskList);
      * taskName：任务别名，descripation：任务描述，taskList：任务列表。
 	 */
-	grunt.registerTask('default',['jshint','cssmin','uglify','watch']);
-	// server
-	grunt.registerTask('server', 'Run server', [
-	   'connect',
-	   'watch'
-	]);
+	grunt.registerTask('default',['jshint','cssmin','uglify']);
 };
-
-
-
-
-
-// {
-//   "name": "gruntTest",
-//   "version": "1.0.0",
-//   "devDependencies": {
-//     "grunt": "^1.0.1",
-//     "grunt-contrib-csslint": "^1.0.0",
-//     "grunt-contrib-cssmin": "^1.0.1",
-//     "grunt-contrib-jshint": "^1.0.0",
-//     "grunt-contrib-uglify": "^1.0.1",
-//     "grunt-contrib-watch": "^1.0.0"
-//   }
-// }
-
-//
-// module.exports = function (grunt) {
-// 	// 任务配置，所有插件的配置信息
-// 	grunt.initConfig({
-// 		//
-// 		pkg:grunt.file.readJSON('package.json'),
-
-// 		//uglify js压缩
-// 		uglify:{
-// 			options:{				
-// 				stripBanners:true,
-// 				banner:'/*! <%-pkg.name%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
-// 			},
-// 			build:{
-// 				src:['src/*.js','src/js/*.js'],
-// 				dest:'build/<%-pkg.name%>-<%-pkg.version%>.js.min.js'
-// 			}
-// 		},
-
-// 		//cssmin css 压缩
-// 		cssmin:{
-// 			options:{
-// 				stripBanners:true,
-// 				banner:'/*! <%-pkg.name%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
-// 			},
-// 			build:{
-// 				src:['src/*.css','src/css/*.css'],
-// 				dest:'build/<%-pkg.name%>-<%-pkg.version%>.css.min.css'	
-// 			}
-
-// 		},
-
-
-// 		//jshint
-// 		jshint:{
-// 			build:['Gruntfile.js','src/js/*.js','src/*.js'],
-// 			options:{
-// 				jshintrc:'.jshintrc'
-// 			}
-// 		},
-
-// 		//watch
-// 		watch:{
-// 			build:{
-// 				files:['src/*.js','src/*.css','src/js/*.js','src/css/*.css'],
-// 				tasks:['jshint','uglify'],
-// 				options:{
-// 					spawn:false
-// 				}
-// 			}
-// 		}
-// 	});
-// 	// 告诉grunt 我们将使用的插件
-// 	grunt.loadNpmTasks('grunt-contrib-uglify');
-// 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-// 	grunt.loadNpmTasks('grunt-contrib-jshint');
-// 	grunt.loadNpmTasks('grunt-contrib-watch');
-// 	// 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
-// 	grunt.registerTask('default',['jshint','cssmin','uglify','watch']);
-// 	//grunt.registerTask('default',['jshint','uglify']);
-// };
