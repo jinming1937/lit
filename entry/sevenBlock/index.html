@@ -16,18 +16,64 @@
 	    <link href="./css/sevenBlock.css" rel="stylesheet" />
 	</head>
 	<body>
-		<div>
-			<input type="button" class="rebutton" value="Refresh" />
-			hhhhhhhhhhhhh
+		<div class="box">
+			<div class="imgArea">
+				<div class="rowImg"><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div></div><div class="textsign"></div><div class="rowImg"><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div></div><div class="textsign"></div><div class="rowImg"><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div><div class="textsign"></div><div class="colImg"></div></div>
+			</div>
+			<div class="handler">
+				<a type="button" class="btn refresh" onclick="window.location = window.location;">Refresh</a>
+				<a type="button" class="btn start">Start</a>	
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript">
 		(function () {
+			/* 异步执行栈 */
+        		var asyncStack = {
+        			fnArray:function(){
+        				
+        			},
+        			/* first in first out */
+        			fifo:function(){
+        				
+        			},
+        			/* first in last out */
+        			filo:function(){
+        				
+        			}
+        		};
+			function $(id){
+				return document.getElementById(id);
+			}
+			
 			window.onload = function () {
-				var refresh = document.getElementsByClassName("rebutton")[0];
-				refresh.onclick = function () {
-					window.location = window.location;
+				if(window.width> window.height && $("autoScreen")){
+					var str = '';
+					str+='';
+					str+='';
+					//document.getElementsByTagName("head").append(str);
 				}
+				
+				var colImgArray = document.getElementsByClassName("colImg");
+				for(var i=0,len=colImgArray.length;i<len;i++){
+					(function (rotateImg) {
+						rotateImg.onclick = function () {
+							if(this.className.match(/rotate/g)){
+								this.className = this.className.replace(/rotate/g,"").replace(/\s/g,"");
+							}else{
+								this.className+=" rotate" ;
+							}
+						}
+					}(colImgArray[i]));
+				}
+				
+				//var refresh = document.getElementsByClassName("rebutton")[0];
+				//refresh.onclick = function () {
+				//	window.location = window.location;
+				//}
+			};
+			window.onreset = function(){
+				
 			}
 			
 		})();

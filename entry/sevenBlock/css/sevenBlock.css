@@ -3,6 +3,7 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	box-sizing: border-box;
 }
 
 html,
@@ -14,62 +15,95 @@ body {
 	height: 100%;
 	background-color: #FFF;
 }
-ul{list-style: none;}
-a{text-decoration: none;}
-.clearfix:before,.clearfix:after {
-    display: block;
-    content: " ";
-    height: 0
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.clearfix:before,
+.clearfix:after {
+	display: block;
+	content: " ";
+	height: 0
 }
 
 .clearfix:after {
-    clear: both
+	clear: both
 }
 
-
-.page{
+.page {
 	display: block;
-	width:100%;
-	height:100%;
-}
-/*------------------------[[webkit.html]] start------------------------*/
-.content{
 	width: 100%;
-	background-color: #dfe387;
-	/*-webkit-text-size-adjust:none;*/
+	height: 100%;
 }
 
-.content-auto{
-	width: 100%;
-	background-color: #85743A;
-	/*-webkit-text-size-adjust:none;*/
-}
-
-.item_list{
-	display: -webkit-box;
-	background-color: #000;
-}
-.item_list li{-webkit-box-flex: 1;height: 100px;line-height: 100px;text-align: center;font-size:1.125rem;position:relative;background-color: #F00;}
-.item_list li:first-child{background-color: #0A8920;}
-.item_list li:nth-child(2){margin-left: 10px;,background-color: #0795E8;}
-.item_list li:last-child{background-color: #FF6A00;}
-
-.item_list2{
-	display: -webkit-box;
-	background-color: #000;
-}
-.item_list2 li{-webkit-box-flex: 1;height: 100px;line-height: 100px;text-align: center;font-size:1.125rem;position:relative;background-color: #F00;}
-.item_list2 li:first-child{background-color: #0A8920;}
-.item_list2 li:nth-child(2){margin-left: 10px;,background-color: #0795E8;-webkit-box-flex:2}
-.item_list2 li:last-child{background-color: #FF6A00;}
-
-.calculator{font-size: 1.125rem;}
-/*------------------------[[webkit.html]] end------------------------*/
 
 /*------------------------[[index.html]] start------------------------*/
+.textsign{
+	width: 1vw;
+	height: 1vw;
+	display: inline-block;
+}
+
+.box{
+	width:100%;
+}
+.imgArea{
+	margin-top:1rem;
+	padding: 0 0.5vw;
+}
+
+.rowImg{
+	width:100%;
+	background: #9C9C9C;
+}
+
+.colImg{
+	display: inline-block;
+	width:24vw;
+	height: 30vw;
+	background: url(../beauty.png) no-repeat;
+	background-size: 100% 100%;
+	transition: transform 1s;
+}
+
+.rotate{
+	transform: rotateY(180deg);
+}
+
+.colImg img{
+	max-width: 100%;
+}
+
+.btn{
+	display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    margin: 5px auto;
+    text-align: center;
+    border: 1px #EC114E solid;
+    background: #Ec114E;
+    cursor: pointer;
+    color:#FBC822;
+}
+
 .rebutton {
-	width: 5rem;
-	height: 2rem;
+	width: 100%;
+	height: 30px;
 	background-color: #FF6A00;
 }
+.grid{width: 100%;}
+.grid .item{width:32%;height: 150px;
+    background-color: #DDD;
+    display: inline-block}
+
 /*------------------------[[index.html]] end------------------------*/
+@media only screen and (min-width: ) {
+	
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>c3h5 </title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			body{ font-size: 1em; }
+			.content{width:100%;text-align: center;background-color: #9C9C9C;margin-bottom: 5px;}
+			.eg{width:100px;height: 100px;background: #85743A;}
+			.divTranHover:hover{height:150px;}
+			.divTranHoverTrans:hover{width:150px; height: 150px; transform: rotate(120deg);}
+			@keyframes myfirst
+			{
+			from {background: red;}
+			to {background: yellow;}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">	
+			<div class="">
+				<a href="">选择器</a><br />
+				<a href="">框模型</a><br />
+				<a href="">背景和边框</a><br />
+				<a href="">文本效果</a><br />
+				<a href="#change2_3">2D/3D 转换</a><br />
+				<a href="">动画</a><br />
+				<a href="">多列布局</a><br />
+				<a href="">用户界面</a><br />
+			</div>
+			<div class="change2_3" id="change2_3">
+				<hr />
+				<p>div<br />
+					{<br />
+					transform: rotate(30deg);<br />
+					-ms-transform: rotate(30deg);		/* IE 9 */<br />
+					-webkit-transform: rotate(30deg);	/* Safari and Chrome */<br />
+					-o-transform: rotate(30deg);		/* Opera */<br />
+					-moz-transform: rotate(30deg);		/* Firefox */<br />
+					}<br />值 rotate(30deg) 把元素顺时针旋转 30 度。
+				</p>
+				<div class="content">
+					<div class="eg" id="transformRotate" style="margin: auto;transform: rotate(30deg);">
+						rotate
+					</div>
+				</div>
+				<hr />
+				<p>div<br />
+					{<br />
+					transform: translate(50px,100px); /* left  , top  */ <br />
+					-ms-transform: translate(50px,100px);		/* IE 9 */<br />
+					-webkit-transform: translate(50px,100px);	/* Safari and Chrome */<br />
+					-o-transform: translate(50px,100px);		/* Opera */<br />
+					-moz-transform: translate(50px,100px);		/* Firefox */<br />
+					}<br />值 translate(50px,100px) 把元素从左侧移动 50 像素，从顶端移动 100 像素。
+				</p>
+				<div class="content">
+					<div class="eg" id="transformTranslate" style="transform: translate(50px,-10px);">
+						translate
+					</div>
+				</div>
+				<hr />
+				<p>div<br />
+					{<br />
+					transform: scale(2,4);/* width ,  height  */<br />
+					-ms-transform: scale(2,4);	/* IE 9 */<br />
+					-webkit-transform: scale(2,4);	/* Safari 和 Chrome */<br />
+					-o-transform: scale(2,4);	/* Opera */<br />
+					-moz-transform: scale(2,4);	/* Firefox */<br />
+					}<br />通过 scale() 方法，元素的尺寸会增加或减少，根据给定的宽度（X 轴）和高度（Y 轴）参数：<br />
+					值 scale(2,4) 把宽度转换为原始尺寸的 2 倍，把高度转换为原始高度的 4 倍。
+				</p>
+				<div class="content" id="Scale">
+					<div class="eg" style="transform: scale(1.5,1.5);margin:auto;font-size: 0.5rem;">
+						此时宽高为 150px ＊ 150px,同时把里面的文字也放大了，scale 相当于放大镜
+					</div>
+				</div>
+				<hr />
+				<p>
+					div<br />
+					{<br />
+					transform: skew(30deg,20deg);<br />
+					-ms-transform: skew(30deg,20deg);	/* IE 9 */<br />
+					-webkit-transform: skew(30deg,20deg);	/* Safari and Chrome */<br />
+					-o-transform: skew(30deg,20deg);	/* Opera */<br />
+					-moz-transform: skew(30deg,20deg);	/* Firefox */<br />
+					}<br />
+					通过 skew() 方法，元素翻转给定的角度，根据给定的水平线（X 轴）和垂直线（Y 轴）参数：<br />
+					值 skew(30deg,20deg) 围绕 X 轴把元素翻转 30 度，围绕 Y 轴翻转 20 度。
+				</p>
+				<div class="content" id="Skew">
+					<div class="eg" style="transform: skew(30deg,30deg);margin:0 auto;">
+						skew 30,30
+					</div>
+					<div class="eg" style="transform: skew(30deg,0);margin: 0 auto;">
+						skew 30 , 0
+					</div>
+					<div class="eg" style="transform: skew(0,30deg);margin: 0 auto;">
+						skew 0,30
+					</div>
+				</div>
+				<hr />
+				<p>3D </p>
+				<p>
+					rotateX() 方法<br />
+					通过 rotateX() 方法，元素围绕其 X 轴以给定的度数进行旋转。<br />
+					div<br />
+						{<br />
+						transform: rotateX(120deg);<br />
+						-webkit-transform: rotateX(120deg);	/* Safari 和 Chrome */<br />
+						-moz-transform: rotateX(120deg);	/* Firefox */<br />
+						}<br />
+					rotateY() 旋转<br />
+					通过 rotateY() 方法，元素围绕其 Y 轴以给定的度数进行旋转。<br />
+					div<br />
+						{<br />
+						transform: rotateY(130deg);<br />
+						-webkit-transform: rotateY(130deg);	/* Safari 和 Chrome */<br />
+						-moz-transform: rotateY(130deg);	/* Firefox */<br />
+						}		
+				</p>
+				<div class="content" id="RotateX">
+					<div class="eg" style="transform: rotateX(120deg);margin:0 auto;">
+						rotateX 120 
+					</div>
+					<div class="eg" style="transform: rotateY(120deg);margin:0 auto;">
+						rotateY 120 
+					</div>
+				</div>
+			</div>
+			<div class="transition">
+				<p>
+					div<br />
+						{<br />
+						transition: width 2s;<br />
+						-moz-transition: width 2s;	/* Firefox 4 */<br />
+						-webkit-transition: width 2s;	/* Safari 和 Chrome */<br />
+						-o-transition: width 2s;	/* Opera */<br />
+						}<br />
+						如果时长未规定，则不会有过渡效果，因为默认值是 0。
+				</p>
+				<div class="content">
+					<div class="eg divTranHover" style="transition:height 1s;margin: auto;">
+						
+					</div>
+				</div>
+				<p>
+					div<br />
+						{<br />
+						transition: width 2s, height 2s, transform 2s;<br />
+						-moz-transition: width 2s, height 2s, -moz-transform 2s;<br />
+						-webkit-transition: width 2s, height 2s, -webkit-transform 2s;<br />
+						-o-transition: width 2s, height 2s,-o-transform 2s;<br />
+						}<br />
+				</p>
+				<div class="content">
+					<div class="eg divTranHoverTrans" style="transition: width 1s, height 1s, transform 1s;margin:auto">
+						
+					</div>
+				</div>
+				
+			</div>
+			<div class="animation">
+				<p>
+					@keyframes myfirst<br />
+						{<br />
+						from {background: red;}<br />
+						to {background: yellow;}<br />
+						}<br />
+						
+						@-moz-keyframes myfirst /* Firefox */<br />
+						{<br />
+						from {background: red;}<br />
+						to {background: yellow;}<br />
+						}<br />
+						
+						@-webkit-keyframes myfirst /* Safari 和 Chrome */<br />
+						{<br />
+						from {background: red;}<br />
+						to {background: yellow;}<br />
+						}<br />
+						
+						@-o-keyframes myfirst /* Opera */<br />
+						{<br />
+						from {background: red;}<br />
+						to {background: yellow;}<br />
+						}<br />
+						当您在 @keyframes 中创建动画时，请把它捆绑到某个选择器，否则不会产生动画效果。<br />
+通过规定至少以下两项 CSS3 动画属性，即可将动画绑定到选择器：<br />
+规定动画的名称<br />
+规定动画的时长<br />
+				</p>
+				<div class="content">
+					<div class="eg" style="animation:myfirst 3s;">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<!--<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="full-screen" content="yes"/>
+	    <meta name="browsermode" content="application"/>-->
+	    <!-- QQ强制竖屏 QQ强制全屏 -->
+	    <!--<meta name="x5-orientation" content="portrait"/>
+	    <meta name="x5-fullscreen" content="true"/>
+	    <meta name="x5-page-mode" content="app"/>-->
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../lib/idangerous.swiper.css"/>
+		<link rel="stylesheet" type="text/css" href="css/slider.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			        <div class="swiper-slide yellow">Slide 1</div>
+			        <div class="swiper-slide red">Slide 2</div>
+			        <div class="swiper-slide blue">Slide 3</div>
+			    </div>
+			    <!-- 如果需要分页器 -->
+			    <div class="swiper-pagination"></div>
+			    
+			    <!-- 如果需要导航按钮 -->
+			    <!--<div class="swiper-button-prev"></div>
+			    <div class="swiper-button-next"></div>
+			    -->
+			    <!-- 如果需要滚动条 -->
+			    <!--<div class="swiper-scrollbar"></div>-->
+			</div>
+			<div class="content">
+				<div class="list"><br />
+					
+				</div>
+				<div class="goTop" style="display: none;"></div>
+			</div>
+		</div>
+	</body>
+	<script src="../../lib/jquery.js"></script>
+	<script src="../../lib/idangerous.swiper.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			
+		var list = document.getElementsByClassName("list")[0];
+		var goTop = document.getElementsByClassName("goTop")[0];
+		var sliderBox = document.getElementsByClassName("swiper-container")[0];
+		$(window).scroll(function(){
+			alert("XXX")
+		});
+//		var _onscroll_ = window.onscroll;
+//		window.onscroll = null;
+// 		window.onscroll = function (e) {
+// 			//alert("ddd");
+// 			_onscroll_ && _onscroll_(e);
+//			var docHeight = 1000;//window.scrollX;
+//			if(window.scrollY > docHeight){
+//				goTop.style.display = "block";
+//			}else{
+//				goTop.style.display = "none";
+//			}
+//		}
+ 		goTop.onclick = function(){
+ 			//window.scrollY = 0;
+ 			window.scrollTo(0,0);
+ 		}
+// 		//回到顶部
+//          //滚动两屏出现
+//          var returnToTop = {
+//              config:{
+//                  toTop:$(".new_perhotel",dom).height()*2,
+//                  top:0,
+//                  right:0,
+//                  bottom:10,
+//                  left:10,
+//                  activityPage:$(".new_perhotel",dom)
+//              },
+//              //初始化
+//              init:function(config){
+//                  var _this =this;
+//                  config =  config || _this.config;
+//                  config.toTop = config.toTop|| _this.config.toTop;
+//                  config.activityPage = config.activityPage|| _this.config.activityPage;
+//
+//                  //创建元素
+//                  var _node = document.createElement("div");
+//                  _node.className = "goTop";
+//                  _node.addEventListener("click",function(){
+//                      //浏览器模拟测试
+//                      config.activityPage[0].scrollTop = 0;
+//                      //手机环境
+//                      window.scrollTo(0,0);
+//                  },false);
+//                  config.activityPage.append(_node);
+//
+//                  //绑定事件
+//                  (function(){
+//                      var _scroll_ = config.activityPage[0].onscroll,
+//                          _scrollW_ = window.onscroll;
+//                      config.activityPage[0].onscroll = null;
+//                      window.onscroll = null;
+//
+//                      function _scroll(e){
+//                          _scroll_ && _scroll_(e);
+//                          _scrollW_ && _scrollW_(e);
+//                          var docHeight = config.toTop,
+//                              thisTagHeigth = this.scrollY || this.scrollTop || $(this).scrollTop();
+//                          if(thisTagHeigth > docHeight){
+//                              $(_node).show();
+//                          }else{
+//                              $(_node).hide();
+//                          }
+//                      }
+//
+//                      //手机环境
+//                      window.onscroll = _scroll;
+//                      //浏览器模拟测试
+//                      config.activityPage[0].onscroll = _scroll;
+//                  }());
+//              }
+//				
+//          };
+//		var PageTop =0;
+//		var SliderBoxClientHeight = sliderBox.clientHeight;
+//		/*单指拖动*/ 
+//		var obj = list//document.getElementById('id');
+//		obj.addEventListener('touchmove', function(event) {     
+//		 // 如果这个元素的位置内只有一个手指的话
+//		 	if (event.targetTouches.length == 1) {
+//		　　　　 event.preventDefault();// 阻止浏览器默认事件，重要         
+//		         var touch = event.targetTouches[0];         // 把元素放在手指所在的位置     
+//		         
+//		         //obj.style.left = touch.pageX-50 + 'px';    
+//		         //obj.style.marginTop = touch.pageY - PageTop + 'px';
+//		         if(sliderBox.clientHeight > 300){return;}
+//		         sliderBox.style.height = touch.pageY - PageTop + SliderBoxClientHeight + "px";
+//			}
+//		}, false);
+//		obj.addEventListener("touchstart",function (event) {
+//		 	if (event.targetTouches.length == 1) {
+//		　　　　 event.preventDefault();// 阻止浏览器默认事件，重要         
+//		         var touch = event.targetTouches[0];         // 把元素放在手指所在的位置     
+//		         
+//		         //obj.style.left = touch.pageX-50 + 'px';    
+//		         PageTop = touch.pageY;
+//		         console.log(PageTop)
+//		 	}
+//		 }, false);
+//		obj.addEventListener("touchend",function () {
+//		 	sliderBox.className = "swiper-container trans";
+//		 	sliderBox.setAttribute("style","");
+//		 	window.setTimeout(function(){
+//		 		window.location.href = window.location.href;
+//		 	},1000);
+//		 })
+		
+		
+		
+	  	var mySwiper = new Swiper ('.swiper-container', {
+		    direction: 'horizontal',
+		    loop: true,
+		    
+		    // 如果需要分页器
+		    pagination: '.swiper-pagination',
+		    
+		    // 如果需要前进后退按钮
+		    nextButton: '.swiper-button-next',
+		    prevButton: '.swiper-button-prev',
+		    
+		    // 如果需要滚动条
+		    //scrollbar: '.swiper-scrollbar',
+	  	});
+//	  	
+//	  	            /**
+//           * 事件累加器
+//           *
+//           *
+//           */
+//          function plusEvent(domObj,eventName, callBack){
+//              this.eventList = new Array();
+//
+//          }
+//          plusEvent.prototype = {
+//              constructor:plusEvent
+//
+//
+//          }
+
+			
+		})
+			</script>
+</html>

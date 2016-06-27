@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div class="xxx">
+			<p>fdfadfadfafasdfadfadfadfaddf</p>
+			
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="button" name="" id="" value="" />
+			<input type="radio" name="" id="" value="" />
+			<input type="radio" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			<input type="checkbox" name="" id="" value="" />
+			
+			
+		</div>
+		<!--<script src="../lib/jquery.js"></script>-->
+		<script type="text/javascript" charset="utf-8">
+			
+			
+			
+			
+			var $ = {
+				
+				ajax : function (config) {
+					
+					config.data = config.data || {};
+					config.dataType = config.dataType || "JSON";
+					config.type = config.type || "GET";
+					config.async = config.async || true;
+					
+					var xhr = new XMLHttpRequest();
+			
+			
+					console.log(xhr.readyState);
+					
+					
+					xhr.open(config.type,config.url,config.async);
+					
+					console.log(xhr.readyState);
+					
+					xhr.send();
+					
+					
+					xhr.onreadystatechange = function(){
+						console.log(xhr.readyState);	
+						
+						
+						if(xhr.readyState == 4 ){
+							
+							if(xhr.status == 200){
+								config.success && config.success(xhr.responseText);	
+								
+							}else {
+								config.error && config.error(xhr);
+							}
+							
+						}
+					};
+			
+					
+					
+				}
+				
+				
+			}
+			
+			
+			$.ajax({
+				type:"get",
+				url:"http://localhost:8089/entry/data/thmemHotel.json",
+				success:function (data) {
+					console.log(data);
+				},
+				error:function(ex){
+					console.log(ex);
+				}
+			});
+			
+			
+			
+		</script>
+	</body>
+</html>
