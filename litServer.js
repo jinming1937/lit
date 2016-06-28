@@ -1,6 +1,7 @@
 // 引入nodejs中的http模块
 var http = require('http');
-
+var host = '192.168.30.90';
+var port = 8079;
 // 创建createServer方法用于接受http客户端请求及返回响应的http服务器程序
 var server = http.createServer(function(req, res) {
 
@@ -15,4 +16,6 @@ var server = http.createServer(function(req, res) {
 });
 
 // 通过http对象中的listen方法指定服务器的使用端口及服务器绑定地址
-server.listen(8088,'192.168.30.90');
+server.listen(port,host);
+console.log("you open a server at host:"+host+":"+port);
+console.log("server is running, 'ctrl + c' can stop the server!");
