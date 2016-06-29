@@ -1,99 +1,120 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
+	'use strict'
 	// 任务配置，所有插件的配置信息
 	grunt.initConfig({
-		pkg:grunt.file.readJSON('package.json'),
-		
-		meta:{
-			distPath:'build/',
-			hotelDist:'build/',
+		pkg: grunt.file.readJSON('package.json'),
+
+		meta: {
+			distPath: 'build/',
+			hotelDist: 'build/',
 		},
+		/* banner */
+		banner: '/*!\n' +
+			' * =====================================================\n' +
+			' * <%= pkg.name %> v<%= pkg.version %>\n' +
+			' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+			' * =====================================================\n' +
+			' */\n',
 		//uglify js压缩
-		uglify:{
-			options:{				
-				stripBanners:true,
-				banner:'/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
+		uglify: {
+			options: {
+				stripBanners: true,
+				banner: '/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			build:{
+			build: {
 				//打包压缩
 				//src:['entry/*.js'],
 				//dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
-			 	//分文件
-			 	dest:{
-			 		'build/card.min.js':'entry/card/js/card.js',
-			 		'build/tetris.min.js':'entry/tetris/js/tetris.js',
-			 	}
+				//分文件
+				dest: {
+					'build/card.min.js': 'entry/card/js/card.js',
+					//'build/tetris.min.js': 'entry/tetris/js/tetris.js',
+				}
 			}
 		},
 		//cssmin css 压缩
-		cssmin:{
-			options:{
-				stripBanners:true,
-				banner:'/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
+		cssmin: {
+			options: {
+				stripBanners: true,
+				banner: '/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			build:{
-				src:['entry/*.css','entry/css/*.css','entry/sevenBlock/css/*.css'],
-				dest:'build/<%-pkg.cssname%>-<%-pkg.version%>.css'	
+			build: {
+				src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
+				dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
 			}
 		},
 
- 		/*jshint 语法检查*/
- 		jshint:{
- 			build:['entry/card/js/*.js'],
- 			options:{
- 				jshintrc:'.jshintrc'
- 			}
- 		},
+		/*jshint 语法检查*/
+		jshint: {
+			build: ['entry/card/js/*.js'],
+			options: {
+				jshintrc: '.jshintrc'
+			}
+		},
 
 		/*watch*/
-		watch:{
-			build:{
-				files:['entry/js/*.js','entry/css/*.css'],
-				tasks:['jshint','cssmin','uglify'],
-				options:{spawn:false}
+		watch: {
+			build: {
+				files: ['entry/js/*.js', 'entry/css/*.css'],
+				tasks: ['jshint', 'cssmin', 'uglify'],
+				options: {
+					spawn: false
+				}
 			}
 		},
-		
-		cssminplugs:{
+
+		cssminplugs: {
 			options: {
-		        banner: '', // set to empty; see bellow
-		        keepSpecialComments: '*', // set to '*' because we already add the banner in sass
-		        compatibility : 'ie8',
-		        noAdvanced : true
-		      },
-		      ratchet: {
-		        src: '<%= meta.distPath %>css/<%= pkg.name %>.css',
-		        dest: '<%= meta.distPath %>css/<%= pkg.name %>.min.css'
-		      },
-		      theme: {
-		        files: {
-		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css',
-		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
-		        }
-		      },
-		      c3h5: {
-		        files: {
-		          '<%= meta.hotelDist %>main.css': '<%= meta.hotelDist %>main.css'
-		        }
-		    }
+				banner: '', // set to empty; see bellow
+				keepSpecialComments: '*', // set to '*' because we already add the banner in sass
+				compatibility: 'ie8',
+				noAdvanced: true
+			},
+			ratchet: {
+				src: '<%= meta.distPath %>css/<%= pkg.name %>.css',
+				dest: '<%= meta.distPath %>css/<%= pkg.name %>.min.css'
+			},
+			theme: {
+				files: {
+					'<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css',
+					'<%= meta.distPath %>css/<%= pkg.name %>-theme-android.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
+				}
+			},
+			c3h5: {
+				files: {
+					'<%= meta.hotelDist %>main.css': '<%= meta.hotelDist %>main.css'
+				}
+			}
 		},
-		
-		/*open new webset*/ 
+		/* 俄罗斯方块 */
+		eluosiCssmin:{
+			options:{
+				stripBanners:true,
+				banner:'<%= banner %>',
+			},
+			build:{
+				dest: {
+					'entry/tetris/css/tetris.min.css': 'entry/tetris/css/softtetris.css',
+				}
+			}
+		}
+		/*open new webset*/
 		connect: {
-		    server: {
-		        options: {
-		            port: 8089,
-		            ///hostName:'m.xiaozhiga.com',
-		            base:''
-		            //base:'xiaozhiga.com'  //??
-		            //base: '192.168.30.90'
-		        }
-		    }
+			server: {
+				options: {
+					port: 8089,
+					///hostName:'m.xiaozhiga.com',
+					base: ''
+						//base:'xiaozhiga.com'  //??
+						//base: '192.168.30.90'
+				}
+			}
 		},
 		/* open new link */
 		open: {
 			kitchen: {
-		    	path: 'http://xiaozhiga.com:8089/entry/'
-		    }
+				path: 'http://xiaozhiga.com:8089/entry/'
+			}
 		}
 	});
 	//  告诉grunt 我们将使用的插件
@@ -102,22 +123,25 @@ module.exports = function (grunt) {
 	//	grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
 	//	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
 	//	grunt.loadNpmTasks('grunt-contrib-connect');//连接服务
-	
+
 	// Load the plugins
-    require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
-    //require('time-grunt')(grunt);
-    
+	require('load-grunt-tasks')(grunt, {
+		scope: 'devDependencies'
+	});
+	//require('time-grunt')(grunt);
+
 	// server
 	//grunt.registerTask('server', ['connect','open','watch']);
-	grunt.registerTask('server', ['connect','watch']);
-	
-	grunt.registerTask('precent',['cssminplugs:c3h5']);
-	// 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
+	grunt.registerTask('server', ['connect', 'watch']);
+
+	grunt.registerTask('precent', ['cssminplugs:c3h5']);
+
+	/*俄罗斯方块*/
+	grunt.registerTask('tetris',['jshint','eluosiCssmin']);
 	/*
+	 * 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
 	 * grunt.registerTask(taskName, [description, ] taskList);
-     * taskName：任务别名，descripation：任务描述，taskList：任务列表。
+	 * taskName：任务别名，descripation：任务描述，taskList：任务列表。
 	 */
-	grunt.registerTask('default',['jshint','cssmin','uglify']);
-	
-	
+	grunt.registerTask('default', ['jshint', 'cssmin', 'uglify']);
 };
