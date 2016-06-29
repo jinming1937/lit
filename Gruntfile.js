@@ -64,12 +64,12 @@ module.exports = function (grunt) {
 		        src: '<%= meta.distPath %>css/<%= pkg.name %>.css',
 		        dest: '<%= meta.distPath %>css/<%= pkg.name %>.min.css'
 		      },
-//		      theme: {
-//		        files: {
-//		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css',
-//		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
-//		        }
-//		      },
+		      theme: {
+		        files: {
+		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css',
+		          '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
+		        }
+		      },
 		      c3h5: {
 		        files: {
 		          '<%= meta.hotelDist %>main.css': '<%= meta.hotelDist %>main.css'
