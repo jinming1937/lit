@@ -84,6 +84,12 @@ module.exports = function(grunt) {
 				files: {
 					'<%= meta.hotelDist %>main.css': '<%= meta.hotelDist %>main.css'
 				}
+			},
+			tetris:{
+				files:{
+					//'<%= meta.minCss %>main.css': '<%= meta.minCss %>main.css'
+					'entry/tetris/mincss/tetris.min.css': 'entry/tetris/mincss/softtetris.css',
+				}
 			}
 		},
 		/* 俄罗斯方块 */
@@ -97,7 +103,7 @@ module.exports = function(grunt) {
 					'entry/tetris/css/tetris.min.css': 'entry/tetris/css/softtetris.css',
 				}
 			}
-		}
+		},
 		/*open new webset*/
 		connect: {
 			server: {
@@ -113,7 +119,7 @@ module.exports = function(grunt) {
 		/* open new link */
 		open: {
 			kitchen: {
-				path: 'http://xiaozhiga.com:8089/entry/'
+				path: 'http://xiaozhiga.com:8099/entry/'
 			}
 		}
 	});
@@ -137,7 +143,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('precent', ['cssminplugs:c3h5']);
 
 	/*俄罗斯方块*/
-	grunt.registerTask('tetris',['jshint','eluosiCssmin']);
+	grunt.registerTask('tetris',['jshint','cssminplugs:tetris']);
 	/*
 	 * 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
 	 * grunt.registerTask(taskName, [description, ] taskList);

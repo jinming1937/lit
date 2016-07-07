@@ -13,7 +13,7 @@ require.config({
 //		"block":'js/block'
 // --ok end
 	}
-})
+});
 
 
 define(["./js/screen","./js/handler","./js/block"],function (TetrisScreen,Handler,Block) { //--ok 
@@ -40,34 +40,34 @@ define(["./js/screen","./js/handler","./js/block"],function (TetrisScreen,Handle
         myHandler.keyPress(e);
     };
 
-    window.onclick = function(e){
-	    	switch (e.target.innerHTML){
-	    		case 'stop':
-	    			myHandler.key({keyCode:83},0);
-	    		break;
-	    		case 'start':
-	    			myHandler.key({keyCode:83},0);
-	    		break;
-	    		case 'reset':
-	    			myHandler.key({keyCode:82},0);
-	    		break;
-	    		case 'up':
-	    			myHandler.key({keyCode:38},0);
-	    		break;
-	    		case 'left':
-	    			myHandler.key({keyCode:37},0);
-	    		break;
-	    		case 'down':
-	    			myHandler.key({keyCode:40},0);
-	    		break;
-	    		case 'right':
-	    			myHandler.key({keyCode:39},0);
-	    		break;
-	    		default:
-	    			console.log('no Element');
-	    		break;
-	    	}
-    };
+    // window.onclick = function(e){
+	   //  	switch (e.target.innerHTML){
+	   //  		case 'stop':
+	   //  			myHandler.key({keyCode:83},0);
+	   //  		break;
+	   //  		case 'start':
+	   //  			myHandler.key({keyCode:83},0);
+	   //  		break;
+	   //  		case 'reset':
+	   //  			myHandler.key({keyCode:82},0);
+	   //  		break;
+	   //  		case 'up':
+	   //  			myHandler.key({keyCode:38},0);
+	   //  		break;
+	   //  		case 'left':
+	   //  			myHandler.key({keyCode:37},0);
+	   //  		break;
+	   //  		case 'down':
+	   //  			myHandler.key({keyCode:40},0);
+	   //  		break;
+	   //  		case 'right':
+	   //  			myHandler.key({keyCode:39},0);
+	   //  		break;
+	   //  		default:
+	   //  			console.log('no Element');
+	   //  		break;
+	   //  	}
+    // };
 
     //页面初始化 触发块
     (function () {
