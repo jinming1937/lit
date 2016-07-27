@@ -1,0 +1,17 @@
+html,body,div,p,ul,li,ol,dl,dd,dt,a,span,label,input{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: #FFF;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.box{
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+}

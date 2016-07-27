@@ -27,8 +27,9 @@ module.exports = function(grunt) {
 				//dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
 				//分文件
 				dest: {
-					'build/card.min.js': 'entry/card/js/card.js',
+					//'build/card.min.js': 'entry/card/js/card.js',
 					//'build/tetris.min.js': 'entry/tetris/js/tetris.js',
+					'cvs/lib/cvs.js':'cvs/lib/cvs.min.js'
 				}
 			}
 		},
@@ -39,14 +40,21 @@ module.exports = function(grunt) {
 				banner: '/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build: {
-				src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
-				dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
+				//src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
+				//dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
+				//
+				dest:{
+					'cvs/proj/test/css/main.css':'cvs/proj/test/css/main.min.css'
+				}
 			}
 		},
 
 		/*jshint 语法检查*/
 		jshint: {
-			build: ['entry/card/js/*.js'],
+			build: [
+				//'entry/card/js/*.js',
+				'cvs/lib/cvs.js'
+			],
 			options: {
 				jshintrc: '.jshintrc'
 			}
@@ -55,7 +63,13 @@ module.exports = function(grunt) {
 		/*watch*/
 		watch: {
 			build: {
-				files: ['entry/js/*.js', 'entry/css/*.css'],
+				files: [
+					//'entry/js/*.js',
+					//'entry/css/*.css',
+					'cvs/lib/cvs.js',
+					'cvs/proj/test/css/mian.css',
+					'cvs/proj/test/js/*.js'
+				],
 				tasks: ['jshint', 'cssmin', 'uglify'],
 				options: {
 					spawn: false
