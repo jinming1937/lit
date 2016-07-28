@@ -21,15 +21,16 @@ module.exports = function(grunt) {
 				stripBanners: true,
 				banner: '/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			build: {
+			cvs: {
 				//打包压缩
 				//src:['entry/*.js'],
 				//dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
 				//分文件
-				dest: {
+				files: {
 					//'build/card.min.js': 'entry/card/js/card.js',
 					//'build/tetris.min.js': 'entry/tetris/js/tetris.js',
-					'cvs/lib/cvs.js':'cvs/lib/cvs.min.js'
+					'cvs/lib/cvs.min.js':'cvs/lib/cvs.js',
+					'cvs/proj/test/js/test.min.js':'cvs/proj/test/js/test.js'
 				}
 			}
 		},
@@ -39,12 +40,12 @@ module.exports = function(grunt) {
 				stripBanners: true,
 				banner: '/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
-			build: {
+			cvs: {
 				//src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
 				//dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
 				//
-				dest:{
-					'cvs/proj/test/css/main.css':'cvs/proj/test/css/main.min.css'
+				files:{
+					'cvs/proj/test/css/main.min.css':'cvs/proj/test/css/main.css'
 				}
 			}
 		},
@@ -53,7 +54,8 @@ module.exports = function(grunt) {
 		jshint: {
 			build: [
 				//'entry/card/js/*.js',
-				'cvs/lib/cvs.js'
+				'cvs/lib/cvs.js',
+				//'cvs/proj/test/js/test.js'
 			],
 			options: {
 				jshintrc: '.jshintrc'
@@ -70,7 +72,7 @@ module.exports = function(grunt) {
 					'cvs/proj/test/css/mian.css',
 					'cvs/proj/test/js/*.js'
 				],
-				tasks: ['jshint', 'cssmin', 'uglify'],
+				tasks: ['jshint', 'cssmin:cvs', 'uglify:cvs'],
 				options: {
 					spawn: false
 				}

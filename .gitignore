@@ -6,3 +6,6 @@ dist
 build
 backup
 npm-debug.log
+cvs/lib/cvs.min.js
+cvs/proj/test/css/main.min.css
+cvs/proj/test/js/test.min.js
