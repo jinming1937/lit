@@ -35,8 +35,8 @@ console.log("loading cvs.js");
 		var yarr = [];
 		var xarr = [];
 		var tableWidth = 0.95 * _this.width;
-		var tableBorder = 0.1 * tableWidth;
-		var tableHeight = 10;
+		var tableBorder = 0.01 * tableWidth;
+		var tableHeight = 30;
 		var inX = (_this.width - tableWidth) / 2;
 		var inY = inX;
 		if((data).constructor.name === "Array"){
@@ -53,7 +53,7 @@ console.log("loading cvs.js");
 						xarr.push({
 							x: inX + tableBorder + tableBorder * z + (tableWidth - tableBorder * (m+1)) / m  * z,
 							y: inY + tableBorder + tableHeight * i + tableBorder * i ,
-							witdh:(tableWidth - tableBorder * (m+1)) / m ,
+							width:(tableWidth - tableBorder * (m+1)) / m ,
 							height:tableHeight
 						});	
 						z++;
@@ -67,7 +67,7 @@ console.log("loading cvs.js");
 			y:inY,
 			width:tableWidth,
 			height:tableHeight * data.length + tableBorder *(data.length+1),
-			color:"#FFF"
+			color:"#808080"
 		});
 		for(var p =0 ,le = xarr.length;p<le;p++){
 			_this.print(xarr[p]);
@@ -78,7 +78,7 @@ console.log("loading cvs.js");
 	 */
 	CurtainWall.prototype.print = function(config){
 		var _this = this;
-		_this.cxt.fillStyle= config.color || "#F00";
+		_this.cxt.fillStyle= config.color || "#FFF";
 		_this.cxt.fillRect(config.x,config.y,config.width,config.height);
 	};
 	

@@ -37,7 +37,7 @@ console.log("end defined");
 		}
 	};
 	console.log(xhr.readyState);//0
-	xhr.open("GET","../../../../service/cvs/getClassInfo.json",true);
+	xhr.open("GET","../../../../lit/service/cvs/getClassInfo.json",true);
 	console.log(xhr.readyState);//1
 	xhr.send();
 	console.log(xhr.readyState);//2
