@@ -95,13 +95,13 @@ console.log("loading cvs.js");
 		
 	};
 	
-	function Events(){
+	function Watching(){
 		
 	}
-	Events.prototype.addEventListener = function(){
+	Events.prototype.addWatching = function(){
 		
 	};
-	Events.prototype.removeEvent = function(){
+	Events.prototype.removeWatching = function(){
 		
 	};
 	Events.prototype.fire = function(){

@@ -26,21 +26,6 @@ console.log("end defined");
 //		height:10,
 //		color:"#800"
 //	});
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(e){
-		//console.log(xhr.readyState)
-		if(xhr.readyState === 4 && xhr.status === 200){
-			var data = JSON.parse(xhr.response);
-			console.log(data);
-			console.log(xhr.readyState);//4
-			curtain.table(data.data);
-		}
-	};
-	console.log(xhr.readyState);//0
-	xhr.open("GET","../../../service/cvs/getClassInfo.json",true);
-	console.log(xhr.readyState);//1
-	xhr.send();
-	console.log(xhr.readyState);//2
 	
 	//curtain.table();
 	console.log("main end");
