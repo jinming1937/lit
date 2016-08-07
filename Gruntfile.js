@@ -68,11 +68,15 @@ module.exports = function(grunt) {
 				files: [
 					//'entry/js/*.js',
 					//'entry/css/*.css',
-					'cvs/lib/cvs.js',
+					//'cvs/lib/cvs.js',
 					'cvs/proj/test/css/mian.css',
-					'cvs/proj/test/js/*.js'
+					//'cvs/proj/test/js/*.js'
 				],
-				tasks: ['jshint', 'cssmin:cvs', 'uglify:cvs'],
+				tasks: [
+				//'jshint',
+				'cssmin:cvs', 
+				//'uglify:cvs'
+				],
 				options: {
 					spawn: false
 				}
@@ -166,4 +170,6 @@ module.exports = function(grunt) {
 	 * taskName：任务别名，descripation：任务描述，taskList：任务列表。
 	 */
 	grunt.registerTask('default', ['jshint', 'cssmin', 'uglify']);
+	
+	//grunt.registerTask('test',['jshint','uglify']);
 };

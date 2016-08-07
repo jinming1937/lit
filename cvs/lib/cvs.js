@@ -1,5 +1,6 @@
-console.log("loading cvs.js");
-;(function(){
+define(function(){
+	console.log("loading cvs.js");
+	
 	/**
 	 * @param {Object} option
 	 */
@@ -88,26 +89,6 @@ console.log("loading cvs.js");
 		_this.cxt.fillRect(config.x,config.y,config.width,config.height);
 	};
 	
-	function Handler(){
-		
-	}
-	Handler.prototype.init = function(){
-		
-	};
-	
-	function Watching(){
-		
-	}
-	Events.prototype.addWatching = function(){
-		
-	};
-	Events.prototype.removeWatching = function(){
-		
-	};
-	Events.prototype.fire = function(){
-		
-	};
-	
 	var curtain = new CurtainWall({
 		canvas:document.getElementById("cvs-main"),
 		width:document.body.clientWidth,
@@ -118,4 +99,5 @@ console.log("loading cvs.js");
 		curtain.resize(document.body.clientWidth,document.body.clientHeight);
 		console.log(" window has resize! \r\n canvas has resize!");
 	};
-}());
+	return curtain;
+});

@@ -1,4 +1,4 @@
-(function(){
+define(function(){
 	/* ajax */
 	function server(config){
 		var xhr = new XMLHttpRequest(),
@@ -6,6 +6,8 @@
 							parseToParam(config.data) 
 							:
 							parseToParam(config.data).replace(/^&/,"?");
+		config.type = config.type || "POST";
+		config.async = config.async || true;
 		function parseToParam(data){
 			var str = "";
 			for(var item in data){
@@ -18,7 +20,7 @@
 				if(xhr.status === 200){
 					var data = JSON.parse(xhr.response);
 					console.log(data);
-					typeof config.success === "function" ? config.success():"";	
+					typeof config.success === "function" ? config.success(data):"";	
 				}
 			}
 		};
@@ -26,4 +28,5 @@
 		xhr.send();
 	}
 	window.svs = server;
-}());
+	return server;
+});
