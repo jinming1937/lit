@@ -1,5 +1,16 @@
 define(function(){
-	/* 单例模式 */
+
+	/*
+	* 实现方式：
+	* 1、对象继承Watching , 获得其属性和方法
+	* 2、对象通过 addWatching 添加事件监视
+	* 3、对象通过 fire , 触发事件
+	* 
+	* 
+	*
+	*/
+
+	/* 事件监视 */
 	function Watching(){
 		this.array = [];
 		this.length = this.array.length;
@@ -19,13 +30,15 @@ define(function(){
 		}
 		this.array = _arr;
 	};
-	Watching.prototype.fire = function(){
+	Watching.prototype.fire = function(name){
 		for(var i=0,len = this.length;i<len;i++){
-			window.setTimeout(function(){
-				this.array[i].fn();
-			},0);
+			if(this.array[i].name === name){
+				window.setTimeout(function(){
+					this.array[i].fn();
+				},0);
+			}
 		}
 	};
 	
-	return new Watching();
+	return Watching;
 });

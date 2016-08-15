@@ -5,8 +5,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		meta: {
-			distPath: 'build/',
-			hotelDist: 'build/',
+			distPath: 'build/'
 		},
 		/* banner */
 		banner: '/*!\n' +
@@ -29,8 +28,8 @@ module.exports = function(grunt) {
 				files: {
 					//'build/card.min.js': 'entry/card/js/card.js',
 					//'build/tetris.min.js': 'entry/tetris/js/tetris.js',
-					'cvs/lib/cvs.min.js':'cvs/lib/cvs.js',
-					'cvs/proj/test/js/test.min.js':'cvs/proj/test/js/test.js'
+					'cvs/lib/cvs.min.js': 'cvs/lib/cvs.js',
+					'cvs/proj/test/js/test.min.js': 'cvs/proj/test/js/test.js'
 				}
 			}
 		},
@@ -44,8 +43,13 @@ module.exports = function(grunt) {
 				//src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
 				//dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
 				//
+				files: {
+					'cvs/proj/test/css/main.min.css': 'cvs/proj/test/css/main.css'
+				}
+			},
+			testsc:{
 				files:{
-					'cvs/proj/test/css/main.min.css':'cvs/proj/test/css/main.css'
+					'build/main.min.css':'build/main.css'
 				}
 			}
 		},
@@ -61,7 +65,20 @@ module.exports = function(grunt) {
 				jshintrc: '.jshintrc'
 			}
 		},
-
+		/* sass 打包 */
+		sass: {
+			options: {
+				banner: '<%= banner %>',
+				//sourcemap: 'none',
+				style: 'expanded',
+				unixNewlines: true
+			},
+			testsc: {
+				files: {
+					'<%= meta.distPath %>main.css': 'entry/testScript/main.scss'
+				}
+			}
+		},
 		/*watch*/
 		watch: {
 			build: {
@@ -73,13 +90,23 @@ module.exports = function(grunt) {
 					//'cvs/proj/test/js/*.js'
 				],
 				tasks: [
-				//'jshint',
-				'cssmin:cvs', 
-				//'uglify:cvs'
+					//'jshint',
+					'cssmin:cvs',
+					//'uglify:cvs'
 				],
 				options: {
 					spawn: false
 				}
+			},
+			testsc:{
+				files:[
+					'entry/**/scss/*.scss',
+					//"sc/chooseCity/chooseCity.scss"
+				],
+				tasks:[
+					'sass:testsc',
+					'cssmin:testsc'
+				]
 			}
 		},
 
@@ -102,23 +129,23 @@ module.exports = function(grunt) {
 			},
 			c3h5: {
 				files: {
-					'<%= meta.hotelDist %>main.css': '<%= meta.hotelDist %>main.css'
+					'<%= meta.distPath %>main.css': '<%= meta.distPath %>main.css'
 				}
 			},
-			tetris:{
-				files:{
+			tetris: {
+				files: {
 					//'<%= meta.minCss %>main.css': '<%= meta.minCss %>main.css'
 					'entry/tetris/mincss/tetris.min.css': 'entry/tetris/mincss/softtetris.css',
 				}
 			}
 		},
 		/* 俄罗斯方块 */
-		eluosiCssmin:{
-			options:{
-				stripBanners:true,
-				banner:'<%= banner %>',
+		eluosiCssmin: {
+			options: {
+				stripBanners: true,
+				banner: '<%= banner %>',
 			},
-			build:{
+			build: {
 				dest: {
 					'entry/tetris/css/tetris.min.css': 'entry/tetris/css/softtetris.css',
 				}
@@ -163,13 +190,13 @@ module.exports = function(grunt) {
 	grunt.registerTask('precent', ['cssminplugs:c3h5']);
 
 	/*俄罗斯方块*/
-	grunt.registerTask('tetris',['jshint','cssminplugs:tetris']);
+	grunt.registerTask('tetris', ['jshint', 'cssminplugs:tetris']);
 	/*
 	 * 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
 	 * grunt.registerTask(taskName, [description, ] taskList);
 	 * taskName：任务别名，descripation：任务描述，taskList：任务列表。
 	 */
 	grunt.registerTask('default', ['jshint', 'cssmin', 'uglify']);
-	
-	//grunt.registerTask('test',['jshint','uglify']);
+
+	grunt.registerTask('testsc','sass:testsc');
 };

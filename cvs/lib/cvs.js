@@ -94,7 +94,7 @@ define(function(){
 		width:document.body.clientWidth,
 		height:document.body.clientHeight
 	});
-	window.curtain = curtain;
+	//window.curtain = curtain;
 	window.onresize = function(e){ 
 		curtain.resize(document.body.clientWidth,document.body.clientHeight);
 		console.log(" window has resize! \r\n canvas has resize!");

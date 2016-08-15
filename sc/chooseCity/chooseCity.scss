@@ -1,0 +1,289 @@
+.chooseCity {
+    .citys {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        z-index: 10005!important;
+        font-size: 0.813rem;
+        line-height: 1rem;
+        color: #555;
+        .bar-nav{
+            box-shadow: 0 1px 5px #999;    
+            background-color: #fcfcfc;
+            color: #555;
+        }
+        .bar{
+            height: 44px;
+            padding-right: 10px;
+            padding-left: 10px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            left: 0;
+            right: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            z-index: 10010;
+        }
+        header{
+            position: absolute;
+            .search-input {
+                margin: 6px 31px 0 0;
+                background: #FFF;
+                border-radius: 3px;
+                height: 32px;
+                padding: 0 8px;
+                line-height: 32px;
+                position: relative;
+                i {
+                    width: 16px;
+                    height: 16px;
+                    content: " ";
+                    display: inline-block;
+                    position: absolute;
+                    right: 12px;
+                    top: 9px;
+                    background: url("img/indexnewicon.png") no-repeat scroll;
+                    background-size: 100px 100px;
+                    background-position: -40px -20px;
+                }
+                & input {
+                    text-rendering: auto;
+                    color: initial;
+                    letter-spacing: normal;
+                    word-spacing: normal;
+                    text-transform: none;
+                    text-indent: 0px;
+                    text-shadow: none;
+                    display: inline-block;
+                    text-align: start;
+                    margin: 0em 0em 0em 0em;
+                    font: 11px BlinkMacSystemFont;
+                    font: inherit;
+                    margin: 0;
+                    font-family: "Helvetica Neue",Helvetica,"Microsoft YaHei",STHeiTi,sans-serif;
+                    padding-left: 0;
+                    text-align: center;
+                    width: 92% !important;
+                    border: 0;
+                    font-size: 0.813rem;
+                    line-height: 1;
+                    color: #555;
+                    float: left;
+                    margin-top: 8px;
+                    &:-ms-input-placeholder:before {
+                        content: " ";
+                        width: 13px;
+                        height: 13px;
+                        display: inline-block;
+                        background: url("img/indexnewicon.png") no-repeat scroll;
+                        background-size: 100px 100px;
+                        background-position: -20px -20px;
+                        margin-right: 10px;
+                    }
+                    &:placeholder:before {
+                        content: " ";
+                        width: 13px;
+                        height: 13px;
+                        display: inline-block;
+                        background: url("img/indexnewicon.png") no-repeat scroll;
+                        background-size: 100px 100px;
+                        background-position: -20px -20px;
+                        margin-right: 10px;
+                    }
+                    &::-webkit-input-placeholder:before {
+                        content: " ";
+                        width: 13px;
+                        height: 13px;
+                        display: inline-block;
+                        background: url("img/indexnewicon.png") no-repeat scroll;
+                        background-size: 100px 100px;
+                        background-position: -20px -20px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .pull-right{
+                float: right;
+                font-size: 14px;
+            }
+            .serch_closed {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 5;
+                span {
+                    display: inline-block;
+                    padding: 14px 12px;
+                    color: #49f;
+                    i {
+                        height: 16px;
+                        width: 16px;
+                        display: inline-block;
+                        background: url("img/indexnewicon.png") no-repeat scroll;
+                        background-size: 100px 100px;
+                        background-position: 0 -20px;
+                    }
+                }
+            }   
+        }
+        
+    }
+    .citys .page-content {
+        padding: 50px 0;
+        background: #F2F2F2;
+        padding: 50px 0 0;
+        //overflow: auto!important;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
+        position: relative;
+        .current-city {
+            margin-bottom: 8px;
+            display: none;
+            .get-city {
+                border: 1px solid #DDD;
+                background: #FFF;
+                padding: 8px 12px;
+                i {
+                    width: 13px;
+                    height: 13px;
+                    display: inline-block;
+                    background: url("img/list-search-1.png") no-repeat;
+                    margin-right: 8px;
+                    background-size: 100% 100%;
+                    vertical-align: -2px;
+                }
+            }
+        }
+        .search-history {
+            margin-bottom: 8px;
+            padding: 0 12px;
+        }
+        .page-title {
+            font-size: 0.688rem;
+            color: #999;
+            margin-bottom: 2px;
+        }
+        .city-list ul {
+            overflow: hidden;
+            padding-bottom: 1px;
+            li:active {
+                background: #e8e8e8;
+            }
+            li {
+                border: 1px solid #DDD;
+                margin-right: -1px;
+                margin-bottom: -1px;
+                background: #FFF;
+                text-align: center;
+                float: left;
+                display: box;
+                display: -webkit-box;
+                display: -moz-box;
+                -webkit-box-pack: center;
+                -moz-box-pack: center;
+                -webkit-box-align: center;
+                -moz-box-align: center;
+                padding: 0 12px;
+                width: 30%;
+                border-radius: 3px;
+                margin-right: 3%;
+                margin-bottom: 12px;
+                background: #FFF;
+                height: 40px;
+                line-height: 40px;
+                border: 0;
+                span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: 1;
+                    max-width: 5em;
+                    max-height: 2em;
+                    overflow: hidden;
+                }
+            }
+        }
+        .hot-city {
+            margin: 0;
+            padding: 0 17px 0 12px;
+            .page-title {
+                font-size: 0.688rem;
+                color: #999;
+                margin-bottom: 2px;
+            }
+        }
+        .all-city {
+            .page-title {
+                padding: 0 12px;
+            }
+            .numcitiyslist {
+                width: 100%;
+                overflow: hidden;
+                background: #fff;
+                dl {
+                    margin: 0;
+                    dt {
+                        padding: 0 0 0 12px;
+                        height: 21px;
+                        line-height: 21px;
+                        font-size: 0.938rem;
+                        color: #444;
+                        background: #ecf1f8;
+                    }
+                    dd {
+                        display: none;
+                        margin: 0 0 0 12px;
+                        height: 44px;
+                        background: #fff;
+                        line-height: 44px;
+                        text-align: left;
+                        font-size: 0.938rem;
+                        color: #333;
+                        border-bottom: 1px solid #f2f2f2;
+                        &:last-child {
+                            border: none;
+                        }
+                    }
+                    &.on {
+                        dd {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .citys .page-search ul li {
+        position: relative;
+        border-bottom: 1px solid #DDD;
+        font-size: 0.813rem;
+        padding: 12px 35% 12px 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        span {
+            font-size: 0.688rem;
+            color: #999;
+            position: absolute;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            right: 8px;
+            max-width: 31%;
+        }
+    }
+    .citys .inner-mask {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10009;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.7);
+    }
+}

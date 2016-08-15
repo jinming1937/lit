@@ -27,3 +27,11 @@ html,body{
 	background-color: #C0C0C0;
 	position: absolute;
 }
+.wind{
+	width:100px;
+	height: 15px;
+	position:absolute;
+	z-index: 100;
+	background: #FFF;
+}
+

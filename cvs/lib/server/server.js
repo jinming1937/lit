@@ -27,6 +27,6 @@ define(function(){
 		xhr.open(config.type,config.url,config.async);
 		xhr.send();
 	}
-	window.svs = server;
+	//window.svs = server;
 	return server;
 });

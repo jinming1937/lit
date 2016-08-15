@@ -5,6 +5,6 @@ require.config({
 	}
 });
 
-define(["./js/test"],function(){
+define(["./js/test2","../../outer/gctrl"],function(){
 	console.log("ending");
 });

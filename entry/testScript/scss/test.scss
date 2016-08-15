@@ -1,0 +1,33 @@
+.btn{
+    width:80%;
+    height: 36px;
+    padding: 0 10%;
+    border-radius:10px;
+    text-align: center;
+    line-height: 36px;
+    background-color:#FF0000;
+    font-size: 1rem;
+}
+
+a.btn{
+    width:80%;
+    height: 36px;
+    padding: 0 5%;
+    border-radius:10px;
+    text-align: center;
+    line-height: 36px;
+    background-color:#FF0000;
+    font-size: 1rem;
+    display:inline-block;
+    color:#FFF; 
+    &:active{
+        background-color: #FF6A00;
+    }
+}
+
+.index{
+    background: #FFF;
+    .choose-city2{
+        margin:0 auto;
+    }
+}

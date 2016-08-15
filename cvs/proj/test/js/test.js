@@ -1,4 +1,4 @@
-define(["../../../lib/cvs","../../../lib/server"],function(cvs,server){
+define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 	/* --------------------------[start defined]------------------------------- */
 	console.log("loading test,begin defined");
 	/* --------------------------[end defined]------------------------------- */
@@ -11,7 +11,7 @@ define(["../../../lib/cvs","../../../lib/server"],function(cvs,server){
 			success:function(data){
 				if(data && data.data && data.total > 0){
 					cvs.table(data.data);
-				}		
+				}
 			}
 		});
 		console.log("main end");
