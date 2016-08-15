@@ -130,7 +130,6 @@ define(function(){
 	window.onresize = function(e){
 		var width = document.body.clientWidth,
 			height = document.body.clientHeight;
-		alert(width+":"+height);
 		frame.resize(
 			(width > height? height:width),
 			(width > height ? width:height)	
