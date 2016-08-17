@@ -21,6 +21,7 @@ define(function(){
 		this.elementArray = [];
 		this.eventCtrl();
 	}
+	/* 事件分发 */
 	Frame.prototype.eventCtrl = function(){
 		var _this = this;
 		_this.canvas.onclick = function(e){
@@ -39,6 +40,7 @@ define(function(){
 			_this.fire(e);
 		};
 	};
+	/* 事件过滤 */
 	Frame.prototype.fire = function(e){
 		var _this = this;
 		var f = function(ev){
@@ -74,7 +76,12 @@ define(function(){
 				});
 				break;
 			case "touchmove": 
-				console.log("touchmove");
+				//console.log("touchmove");
+				f({
+					clientX:e.changedTouches[0].clientX,
+					clientY:e.changedTouches[0].clientY,
+					type:e.type.toLowerCase()
+				});
 				break;
 			case "touchend":
 				f({
@@ -100,27 +107,18 @@ define(function(){
 		_this.canvas.setAttribute("width",_this.width);
 		_this.canvas.setAttribute("height",_this.height);
 	};
-	
-	Frame.prototype.manage = function(elementName,element){
-		
-	};
-	Frame.prototype.draw = function(element,hasAddToArray){
+	/**
+	 * @param {Object} element 元素对象
+	 * @param {Boolean} hasAddToArray 是否已经被frame管理
+	 */
+	Frame.prototype.manage = function(element){
 		var _this = this;
-		var fontSize = 20;
-		_this.cxt.fillStyle= element.backgroundColor || "#FFF";
-		_this.cxt.fillRect(element.x,element.y,element.width,element.height);
-		_this.cxt.font= fontSize.toString()+"px"+" Georgia";
-		_this.cxt.fillStyle = element.color;//_this.cxt.font;
-		_this.cxt.fillText(
-			element.value,
-			element.x+element.width/2-element.width/4,//(element.value.length*fontSize > element.width?element.width:element.value.length*fontSize)/2,
-			element.y+element.height/2+fontSize/2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
-			element.width);
-		if(!hasAddToArray){
-			_this.elementArray.push(element);
-			_this.elementIndex++;	
-		}
-	}
+		_this.elementArray.push(element);
+		_this.elementIndex++;
+	};
+	/**
+	 * @param {Object} element 被销毁的元素
+	 */
 	Frame.prototype.destroy = function(element){
 		
 	};
@@ -129,23 +127,28 @@ define(function(){
 		height = document.body.clientHeight;
 	var frame = new Frame({
 		canvas:document.getElementById("cvs-main"),
-		width:width > height? height:width,
-		height:width > height ? width:height
+		width:document.body.clientWidth,
+		height:document.body.clientHeight//width > height ? width:height
 	});
+	var x=false;
+	/* resize */
 	window.onresize = function(e){
+		//x = !x;
 		var width = document.body.clientWidth,
 			height = document.body.clientHeight;
 		frame.resize(
-			(width > height? height:width),
-			(width > height ? width:height)	
+			width,
+			height
 		);
-		for(var i=0;i<frame.elementIndex;i++){
+		for(var i=frame.elementIndex-1;i>=0;i--){
 			(function(ii){
 				setTimeout(function(){
-					frame.draw(frame.elementArray[ii],true);
+					frame.elementArray[ii].draw(x);
 				},0);
 			}(i));
 		}
+		
 	};
+	window.frame = frame;
 	return frame;
 });

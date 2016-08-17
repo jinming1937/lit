@@ -1,4 +1,6 @@
-define(["../framework/action","../framework/watch"],function(Action,Watch){
+define(["../framework/action","../framework/watch",
+	//"../framework/frame"
+],function(Action,Watch){
 	console.log("load button");
 	function Button(config){
 		Action.call(this);
@@ -25,14 +27,38 @@ define(["../framework/action","../framework/watch"],function(Action,Watch){
 		this.y = config.y || 0;
 		this.width = config.width || 80;
 		this.height = config.height || 30;
-		this.color = "#000";
-		this.backgroundColor = "#F00";
-		this.isUpEvent = config.isUpEvent|| false;	
+		this.color = config.color || "#000";
+		this.backgroundColor = config.backgroundColor || "#F00";
+		this.isUpEvent = config.isUpEvent|| false;
+		this.draw();
+		frame.manage(this);
 	}
-	/*  */
-	Button.prototype.init = function(config){
-
-	};
+	/* 自渲染 */
+	Button.prototype.draw = function(isRe){
+		var element = this;
+		var _frame = frame;
+		var fontSize = 20;
+		_frame.cxt.fillStyle= element.backgroundColor || "#FFF";
+		!isRe?
+		_frame.cxt.fillRect(element.x,element.y,element.width,element.height)
+		:
+		_frame.cxt.fillRect(element.y,element.x,element.width,element.height);
+		
+		_frame.cxt.font= fontSize.toString()+"px"+" Georgia";
+		_frame.cxt.fillStyle = element.color;//_this.cxt.font;
+		!isRe?
+		_frame.cxt.fillText(
+			element.value,
+			element.x+element.width/2-element.width/4,//(element.value.length*fontSize > element.width?element.width:element.value.length*fontSize)/2,
+			element.y+element.height/2+fontSize/2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
+			element.width)
+		:
+		_frame.cxt.fillText(
+			element.value,
+			element.y+element.height/2+fontSize/2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
+			element.x+element.width/2-element.width/4,//(element.value.length*fontSize > element.width?element.width:element.value.length*fontSize)/2,
+			element.width);
+	}
 	
 	return Button;
 });

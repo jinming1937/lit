@@ -5,6 +5,6 @@ require.config({
 	}
 });
 
-define(["./js/test2"],function(){
+define(["../../lib/framework/frame","./js/test2"],function(){
 	console.log("ending");
 });

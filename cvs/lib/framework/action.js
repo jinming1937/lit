@@ -1,4 +1,4 @@
-define(["./watch"],function(){
+define(function(){
 	/**
 	 * 基本行为：
 	 */

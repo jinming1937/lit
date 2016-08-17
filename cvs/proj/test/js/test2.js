@@ -1,9 +1,8 @@
 define([
-	"../../../lib/framework/frame",
 	"../../../lib/tool/button",
 	"../../../lib/server/server",
 	"../../../outer/gctrl"
-],function(frame,button,server){
+],function(button,server){
 	/* --------------------------[start defined]------------------------------- */
 	console.log("loading test");
 	var btn = new button({
@@ -17,7 +16,6 @@ define([
 			console.log('button touchstart');
 		}
 	});
-	frame.draw(btn);
 	
 	btn.addWatching("touchend",function(e){
 		console.log("button touchend");
@@ -34,10 +32,24 @@ define([
 		width:80,
 		value : 'alert',
 	});
-	frame.draw(bbstn);
+	
 	bbstn.addWatching("touchstart",function(e){
 		console.log(e.type);
 	},false);
+	
+	var moveBtn = new button({
+		x:10,
+		y:10,
+		value:'move',
+		backgroundColor:'#808080',
+		ontouchmove:function(e){
+			//console.log(e.changedTouches[0].clientX +"-"+e.changedTouches[0].clientY);
+			moveBtn.x = e.changedTouches[0].clientX - moveBtn.width/2;
+			moveBtn.y = e.changedTouches[0].clientY - moveBtn.height/2;
+			moveBtn.draw();
+		}
+	});
+	
 	/* --------------------------[end defined]------------------------------- */
 	/* --------------------------[start main]------------------------------- */
 //	;(function(){
