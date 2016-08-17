@@ -1,23 +1,43 @@
 define([
 	"../../../lib/framework/frame",
-	"../../../lib/framework/action",
 	"../../../lib/tool/button",
 	"../../../lib/server/server",
-],function(frame,action,button,server){
+	"../../../outer/gctrl"
+],function(frame,button,server){
 	/* --------------------------[start defined]------------------------------- */
-	console.log("loading test,begin defined");
-	var btn = new button();
-	btn.init({
+	console.log("loading test");
+	var btn = new button({
 		x:150,
 		y:60,
 		name : "alert",
-		width:"80",
+		width:80,
 		value : 'alert',
 		ontouchstart:function(e){
-			alert("type:"+e.type);
+			//alert("type:"+e.type);
+			console.log('button touchstart');
 		}
 	});
 	frame.draw(btn);
+	
+	btn.addWatching("touchend",function(e){
+		console.log("button touchend");
+	},false);
+	
+	btn.addWatching("touchend",function(e){
+		console.log("button touchend2");
+	},false);
+	
+	var bbstn = new button({
+		x:150,
+		y:150,
+		name : "alert",
+		width:80,
+		value : 'alert',
+	});
+	frame.draw(bbstn);
+	bbstn.addWatching("touchstart",function(e){
+		console.log(e.type);
+	},false);
 	/* --------------------------[end defined]------------------------------- */
 	/* --------------------------[start main]------------------------------- */
 //	;(function(){

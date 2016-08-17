@@ -40,14 +40,20 @@ define(function(){
 		};
 	};
 	Frame.prototype.fire = function(e){
-		console.log(e);
 		var _this = this;
 		var f = function(ev){
-			for(var i=0;i<_this.elementIndex;i++){
-				if(ev.clientX > _this.elementArray[i].x && ev.clientX < (_this.elementArray[i].x+_this.elementArray[i].width)
-				  &&ev.clientY > _this.elementArray[i].y && ev.clientY < (_this.elementArray[i].y+_this.elementArray[i].height)){
-				  	//console.log(_this.elementArray[i]);
-				  	_this.elementArray[i].fire(e);
+			/* 倒叙遍历 */
+			for(var i=_this.elementIndex-1;i>=0;i--){
+				if(ev.clientX > _this.elementArray[i].x &&
+				   ev.clientX < (_this.elementArray[i].x+_this.elementArray[i].width) &&
+				   ev.clientY > _this.elementArray[i].y && 
+				   ev.clientY < (_this.elementArray[i].y+_this.elementArray[i].height)){
+				  	window.setTimeout(function(){
+				  		_this.elementArray[i].fire(e);
+				  	},0);
+				  	if(!_this.elementArray[i].isUpEvent){/* 是否允许穿透 */
+				  		break;
+				  	}
 				}
 			}
 		}
@@ -70,11 +76,10 @@ define(function(){
 			case "touchmove": 
 				console.log("touchmove");
 				break;
-			case "touchend": 
-				if(e.touches.length===0){return;}
+			case "touchend":
 				f({
-					clientX:e.touches[0].clientX,
-					clientY:e.touches[0].clientY,
+					clientX:e.changedTouches[0].clientX,
+					clientY:e.changedTouches[0].clientY,
 					type:e.type.toLowerCase()
 				});
 				break;
@@ -135,10 +140,11 @@ define(function(){
 			(width > height ? width:height)	
 		);
 		for(var i=0;i<frame.elementIndex;i++){
-			var ii = i;
-			setTimeout(function(){
-				frame.draw(frame.elementArray[ii],true);
-			},0);
+			(function(ii){
+				setTimeout(function(){
+					frame.draw(frame.elementArray[ii],true);
+				},0);
+			}(i));
 		}
 	};
 	return frame;
