@@ -34,29 +34,19 @@ define(["../framework/action","../framework/watch",
 		frame.manage(this);
 	}
 	/* 自渲染 */
-	Button.prototype.draw = function(isRe){
+	Button.prototype.draw = function(){
 		var element = this;
 		var _frame = frame;
 		var fontSize = 20;
+		if(frame.width>frame.height){return;}
 		_frame.cxt.fillStyle= element.backgroundColor || "#FFF";
-		!isRe?
-		_frame.cxt.fillRect(element.x,element.y,element.width,element.height)
-		:
-		_frame.cxt.fillRect(element.y,element.x,element.width,element.height);
-		
+		_frame.cxt.fillRect(element.x,element.y,element.width,element.height);
 		_frame.cxt.font= fontSize.toString()+"px"+" Georgia";
 		_frame.cxt.fillStyle = element.color;//_this.cxt.font;
-		!isRe?
 		_frame.cxt.fillText(
 			element.value,
 			element.x+element.width/2-element.width/4,//(element.value.length*fontSize > element.width?element.width:element.value.length*fontSize)/2,
 			element.y+element.height/2+fontSize/2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
-			element.width)
-		:
-		_frame.cxt.fillText(
-			element.value,
-			element.y+element.height/2+fontSize/2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
-			element.x+element.width/2-element.width/4,//(element.value.length*fontSize > element.width?element.width:element.value.length*fontSize)/2,
 			element.width);
 	}
 	

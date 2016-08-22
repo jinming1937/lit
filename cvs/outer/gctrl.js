@@ -1,5 +1,4 @@
 define(function(){
-	
 	var node = document.createElement("div");
 	node.className = "wind";
 	node.style = {

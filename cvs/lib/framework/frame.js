@@ -107,6 +107,10 @@ define(function(){
 		_this.canvas.setAttribute("width",_this.width);
 		_this.canvas.setAttribute("height",_this.height);
 	};
+	Frame.prototype.clear = function(){
+		var _this = this;
+		_this.canvas.setAttribute("width",_this.width);
+	}
 	/**
 	 * @param {Object} element 元素对象
 	 * @param {Boolean} hasAddToArray 是否已经被frame管理
@@ -130,20 +134,39 @@ define(function(){
 		width:document.body.clientWidth,
 		height:document.body.clientHeight//width > height ? width:height
 	});
-	var x=false;
+	var x=width>height;
+	if(x){
+		frame.resize(width,height);
+		if(x){
+  			frame.cxt.font= "40px Georgia";
+			frame.cxt.fillStyle = "#000";
+			frame.cxt.fillText(
+				"抱歉，不支持横屏！！！",
+				10,
+				40,
+				300);
+		}
+	}
 	/* resize */
 	window.onresize = function(e){
-		//x = !x;
+		x = !x;
 		var width = document.body.clientWidth,
 			height = document.body.clientHeight;
-		frame.resize(
-			width,
-			height
-		);
+		frame.resize(width,height);
+		if(x){
+  			frame.cxt.font= "40px Georgia";
+			frame.cxt.fillStyle = "#000";
+			frame.cxt.fillText(
+				"抱歉，不支持横屏！！！",
+				10,
+				40,
+				300);
+			return;
+		}
 		for(var i=frame.elementIndex-1;i>=0;i--){
 			(function(ii){
 				setTimeout(function(){
-					frame.elementArray[ii].draw(x);
+					frame.elementArray[ii].draw();
 				},0);
 			}(i));
 		}
