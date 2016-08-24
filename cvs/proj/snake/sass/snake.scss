@@ -50,11 +50,12 @@
                 top: 100px;
             }
             .stop {
-                right: 70px;
+                right: 0px;
                 top: 50px;
             }
             .reset {
-                right: 0;
+                display: none;
+                right: 70;
                 top: 50px;
             }
         }

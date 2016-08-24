@@ -16,7 +16,12 @@ define([
 		this.borderY = frame.height%this.pixelHeight;
 		
 		this.pixelY = (frame.height - this.pixelY * this.pixelHeight)<this.borderX?this.pixelY-1:this.pixelY;
-		//this.draw();
+		this.pixelArray = [];
+		for(var i = 0;i<this.pixelX;i++){
+			for(var j=0;j<this.pixelY;j++){
+				this.pixelArray.push([i,j]);
+			}
+		}
 	}
 	/* 渲染屏幕 */
 	Screen.prototype.draw = function(){
@@ -40,7 +45,6 @@ define([
 		this.size = config.size||20;
 		this.directX = 1;
 		this.directY = 0;
-		//this.draw();
 	}
 	Snake.prototype.down = function(e){
 		this.canMove(0,1);
@@ -190,10 +194,25 @@ define([
 			_this.size
 		);
 	};
-	/* 产生随机位置 */
+	/* 产生随机位置:排除掉蛇占据的位置 */
 	Apple.prototype.randomPixel =function(){
-		this.pixelX = parseInt((this.maxPixelX)*Math.random());
-		this.pixelY = parseInt((this.maxPixelY)*Math.random());
+		var pixelArray = [].concat(_screen.pixelArray);
+		var snakeArray = [].concat(snake.bodyArray);
+		var snakeTrueArray = [];
+		for(var si=0,silen = snakeArray.length;si<silen;si++){
+			snakeTrueArray = snakeTrueArray.concat(snakeArray[si]);
+		}
+		for(var i = 0,leni=_screen.pixelArray.length;i<leni;i++){
+			for(var j=0,lenj = snakeTrueArray.length;j<lenj;j++){
+				if(_screen.pixelArray[i][0] === snakeTrueArray[j][0] &&
+				   _screen.pixelArray[i][1] === snakeTrueArray[j][1]){
+					pixelArray.splice(i,1);	
+				}
+			} 
+		}
+		var trueIndexArray =pixelArray[ parseInt(pixelArray.length*Math.random())];
+		this.pixelX = trueIndexArray[0];
+		this.pixelY = trueIndexArray[1];
 	};
 	/* 获取苹果的位置 */
 	Apple.prototype.getPixel = function(){
