@@ -210,7 +210,13 @@ define([
 				}
 			} 
 		}
-		var trueIndexArray =pixelArray[ parseInt(pixelArray.length*Math.random())];
+		if(pixelArray.length === 0){
+			if(confirm(" you are NB!!! /r/n restart the game？")){
+				location.href= location.href;
+			}
+			return;
+		}
+		var trueIndexArray = pixelArray[ parseInt(pixelArray.length*Math.random())];
 		this.pixelX = trueIndexArray[0];
 		this.pixelY = trueIndexArray[1];
 	};
