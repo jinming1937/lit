@@ -1,11 +1,27 @@
+
+var webpack = require('webpack');
+
 module.exports = function(grunt) {
 	'use strict'
+	
+	  //====webpack begin
+	  var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
+	    compress: {  warnings: false}
+	  });
+	
+	  //var slarkPlugin = new webpack.optimize.CommonsChunkPlugin('base', 'base.js');
+	
+	  var devFlagPlugin = new webpack.DefinePlugin({
+	    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+	  });
+	  //===== webpack end
+
 	// 任务配置，所有插件的配置信息
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
 		meta: {
-			distPath: 'build/'
+			distPath: 'dist/'
 		},
 		/* banner */
 		banner: '/*!\n' +
@@ -31,7 +47,76 @@ module.exports = function(grunt) {
 					'cvs/lib/cvs.min.js': 'cvs/lib/cvs.js',
 					'cvs/proj/test/js/test.min.js': 'cvs/proj/test/js/test.js'
 				}
+			},
+			snake: {
+				files:{
+					"dist/main.min.js":"dist/main.js"
+				}
 			}
+		},
+		//
+		requirejs: {
+			options: {
+				baseUrl: "./",
+				//mainConfigFile: "./static/js/config.js"
+			},
+			production: {
+				options: {
+					include: [
+						'cvs/proj/snake/mainSnake',
+						'cvs/proj/snake/js/snake',
+						'cvs/lib/framework/frame',
+						'cvs/outer/hand',
+						'cvs/outer/gctrl'
+					],
+					out: 'dist/main.js'
+				}
+			}
+		},
+		//
+		webpack: {
+			snake: {
+				// webpack options 
+				entry: {
+					mainSnake:"./cvs/proj/snake/mainSnake"
+				},
+				output: {
+					path: "dist/",
+					filename: "[name].js",
+				},
+				plugins: [
+		          uglifyJsPlugin,
+		          devFlagPlugin
+		          //slarkPlugin
+		        ],
+				stats: {
+					// Configure the console output 
+					colors: false,
+					modules: false,/* ?? */
+					reasons: true
+				},
+				// stats: false disables the stats output 
+				storeStatsTo: "xyz", // writes the status to a variable named xyz 
+				// you may use it later in grunt i.e. <%= xyz.hash %> 
+				progress: false, // Don't show progress 
+				// Defaults to true 
+				failOnError: false, // don't report error to grunt if webpack find errors 
+				// Use this if webpack errors are tolerable and grunt should continue 
+				//watch: true, // use webpacks watcher 
+				// You need to keep the grunt process alive 
+				//watchOptions: {
+				//	aggregateTimeout: 500,
+				//	poll: true
+				//},
+				// Use this when you need to fallback to poll based watching (webpack 1.9.1+ only) 
+				//keepalive: true, // don't finish the grunt task 
+				// Use this in combination with the watch option 
+				inline: true, // embed the webpack-dev-server runtime into the bundle 
+				// Defaults to false 
+				//hot: true, // adds the HotModuleReplacementPlugin and switch the server to hot mode 
+				// Use this in combination with the inline option 
+			},
+			//anotherName: {...}
 		},
 		//cssmin css 压缩
 		cssmin: {
@@ -40,20 +125,22 @@ module.exports = function(grunt) {
 				banner: '/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			cvs: {
-				//src: ['entry/*.css', 'entry/css/*.css', 'entry/sevenBlock/css/*.css'],
-				//dest: 'build/<%-pkg.cssname%>-<%-pkg.version%>.css'
-				//
 				files: {
 					'cvs/proj/test/css/main.min.css': 'cvs/proj/test/css/main.css'
 				}
 			},
-			testsc:{
+			testsc: {
+				files: {
+					'dist/main.min.css': 'dist/main.css'
+				}
+			},
+			snake:{
+				banner: '<%- banner %>',
 				files:{
-					'build/main.min.css':'build/main.css'
+					'dist/snake/css/main.min.css':'dist/snake/css/main.css'
 				}
 			}
 		},
-
 		/*jshint 语法检查*/
 		jshint: {
 			build: [
@@ -77,78 +164,40 @@ module.exports = function(grunt) {
 				files: {
 					'<%= meta.distPath %>main.css': 'entry/testScript/main.scss'
 				}
+			},
+			base:{
+				files:{
+					'dist/base.css':'cvs/sass/base.scss'
+				}
+			},
+			snake:{
+				files:{
+					'dist/snake/css/main.css':'cvs/proj/snake/sass/main.scss'
+				}
 			}
+			
 		},
 		/*watch*/
 		watch: {
-			build: {
+			testsc: {
 				files: [
-					//'entry/js/*.js',
-					//'entry/css/*.css',
-					//'cvs/lib/cvs.js',
-					'cvs/proj/test/css/mian.css',
-					//'cvs/proj/test/js/*.js'
-				],
-				tasks: [
-					//'jshint',
-					'cssmin:cvs',
-					//'uglify:cvs'
-				],
-				options: {
-					spawn: false
-				}
-			},
-			testsc:{
-				files:[
 					'entry/**/scss/*.scss',
 					//"sc/chooseCity/chooseCity.scss"
 				],
-				tasks:[
+				tasks: [
 					'sass:testsc',
 					'cssmin:testsc'
 				]
-			}
-		},
-
-		cssminplugs: {
-			options: {
-				banner: '', // set to empty; see bellow
-				keepSpecialComments: '*', // set to '*' because we already add the banner in sass
-				compatibility: 'ie8',
-				noAdvanced: true
 			},
-			ratchet: {
-				src: '<%= meta.distPath %>css/<%= pkg.name %>.css',
-				dest: '<%= meta.distPath %>css/<%= pkg.name %>.min.css'
-			},
-			theme: {
-				files: {
-					'<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css',
-					'<%= meta.distPath %>css/<%= pkg.name %>-theme-android.min.css': '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
-				}
-			},
-			c3h5: {
-				files: {
-					'<%= meta.distPath %>main.css': '<%= meta.distPath %>main.css'
-				}
-			},
-			tetris: {
-				files: {
-					//'<%= meta.minCss %>main.css': '<%= meta.minCss %>main.css'
-					'entry/tetris/mincss/tetris.min.css': 'entry/tetris/mincss/softtetris.css',
-				}
-			}
-		},
-		/* 俄罗斯方块 */
-		eluosiCssmin: {
-			options: {
-				stripBanners: true,
-				banner: '<%= banner %>',
-			},
-			build: {
-				dest: {
-					'entry/tetris/css/tetris.min.css': 'entry/tetris/css/softtetris.css',
-				}
+			snake:{
+				files:[
+					'cvs/proj/snake/sass/*.scss',
+					'cvs/sass/*.scss'
+				],
+				tasks:[
+					'sass:snake',
+					'cssmin:snake'
+				]
 			}
 		},
 		/*open new webset*/
@@ -166,37 +215,23 @@ module.exports = function(grunt) {
 		/* open new link */
 		open: {
 			kitchen: {
-				path: 'http://xiaozhiga.com:8099/entry/'
+				path: 'http://127.0.0.1:8089/entry/'
 			}
 		}
 	});
 	//  告诉grunt 我们将使用的插件
-	//	grunt.loadNpmTasks('grunt-contrib-uglify');//压缩js
-	//	grunt.loadNpmTasks('grunt-contrib-cssmin');//压缩css
-	//	grunt.loadNpmTasks('grunt-contrib-jshint');//js、 css 语法检查
-	//	grunt.loadNpmTasks('grunt-contrib-watch'); //即时监听
-	//	grunt.loadNpmTasks('grunt-contrib-connect');//连接服务
-
+	grunt.loadNpmTasks('grunt-webpack');
 	// Load the plugins
 	require('load-grunt-tasks')(grunt, {
 		scope: 'devDependencies'
 	});
-	//require('time-grunt')(grunt);
-
+	require('time-grunt')(grunt);
+	
 	// server
-	//grunt.registerTask('server', ['connect','open','watch']);
-	grunt.registerTask('server', ['connect', 'watch']);
+	grunt.registerTask('server', ['connect','open' ,'watch']);
+	// package
+	grunt.registerTask('snake',['sass:snake','cssmin:snake','webpack:snake']);
 
-	grunt.registerTask('precent', ['cssminplugs:c3h5']);
-
-	/*俄罗斯方块*/
-	grunt.registerTask('tetris', ['jshint', 'cssminplugs:tetris']);
-	/*
-	 * 告诉grunt 当我们在终端中输入grunt 时需要做什么（注意先后顺序）
-	 * grunt.registerTask(taskName, [description, ] taskList);
-	 * taskName：任务别名，descripation：任务描述，taskList：任务列表。
-	 */
-	grunt.registerTask('default', ['jshint', 'cssmin', 'uglify']);
-
-	grunt.registerTask('testsc','sass:testsc');
+	grunt.registerTask('testsc', 'sass:testsc');
+	
 };

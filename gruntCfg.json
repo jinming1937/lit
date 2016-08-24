@@ -1,0 +1,26 @@
+{
+  "requirejs": {
+    "main": {
+      "options": {
+        "baseUrl": "",
+        "paths": {
+            "frame":"cvs/lib/framework/frame",
+            "hand":"cvs/outer/hand",
+            "gctrl":"cvs/outer/gctrl",
+            "snake":"cvs/proj/snake/js/snake",
+            "mainSnake":"cvs/proj/snake/mainSnake"
+        },
+        "web": {
+          "include": [
+            "frame",
+            "hand",
+            "gctrl",
+            "snake",
+            "mainSnake"
+          ],
+          "out": "dest/libs.js"
+        }
+      }
+    }
+  }
+}

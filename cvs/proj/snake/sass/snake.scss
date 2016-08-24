@@ -1,0 +1,69 @@
+.box {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #C0C0C0;
+    position: absolute;
+    .cvs {
+        top: 0;
+        left: 0;
+        background-color: #C0C0C0;
+        position: absolute;
+    }
+    .hand {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        width: 90%;
+        padding: 5%;
+        .handArea {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 150px;
+            .handler {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background: rgba(112,112,112,0.7);
+                &:active {
+                    background: rgba(155,155,155,0.7);
+                }
+            }
+            .leftctrl {
+                left: 0;
+                top: 50px;
+            }
+            .upctrl {
+                top: 0px;
+                left: 50px;
+            }
+            .rightctrl {
+                left: 100px;
+                top: 50px;
+            }
+            .downctrl {
+                left: 50px;
+                top: 100px;
+            }
+            .stop {
+                right: 70px;
+                top: 50px;
+            }
+            .reset {
+                right: 0;
+                top: 50px;
+            }
+        }
+    }
+}
+.wind {
+    width: 100px;
+    height: 15px;
+    position: absolute;
+    z-index: 100;
+    background: #FFF;
+}

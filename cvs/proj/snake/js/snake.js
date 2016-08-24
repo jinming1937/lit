@@ -264,7 +264,7 @@ define([
 		stopFlag = setInterval(function(){
 			screenDraw();
 			snake.canMove();
-		},1000);
+		},300);
 	}
 	starGame();
 });

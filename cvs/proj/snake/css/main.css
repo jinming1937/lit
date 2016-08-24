@@ -50,6 +50,9 @@ html,body{
 	height: 50px;
 	background: rgba(112,112,112,0.7);
 }
+.handler:active{
+	background: rgba(155,155,155,.8) ;
+}
 .leftctrl{
 	left: 0;
 	top:50px;
