@@ -107,6 +107,9 @@ define(function(){
 		_this.canvas.setAttribute("width",_this.width);
 		_this.canvas.setAttribute("height",_this.height);
 	};
+	/**
+	 * 
+	 */
 	Frame.prototype.clear = function(){
 		var _this = this;
 		_this.canvas.setAttribute("width",_this.width);
@@ -126,43 +129,34 @@ define(function(){
 	Frame.prototype.destroy = function(element){
 		
 	};
-	
-	var width = document.body.clientWidth,
-		height = document.body.clientHeight;
+	/** */
 	var frame = new Frame({
 		canvas:document.getElementById("cvs-main"),
 		width:document.body.clientWidth,
 		height:document.body.clientHeight//width > height ? width:height
 	});
-	var x=width>height;
-	if(x){
-		frame.resize(width,height);
-		if(x){
-  			frame.cxt.font= "40px Georgia";
-			frame.cxt.fillStyle = "#000";
-			frame.cxt.fillText(
-				"抱歉，不支持横屏！！！",
-				10,
-				40,
-				300);
-		}
-	}
-	/* resize */
-	window.onresize = function(e){
-		x = !x;
+	function ctrlHorizontal(){
 		var width = document.body.clientWidth,
 			height = document.body.clientHeight;
-		frame.resize(width,height);
+		var x=width>height;
 		if(x){
-  			frame.cxt.font= "40px Georgia";
+			frame.cxt.font= "40px Georgia";
 			frame.cxt.fillStyle = "#000";
 			frame.cxt.fillText(
 				"抱歉，不支持横屏！！！",
 				10,
 				40,
 				300);
-			return;
+			return true;
 		}
+	}
+	ctrlHorizontal();
+	/* resize */
+	window.onresize = function(e){
+		frame.resize(document.body.clientWidth,document.body.clientHeight);
+		if(ctrlHorizontal()){
+			return;
+		};
 		for(var i=frame.elementIndex-1;i>=0;i--){
 			(function(ii){
 				setTimeout(function(){

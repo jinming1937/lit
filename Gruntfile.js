@@ -78,7 +78,8 @@ module.exports = function(grunt) {
 			snake: {
 				// webpack options 
 				entry: {
-					mainSnake:"./cvs/proj/snake/mainSnake"
+					mainForClassical:"./cvs/proj/snake/mainForClassical",
+					mainForIndex:"./cvs/proj/snake/mainForIndex"
 				},
 				output: {
 					path: "dist/",
