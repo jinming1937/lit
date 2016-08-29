@@ -24,9 +24,9 @@ define(function(){
 	/* 事件分发 */
 	Frame.prototype.eventCtrl = function(){
 		var _this = this;
-		_this.canvas.onclick = function(e){
+		//_this.canvas.onclick = function(e){
 			//_this.fire(e);
-		};
+		//};
 		_this.canvas.ontouchstart = function(e){
 			_this.fire(e);
 		};
