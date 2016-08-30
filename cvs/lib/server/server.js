@@ -15,12 +15,25 @@ define(function(){
 			}
 			return str;
 		}
+		/* 跨域请求 */
+		xhr.withCredentials = config.withCredentials || false;
 		xhr.onreadystatechange = function(e){
 			if(xhr.readyState === 4){
 				if(xhr.status === 200){
+					var contentType;
+					try{
+						/* error: server.js:25 Refused to get unsafe header "Set-Cookie" */
+						//contentType = xhr.getResponseHeader('Set-Cookie');
+						contentType = "";
+					}
+					catch(e){
+						contentType = "";
+					}
+					//console.log(contentType);
 					var data = JSON.parse(xhr.response);
-					console.log(data);
 					typeof config.success === "function" ? config.success(data):"";	
+				}else if(xhr.status === 0){
+					//console.log(e);	
 				}
 			}
 		};

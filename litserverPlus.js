@@ -9,7 +9,7 @@ function litService() {
 	var path = require('path');
 	var server = http.createServer(function(request, response) {
 		/* 获取虚拟路径 */
-		var pathname = url.parse(request.url).pathname;
+		var pathname = url.parse(request.url.toLowerCase()).pathname;
 		if(pathname === "" || pathname === "/") {
 			/* 没有路径， 默认导向首页*/
 			pathname = "nodeservice/index.html";
@@ -37,9 +37,29 @@ function litService() {
 						response.end("err");
 					} else {
 						var contentType = mine[ext] || "text/plain";
-						response.writeHead(200, {
-							'Content-Type': contentType
-						});
+						/* service 此目录允许跨域 */
+						if(pathname.match(/^\/service\//i) && pathname.match(/^\/service\//i)[0] ==="/service/"){
+							response.writeHead(200, {
+								'Content-Type': contentType,
+								'Access-Control-Allow-Credentials':true,
+								'Access-Control-Allow-Origin':"http://m.xiaozhiga.com:8089",
+								'Allow':"HEAD,OPTIONS,GET",
+								/**
+								 * "Set-Cookie":" =[; =][; expires=][; domain=][; path=][; secure][; HttpOnly]"
+								 */
+								"Set-Cookie":[
+									"jmtest=haha;path=/; Httponly",								
+									"innerFrom=110018;Path=/; HttpOnly",
+									"ch=h5hotelgeneral;Path=/; HttpOnly",
+									"jmtest2=haha;path=/",
+									"indate=2016-08-30; Domain=.xiaozhiga.com; Path=/"
+								]
+							});	
+						}else{
+							response.writeHead(200, {
+								'Content-Type': contentType
+							});
+						}
 						response.write(file, "binary");
 						response.end();
 					}
