@@ -3,13 +3,12 @@ CACHE MANIFEST
 CACHE:
 
 ##Script
-lib/jquery.js
-
-##Img
-entry/sevenBlock/beauty.png
+../../../dist/mainForClassical.js
+../../../dist/snake/css/main.min.css
 
 ##总是访问网络的内容
 NETWORK:
-*
+
+
 ##访问A失败时访问B
 FALLBACK

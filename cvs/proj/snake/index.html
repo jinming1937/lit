@@ -9,15 +9,59 @@
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="full-screen" content="yes"/>
 	    <meta name="browsermode" content="application"/>
-		<title>手机小霸王</title>
+		<title>小指嘎</title>
 		<link rel="stylesheet" type="text/css" href="../../../dist/snake/css/main.css"/>
 	</head>
 	<body>
 		<div class="index-proj">
+			<div class="banner">
+				<span class="theme">小指嘎</span>
+			</div>
 			<ul class="item-list">
 				<li><a href="classical.html">本地</a></li>
 				<li><a href="http://www.xiaozhiga.com:8088/nodeservice/snake.html">联网</a></li>
 			</ul>
 		</div>
+		<script>
+			/* toast */
+            function massageBox(msg) {
+                var _node = document.createElement("div");
+                _node.className = "message-box";
+                _node.style = {};
+                _node.innerHTML = msg;
+                document.body.appendChild(_node)
+                var i = 36,
+                    bottom = 20;
+
+                function cutSelf() {
+                    bottom += 2;
+                    i--;
+                    _node.style.opacity = i / 40;
+                    _node.style.bottom = bottom + "px";
+                    setTimeout(function() {
+                        if (Number(_node.style.opacity) <= 0) {
+                            document.body.removeChild(_node);
+                            return;
+                        }
+                        cutSelf();
+                    }, 100 / 3); //1000/60
+                };
+                console.log(msg);
+                cutSelf();
+            }
+			var unloadTimes = 0;
+			window.onbeforeunload = function(){
+				if(unloadTimes === 0){
+					massageBox("再次点击退出");
+					return;
+				}else{
+					window.close();
+				}
+				unloadTimes +=1;
+				setTimeout(function(){
+					unloadTimes = 0;
+				},2000);
+			}
+		</script>
 	</body>
 </html>

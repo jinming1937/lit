@@ -18,7 +18,7 @@ define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 		});
 		server({
 			//url:"../../../../service/cvs/getClassInfo.json",
-			url:"http://m.xiaozhiga.com:8088/dist/city.json",/* 跨域测试 fail*/
+			url:"http://m.xiaozhiga.com:8088/dist/city.json",/* 跨域测试 faile*/
 			type:"GET",
 			withCredentials:true,
 			success:function(data){

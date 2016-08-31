@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="snake.appcache">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
 		<meta name="full-screen" content="yes"/>
 	    <meta name="browsermode" content="application"/>
 		<title>Snake</title>
-		<link rel="stylesheet" type="text/css" href="../../../dist/snake/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../dist/snake/css/main.min.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -28,6 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" data-main="./mainForClassical" src="../../../lib/require.js" ></script>
+		<script src="../../../dist/mainForClassical.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script type="text/javascript" data-main="./mainForClassical" src="../../../lib/require.js" ></script>-->
 	</body>
 </html>

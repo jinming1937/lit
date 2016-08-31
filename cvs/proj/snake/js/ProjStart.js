@@ -7,7 +7,8 @@ define([
 ],function(gctrl,Screen,Snake,Apple){
 	/* ------------------[start]------------------- */
 	var _screen = new Screen({
-		size:20
+		size:20,
+		screenHeight: 205//document.clientWidth 
 	});
 	var snake = new Snake({
 		size:20,

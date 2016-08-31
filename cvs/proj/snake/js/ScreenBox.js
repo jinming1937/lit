@@ -3,15 +3,17 @@ define(["../../../lib/framework/frame"],function(frame){
 	function Screen(config){
 		this.pixelWidth = config.size||20;
 		this.pixelHeight = config.size||20;
+		this.screenWidth = config.screenWidth || frame.width;
+		this.screenHeight = config.screenHeight || frame.height;
 		this.pixelBorder = 5;
 		
-		this.pixelX =  parseInt(frame.width/this.pixelWidth);
-		this.pixelY = parseInt(frame.height/this.pixelHeight);
+		this.pixelX =  parseInt(this.screenWidth/this.pixelWidth);
+		this.pixelY = parseInt(this.screenHeight/this.pixelHeight);
 		
-		this.borderX = frame.width%this.pixelWidth;
-		this.borderY = frame.height%this.pixelHeight;
+		this.borderX = this.screenWidth%this.pixelWidth;
+		this.borderY = this.screenHeight%this.pixelHeight;
 		
-		this.pixelY = (frame.height - this.pixelY * this.pixelHeight)<this.borderX?this.pixelY-1:this.pixelY;
+		this.pixelY = (this.screenHeight - this.pixelY * this.pixelHeight)<this.borderX?this.pixelY-1:this.pixelY;
 		this.pixelArray = [];
 		for(var i = 0;i<this.pixelX;i++){
 			for(var j=0;j<this.pixelY;j++){
