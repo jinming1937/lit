@@ -7,7 +7,7 @@ define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 		console.log("main star");
 		server({
 			//url:"../../../../service/cvs/getClassInfo.json",
-			url:"http://m.xiaozhiga.com:8088/service/cvs/getClassInfo.json",/* 跨域测试 ok*/
+			url:"http://www.xiaozhiga.com:8088/service/cvs/getClassInfo.json",/* 跨域测试 ,只有service目录允许跨域 ok*/
 			type:"GET",
 			withCredentials:true,
 			success:function(data){
@@ -18,7 +18,7 @@ define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 		});
 		server({
 			//url:"../../../../service/cvs/getClassInfo.json",
-			url:"http://m.xiaozhiga.com:8088/dist/city.json",/* 跨域测试 faile*/
+			url:"http://www.xiaozhiga.com:8088/dist/city.json",/* 跨域测试,只有service目录允许跨域  faile*/
 			type:"GET",
 			withCredentials:true,
 			success:function(data){

@@ -40,30 +40,5 @@ define(function(){
 			}
 		};
 	}
-//	Watching.prototype.addWatching = function(name,callBack,isUpEvent){
-//		this.eventArray.push({name:name,fn:callBack,isUpEvent:isUpEvent?false:true});
-//		this.eventIndex++;
-//	};
-//	Watching.prototype.removeWatching = function(name){
-//		var _arr = this.eventArray;
-//		var _len = this.eventIndex;
-//		for(var i=0,len = this.eventIndex;i<len;i++){
-//			if(name === this.eventArray[i].name){
-//				_arr.splice(i,1);
-//				this.eventIndex --;
-//			}
-//		}
-//		this.eventArray = _arr;
-//	};
-//	Watching.prototype.eventFire = function(name){
-//		for(var i=0,len = this.eventIndex;i<len;i++){
-//			if(this.eventArray[i].name === name){
-//				window.setTimeout(function(){
-//					this.eventArray[i].fn();
-//				},0);
-//			}
-//		}
-//	};
-	
 	return Watching;
 });

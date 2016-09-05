@@ -10,6 +10,7 @@ function litService() {
 	var server = http.createServer(function(request, response) {
 		/* 获取虚拟路径 */
 		var pathname = url.parse(request.url.toLowerCase()).pathname;
+		console.log(pathname);
 		if(pathname === "" || pathname === "/") {
 			/* 没有路径， 默认导向首页*/
 			pathname = "nodeservice/index.html";
@@ -38,11 +39,11 @@ function litService() {
 					} else {
 						var contentType = mine[ext] || "text/plain";
 						/* service 此目录允许跨域 */
-						if(pathname.match(/^\/service\//i) && pathname.match(/^\/service\//i)[0] ==="/service/"){
+						if(pathname.search(/^\/service\//i)>-1 && pathname.match(/^\/service\//i)[0] ==="/service/"){
 							response.writeHead(200, {
 								'Content-Type': contentType,
 								'Access-Control-Allow-Credentials':true,
-								'Access-Control-Allow-Origin':"http://m.xiaozhiga.com:8089",
+								'Access-Control-Allow-Origin':"http://www.xiaozhiga.com:8089",
 								'Allow':"HEAD,OPTIONS,GET",
 								/**
 								 * "Set-Cookie":" =[; =][; expires=][; domain=][; path=][; secure][; HttpOnly]"

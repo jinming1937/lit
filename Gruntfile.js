@@ -78,14 +78,15 @@ module.exports = function(grunt) {
 			snake: {
 				// webpack options 
 				entry: {
-					mainForClassical:"./cvs/proj/snake/mainForClassical"
+					mainForClassical:"./cvs/proj/snake/mainForClassical",
+					mainForIndex : "./cvs/proj/snake/mainForIndex"
 				},
 				output: {
 					path: "dist/",
 					filename: "[name].js",
 				},
 				plugins: [
-		          uglifyJsPlugin,
+		          //uglifyJsPlugin,
 		          devFlagPlugin
 		          //slarkPlugin
 		        ],
@@ -215,7 +216,8 @@ module.exports = function(grunt) {
 		/* open new link */
 		open: {
 			kitchen: {
-				path: 'http://127.0.0.1:8089/entry/'
+				/* 需要提前配置好host */
+				path: 'http://www.xiaozhiga.com:8089/entry/'
 			}
 		}
 	});
@@ -231,6 +233,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('server', ['connect','open' ,'watch']);
 	// package
 	grunt.registerTask('snake',['sass:snake','cssmin:snake','webpack:snake']);
+	
+	//grunt.registerTask('snake',['sass:snake','cssmin:snake','webpack:snake']);
 
 	grunt.registerTask('testsc', 'sass:testsc');
 	

@@ -5,6 +5,6 @@ require.config({
 	}
 });
 
-define(["../js/handler","../js/screen","../js/block"],function(){
+define(["./js/handler","./js/screen","./js/block"],function(){
 	console.log("ending");
 });

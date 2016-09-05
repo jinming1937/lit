@@ -1,10 +1,10 @@
 define([
-	"../../../outer/gctrl",
 	"./ScreenBox",
 	"./Snake",
 	"./Apple",
+	"../../../outer/gctrl",
 	"../../../outer/hand"
-],function(gctrl,Screen,Snake,Apple){
+],function(Screen,Snake,Apple){
 	/* ------------------[start]------------------- */
 	var _screen = new Screen({
 		size:20,

@@ -7,6 +7,7 @@ define(["../framework/action","../framework/watch",
 		Watch.call(this);
 		this.eventContext = config;
 		this.value = config.value || "button";
+		this.frame = (main.getCurrentFrame()).cvs;
 		this.ontouchstart = function(e){
 			config.ontouchstart && config.ontouchstart(e);
 			this.eventFire(e);
@@ -31,14 +32,14 @@ define(["../framework/action","../framework/watch",
 		this.backgroundColor = config.backgroundColor || "#F00";
 		this.isUpEvent = config.isUpEvent|| false;
 		this.draw();
-		frame.manage(this);
+		this.frame.manage(this);
 	}
 	/* 自渲染 */
 	Button.prototype.draw = function(){
 		var element = this;
-		var _frame = frame;
+		var _frame = this.frame;
 		var fontSize = 20;
-		if(frame.width>frame.height){return;}
+		if(_frame.width>_frame.height){return;}
 		_frame.cxt.fillStyle= element.backgroundColor || "#FFF";
 		_frame.cxt.fillRect(element.x,element.y,element.width,element.height);
 		_frame.cxt.font= fontSize.toString()+"px"+" Georgia";

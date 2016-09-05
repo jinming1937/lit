@@ -44,52 +44,5 @@ define(function(){
 			}
 		}
 	}
-//	var Action = {
-//		context:{
-//			
-//		},
-//		touchstart : function(){
-//			this.ontouchstart(this.context);
-//		},
-//		ontouchstart : function(e){
-//		},
-//		touchmove : function(){
-//			this.ontouchmove(this.context);
-//		},
-//		ontouchmove : function(e){
-//		},
-//		touchend : function(){
-//			this.ontouchend(this.context);
-//		},
-//		ontouchend : function(e){
-//		},
-//		touchcancel : function(){
-//			this.ontouchcancel(this.context);
-//		},
-//		ontouchstart : function(e){
-//		}
-//	}
-	
-//	Action.prototype.collection = function(){
-//
-//	};
-//
-//	Action.prototype.ontouchstart = function(e){
-//		
-//	};
-//	
-//	Action.prototype.ontouchmove = function(e){
-//		
-//	};
-//	
-//	Action.prototype.ontouchend = function(e){
-//		
-//	};
-//	
-//	Action.prototype.ontouchcancel = function(e){
-//		
-//	}
-	
-	
 	return  Action;
 });
