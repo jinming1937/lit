@@ -1,10 +1,12 @@
 define(["../framework/action","../framework/watch",
+	//"./element",
 	//"../framework/frame"
 ],function(Action,Watch){
 	console.log("load button");
 	function Button(config){
 		Action.call(this);
 		Watch.call(this);
+		//Element.call(this);
 		this.eventContext = config;
 		this.value = config.value || "button";
 		this.frame = (main.getCurrentFrame()).cvs;

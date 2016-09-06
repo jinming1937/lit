@@ -9,6 +9,7 @@ define(["./cvs"],function(CVS){
 		this.uniqFrame = -1;
 		this.frameArray = []; 
 		this.currentFrameNumber = "";
+		this.baseFrame = document.getElementsByClassName("box")[0];
 	}
 	
 	Main.prototype.addRouter = function(routerObj){
@@ -20,13 +21,14 @@ define(["./cvs"],function(CVS){
 		return this.frameArray[Number(index)];
 	}
 	
-	Main.prototype.init = function(){
-		var strUrl = location.href;
+	Main.prototype.init = function(_href){
+		var strUrl = _href || location.href;
 		var currentPage = this.match(strUrl);
 		if(currentPage){
 			currentPage.cvsNum = this.getUniqNumber();
 			this.currentFrameNumber = currentPage.cvsNum;
-			document.getElementsByClassName("cvs")[0].setAttribute("id",currentPage.cvsNum);
+			document.getElementsByClassName("cvs")[this.uniqFrame].setAttribute("id",currentPage.cvsNum);
+			document.getElementsByClassName("cvs")[this.uniqFrame].className = "cvs right-base";
 			currentPage.cvs = new CVS({
 				canvas:document.getElementById(currentPage.cvsNum),
 				width:document.body.clientWidth,
@@ -34,15 +36,18 @@ define(["./cvs"],function(CVS){
 			});
 			this.frameArray.push({
 				cvsNum : currentPage.cvsNum,
-				cvs : currentPage.cvs
-			})
+				cvs : currentPage.cvs,
+				cvsName : currentPage
+			});
 			this.show(currentPage);
 		}else{
 			console.log("init error!!!");
 		}
 	};
+	
 	Main.prototype.getUniqNumber = function(){
-		return "uniq"+(this.uniqFrame+1);
+		this.uniqFrame = this.uniqFrame +1;
+		return "uniq"+(this.uniqFrame);
 	}
 	
 	Main.prototype.fire = function(fnName,context){
@@ -77,7 +82,7 @@ define(["./cvs"],function(CVS){
 	
 	Main.prototype.match = function(strUrl){
 		var obj = null;
-		var _pathName = location.pathname;
+		var _pathName = strUrl;
 		for(var i in this.routerArray){
 			if(_pathName.search(this.routerArray[i].urlReg) > -1){
 				obj = this.routerArray[i];
@@ -104,9 +109,31 @@ define(["./cvs"],function(CVS){
 		
 	};
 	
-	Main.prototype.visit = function(){
-		
+	Main.prototype.visit = function(obj){
+		var _href = obj.href;
+		var _this = this;
+		history.pushState(location.href,"?_=1");
+		var _node = _this.createCanvas();
+		_this.getCvs(_this.currentFrameNumber).className = "cvs right-base center-to-left";
+		_node.className = "cvs left-base right-to-center";
+		setTimeout(function(){
+			//_this.getCvs(_this.currentFrameNumber).setAttribute("style","display: none;");
+			_this.init(_href);
+		},500);		
 	};
+	
+	Main.prototype.getCvs = function(strName){
+		return document.getElementById(strName);
+	}
+	
+	Main.prototype.createCanvas = function(){
+		var _node = document.createElement("canvas");
+		_node.className = "cvs left-base";
+		_node.width = document.body.clientWidth;
+		_node.height= document.body.clientHeight;
+		document.getElementsByClassName("box")[0].appendChild(_node);
+		return _node;
+	}
 	
 	//Main.prototype.router = new router();
 	

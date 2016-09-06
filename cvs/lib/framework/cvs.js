@@ -24,6 +24,7 @@ define(function(){
 	/* 事件分发 */
 	Frame.prototype.eventCtrl = function(){
 		var _this = this;
+		_this.catchElementTouchMove = null;
 		_this.canvas.addEventListener("click",function(e){
 			_this.fire(e);
 		},false);
@@ -47,6 +48,7 @@ define(function(){
 	/* 事件过滤 */
 	Frame.prototype.fire = function(e){
 		var _this = this;
+		/* 多边形怎么办？touchmove 怎么办？此方法急需重新设计 */
 		var f = function(ev){
 			/* 倒叙遍历 */
 			for(var i=_this.elementIndex-1;i>=0;i--){
@@ -54,6 +56,7 @@ define(function(){
 				   ev.clientX < (_this.elementArray[i].x+_this.elementArray[i].width) &&
 				   ev.clientY > _this.elementArray[i].y && 
 				   ev.clientY < (_this.elementArray[i].y+_this.elementArray[i].height)){
+				   	_this.catchElementTouchMove = _this.elementArray[i];
 				  	window.setTimeout(function(){
 				  		_this.elementArray[i].fire(e);
 				  	},0);
@@ -79,13 +82,16 @@ define(function(){
 					type:e.type.toLowerCase()
 				});
 				break;
-			case "touchmove": 
-				//console.log("touchmove");
-				f({
-					clientX:e.changedTouches[0].clientX,
-					clientY:e.changedTouches[0].clientY,
-					type:e.type.toLowerCase()
-				});
+			case "touchmove":
+				_this.catchElementTouchMove?
+					_this.catchElementTouchMove.fire(e)
+					:
+					f({
+						clientX:e.changedTouches[0].clientX,
+						clientY:e.changedTouches[0].clientY,
+						type:e.type.toLowerCase()
+					});
+				_this.catchElementTouchMove? this.reRender():"";
 				break;
 			case "touchend":
 				f({
@@ -93,6 +99,7 @@ define(function(){
 					clientY:e.changedTouches[0].clientY,
 					type:e.type.toLowerCase()
 				});
+				_this.catchElementTouchMove = null;
 				break;
 			case "touchcancel": 
 				console.log("touchcancel");
@@ -133,6 +140,18 @@ define(function(){
 	Frame.prototype.destroy = function(element){
 		
 	};
+	
+	Frame.prototype.reRender = function(){
+		var _this = this;
+		this.clear();
+		for(var i = this.elementArray.length-1;i>=0;i--){
+			(function(ele){
+				setTimeout(function(){
+					ele.draw && ele.draw();
+				},0);	
+			}(_this.elementArray[i]));
+		}
+	}
 //	function ctrlHorizontal(){
 //		var width = document.body.clientWidth,
 //			height = document.body.clientHeight;

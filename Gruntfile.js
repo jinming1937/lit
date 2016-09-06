@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 			snake: {
 				// webpack options 
 				entry: {
-					mainForClassical:"./cvs/proj/snake/mainForClassical",
+					//mainForClassical:"./cvs/proj/snake/mainForClassical",
 					mainForIndex : "./cvs/proj/snake/mainForIndex"
 				},
 				output: {
@@ -217,7 +217,7 @@ module.exports = function(grunt) {
 		open: {
 			kitchen: {
 				/* 需要提前配置好host */
-				path: 'http://www.xiaozhiga.com:8089/entry/'
+				path: 'http://www.xiaozhiga.com:8089/cvs/proj/snake/index.html'
 			}
 		}
 	});

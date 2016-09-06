@@ -1,5 +1,9 @@
-define(["../../../lib/tool/button"],function(button){
+define([
+	"../../../lib/tool/button",
+	"../../../outer/gctrl"
+],function(button,gctrl){
 	main.on("show","index",function(){
+		new gctrl((main.getCurrentFrame()).cvs);
 		console.log("begin load index");
 		var moveBtn = new button({
 			x:10,
@@ -7,7 +11,6 @@ define(["../../../lib/tool/button"],function(button){
 			value:'move',
 			backgroundColor:'#808080',
 			ontouchmove:function(e){
-				//console.log(e.changedTouches[0].clientX +"-"+e.changedTouches[0].clientY);
 				moveBtn.x = e.changedTouches[0].clientX - moveBtn.width/2;
 				moveBtn.y = e.changedTouches[0].clientY - moveBtn.height/2;
 				moveBtn.draw();
@@ -17,10 +20,12 @@ define(["../../../lib/tool/button"],function(button){
 		var btn = new button({
 			x:50,
 			y:210,
-			value:'alert',
+			value:'联网',
 			backgroundColor:'#f00',
 			ontouchstart:function(e){
-				alert("134534121");
+				main.visit({
+					href:"http://localhost:8089/cvs/proj/snake/classical.html"
+				});
 			}
 		});
 	});

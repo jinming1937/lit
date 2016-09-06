@@ -22,12 +22,27 @@ a{
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #C0C0C0;
+    background-color: #fff;
     position: absolute;
     .cvs {
-        top: 0;
-        left: 0;
         background-color: #C0C0C0;
         position: absolute;
     }
+    .right-base{
+        top: 0;
+        right: 0;
+        transition: right 0.3s;
+    }
+    .center-to-left{
+        right:100%;
+    }
+    .left-base{
+        top:0;
+        left: 0;
+        transition: left 0.5s;
+    }
+    .right-to-center{
+        left: 100%;
+    }
 }
+

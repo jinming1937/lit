@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-define(["../../lib/framework/main","./js/index"],function(main){
+define(["../../lib/framework/main","./js/index","./js/ProjStart"],function(main){
 	main.addRouter({
 		index:0,
 		cvsName : "index",

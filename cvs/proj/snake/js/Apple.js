@@ -1,6 +1,8 @@
+//define(function(){
 define(function(){
 	/* 苹果 */
 	function Apple(config){
+		this.frame = (main.getCurrentFrame()).cvs;
 		this.size = config.size || 20;
 		this.maxPixelX = config.maxPixelX;
 		this.maxPixelY = config.maxPixelY;
@@ -10,12 +12,13 @@ define(function(){
 		this.getBodyArray = config.getBodyArray;
 		this.pixelX = parseInt((this.maxPixelX)*Math.random());
 		this.pixelY = parseInt((this.maxPixelY)*Math.random());
+		this.frame.manage(this);
 	}
 	/* 渲染 */
 	Apple.prototype.draw = function(){
 		var _this = this;
-		frame.cxt.fillStyle = "#09bb07";
-		frame.cxt.fillRect(
+		this.frame.cxt.fillStyle = "#09bb07";
+		this.frame.cxt.fillRect(
 			_this.pixelX*_this.size+_this.borderX/2,
 			_this.pixelY*_this.size+_this.borderX/2,
 			_this.size,

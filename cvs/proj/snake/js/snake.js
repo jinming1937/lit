@@ -1,6 +1,8 @@
+//define(function(){
 define(function(){
 	/* 贪吃蛇 */
 	function Snake(config){
+		this.frame = (main.getCurrentFrame()).cvs;
 		this.defaultLength = 4;
 		this.bodyArray = [[[2,0,1,0],[1,0,1,0],[0,0,1,0]]];//x,y,directX,directY
 		this.bodyLength = this.bodyArray.length;
@@ -14,6 +16,7 @@ define(function(){
 		this.randomApplePixel = config.randomApplePixel;
 		this.directX = 1;
 		this.directY = 0;
+		this.frame.manage(this);
 	}
 	/* 弃用 */
 	Snake.prototype.down = function(cbStopGame,cbDraw){
@@ -131,13 +134,13 @@ define(function(){
 	};
 	/* 渲染 */
 	Snake.prototype.draw = function(){
-		frame.cxt.fillStyle = "#F00";
+		this.frame.cxt.fillStyle = "#F00";
 		for(var i=0,len = this.bodyArray.length;i<len;i++){
 			for(var j=0,lenj = this.bodyArray[i].length;j<lenj;j++){
 				if(i !== 0 || j !== 0){
-					frame.cxt.fillStyle = "#00F";
+					this.frame.cxt.fillStyle = "#00F";
 				}
-				frame.cxt.fillRect(
+				this.frame.cxt.fillRect(
 					this.bodyArray[i][j][0]*this.size+this.borderX/2,
 					this.bodyArray[i][j][1]*this.size+this.borderX/2,
 					this.size,
