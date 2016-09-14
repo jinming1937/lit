@@ -132,5 +132,10 @@ define([
 			}, 300);
 		}
 		starGame();
+		
+		main.on("beforeHide","classical",function(){
+			console.log("beforeHide");
+			stopGame();
+		});
 	});
 });

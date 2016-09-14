@@ -11,25 +11,26 @@ define(function(){
 	/* 事件监视 */
 	function Watching(){
 		this.eventArray = [];
-		this.eventIndex = this.eventArray.length;
 		this.addWatching = function(name,callBack,isUpEvent){
-			this.eventArray.push({name:name,fn:callBack,isUpEvent:isUpEvent?false:true});
-			this.eventIndex++;
+			this.eventArray.push({
+				name:name,
+				fn:callBack,
+				isUpEvent:isUpEvent?false:true
+			});
 		};
 		this.removeWatching = function(name){
-			var _arr = this.eventArray;
-			var _len = this.eventIndex;
-			for(var i=0,len = this.eventIndex;i<len;i++){
+			var _arr = [].concat(this.eventArray);
+			var _len = this.eventArray.length;
+			for(var i=0;i<_len;i++){
 				if(name === this.eventArray[i].name){
 					_arr.splice(i,1);
-					this.eventIndex --;
 				}
 			}
 			this.eventArray = _arr;
 		};
 		this.eventFire = function(e){
 			var _this = this;
-			for(var i=0,len = this.eventIndex;i<len;i++){
+			for(var i=0,len = this.eventArray.length;i<len;i++){
 				if(this.eventArray[i].name === e.type){
 					(function(ii,e){
 						window.setTimeout(function(){

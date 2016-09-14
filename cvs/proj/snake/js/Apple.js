@@ -1,4 +1,3 @@
-//define(function(){
 define(function(){
 	/* 苹果 */
 	function Apple(config){

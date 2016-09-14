@@ -23,6 +23,7 @@ a{
     top: 0;
     left: 0;
     background-color: #fff;
+    overflow: hidden;
     position: absolute;
     .cvs {
         background-color: #C0C0C0;
@@ -36,13 +37,8 @@ a{
     .center-to-left{
         right:100%;
     }
-    .left-base{
-        top:0;
-        left: 0;
-        transition: left 0.5s;
-    }
-    .right-to-center{
-        left: 100%;
+    .center-to-right{
+        right: -100%;
     }
 }
 

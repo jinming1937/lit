@@ -9,13 +9,13 @@ require.config({
 	}
 });
 
-define(["../../lib/framework/main","./js/index","./js/ProjStart"],function(main){
-	main.addRouter({
+define(["../../lib/main","./js/index","./js/ProjStart"],function(main){
+	main.router.addRouter({
 		index:0,
 		cvsName : "index",
 		urlReg:/index/
 	});
-	main.addRouter({
+	main.router.addRouter({
 		index:1,
 		cvsName : "classical",
 		urlReg:/classical/

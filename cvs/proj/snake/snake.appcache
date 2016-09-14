@@ -1,5 +1,6 @@
 CACHE MANIFEST
-##需要离线的内容 version:1.0.1.0
+##需要离线的内容 version:1.0.1.2
+## 1.0.1.2: 干掉dom 的按钮，采用纯的canvas自定义标签按钮 时间：20160912
 CACHE:
 
 ##Script

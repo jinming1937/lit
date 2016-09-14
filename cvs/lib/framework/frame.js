@@ -24,6 +24,7 @@ define(function(){
 	/* 事件分发 */
 	Frame.prototype.eventCtrl = function(){
 		var _this = this;
+		_this.catchElementTouchMove = null;
 		_this.canvas.addEventListener("click",function(e){
 			_this.fire(e);
 		},false);
@@ -44,9 +45,16 @@ define(function(){
 			_this.fire(e);
 		},false);
 	};
-	/* 事件过滤 */
+	/**
+	 * 事件过滤
+	 * @param {Object} e event：事件参数
+	 */
 	Frame.prototype.fire = function(e){
 		var _this = this;
+		/* 只有touchend事件，支持touchcancel */
+		var hasCancel = false;
+		/* 多边形怎么办？touchmove 怎么办？此方法急需重新设计 */
+		/* 事件触发 */
 		var f = function(ev){
 			/* 倒叙遍历 */
 			for(var i=_this.elementIndex-1;i>=0;i--){
@@ -54,6 +62,8 @@ define(function(){
 				   ev.clientX < (_this.elementArray[i].x+_this.elementArray[i].width) &&
 				   ev.clientY > _this.elementArray[i].y && 
 				   ev.clientY < (_this.elementArray[i].y+_this.elementArray[i].height)){
+				   	/* 此处应该是绑定了move事件的元素才赋值 */
+				   	_this.catchElementTouchMove = _this.elementArray[i];
 				  	window.setTimeout(function(){
 				  		_this.elementArray[i].fire(e);
 				  	},0);
@@ -79,23 +89,31 @@ define(function(){
 					type:e.type.toLowerCase()
 				});
 				break;
-			case "touchmove": 
-				//console.log("touchmove");
-				f({
-					clientX:e.changedTouches[0].clientX,
-					clientY:e.changedTouches[0].clientY,
-					type:e.type.toLowerCase()
-				});
+			case "touchmove":
+				_this.catchElementTouchMove?
+					_this.catchElementTouchMove.fire(e)
+					:
+					f({
+						clientX:e.changedTouches[0].clientX,
+						clientY:e.changedTouches[0].clientY,
+						type:e.type.toLowerCase()
+					});
+				_this.catchElementTouchMove? this.reRender():"";
 				break;
 			case "touchend":
-				f({
-					clientX:e.changedTouches[0].clientX,
-					clientY:e.changedTouches[0].clientY,
-					type:e.type.toLowerCase()
-				});
+				hasCancel?
+					""
+					:
+					f({
+						clientX:e.changedTouches[0].clientX,
+						clientY:e.changedTouches[0].clientY,
+						type:e.type.toLowerCase()
+					});
+				_this.catchElementTouchMove = null;
 				break;
 			case "touchcancel": 
 				console.log("touchcancel");
+				hasCancel = true;
 				break;
 		}
 	};
@@ -112,7 +130,7 @@ define(function(){
 		_this.canvas.setAttribute("height",_this.height);
 	};
 	/**
-	 * 
+	 * 清理当前的画布
 	 */
 	Frame.prototype.clear = function(){
 		var _this = this;
@@ -133,43 +151,53 @@ define(function(){
 	Frame.prototype.destroy = function(element){
 		
 	};
-	/** */
-	var frame = new Frame({
-		canvas:document.getElementById("cvs-main"),
-		width:document.body.clientWidth,
-		height:document.body.clientHeight//width > height ? width:height
-	});
-	function ctrlHorizontal(){
-		var width = document.body.clientWidth,
-			height = document.body.clientHeight;
-		var x=width>height;
-		if(x){
-			frame.cxt.font= "40px Georgia";
-			frame.cxt.fillStyle = "#000";
-			frame.cxt.fillText(
-				"抱歉，不支持横屏！！！",
-				10,
-				40,
-				300);
-			return true;
+	/**
+	 * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
+	 */
+	Frame.prototype.reRender = function(){
+		var _this = this;
+		this.clear();
+		for(var i = this.elementArray.length-1;i>=0;i--){
+			/* 异步画会丢失帧 */
+			//(function(ele){
+			//	setTimeout(function(){
+			//		ele.draw && ele.draw();
+			//		console.log("456");
+			//	},0);	
+			//}(_this.elementArray[i]));
+			_this.elementArray[i].draw();
 		}
 	}
-	ctrlHorizontal();
-	/* resize */
-	window.onresize = function(e){
-		frame.resize(document.body.clientWidth,document.body.clientHeight);
-		if(ctrlHorizontal()){
-			return;
-		};
-		for(var i=frame.elementIndex-1;i>=0;i--){
-			(function(ii){
-				setTimeout(function(){
-					frame.elementArray[ii].draw();
-				},0);
-			}(i));
-		}
-		
-	};
-	window.frame = frame;
-	return frame;
+//	function ctrlHorizontal(){
+//		var width = document.body.clientWidth,
+//			height = document.body.clientHeight;
+//		var x=width>height;
+//		if(x){
+//			frame.cxt.font= "40px Georgia";
+//			frame.cxt.fillStyle = "#000";
+//			frame.cxt.fillText(
+//				"抱歉，不支持横屏！！！",
+//				10,
+//				40,
+//				300);
+//			return true;
+//		}
+//	}
+//	ctrlHorizontal();
+//	/* resize */
+//	window.onresize = function(e){
+//		frame.resize(document.body.clientWidth,document.body.clientHeight);
+//		if(ctrlHorizontal()){
+//			return;
+//		};
+//		for(var i=frame.elementIndex-1;i>=0;i--){
+//			(function(ii){
+//				setTimeout(function(){
+//					frame.elementArray[ii].draw();
+//				},0);
+//			}(i));
+//		}
+//		
+//	};
+	return Frame;
 });

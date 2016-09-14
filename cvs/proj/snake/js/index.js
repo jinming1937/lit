@@ -22,7 +22,7 @@ define([
 			y:210,
 			value:'联网',
 			backgroundColor:'#f00',
-			ontouchstart:function(e){
+			ontouchend:function(e){
 				main.visit({
 					href:"http://localhost:8089/cvs/proj/snake/classical.html"
 				});
