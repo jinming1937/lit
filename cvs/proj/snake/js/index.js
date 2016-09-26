@@ -28,5 +28,19 @@ define([
 				});
 			}
 		});
+		
+		var b = new button({
+			x:100,
+			y:310,
+			width:60,
+			height:70,
+			value:'AAA',
+			backgroundColor:'#f00',
+			ontouchend:function(e){
+				main.visit({
+					href:"http://localhost:8089/cvs/proj/snake/classical.html"
+				});
+			}
+		})
 	});
 });

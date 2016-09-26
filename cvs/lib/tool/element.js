@@ -9,7 +9,7 @@ define(function(){
 		this.frame.manage(this);
 		/* 元素必须有draw方法，来渲染自己 */
 		this.draw = function(){
-			throw("this function need replan");
+			throw("this function need overwrite");
 		}
 	}
 	
