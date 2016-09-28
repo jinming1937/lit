@@ -158,7 +158,7 @@ define(function(){
 		var _this = this;
 		this.clear();
 		for(var i = this.elementArray.length-1;i>=0;i--){
-			/* 异步画会丢失帧 */
+			/* 异步画会重叠，导致“失帧” */
 			//(function(ele){
 			//	setTimeout(function(){
 			//		ele.draw && ele.draw();
@@ -168,6 +168,42 @@ define(function(){
 			_this.elementArray[i].draw();
 		}
 	}
+	
+	/**
+	 * @param {Number} x x
+	 * @param {Number} y y
+	 * @param {Object} element element
+	 */
+	Frame.prototype.isInElementArea = function(x,y,element){
+		var bl;
+		var roll = function(){
+			
+		};
+		var thin = function(){
+			
+		};
+		var full = function(){
+			var pointNum = element.positionXYArray.length;
+			
+		};
+		switch(element.shapeType){
+			case 1:
+				/* （半）圆形、（半）环形 */
+				roll();
+				break;
+			case 2:
+				/* 凸多边形 内角均小于180*/
+				full()
+				break;
+			case 3:
+				/* 凹多边形 有内角大于180*/
+				thin();
+				break;
+		}
+		
+		return bl;
+	}
+	
 //	function ctrlHorizontal(){
 //		var width = document.body.clientWidth,
 //			height = document.body.clientHeight;

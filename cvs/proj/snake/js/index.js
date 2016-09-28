@@ -1,7 +1,8 @@
 define([
 	"../../../lib/tool/button",
+	"../../../lib/tool/extend/triangle",
 	"../../../outer/gctrl"
-],function(button,gctrl){
+],function(button,triangle,gctrl){
 	main.on("show","index",function(){
 		new gctrl((main.getCurrentFrame()).cvs);
 		console.log("begin load index");
@@ -29,18 +30,13 @@ define([
 			}
 		});
 		
-		var b = new button({
+		var tri = new triangle({
+			a:30,
+			b:40,
+			c:50,
 			x:100,
 			y:310,
-			width:60,
-			height:70,
-			value:'AAA',
-			backgroundColor:'#f00',
-			ontouchend:function(e){
-				main.visit({
-					href:"http://localhost:8089/cvs/proj/snake/classical.html"
-				});
-			}
+			color: "#F00"
 		})
 	});
 });

@@ -33,6 +33,9 @@ define(["../virtual/action","../virtual/watch",
 		this.color = config.color || "#000";
 		this.backgroundColor = config.backgroundColor || "#F00";
 		this.isUpEvent = config.isUpEvent|| false;
+		
+		this.positionXYArray = [];
+		this.initPositionXYArray();
 		/* element 继承的draw 必须重写 */
 		this.draw = function(){
 			var element = this;
@@ -50,7 +53,26 @@ define(["../virtual/action","../virtual/watch",
 				element.width);
 		}
 		this.draw();
-		//this.frame.manage(this);
+	}
+	
+	Button.prototype.initPositionXYArray = function(){
+		var _this = this;
+		_this.positionXYArray.push({
+			x: _this.x,
+			y: _this.y
+		});
+		_this.positionXYArray.push({
+			x: _this.x + _this.width,
+			y: _this.y
+		});
+		_this.positionXYArray.push({
+			x: _this.x + _this.width,
+			y: _this.y + _this.height
+		});
+		_this.positionXYArray.push({
+			x: _this.x ,
+			y: _this.y + _this.height
+		});
 	}
 	
 	return Button;
