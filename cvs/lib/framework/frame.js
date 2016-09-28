@@ -176,6 +176,9 @@ define(function(){
 	 */
 	Frame.prototype.isInElementArea = function(x,y,element){
 		var bl;
+		/* 
+		 * 
+		 */
 		var roll = function(){
 			
 		};
