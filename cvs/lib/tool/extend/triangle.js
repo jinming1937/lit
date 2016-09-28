@@ -33,6 +33,8 @@ define([
 		this.draw = function(){
 			var _this = this;
 			var _frame = _this.frame;
+			_frame.cxt.fillStyle = config.color || "#FFF";
+			_frame.cxt.beginPath();
 			_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
 			_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
 			_frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
