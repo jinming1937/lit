@@ -36,7 +36,14 @@ define([
 			c:50,
 			x:100,
 			y:310,
-			color: "#F00"
+			color: "#F00",
+			ontouchmove:function(e){
+				tri.draw();
+				console.log("123456");
+			},
+			ontouchend:function(){
+				console.log("hahah");
+			}
 		})
 	});
 });

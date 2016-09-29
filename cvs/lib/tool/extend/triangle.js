@@ -15,7 +15,8 @@ define([
 	function Triangle(config){
 		Action.call(this);
 		Watch.call(this);
-		Element.call(this);
+		Element.call(this,config);
+		this.elementType = 2;
 		config.x = config.x || 0;
 		config.y = config.y || 0;
 		this.config = config;
@@ -30,10 +31,24 @@ define([
 		}else{
 			this.angleAb(config.a, config.b, config.angle);
 		}
+		/**
+         * [ontouchmove ontouchmove]
+         * @param  {[type]} e [event]
+         * @return {[type]}   [description]
+         */
+        this.ontouchmove = function(e) {
+            config.ontouchmove && config.ontouchmove(e);
+            this.eventFire(e);
+            var obj = this.getHeartPoint();
+            this.x = obj.x;
+			this.y = obj.y;
+            this.positionXYArray = [];
+            this.initPositionXYArray();
+        };
 		this.draw = function(){
 			var _this = this;
 			var _frame = _this.frame;
-			_frame.cxt.fillStyle = config.color || "#FFF";
+			_frame.cxt.strokeStyle = config.color || "#FFF";
 			_frame.cxt.beginPath();
 			_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
 			_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
@@ -84,10 +99,29 @@ define([
 			throw("angle is not avilible");
 		}
 	};
+
+	/**
+	 * [getHeartPoint description]
+	 * @return {[type]} [description]
+	 */
+	Triangle.prototype.getHeartPoint = function(){
+		/* todo 这里是伪重心，这是个问题 */
+		var a = this.positionXYArray[0],
+			b = this.positionXYArray[1],
+			c = this.positionXYArray[2];
+		return {
+			x:(this.config.x + (b.x+c.x)/2)/2,
+			y:(this.config.y + (b.y+c.y)/2)/2
+		};
+	}
 	
 	Triangle.prototype.checkTriangle = function(){
 		
 	};
+
+	Triangle.prototype.initPositionXYArray = function(){
+		this.abc(this.config.a , this.config.b , this.config.c);
+	}
 	
 	return Triangle;
 });

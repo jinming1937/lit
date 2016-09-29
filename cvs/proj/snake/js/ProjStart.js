@@ -41,7 +41,7 @@ define([
 		});
 		var btnLeft = new Button({
 			x:20,
-			y:450,
+			y:400,
 			value:'左',
 			width:50,
 			height:50,
@@ -52,7 +52,7 @@ define([
 		});
 		var btnUp = new Button({
 			x:70,
-			y:400,
+			y:350,
 			value:'上',
 			width:50,
 			height:50,
@@ -63,7 +63,7 @@ define([
 		});
 		var btnRight = new Button({
 			x:120,
-			y:450,
+			y:400,
 			value:'右',
 			width:50,
 			height:50,
@@ -74,7 +74,7 @@ define([
 		});
 		var btnDown = new Button({
 			x:70,
-			y:500,
+			y:450,
 			value:'下',
 			width:50,
 			height:50,
@@ -85,7 +85,7 @@ define([
 		});
 		var btnSG = new Button({
 			x:300,
-			y:450,
+			y:400,
 			value:'s/g',
 			width:50,
 			height:50,
