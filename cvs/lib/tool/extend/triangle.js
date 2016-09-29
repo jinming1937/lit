@@ -20,6 +20,8 @@ define([
 		config.x = config.x || 0;
 		config.y = config.y || 0;
 		this.config = config;
+		this.x = config.x;
+		this.y = config.y;
 		this.positionXYArray = [];
 		/* 判断是否是三角形：
 		 * 1 ： 任意两边之和大于第三边
@@ -40,10 +42,11 @@ define([
             config.ontouchmove && config.ontouchmove(e);
             this.eventFire(e);
             var obj = this.getHeartPoint();
-            this.x = obj.x;
-			this.y = obj.y;
+            this.x = e.changedTouches[0].clientX - obj.x;
+			this.y = e.changedTouches[0].clientY - obj.y;
             this.positionXYArray = [];
             this.initPositionXYArray();
+            this.draw();
         };
 		this.draw = function(){
 			var _this = this;
@@ -65,14 +68,14 @@ define([
 		var _this = this;
 		/* 顶角坐标 */
 		_this.positionXYArray.push({
-			x:_this.config.x,
-			y:_this.config.y
+			x:_this.x,
+			y:_this.y
 		});
 		/* 任意两边和大于第三边 */
 		if(a + b > c && a + c > b && b + c > a){
 			_this.positionXYArray.push({
-				x:a + _this.config.x,
-				y:_this.config.y
+				x:a + _this.x,
+				y:_this.y
 			});
 			/**
 			 * x*x + y*y = c*c
@@ -81,8 +84,8 @@ define([
 			 * y > 0
 			 */
 			_this.positionXYArray.push({
-				x : (a*a - b * b + c*c) / (2*a) + _this.config.x,
-				y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (2*a) + _this.config.y
+				x : (a*a - b * b + c*c) / (2*a) + _this.x,
+				y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (2*a) + _this.y
 			});
 			
 			return _this.positionXYArray;
@@ -110,8 +113,8 @@ define([
 			b = this.positionXYArray[1],
 			c = this.positionXYArray[2];
 		return {
-			x:(this.config.x + (b.x+c.x)/2)/2,
-			y:(this.config.y + (b.y+c.y)/2)/2
+			x:( (b.x+c.x)/2-this.config.x)/2,
+			y:( (b.y+c.y)/2-this.config.y)/2
 		};
 	}
 	

@@ -12,9 +12,7 @@ define([
 			value:'move',
 			backgroundColor:'#808080',
 			ontouchmove:function(e){
-				moveBtn.x = e.changedTouches[0].clientX - moveBtn.width/2;
-				moveBtn.y = e.changedTouches[0].clientY - moveBtn.height/2;
-				moveBtn.draw();
+				console.log("this button is moving!!!");
 			}
 		});
 		
@@ -38,11 +36,10 @@ define([
 			y:310,
 			color: "#F00",
 			ontouchmove:function(e){
-				tri.draw();
-				console.log("123456");
+				console.log("moving");
 			},
 			ontouchend:function(){
-				console.log("hahah");
+				console.log("touchend");
 			}
 		})
 	});
