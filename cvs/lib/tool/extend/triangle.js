@@ -21,6 +21,7 @@ define([
 		this.y = config.y;
 		this.positionXYArray = [];
 		this.topToHeart = null;
+		this.rotateAngle = config.rotateAngle || 0;
 		/* 判断是否是三角形：
 		 * 1 ： 任意两边之和大于第三边
 		 * 2 ： 知道两边长，和其夹角
@@ -53,24 +54,36 @@ define([
         this.ontouchmove = function(e) {
             config.ontouchmove && config.ontouchmove(e);
             this.eventFire(e);
-            this.x = e.changedTouches[0].clientX - this.topToHeart.x;
-			this.y = e.changedTouches[0].clientY - this.topToHeart.y;
+            if(!this.config.limit){
+            	this.x = e.changedTouches[0].clientX - this.topToHeart.x ;
+				this.y = e.changedTouches[0].clientY - this.topToHeart.y ;
+            }else{
+            	if(e.changedTouches[0].clientX - this.topToHeart.x >=20 && e.changedTouches[0].clientX - this.topToHeart.x <= this.frame.width - 20 * 2){
+            		this.x = e.changedTouches[0].clientX - this.topToHeart.x;
+            	}else if(e.changedTouches[0].clientX - this.topToHeart.x < 20){
+            		this.x = 20;
+            	}else if(e.changedTouches[0].clientX - this.topToHeart.x > this.frame.width - 20 * 2){
+            		this.x = this.frame.width - 20 * 2
+            	}
+            }
+            
             this.initPositionXYArray();
             this.draw();
         };
 		this.draw = function(){
 			var _this = this;
 			var _frame = _this.frame;
-			_frame.cxt.strokeStyle = config.color || "#FFF";
+			_frame.cxt.strokeStyle = _this.config.color || "#FFF";
+			_frame.cxt.rotate(_this.rotateAngle*Math.PI/180);
 			_frame.cxt.beginPath();
-			console.log("x:"+_this.x+",y:"+this.y);
 			_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
 			_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
 			_frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
 			_frame.cxt.closePath();
 			_frame.cxt.stroke();
-			_frame.cxt.fillStyle = config.color || "#FFF";
+			_frame.cxt.fillStyle = _this.config.color || "#FFF";
 			_frame.cxt.fill();
+			_frame = null;
 		};
 		this.draw();
 	}
