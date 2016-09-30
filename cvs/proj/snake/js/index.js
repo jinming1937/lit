@@ -36,11 +36,26 @@ define([
 			y:310,
 			color: "#F00",
 			ontouchmove:function(e){
-				console.log("moving");
+				console.log("this tri is moving");
 			},
-			ontouchend:function(){
-				console.log("touchend");
-			}
-		})
+			//ontouchend:function(){
+			//	console.log("touchend");
+			//}
+		});
+		tri.addWatching("touchend",function(){
+			console.log("addWatching touchend");
+		});
+
+		var ang = new triangle({
+			a:60,
+			b:60,
+			angle:60,
+			x:150,
+			y:360,
+			color:"#F00"
+		});
+		ang.addWatching("touchmove",function(){
+			console.log("PPP");
+		});
 	});
 });

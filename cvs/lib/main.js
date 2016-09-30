@@ -2,7 +2,8 @@ define([
 	"./framework/frame",
 	"./server/history",
 	"./framework/router",
-	"./framework/event"
+	"./framework/event",
+	"./static/usualValue"
 ],function(frame,history,router,EventPlus){
 	
 	/**

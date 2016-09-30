@@ -1,6 +1,6 @@
 define(function(){
 	/**
-	 * 基本行为：
+	 * [Action 事件，进行事件传递]
 	 */
 	function Action(){
 		this.eventContext = null;

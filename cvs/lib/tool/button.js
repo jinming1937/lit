@@ -1,23 +1,20 @@
 define([
-	"../virtual/action",
-	"../virtual/watch",
-    "./element",
-], function(Action, Watch, Element) {
+    "./element"
+], function(Element) {
     console.log("load button");
     /**
      * [Button button]
      * @param {[type]} config [config]
      */
     function Button(config) {
-        Action.call(this);
-        Watch.call(this);
         Element.call(this, config);
         /**
          * [elementType 多边形的静态属性，这里应该再抽象一层,而且这个应该定义成枚举，这是个问题：多边形，todo：shape class]
          * @type {Number}
          */
         this.elementType = 2;
-        this.eventContext = config;
+        
+
         this.value = config.value || "button";
         //this.frame = (main.getCurrentFrame()).cvs; /* 抽到element */
         this.x = config.x || 0;
@@ -51,8 +48,9 @@ define([
             var element = this;
             var _frame = this.frame;
             var fontSize = 20;
-            if (_frame.width > _frame.height) {
-                return; }
+            //if (_frame.width > _frame.height) {
+            //    return; 
+            //}
             _frame.cxt.fillStyle = element.backgroundColor || "#FFF";
             _frame.cxt.fillRect(element.x, element.y, element.width, element.height);
             _frame.cxt.font = fontSize.toString() + "px" + " Georgia";

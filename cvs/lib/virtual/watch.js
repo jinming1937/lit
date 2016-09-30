@@ -5,7 +5,7 @@ define(function(){
 	* 1、对象继承 Watching, 获得其属性和方法
 	* 2、对象通过 addWatching, 添加事件监视
 	* 3、对象通过 eventFire, 触发事件
-	* 
+	* 4、对象通过removeWatching，移除事件
 	*/
 
 	/* 事件监视 */
@@ -15,7 +15,7 @@ define(function(){
 			this.eventArray.push({
 				name:name,
 				fn:callBack,
-				isUpEvent:isUpEvent?false:true
+				isUpEvent:isUpEvent?true:false
 			});
 		};
 		this.removeWatching = function(name){

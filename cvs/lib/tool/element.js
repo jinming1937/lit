@@ -1,10 +1,20 @@
-define(function() {
+define([
+    "../virtual/action",
+    "../virtual/watch"
+],function(Action,Watch) {
     /**
      * 元素基类：提供公共方法、规范方法接口
      */
     function Element(config) {
         //
+        Action.call(this);
+        Watch.call(this);
 
+        /**
+         * [eventContext description]
+         * @type {Object}
+         */
+        this.eventContext = config;
         /**
          * [elementType 元素形状类型 1:圆形、圆环,2:多边形]
          * @type {Number}
@@ -20,7 +30,7 @@ define(function() {
 
         /**
          * [ontouchstart ontouchstart]
-         * @param  {[type]} e [event]
+         * @param  {Object} e [event]
          * @return {[type]}   [description]
          */
         this.ontouchstart = function(e) {
