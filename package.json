@@ -21,6 +21,7 @@
     "grunt-contrib-csslint": "~0.3.1",
     "grunt-contrib-cssmin": "~0.10.0",
     "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-csscomb": "~3.0.0",
     "grunt-html-validation": "~0.1.18",
@@ -39,4 +40,3 @@
     "node": "~0.10.1"
   }
 }
-

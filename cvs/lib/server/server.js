@@ -15,7 +15,7 @@ define(function(){
 			}
 			return str;
 		}
-		/* 跨域请求 */
+		/* 是否是跨域请求 */
 		xhr.withCredentials = config.withCredentials || false;
 		xhr.onreadystatechange = function(e){
 			if(xhr.readyState === 4){
