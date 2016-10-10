@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-define(["../../lib/main","./js/index","./js/ProjStart"],function(main){
+define(["../../lib/main","./js/index","./js/ProjStart","./js/block"],function(main){
 	main.router.addRouter({
 		index:0,
 		cvsName : "index",
@@ -20,6 +20,11 @@ define(["../../lib/main","./js/index","./js/ProjStart"],function(main){
 		cvsName : "classical",
 		urlReg:/classical/
 	});
+	main.router.addRouter({
+		index:2,
+		cvsName : "block",
+		urlReg:/block/
+	})
 	main.init();
 	console.log("ending");
 });

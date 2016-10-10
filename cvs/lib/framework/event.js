@@ -12,7 +12,7 @@ define(function() {
 				if(fnName === this.eventArray[i].fnName && context.cvsName === this.eventArray[i].cvsName) {
 					(function(eventObj, context) {
 						window.setTimeout(function() {
-							eventObj.fn(context);
+							eventObj.fn(context.cvs);
 						}, 0);
 					}(this.eventArray[i], context));
 				}

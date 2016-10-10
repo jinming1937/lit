@@ -184,6 +184,9 @@ define(function() {
             case 2:
                 bl = rayCasting(position, element.positionXYArray);
                 break;
+            case 99:
+                bl = false;
+                break;
         }
         return bl;
     }

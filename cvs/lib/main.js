@@ -46,6 +46,7 @@ define([
 				currentPage : currentPage,
 				currentLayerId : currentPage.cvsName
 			});
+			currentPage.cvs = cvs;
 			this.show(currentPage);
 		}else{
 			console.log("init error!!!");
