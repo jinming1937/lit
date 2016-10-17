@@ -6,7 +6,7 @@ define([
 	main.on("show","index",function(){
 		new gctrl((main.getCurrentFrame()).cvs);
 		console.log("begin load index");
-		var moveBtn = new button({
+		new button({
 			x:10,
 			y:10,
 			value:'move',
@@ -16,9 +16,9 @@ define([
 			}
 		});
 		
-		var btn = new button({
-			x:50,
-			y:210,
+		new button({
+			x:100,
+			y:10,
 			value:'联网',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
@@ -27,7 +27,29 @@ define([
 				});
 			}
 		});
+
+		new button({
+			x:10,
+			y:50,
+			value:"-",
+			ontouchend:function(){
+				console.log('-');
+				ang.rotateAngle -= 5;
+				ang.rotate();
+			}
+		});
 		
+		new button({
+			x:100,
+			y:50,
+			value:"+",
+			ontouchend:function(){
+				console.log('+');
+				ang.rotateAngle += 5;
+				ang.rotate();
+			}
+		});
+
 		var tri = new triangle({
 			a:30,
 			b:40,
@@ -37,10 +59,7 @@ define([
 			color: "#F00",
 			ontouchmove:function(e){
 				console.log("this tri is moving");
-			},
-			//ontouchend:function(){
-			//	console.log("touchend");
-			//}
+			}
 		});
 		tri.addWatching("touchend",function(){
 			console.log("addWatching touchend");
@@ -53,9 +72,6 @@ define([
 			x:150,
 			y:360,
 			color:"#F00"
-		});
-		ang.addWatching("touchmove",function(){
-			console.log("PPP");
 		});
 	});
 });

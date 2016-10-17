@@ -22,6 +22,7 @@ define([
 		this.positionXYArray = [];
 		this.topToHeart = null;
 		this.rotateAngle = config.rotateAngle || 0;
+		this.hasRotate = false;
 		/* 判断是否是三角形：
 		 * 1 ： 任意两边之和大于第三边
 		 * 2 ： 知道两边长，和其夹角
@@ -70,20 +71,20 @@ define([
             this.initPositionXYArray();
             this.draw();
         };
-		this.draw = function(){
-			var _this = this;
-			var _frame = _this.frame;
-			_frame.cxt.strokeStyle = _this.config.color || "#FFF";
-			_frame.cxt.rotate(_this.rotateAngle*Math.PI/180);
-			_frame.cxt.beginPath();
-			_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
-			_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
-			_frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
-			_frame.cxt.closePath();
-			_frame.cxt.stroke();
-			_frame.cxt.fillStyle = _this.config.color || "#FFF";
-			_frame.cxt.fill();
-			_frame = null;
+		this.draw = function(frm){
+			if(frm || !this.hasRotate){
+				var _this = this;
+				var _frame = _this.frame || frm;
+				_frame.cxt.strokeStyle = _this.config.color || "#FFF";
+				_frame.cxt.beginPath();
+				_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
+				_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
+				_frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
+				//_frame.cxt.closePath();
+				//_frame.cxt.stroke();
+				_frame.cxt.fillStyle = _this.config.color || "#FFF";
+				_frame.cxt.fill();	
+			}
 		};
 		this.draw();
 	}
@@ -154,10 +155,9 @@ define([
 		 * 也就是 (A + (B+C)/2 )*2/3 -> (B+C)/3
 		 */
 		this.topToHeart = {
-			x : (3*a*a -b*b +c*c)/(6*a),
-			y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (6*a)
+			x : (3*a*a -b*b +c*c)/(6*a) + this.x,
+			y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (6*a) +this.y
 		};
-
 	};
 	
 	Triangle.prototype.checkTriangle = function(){
@@ -172,6 +172,36 @@ define([
 			return this.abc(this.config.a,this.config.b,this.config.c);
 		}
 	}
+
+	Triangle.prototype.rotate = function(){
+		if(this.rotateAngle > 360){
+			this.rotateAngle = 0;
+		}else if(this.rotateAngle < 0 ){
+			this.rotateAngle = 360;
+		}else{
+
+		}
+
+		var o = this.topToHeart;
+		if(!this.hasRotate){
+			var _arr = this.positionXYArray;
+			for (var i = 0,len = this.positionXYArray.length; i < len; i++) {
+				this.positionXYArray[i].x = this.positionXYArray[i].x - o.x;
+				this.positionXYArray[i].y = this.positionXYArray[i].y - o.y;
+			};
+			this.hasRotate = true;
+		}
+		
+		var _this = this;
+		var _frame = _this.frame;
+		_frame.reRender();
+		_frame.cxt.save();
+		_frame.cxt.translate(o.x,o.y);
+		_frame.cxt.strokeStyle = _this.config.color || "#FFF";
+		_frame.cxt.rotate(_this.rotateAngle*Math.PI/180);
+		_this.draw(_frame);
+		_frame.cxt.restore();
+	};
 	
 	return Triangle;
 });
