@@ -89,6 +89,7 @@ define(function() {
                 });
                 break;
             case "touchmove":
+                console.log("touchmove");
                 _this.catchElementTouchMove ?
                     _this.catchElementTouchMove.fire(e) :
                     f({
@@ -99,6 +100,7 @@ define(function() {
                 _this.catchElementTouchMove ? this.reRender() : "";
                 break;
             case "touchend":
+                console.log("touchend");
                 hasCancel ?
                     "" :
                     f({
@@ -163,7 +165,10 @@ define(function() {
             //	},0);	
             //}(_this.elementArray[i]));
             _this.cxt.save();
-            _this.elementArray[i].hasRotate? _this.elementArray[i].draw(!_this.elementArray[i].hasRotate):_this.elementArray[i].draw();
+            _this.elementArray[i].hasRotate? 
+                _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
+                :
+                _this.elementArray[i].draw(_this.cxt);
             _this.cxt.restore();
         }
     }

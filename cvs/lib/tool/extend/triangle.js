@@ -56,8 +56,8 @@ define([
             config.ontouchmove && config.ontouchmove(e);
             this.eventFire(e);
             if(!this.config.limit){
-            	this.x = e.changedTouches[0].clientX - this.topToHeart.x ;
-				this.y = e.changedTouches[0].clientY - this.topToHeart.y ;
+            	this.x = e.changedTouches[0].clientX - this.topToHeart.x;
+				this.y = e.changedTouches[0].clientY - this.topToHeart.y;
             }else{
             	if(e.changedTouches[0].clientX - this.topToHeart.x >=20 && e.changedTouches[0].clientX - this.topToHeart.x <= this.frame.width - 20 * 2){
             		this.x = e.changedTouches[0].clientX - this.topToHeart.x;
@@ -69,12 +69,13 @@ define([
             }
             
             this.initPositionXYArray();
-            this.draw();
+            this.draw(this.frame);
+            //this.rotate();
         };
 		this.draw = function(frm){
-			if(frm || !this.hasRotate){
+			if(typeof frm !=="undefined" || !this.hasRotate){
 				var _this = this;
-				var _frame = _this.frame || frm;
+				var _frame = _this.frame;
 				_frame.cxt.strokeStyle = _this.config.color || "#FFF";
 				_frame.cxt.beginPath();
 				_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
@@ -155,8 +156,8 @@ define([
 		 * 也就是 (A + (B+C)/2 )*2/3 -> (B+C)/3
 		 */
 		this.topToHeart = {
-			x : (3*a*a -b*b +c*c)/(6*a) + this.x,
-			y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (6*a) +this.y
+			x : (3*a*a -b*b +c*c)/(6*a),
+			y : Math.sqrt((b*b - (a-c)*(a-c))*((a+c)*(a+c)-b*b)) / (6*a)
 		};
 	};
 	
@@ -182,7 +183,10 @@ define([
 
 		}
 
-		var o = this.topToHeart;
+		var o = {
+			x :this.topToHeart.x + this.x,
+			y :this.topToHeart.y + this.y
+		};
 		if(!this.hasRotate){
 			var _arr = this.positionXYArray;
 			for (var i = 0,len = this.positionXYArray.length; i < len; i++) {
