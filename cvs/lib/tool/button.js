@@ -55,7 +55,7 @@ define([
             //}
             _frame.cxt.fillStyle = _this.backgroundColor || "#FFF";
             _frame.cxt.rotate(_this.rotateAngle*Math.PI/180);
-            _frame.cxt.fillRect(_this.x, _this.y, _this.width, _this.height);
+            _frame.cxt.fillRect(parseInt(_this.x), parseInt(_this.y), _this.width, _this.height);
             _frame.cxt.font = fontSize.toString() + "px" + " Georgia";
             _frame.cxt.fillStyle = _this.color; //_this.cxt.font;
             _frame.cxt.fillText(
