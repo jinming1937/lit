@@ -1,5 +1,11 @@
 define(function(){
 	/* ajax */
+
+	/**
+	 * ajax
+	 * @param  {[type]} config [description]
+	 * @return {[type]}        [description]
+	 */
 	function server(config){
 		var xhr = new XMLHttpRequest(),
 		    strParam = config.url.search(/\?/g)>-1?
@@ -16,7 +22,7 @@ define(function(){
 			return str;
 		}
 		/* 是否是跨域请求 */
-		xhr.withCredentials = config.withCredentials || false;
+		xhr.withCredentials = config.cors || false;
 		xhr.onreadystatechange = function(e){
 			if(xhr.readyState === 4){
 				if(xhr.status === 200){

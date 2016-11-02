@@ -1,8 +1,13 @@
 define(function(){
+
 	/**
 	 * [Action 事件，进行事件传递]
 	 */
 	function Action(){
+		/**
+		 * 缓存事件对象
+		 * @type {Object}
+		 */
 		this.eventContext = null;
 		this.ontouchstart=function(){	
 		};
@@ -25,6 +30,12 @@ define(function(){
 		this.touchcancel = function(){
 			this.ontouchcancel && this.ontouchcancel(this.eventContext);
 		};
+
+		/**
+		 * 触发事件
+		 * @param  {[type]} e 事件类型
+		 * @return {[type]}   [description]
+		 */
 		this.fire = function(e){
 			var _this = this;
 			this.eventContext = e;
@@ -42,7 +53,7 @@ define(function(){
 					_this.touchcancel();
 					break;
 			}
-		}
+		};
 	}
 	return  Action;
 });

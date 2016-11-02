@@ -1,6 +1,12 @@
 define(function(){
-	/* 路由分配 */
+	/**
+	 * 路由分配
+	 */
 	function Router(){
+		/**
+		 * 保存路由的数组
+		 * @type {Array}
+		 */
 		this.routerArray = [];
 	}
 	

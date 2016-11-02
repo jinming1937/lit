@@ -1,7 +1,17 @@
 define(function(){
 	//static
 	//trigonometric function
+	//常用数学公式 － 获取常用值
+	
+	/**
+	 * MathPlugs 数学对象扩展，增加方法
+	 */
 	function MathPlugs (){
+		/**
+		 * sin 增加精确,传入角度，而不是弧度
+		 * @param  {Number} angle 传入的角度值
+		 * @return {Number}       sin 值
+		 */
 		this.sin = function(angle){
 			var val ;
 			if(typeof angle ===  "number" && angle >=0 && angle <=180){
@@ -30,6 +40,7 @@ define(function(){
 			}
 			return val;
 		}
+
 		this.cos = function(angle){
 			var val ;
 			if(typeof angle ===  "number" && angle >=0 && angle <=180){
@@ -81,6 +92,10 @@ define(function(){
 			return val;
 		}
 	};
+	/**
+	 * 打包这个文件的类
+	 * @type {Object}
+	 */
 	var StaticValue = {
 		MathPlugs : new MathPlugs(),
 	}

@@ -67,6 +67,10 @@ define([
         this.draw();
     }
 
+    /**
+     * 初始化坐标
+     * @return {[type]} [description]
+     */
     Button.prototype.initPositionXYArray = function() {
         var _this = this;
         _this.positionXYArray.push({

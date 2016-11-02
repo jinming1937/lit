@@ -1,5 +1,13 @@
 define(function() {
+
+	/**
+	 * 事件处理
+	 */
 	function EventsPlus() {
+		/**
+		 * 保存事件名和事件
+		 * @type {Array}
+		 */
 		this.eventArray = [];
 
 		/**
@@ -10,6 +18,7 @@ define(function() {
 		this.fire = function(fnName, context) {
 			for(var i in this.eventArray) {
 				if(fnName === this.eventArray[i].fnName && context.cvsName === this.eventArray[i].cvsName) {
+					/* 同步转异步 */
 					(function(eventObj, context) {
 						window.setTimeout(function() {
 							eventObj.fn(context.cvs);

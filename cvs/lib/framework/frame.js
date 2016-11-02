@@ -22,7 +22,11 @@ define(function() {
         this.elementArray = [];
         this.eventCtrl();
     }
-    /* 事件分发 */
+
+    /**
+     * 事件分发
+     * @return {[type]} [description]
+     */
     Frame.prototype.eventCtrl = function() {
         var _this = this;
         _this.catchElementTouchMove = null;
@@ -46,6 +50,7 @@ define(function() {
             _this.fire(e);
         }, false);
     };
+
     /**
      * 事件过滤
      * @param {Object} e [event：事件参数]
@@ -89,7 +94,10 @@ define(function() {
                 });
                 break;
             case "touchmove":
-                console.log("touchmove");
+                /**
+                 * 如果这个首次touchmove，先去在elementArray 里面查找出发目标元素，如果查找到，就缓存下来，如果查找不到，就算了
+                 * 如果这个元素已经被缓存下来，touchmove 轮询到第二次触发的时候，直接去执行这个元素的touchmove
+                 */
                 _this.catchElementTouchMove ?
                     _this.catchElementTouchMove.fire(e) :
                     f({
@@ -100,7 +108,6 @@ define(function() {
                 _this.catchElementTouchMove ? this.reRender() : "";
                 break;
             case "touchend":
-                console.log("touchend");
                 hasCancel ?
                     "" :
                     f({
@@ -108,16 +115,24 @@ define(function() {
                         clientY: e.changedTouches[0].clientY,
                         type: e.type.toLowerCase()
                     });
+                /**
+                 * 执行完touchend 后，手指相当于离开了这个屏幕，把目标元素置空
+                 * @type {Object}
+                 */
                 _this.catchElementTouchMove = null;
                 break;
             case "touchcancel":
-                console.log("touchcancel");
+                /**
+                 * 执行了touchcancel 就不再执行后面的事件了： touchend
+                 * @type {Boolean}
+                 */
                 hasCancel = true;
                 break;
         }
     };
+
     /**
-     * reset the canvas`s width and height 
+     * 重置宽高
      * @param {Number} width width
      * @param {Number} height height
      */
@@ -128,28 +143,33 @@ define(function() {
         _this.canvas.setAttribute("width", _this.width);
         _this.canvas.setAttribute("height", _this.height);
     };
+
     /**
      * 清理当前的画布
      */
     Frame.prototype.clear = function() {
-            var _this = this;
-            _this.canvas.setAttribute("width", _this.width);
-        }
-        /**
-         * @param {Object} element 元素对象
-         * @param {Boolean} hasAddToArray 是否已经被frame管理
-         */
+        var _this = this;
+        _this.canvas.setAttribute("width", _this.width);
+    };
+
+    /**
+     * @param {Object} element 元素对象
+     * @param {Boolean} hasAddToArray 是否已经被frame管理
+     */
     Frame.prototype.manage = function(element) {
         var _this = this;
         _this.elementArray.push(element);
         _this.elementIndex++;
     };
+
     /**
+     * 销毁元素
      * @param {Object} element 被销毁的元素
      */
     Frame.prototype.destroy = function(element) {
 
     };
+
     /**
      * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
      */
@@ -165,38 +185,44 @@ define(function() {
             //	},0);	
             //}(_this.elementArray[i]));
             _this.cxt.save();
-            _this.elementArray[i].hasRotate? 
-                _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
-                :
-                _this.elementArray[i].draw(_this.cxt);
+            //_this.elementArray[i].hasRotate? 
+            //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
+            //    :
+                  _this.elementArray[i].draw(_this.cxt);
             _this.cxt.restore();
         }
-    }
+    };
 
     /**
-     * 
-     * @param {Object} position position
-     * @param {Object} element element
+     * 触点是否在元素内部，通过给元素添加elementType ， 来区分元素类型，
+     * @param {Object} position 触点坐标
+     * @param {Object} element 元素
      */
     Frame.prototype.isInElementArea = function(position, element) {
         var bl = false;
-        if(typeof element.elementType === "undefined" || element.elementType === 0){
-            throw("element`s elementType property must exist!!!")
-        }
+        // if(typeof element.elementType === "undefined"){
+        //     throw("element`s elementType property must exist!!!");
+        // }
         switch (element.elementType) {
+            case 0:
+                //不绑定事件的元素
+                bl = false;
+                break;
             case 1:
-                //O
+                //圆形(判断触点与圆心的距离和半径相比)
                 bl = Math.pow((position.x - element.rollX),2) + Math.pow((position.y - element.rollY),2) - Math.pow(element.radius,2) <= 0 ? true:false;
                 break;
             case 2:
+                //多边形
                 bl = rayCasting(position, element.positionXYArray);
                 break;
-            case 99:
+            default :
+                //不继承element 的元素
                 bl = false;
                 break;
         }
         return bl;
-    }
+    };
 
     /**
      * author : http://blog.csdn.net/jq_develop/article/details/44981127
@@ -240,7 +266,8 @@ define(function() {
 
         // 射线穿过多边形边界的次数为奇数时点在多边形内
         return flag;
-    }
+    };
+
     //	function ctrlHorizontal(){
     //		var width = document.body.clientWidth,
     //			height = document.body.clientHeight;
@@ -272,5 +299,6 @@ define(function() {
     //		}
     //		
     //	};
+    
     return Frame;
 });

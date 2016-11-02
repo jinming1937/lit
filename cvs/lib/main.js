@@ -1,10 +1,10 @@
 define([
 	"./framework/frame",
-	"./server/history",
+	//"./server/history",
 	"./framework/router",
 	"./framework/event",
 	"./static/usualValue"
-],function(frame,history,router,EventPlus){
+],function(frame,router,EventPlus){
 	
 	/**
 	 * 全局程序入口
@@ -14,7 +14,7 @@ define([
 		this.router = router;
 		EventPlus.call(this);
 		this.uniqFrame = -1;
-		this.frameArray = []; 
+		this.frameArray = [];
 		this.currentFrameNumber = "";
 		this.currentLayerId = "";
 		this.baseFrame = document.getElementsByClassName("box")[0];
@@ -97,7 +97,7 @@ define([
 	 */
 	Main.prototype.beforeShow = function(obj){
 		this.fire("beforeShow",obj);
-	}
+	};
 	
 	/**
 	 * 页面转出前执行的方法

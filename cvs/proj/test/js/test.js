@@ -9,7 +9,7 @@ define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 			//url:"../../../../service/cvs/getClassInfo.json",
 			url:"http://www.xiaozhiga.com:8088/service/cvs/getClassInfo.json",/* 跨域测试 ,只有service目录允许跨域 ok*/
 			type:"GET",
-			withCredentials:true,
+			cors:true,
 			success:function(data){
 				if(data && data.data && data.total > 0){
 					cvs.table(data.data);
@@ -20,7 +20,7 @@ define(["../../../lib/cvs","../../../lib/server/server"],function(cvs,server){
 			//url:"../../../../service/cvs/getClassInfo.json",
 			url:"http://www.xiaozhiga.com:8088/dist/city.json",/* 跨域测试,只有service目录允许跨域  faile*/
 			type:"GET",
-			withCredentials:true,
+			cors:true,
 			success:function(data){
 				if(data && data.data && data.total > 0){
 					cvs.table(data.data);

@@ -24,7 +24,7 @@ define(["../../lib/main","./js/index","./js/ProjStart","./js/block"],function(ma
 		index:2,
 		cvsName : "block",
 		urlReg:/block/
-	})
+	});
 	main.init();
 	console.log("ending");
 });

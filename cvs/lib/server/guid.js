@@ -2,6 +2,7 @@ define(function() {
     /*
      * time: 2016.09.19
      * ming.jin
+     * 获取GUID 唯一标识
      */
 
     /* 获取随机16进制个位数 */

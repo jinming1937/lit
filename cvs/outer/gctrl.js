@@ -1,4 +1,9 @@
 define(function(){
+
+	/**
+	 * 触点提示，提示触点的坐标
+	 * @param  {Object} cvs cvs对象
+	 */
 	function gctrl(cvs){
 		var node = document.createElement("div");
 		node.className = "wind";

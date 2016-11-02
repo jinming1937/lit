@@ -90,6 +90,13 @@ define([
 		this.draw();
 	}
 	
+	/**
+	 * 根据三条边组成三角形
+	 * @param  {[type]} a [description]
+	 * @param  {[type]} b [description]
+	 * @param  {[type]} c [description]
+	 * @return {[type]}   [description]
+	 */
 	Triangle.prototype.abc = function(a,b,c){
 		var _this = this;
 		this.positionXYArray = new Array();
@@ -117,6 +124,13 @@ define([
 		return _this.positionXYArray;
 	};
 	
+	/**
+	 * 根据两条边及其夹角组成三角形
+	 * @param  {[type]} a     [description]
+	 * @param  {[type]} b     [description]
+	 * @param  {[type]} angle [description]
+	 * @return {[type]}       [description]
+	 */
 	Triangle.prototype.angleAb = function(a,b,angle){
 		var _this = this;
 		this.positionXYArray = new Array();
@@ -138,7 +152,7 @@ define([
 	};
 
 	/**
-	 * [getHeartPoint description]
+	 * 初始化重心
 	 * @return {[type]} [description]
 	 */
 	Triangle.prototype.getTopToHeartPoint = function(a,b,c){
@@ -161,10 +175,18 @@ define([
 		};
 	};
 	
+	/**
+	 * 
+	 * @return {[type]} [description]
+	 */
 	Triangle.prototype.checkTriangle = function(){
 		
 	};
 
+	/**
+	 * 
+	 * @return {[type]} [description]
+	 */
 	Triangle.prototype.initPositionXYArray = function(){
 		this.positionXYArray = null;
 		if(this.config.angle){
@@ -174,6 +196,10 @@ define([
 		}
 	}
 
+	/**
+	 * 
+	 * @return {[type]} [description]
+	 */
 	Triangle.prototype.rotate = function(){
 		if(this.rotateAngle > 360){
 			this.rotateAngle = 0;
