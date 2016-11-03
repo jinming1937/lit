@@ -1,7 +1,8 @@
 //define(function(){
-define(function(){
+define(["../../../../lib/tool/element"],function(element){
 	/* 贪吃蛇 */
 	function Snake(config){
+		//element.call(this);
 		this.frame = (main.getCurrentFrame()).cvs;
 		this.defaultLength = 4;
 		this.bodyArray = [[[2,0,1,0],[1,0,1,0],[0,0,1,0]]];//x,y,directX,directY
@@ -17,6 +18,23 @@ define(function(){
 		this.directX = 1;
 		this.directY = 0;
 		this.frame.manage(this);
+
+		this.draw = function(){
+			this.frame.cxt.fillStyle = "#F00";
+			for(var i=0,len = this.bodyArray.length;i<len;i++){
+				for(var j=0,lenj = this.bodyArray[i].length;j<lenj;j++){
+					if(i !== 0 || j !== 0){
+						this.frame.cxt.fillStyle = "#00F";
+					}
+					this.frame.cxt.fillRect(
+						this.bodyArray[i][j][0]*this.size+this.borderX/2,
+						this.bodyArray[i][j][1]*this.size+this.borderX/2,
+						this.size,
+						this.size
+					);
+				}
+			}
+		};
 	}
 	/* 弃用 */
 	Snake.prototype.down = function(cbStopGame,cbDraw){
@@ -132,22 +150,6 @@ define(function(){
 		}
 		cb && cb();
 	};
-	/* 渲染 */
-	Snake.prototype.draw = function(){
-		this.frame.cxt.fillStyle = "#F00";
-		for(var i=0,len = this.bodyArray.length;i<len;i++){
-			for(var j=0,lenj = this.bodyArray[i].length;j<lenj;j++){
-				if(i !== 0 || j !== 0){
-					this.frame.cxt.fillStyle = "#00F";
-				}
-				this.frame.cxt.fillRect(
-					this.bodyArray[i][j][0]*this.size+this.borderX/2,
-					this.bodyArray[i][j][1]*this.size+this.borderX/2,
-					this.size,
-					this.size
-				);
-			}
-		}
-	};
+
 	return Snake;
 });

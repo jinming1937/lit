@@ -1,6 +1,7 @@
-define(function(){
+define(["../../../../lib/tool/element"],function(element){
 	/* 苹果 */
 	function Apple(config){
+		//element.call(this);
 		this.frame = (main.getCurrentFrame()).cvs;
 		this.size = config.size || 20;
 		this.maxPixelX = config.maxPixelX;
@@ -12,18 +13,19 @@ define(function(){
 		this.pixelX = parseInt((this.maxPixelX)*Math.random());
 		this.pixelY = parseInt((this.maxPixelY)*Math.random());
 		this.frame.manage(this);
+		/* 渲染 */
+		this.draw = function(){
+			var _this = this;
+			this.frame.cxt.fillStyle = "#09bb07";
+			this.frame.cxt.fillRect(
+				_this.pixelX*_this.size+_this.borderX/2,
+				_this.pixelY*_this.size+_this.borderX/2,
+				_this.size,
+				_this.size
+			);
+		};
 	}
-	/* 渲染 */
-	Apple.prototype.draw = function(){
-		var _this = this;
-		this.frame.cxt.fillStyle = "#09bb07";
-		this.frame.cxt.fillRect(
-			_this.pixelX*_this.size+_this.borderX/2,
-			_this.pixelY*_this.size+_this.borderX/2,
-			_this.size,
-			_this.size
-		);
-	};
+
 	/* 产生随机位置:排除掉蛇占据的位置 */
 	Apple.prototype.randomPixel =function(){
 		var _pixelArray = [].concat(this.pixelArray);

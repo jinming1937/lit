@@ -1,7 +1,7 @@
 define([
-	"./ScreenBox",
-	"./Snake",
-	"./Apple",
+	"./snake/ScreenBox",
+	"./snake/Snake",
+	"./snake/Apple",
 	"../../../lib/tool/button",
 	"../../../outer/gctrl"
 	//"../../../outer/hand"

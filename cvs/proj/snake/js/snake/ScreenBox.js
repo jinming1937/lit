@@ -1,7 +1,8 @@
 //define(["../../../lib/framework/frame"],function(frame){
-define(function(){
+define(["../../../../lib/tool/element"],function(element){
 	/* 屏幕 */
 	function Screen(config){
+		//element.call(this);
 		this.frame = (main.getCurrentFrame()).cvs;
 		this.pixelWidth = config.size||20;
 		this.pixelHeight = config.size||20;
@@ -23,12 +24,14 @@ define(function(){
 			}
 		}
 		this.frame.manage(this);
+
+		/* 渲染屏幕 */
+		this.draw = function(){
+			this.frame.cxt.fillStyle = "#ccc";
+			this.frame.cxt.fillRect(this.borderX/2,this.borderX/2,this.pixelX*this.pixelWidth,this.pixelY*this.pixelHeight);
+		};
 	}
-	/* 渲染屏幕 */
-	Screen.prototype.draw = function(){
-		this.frame.cxt.fillStyle = "#ccc";
-		this.frame.cxt.fillRect(this.borderX/2,this.borderX/2,this.pixelX*this.pixelWidth,this.pixelY*this.pixelHeight);
-	};
+
 	/* 获取屏幕‘分辨率’ */
 	Screen.prototype.getPixel = function(){
 		var _this = this;

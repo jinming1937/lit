@@ -63,18 +63,32 @@ define(function() {
         /* 已解决： 2016-09-29 */
         /* 事件触发 */
         var f = function(ev) {
+            var cacheElement = null;
+            var cacheIndex = -1;
             /* 倒叙遍历 */
             for (var i = _this.elementIndex - 1; i >= 0; i--) {
                 if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i])) {
+                    cacheElement = _this.elementArray[i];
                     /* 此处应该是绑定了move事件的元素才赋值 */
-                    _this.catchElementTouchMove = _this.elementArray[i];
-                    window.setTimeout(function() {
-                        _this.elementArray[i].fire(e);
-                    }, 0);
+                    if(_this.elementArray[i].hasOwnProperty("ontouchmove")){
+                        cacheIndex = i;//移动这个元素，缓存这个索引
+                        _this.catchElementTouchMove = _this.elementArray[i];
+                    }
                     if (!_this.elementArray[i].isUpEvent) { /* 是否允许穿透 */
                         break;
                     }
                 }
+            }
+            if(cacheIndex > -1 && cacheElement){
+                //move 元素 移动到array最后
+                var _cacheElement = _this.elementArray.slice(cacheIndex,1);
+                _this.elementArray.push(_cacheElement);
+            }
+            if(cacheElement){
+                //触点有元素 ，执行这个元素的事件
+                //window.setTimeout(function() {
+                cacheElement.fire(e);
+                //}, 0);
             }
         };
         /* 事件过滤 */
@@ -95,8 +109,9 @@ define(function() {
                 break;
             case "touchmove":
                 /**
-                 * 如果这个首次touchmove，先去在elementArray 里面查找出发目标元素，如果查找到，就缓存下来，如果查找不到，就算了
-                 * 如果这个元素已经被缓存下来，touchmove 轮询到第二次触发的时候，直接去执行这个元素的touchmove
+                 * 
+                 * 如果这个首次touchstar，先去在elementArray 里面查找出发目标元素，如果查找到，就缓存下来，如果查找不到，就算了
+                 * 如果这个元素已经被缓存下来，touchmove 轮询到，触发的时候，直接去执行这个元素的touchmove
                  */
                 _this.catchElementTouchMove ?
                     _this.catchElementTouchMove.fire(e) :
@@ -200,9 +215,9 @@ define(function() {
      */
     Frame.prototype.isInElementArea = function(position, element) {
         var bl = false;
-        // if(typeof element.elementType === "undefined"){
-        //     throw("element`s elementType property must exist!!!");
-        // }
+        if(typeof element.elementType === "undefined"){
+            throw("element`s elementType property must exist!!!");
+        }
         switch (element.elementType) {
             case 0:
                 //不绑定事件的元素
