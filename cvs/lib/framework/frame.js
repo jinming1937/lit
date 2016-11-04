@@ -226,7 +226,7 @@ define(function() {
                 break;
             case 1:
                 //圆形(判断触点与圆心的距离和半径相比)
-                bl = Math.pow((position.x - element.rollX),2) + Math.pow((position.y - element.rollY),2) - Math.pow(element.radius,2) <= 0 ? true:false;
+                bl = Math.pow((position.x - element.x),2) + Math.pow((position.y - element.y),2) - Math.pow(element.radius,2) <= 0 ? true:false;
                 break;
             case 2:
                 //多边形
