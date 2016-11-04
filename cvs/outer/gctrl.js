@@ -6,7 +6,7 @@ define(function(){
 	 */
 	function gctrl(cvs){
 		var node = document.createElement("div");
-		node.className = "wind";
+		node.className = "position-tips";
 		node.style = {
 			display:'none'
 		};
@@ -15,7 +15,7 @@ define(function(){
 			fn && fn(e);
 			var x = e.clientX,
 				y = e.clientY;
-			if(document.getElementsByClassName("wind").length === 0){
+			if(document.getElementsByClassName("position-tips").length === 0){
 				document.body.appendChild(node);
 			}
 			node.style.display = "block";

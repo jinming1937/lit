@@ -59,7 +59,8 @@ module.exports = function(grunt) {
                 // webpack options 
                 entry: {
                     //mainForClassical:"./cvs/proj/snake/mainForClassical",
-                    mainForIndex: "./cvs/proj/snake/mainForIndex"
+                    mainForIndex: "./cvs/proj/snake/mainForIndex",
+                    mainForBall:"./cvs/proj/hitTheBall/mainForBall"
                 },
                 output: {
                     path: "dist/",
@@ -126,6 +127,12 @@ module.exports = function(grunt) {
                 files: {
                     'dist/snake/css/main.min.css': 'dist/snake/css/main.css'
                 }
+            },
+            hitBall:{
+                banner: '<%- banner %>',
+                files: {
+                    'dist/hitTheBall/css/main.css': 'dist/hitTheBall/css/main.css'
+                }
             }
         },
         /*jshint 语法检查*/
@@ -165,6 +172,11 @@ module.exports = function(grunt) {
             snake: {
                 files: {
                     'dist/snake/css/main.css': 'cvs/proj/snake/sass/main.scss'
+                }
+            },
+            hitBall:{
+                files: {
+                    'dist/hitTheBall/css/main.css': 'cvs/proj/hitTheBall/sass/main.scss'
                 }
             }
         },
@@ -216,7 +228,7 @@ module.exports = function(grunt) {
         open: {
             kitchen: {
                 /* 需要提前配置好host */
-                path: 'http://www.xiaozhiga.com:8089/cvs/proj/snake/index.html'
+                path: 'http://www.xiaozhiga.com:8089/cvs/proj/hitTheBall/index.html'
             }
         }
     });
@@ -237,6 +249,8 @@ module.exports = function(grunt) {
     
     // package snake 项目
     grunt.registerTask('snake', ['sass:snake', 'cssmin:snake', 'webpack:snake']);
+
+    grunt.registerTask('ball', ['sass:hitBall', 'cssmin:hitBall', 'webpack:snake']);    
 
     grunt.registerTask('testsc', 'sass:testsc');
 

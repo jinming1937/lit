@@ -41,4 +41,10 @@ a{
         right: -100%;
     }
 }
-
+.position-tips {
+    width: 100px;
+    height: 15px;
+    position: absolute;
+    z-index: 100;
+    background: #FFF;
+}

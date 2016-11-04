@@ -34,8 +34,8 @@ define([
 			value:"-",
 			ontouchend:function(){
 				console.log('-');
-				ang.rotateAngle -= 5;
-				ang.rotate();
+				// ang.rotateAngle -= 5;
+				// ang.rotate();
 			}
 		});
 		
@@ -45,8 +45,8 @@ define([
 			value:"+",
 			ontouchend:function(){
 				console.log('+');
-				ang.rotateAngle += 5;
-				ang.rotate();
+				// ang.rotateAngle += 5;
+				// ang.rotate();
 			}
 		});
 
