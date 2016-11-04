@@ -80,9 +80,9 @@ define(function() {
                 }
             }
             if(cacheIndex > -1 && cacheElement){
-                //move 元素 移动到array最后
-                var _cacheElement = _this.elementArray.slice(cacheIndex,1);
-                _this.elementArray.push(_cacheElement);
+                //后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后
+                var _cacheElement = _this.elementArray.splice(cacheIndex,1);
+                _this.elementArray.push(_cacheElement[0]);
             }
             if(cacheElement){
                 //触点有元素 ，执行这个元素的事件
@@ -191,7 +191,8 @@ define(function() {
     Frame.prototype.reRender = function() {
         var _this = this;
         this.clear();
-        for (var i = this.elementArray.length - 1; i >= 0; i--) {
+        //这是个问题： 先new的元素 ，先画出来
+        for (var i =0,len = this.elementArray.length; i < len; i++) {
             /* 异步画会重叠，导致“失帧” */
             //(function(ele){
             //	setTimeout(function(){
@@ -215,9 +216,9 @@ define(function() {
      */
     Frame.prototype.isInElementArea = function(position, element) {
         var bl = false;
-        if(typeof element.elementType === "undefined"){
-            throw("element`s elementType property must exist!!!");
-        }
+        // if(typeof element.elementType === "undefined"){
+        //     throw("element`s elementType property must exist!!!");
+        // }
         switch (element.elementType) {
             case 0:
                 //不绑定事件的元素
