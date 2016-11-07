@@ -86,7 +86,7 @@ define([
 		});
 
 		blue.addWatching("touchend",function(){
-			clearInterval(timeTip);
+			cancelAnimationFrame(timeTip);
 		});
 		
 		//球
@@ -148,17 +148,19 @@ define([
 			var str = "1234567890ABCDEF";
 			var rand = parseInt(Math.random() * 16);
 			var co = str.charAt(rand);
-			co = co.concat(co,co);
+			co = co.concat(str.charAt(parseInt(Math.random() * 16)),str.charAt(parseInt(Math.random() * 16)));
 			obj.backgroundColor = "#" + co ;
 			obj.color="#" + co;
+			console.log(co);
 		}
 
 	 	var timeTip;
 	 	function start(){
-	 		timeTip = window.setInterval(function(){
+	 		timeTip = window.requestAnimationFrame(function(){
 		 		move();
-			},30);
+		 		start();
+			});
 	 	}
-	 	start()
+	 	start();
 	});
 });
