@@ -27,7 +27,7 @@ define([
             _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
             _frame.cxt.beginPath();
             _frame.cxt.arc(parseInt(_this.x), parseInt(_this.y),_this.radius,0,2*Math.PI);
-            _frame.cxt.fillStyle = _this.config.color || "#FFF";
+            _frame.cxt.fillStyle = _this.color || "#FFF";
 			_frame.cxt.fill();
         };
 
@@ -38,10 +38,14 @@ define([
          */
         this.ontouchmove = function(e) {
             if(typeof config.ontouchmove === "function") {
-                config.ontouchmove(e);
-                this.eventFire(e);
-                this.x = e.changedTouches[0].clientX;
-                this.y = e.changedTouches[0].clientY;
+                if(config.strong){
+                    config.ontouchmove(e);
+                    this.eventFire(e); 
+                }else{
+                    this.eventFire(e);
+                    this.x = e.changedTouches[0].clientX;
+                    this.y = e.changedTouches[0].clientY;
+                }
                 this.draw();
             }
         };
