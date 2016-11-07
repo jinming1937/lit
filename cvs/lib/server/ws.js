@@ -1,14 +1,6 @@
 define(function(){
-	var ws = new WebSocket('ws://localhost:8080');
-	ws.onopen = function()
-	{
-	  console.log('open');
-	  ws.send('hello');
-	};
-	ws.onmessage = function(evt)
-	{
-	  console.log(evt.data)
-	};
+	var ws = new WebSocket('ws://192.168.1.108:8888');
+	
 	ws.onclose = function(evt)
 	{
 	  console.log('WebSocketClosed!');
@@ -18,5 +10,5 @@ define(function(){
 	  console.log('WebSocketError!');
 	};
 
-	return "ws";
+	return ws;
 });

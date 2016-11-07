@@ -12,8 +12,15 @@ define([
 		new gctrl(frame);
 		console.log("begin load index");
 
+		var data = {};
+		data = data ||{};
+
+		ws.onopen = function(){
+		  ws.send(JSON.stringify({x:0}));
+		};
+
 		var red = new circle({
-			x:screenWidth/2,
+			x:data.x || screenWidth/2,
 			y:screenHeight/6 - 15,
 			radius:15,
 			strong:true,
@@ -32,14 +39,17 @@ define([
 			}
 		});
 
-		red.addWatching("touchend",function(){
-			start();
-		});
-
+		// red.addWatching("touchend",function(){
+		// 	data.x = red.x;
+		// 	data.y = red.y;
+		// 	ws.send(data);
+		// 	console.log("send message" + data.x + data.y); 
+		// 	//start();
+		// });	
 
 		var blue = new circle({
-			x:screenWidth/2,
-			y:screenHeight/6 * 5 - 15,
+			x: screenWidth/2,
+			y: screenHeight/6 * 5 - 15,
 			radius:15,
 			strong:true,
 			backgroundColor:"#00F",
@@ -58,9 +68,23 @@ define([
 		});
 
 		blue.addWatching("touchend",function(){
-			cancelAnimationFrame(timeTip);
+			var dt = {};
+			dt.x = blue.x;
+
+			ws.send(JSON.stringify(dt));
+			console.log("send message" + dt.x); 
+			//cancelAnimationFrame(timeTip);
 		});
 		
+		ws.onmessage = function(evt){
+			data = typeof evt.data  === "string" ? JSON.parse(evt.data): evt.data;
+			red.x = data.x || red.x;
+			//blue.x = data.x || blue.x;
+			//blue.y = data.y || blue.y;
+			console.log("receive message" + data.x );
+		};
+
+
 		//球
 		var aimBall = new circle({
 			x:60,
