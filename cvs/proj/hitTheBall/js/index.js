@@ -2,43 +2,15 @@ define([
 	"../../../lib/tool/button",
 	"../../../lib/tool/extend/triangle",
 	"../../../lib/tool/circle",
+	"../../../lib/server/ws",
 	"../../../outer/gctrl"
-],function(button,triangle,circle,gctrl){
+],function(button,triangle,circle,ws,gctrl){
 	main.on("show","index",function(){
 		var frame = (main.getCurrentFrame()).cvs;
 		var screenWidth = (main.getCurrentFrame()).cvs.width;
 		var screenHeight = (main.getCurrentFrame()).cvs.height;
 		new gctrl(frame);
 		console.log("begin load index");
-
-		// var red = new button({
-		// 	x:screenWidth/2 - 50,
-		// 	y:screenHeight/6 - 15,
-		// 	value:'red',
-		// 	width:100,
-		// 	height:30,
-		// 	strong:true,
-		// 	backgroundColor:'#F00',
-		// 	ontouchmove:function(e){
-		// 		red.y = screenHeight/6 - 15;
-		// 		red.x = e.changedTouches[0].clientX - this.width/2;
-		// 		console.log("red");
-		// 	}
-		// });
-		// var blue = new button({
-		// 	x:screenWidth/2 - 50,
-		// 	y:screenHeight/6 * 5 - 15,
-		// 	value:'blue',
-		// 	width:100,
-		// 	height:30,
-		// 	strong:true,
-		// 	backgroundColor:'#00F',
-		// 	ontouchmove:function(e){
-		// 		blue.y = screenHeight/6*5 - 15;
-		// 		blue.x = e.changedTouches[0].clientX - this.width/2;
-		// 		console.log("blue");
-		// 	}
-		// });
 
 		var red = new circle({
 			x:screenWidth/2,
@@ -115,19 +87,7 @@ define([
 		function move(){
 			aimBall.x += speedX;
 			aimBall.y += speedY;
-			//if(aimBall.x + aimBall.radius >= screenWidth || aimBall.y + aimBall.radius >= screenHeight){
-				//aimBall.x = screenWidth - aimBall.radius;
-				//aimBall.y = screenHeight - aimBall.radius;
-				//clearInterval(timeTip);
-				// if(aimBall.x + aimBall.radius <= screenWidth || aimBall.x - aimBall.radius <= 0){
-				// 	speedX = - speedX ;//* ranSpeed();
-				// 	//speedX = speedX > 10 ? speedX / ranSpeed() : speedX;
-				// }
-				// if(aimBall.y + aimBall.radius >= screenHeight || aimBall.y - aimBall.radius <= 0){
-				// 	speedY = - speedY ;//* ranSpeed();
-				// 	//speedY = speedY > 10 ? speedY / ranSpeed() : speedY;
-				// }
-			//}
+
 			if(aimBall.x + aimBall.radius >= screenWidth){
 				speedX = -speedX;
 				changeColor(aimBall);
@@ -151,7 +111,6 @@ define([
 			co = co.concat(str.charAt(parseInt(Math.random() * 16)),str.charAt(parseInt(Math.random() * 16)));
 			obj.backgroundColor = "#" + co ;
 			obj.color="#" + co;
-			console.log(co);
 		}
 
 	 	var timeTip;
