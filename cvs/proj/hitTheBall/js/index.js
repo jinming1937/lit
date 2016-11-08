@@ -12,6 +12,16 @@ define([
 		new gctrl(frame);
 		console.log("begin load index");
 
+		/*
+			todo: 1、 适配机型，不同大小的屏幕如何无缝对战？ 
+				  2、 各自控制各自的按钮，红控红，蓝控蓝
+				  3、 采用创建房间的方式，进行二人对战：可以获取客户端的信息，方便适配屏幕，筛选客户端
+				  4、 撞球 代码编写
+				  5、 设置游戏开始、结束、 同步球 移动信息
+				  6、 每个人都是蓝队：接受的数据，是红队
+
+		 */
+
 		var data = {};
 		data = data ||{};
 
@@ -26,17 +36,17 @@ define([
 			strong:true,
 			backgroundColor:"#F00",
 			color:"#F00",
-			ontouchmove:function(e){
-				red.y = screenHeight/6 - 15;
-				if(e.changedTouches[0].clientX + this.radius > screenWidth){
-					red.x = screenWidth - this.radius;
-				}else if(e.changedTouches[0].clientX - this.radius < 0){
-					red.x = this.radius;
-				}else{
-					red.x = e.changedTouches[0].clientX;
-				}
-				console.log("red");
-			}
+			// ontouchmove:function(e){
+			// 	red.y = screenHeight/6 - 15;
+			// 	if(e.changedTouches[0].clientX + this.radius > screenWidth){
+			// 		red.x = screenWidth - this.radius;
+			// 	}else if(e.changedTouches[0].clientX - this.radius < 0){
+			// 		red.x = this.radius;
+			// 	}else{
+			// 		red.x = e.changedTouches[0].clientX;
+			// 	}
+			// 	console.log("red");
+			// }
 		});
 
 		// red.addWatching("touchend",function(){
@@ -61,18 +71,18 @@ define([
 				}else if(e.changedTouches[0].clientX - this.radius < 0){
 					blue.x = this.radius;
 				}else{
-					blue.x = e.changedTouches[0].clientX;
+					blue.x = parseInt(e.changedTouches[0].clientX);
 				}
 				console.log("blue");
 			}
 		});
 
-		blue.addWatching("touchend",function(){
+		blue.addWatching("touchmove",function(e){
 			var dt = {};
-			dt.x = blue.x;
+			dt.x = parseInt(blue.x);
 
 			ws.send(JSON.stringify(dt));
-			console.log("send message" + dt.x); 
+			console.log("send message:" + dt.x); 
 			//cancelAnimationFrame(timeTip);
 		});
 		
