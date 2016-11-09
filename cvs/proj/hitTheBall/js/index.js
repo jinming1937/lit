@@ -11,7 +11,6 @@ define([
 		var screenWidth = (main.getCurrentFrame()).cvs.width;
 		var screenHeight = (main.getCurrentFrame()).cvs.height;
 		new gctrl(frame);
-		console.log("begin load index");
 		var thisUser = storage.cookieCtrl.getData("BCookieID");
 		var thisStdn = storage.cookieCtrl.getData("stdn");
 		var sData = JSON.parse($data);
@@ -27,7 +26,7 @@ define([
 
 		var data = {};
 		data = data ||{};
-
+		var canStart;
 		ws.onopen = function(){
 			var dt = {};
 			dt.x = screenWidth/2;
@@ -43,27 +42,8 @@ define([
 			radius:15,
 			strong:true,
 			backgroundColor:sData.color,
-			color:sData.color,
-			// ontouchmove:function(e){
-			// 	red.y = screenHeight/6 - 15;
-			// 	if(e.changedTouches[0].clientX + this.radius > screenWidth){
-			// 		red.x = screenWidth - this.radius;
-			// 	}else if(e.changedTouches[0].clientX - this.radius < 0){
-			// 		red.x = this.radius;
-			// 	}else{
-			// 		red.x = e.changedTouches[0].clientX;
-			// 	}
-			// 	console.log("red");
-			// }
+			color:sData.color
 		});
-
-		// red.addWatching("touchend",function(){
-		// 	data.x = red.x;
-		// 	data.y = red.y;
-		// 	ws.send(data);
-		// 	console.log("send message" + data.x + data.y); 
-		// 	//start();
-		// });	
 
 		var blue = new circle({
 			x: screenWidth/2,
@@ -81,7 +61,6 @@ define([
 				}else{
 					blue.x = parseInt(e.changedTouches[0].clientX);
 				}
-				console.log("blue");
 			}
 		});
 
@@ -99,9 +78,15 @@ define([
 		ws.onmessage = function(evt){
 			data = typeof evt.data  === "string" ? JSON.parse(evt.data): evt.data;
 			red.x = data.x || red.x;
+			if(!canStart && data.length == 2 ){
+				canStart = data.canStart;
+				setTimeout(function(){
+					start();
+				},1000);
+			}
 			//blue.x = data.x || blue.x;
 			//blue.y = data.y || blue.y;
-			console.log("receive message" + data.x );
+			console.log("receive message:" + data.x );
 		};
 
 
@@ -164,6 +149,6 @@ define([
 		 		start();
 			});
 	 	}
-	 	start();
+	 	
 	});
 });
