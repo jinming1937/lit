@@ -11,12 +11,13 @@ require.config({
 
 define(["../../lib/main","./js/index"],function(main){
 	if(location.port === "8089"){
+		//开发环境
 		main.router.addRouter({
 			index:0,
 			cvsName : "index",
 			urlReg:/index/
 		});
-	}else{
+	}else{//正式环境
 		main.router.addRouter({
 			index:0,
 			cvsName : "index",

@@ -3,17 +3,18 @@ define([
 	"../../../lib/tool/extend/triangle",
 	"../../../lib/tool/circle",
 	"../../../lib/server/ws",
-	"../../../outer/gctrl",
-	"../../../lib/server/storage"
-],function(button,triangle,circle,ws,gctrl,storage){
+	"../../../lib/server/storage",
+	"../../../outer/gctrl"	
+],function(button,triangle,circle,ws,storage,gctrl){
 	main.on("show","index",function(){
 		var frame = (main.getCurrentFrame()).cvs;
 		var screenWidth = (main.getCurrentFrame()).cvs.width;
 		var screenHeight = (main.getCurrentFrame()).cvs.height;
-		new gctrl(frame);
 		var thisUser = storage.cookieCtrl.getData("BCookieID");
 		var thisStdn = storage.cookieCtrl.getData("stdn");
+		//后端输出的数据
 		var sData = JSON.parse($data);
+		new gctrl(frame);
 		/*
 			todo: 1、 适配机型，不同大小的屏幕如何无缝对战？ 
 				  2、 各自控制各自的按钮，红控红，蓝控蓝
@@ -59,11 +60,14 @@ define([
 				}else if(e.changedTouches[0].clientX - this.radius < 0){
 					blue.x = this.radius;
 				}else{
-					blue.x = parseInt(e.changedTouches[0].clientX);
+					if(Math.pow(aimBall.x - blue.x,2) + Math.pow(aimBall.y - blue.y, 2 ) - Math.pow(aimBall.radius + blue.radius,2) <=0 ){
+						hasTouch=true;
+					}
+					blue.x = hasTouch? blue.x:parseInt(e.changedTouches[0].clientX);
 				}
 			}
 		});
-
+		var hasTouch = false;
 		blue.addWatching("touchmove",function(e){
 			var dt = {};
 			dt.x = parseInt(blue.x);
@@ -77,7 +81,12 @@ define([
 		
 		ws.onmessage = function(evt){
 			data = typeof evt.data  === "string" ? JSON.parse(evt.data): evt.data;
-			red.x = data.x || red.x;
+			if(Math.pow(aimBall.x - red.x,2) + Math.pow(aimBall.y - red.y, 2 ) - Math.pow(aimBall.radius + red.radius,2) <=0 ){
+				red.x = red.x;
+			}else{
+				red.x = screenWidth - data.x;	
+			}
+			
 			if(!canStart && data.length == 2 ){
 				canStart = data.canStart;
 				setTimeout(function(){
@@ -92,15 +101,15 @@ define([
 
 		//球
 		var aimBall = new circle({
-			x:60,
-			y:60,
+			x:screenWidth/2,
+			y:screenHeight/2,
 			radius:16,
 			backgroundColor:"#FF0",
 			color:"#FF0"
 		});
 
-		var speedX = 2;
-		var speedY = 2;
+		var speedX =sData.sd ?1:-1;
+		var speedY =sData.sd ?1:-1;
 		var ranSpeed = function(){
 			var ran = Math.random();
 			return parseInt( ran * 10) + 1;
@@ -114,9 +123,7 @@ define([
 		}
 
 		function move(){
-			aimBall.x += speedX;
-			aimBall.y += speedY;
-
+			hasTouch = false;
 			if(aimBall.x + aimBall.radius >= screenWidth){
 				speedX = -speedX;
 				changeColor(aimBall);
@@ -129,10 +136,52 @@ define([
 			}else if(aimBall.y - aimBall.radius <= 0){
 				speedY = -speedY;
 				changeColor(aimBall);
+			}else if(Math.pow(aimBall.x - blue.x,2) + Math.pow(aimBall.y - blue.y, 2 ) - Math.pow(aimBall.radius + blue.radius,2) <=0 ){
+				changeColor(aimBall);
+				hasTouch = true;
+				//撞到蓝色球 ： 撞到下面的球
+				if(aimBall.x > blue.x){
+					speedX = -speedX;
+					speedY = -speedY;
+				}else{
+					speedX = -speedX;
+					speedY = -speedY;
+				}
+			}else if(Math.pow(aimBall.x - red.x,2) + Math.pow(aimBall.y - red.y, 2 ) - Math.pow(aimBall.radius + red.radius,2) <=0 ){
+				changeColor(aimBall);
+				//撞到红色球 ： 撞到上面的球
+				if(aimBall.x > red.x){
+					speedX = -speedX;
+					speedY = -speedY;
+				}else{
+					speedX = -speedX;
+					speedY = -speedY;
+				}
 			}
+			//先加和，在判断，会重合， 先判断，后加和，会分离。。。。
+			aimBall.x += speedX;
+			aimBall.y += speedY;
 
 			screenDraw();
 		}
+		function bitBall(){
+			var bl = false;
+			if(Math.pow(aimBall.x - blue.x,2) + Math.pow(aimBall.y - blue.y, 2 ) - Math.pow(aimBall.radius + blue.radius,2) <=0 ){
+				//撞到蓝色球 ： 撞到下面的球
+				if(aimBall.x > blue.x){
+
+				}else{
+
+				}
+			}else if(Math.pow(aimBall.x - red.x,2) + Math.pow(aimBall.y - red.y, 2 ) - Math.pow(aimBall.radius + red.radius,2) <=0 ){
+				//撞到红色球 ： 撞到上面的球
+				if(aimBall.x > red.x){
+
+				}
+			}
+			return bl;
+		}
+
 		function changeColor(obj){
 			var str = "1234567890ABCDEF";
 			var rand = parseInt(Math.random() * 16);

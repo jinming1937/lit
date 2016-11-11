@@ -10,21 +10,40 @@ require.config({
 });
 
 define(["../../lib/main","./js/index","./js/ProjStart","./js/block"],function(main){
-	main.router.addRouter({
-		index:0,
-		cvsName : "index",
-		urlReg:/index/
-	});
-	main.router.addRouter({
-		index:1,
-		cvsName : "classical",
-		urlReg:/classical/
-	});
-	main.router.addRouter({
-		index:2,
-		cvsName : "block",
-		urlReg:/block/
-	});
+	if(location.port === "8089"){
+		main.router.addRouter({
+			index:0,
+			cvsName : "index",
+			urlReg:/index/
+		});
+		main.router.addRouter({
+			index:1,
+			cvsName : "classical",
+			urlReg:/classical/
+		});
+		main.router.addRouter({
+			index:2,
+			cvsName : "block",
+			urlReg:/block/
+		});
+	}else{
+		main.router.addRouter({
+			index:0,
+			cvsName : "index",
+			urlReg:/index/
+		});
+		main.router.addRouter({
+			index:1,
+			cvsName : "classical",
+			urlReg:/classical/
+		});
+		main.router.addRouter({
+			index:2,
+			cvsName : "block",
+			urlReg:/block/
+		});
+	}
+	
 	main.init();
 	console.log("ending");
 });
