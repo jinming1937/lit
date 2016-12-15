@@ -60,7 +60,8 @@ module.exports = function(grunt) {
                 entry: {
                     //mainForClassical:"./cvs/proj/snake/mainForClassical",
                     mainForIndex: "./cvs/proj/snake/mainForIndex",
-                    mainForBall:"./cvs/proj/hitTheBall/mainForBall"
+                    mainForBall:"./cvs/proj/hitTheBall/mainForBall",
+                    toolScript:"./entry/fastwork/toolScript"
                 },
                 output: {
                     path: "dist/",
@@ -133,6 +134,12 @@ module.exports = function(grunt) {
                 files: {
                     'dist/hitTheBall/css/main.css': 'dist/hitTheBall/css/main.css'
                 }
+            },
+            toolStyle:{
+                banner: '<%- banner %>',
+                files: {
+                    'dist/toolStyle.css': 'dist/toolStyle.css'
+                }
             }
         },
         /*jshint 语法检查*/
@@ -177,6 +184,11 @@ module.exports = function(grunt) {
             hitBall:{
                 files: {
                     'dist/hitTheBall/css/main.css': 'cvs/proj/hitTheBall/sass/main.scss'
+                }
+            },
+            toolStyle:{
+                files: {
+                    'dist/toolStyle.css': 'entry/fastwork/toolStyle.scss'
                 }
             }
         },
@@ -253,5 +265,7 @@ module.exports = function(grunt) {
     grunt.registerTask('ball', ['sass:hitBall', 'cssmin:hitBall', 'webpack:snake']);    
 
     grunt.registerTask('testsc', 'sass:testsc');
+
+    grunt.registerTask('fastwork',['sass:toolStyle','cssmin:toolStyle','webpack:snake']);
 
 };
