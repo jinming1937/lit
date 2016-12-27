@@ -1,17 +1,16 @@
 define([
-	"../../../lib/tool/button",
 	"../../../lib/tool/extend/triangle",
 	"../../../lib/tool/circle",
 	"../../../lib/server/ws",
-	"../../../lib/server/storage",
-	"../../../outer/gctrl"	
-],function(button,triangle,circle,ws,storage,gctrl){
+	"../../../outer/gctrl",
+	"../../../../node_modules/storage-ctrl"
+],function(triangle,circle,ws,gctrl,storageCtrl){
 	main.on("show","index",function(){
 		var frame = (main.getCurrentFrame()).cvs;
 		var screenWidth = (main.getCurrentFrame()).cvs.width;
 		var screenHeight = (main.getCurrentFrame()).cvs.height;
-		var thisUser = storage.cookieCtrl.getData("BCookieID");
-		var thisStdn = storage.cookieCtrl.getData("stdn");
+		var thisUser = storageCtrl.getCookieData("BCookieID");
+		var thisStdn = storageCtrl.getCookieData("stdn");
 		//后端输出的数据
 		var sData = JSON.parse($data);
 		new gctrl(frame);
@@ -22,7 +21,6 @@ define([
 				  4、 撞球 代码编写
 				  5、 设置游戏开始、结束、 同步球 移动信息
 				  6、 每个人都是"蓝队"：接受的数据，是红队
-
 		 */
 
 		var data = {};

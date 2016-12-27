@@ -6,7 +6,7 @@ define([
 	main.on("show","index",function(){
 		new gctrl((main.getCurrentFrame()).cvs);
 		console.log("begin load index");
-		new button({
+		var xxxx= new button({
 			x:10,
 			y:10,
 			value:'move',
@@ -15,6 +15,10 @@ define([
 				console.log("this button is moving!!!");
 			}
 		});
+
+		xxxx.addWatching('touchend',function(){
+			console.log("this button is moving!!!  1111");
+		},false)
 		
 		new button({
 			x:100,
