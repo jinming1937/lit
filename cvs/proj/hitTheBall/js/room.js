@@ -27,11 +27,7 @@ define([
 		}
 
 		ws.onmessage = function(evt){
-			data = typeof evt.data  === "string" ? JSON.parse(evt.data): evt.data;
-			if(Math.pow(aimBall.x - red.x,2) + Math.pow(aimBall.y - red.y, 2 ) - Math.pow(aimBall.radius + red.radius,2) <=0 ){
-				red.x = red.x;
-			}else{
-				red.x = screenWidth - data.x;	
+				
 		}
 			
 		// 	if(!canStart && data.length == 2 ){
