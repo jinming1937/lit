@@ -27,7 +27,11 @@ define([
 		}
 
 		ws.onmessage = function(evt){
-				
+			
+		}
+
+		ws.onopen = function(){
+			
 		}
 			
 		// 	if(!canStart && data.length == 2 ){

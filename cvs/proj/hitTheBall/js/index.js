@@ -32,6 +32,7 @@ define([
 			dt.userID = thisUser;
 			dt.roomNum = 0;
 			dt.stdn = thisStdn;
+			dt.action = 'show';
 			ws.send(JSON.stringify(dt));
 		};
 
@@ -72,6 +73,7 @@ define([
 			dt.userID = thisUser;
 			dt.roomNum = 0;
 			dt.stdn = thisStdn;
+			dt.action = "touch";
 			ws.send(JSON.stringify(dt));
 			console.log("send message:" + dt.x); 
 			//cancelAnimationFrame(timeTip);
