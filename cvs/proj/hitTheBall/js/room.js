@@ -2,10 +2,28 @@ define([
 	"../../../lib/tool/button",
 	"../../../lib/tool/extend/triangle",
 	"../../../lib/tool/circle",
-	"../../../lib/server/ws",
+	//"../../../lib/server/ws",
 	"../../../outer/gctrl"	
-],function(button,triangle,circle,ws,gctrl){
+],function(button,triangle,circle,gctrl){
 	main.on("show","room",function(){
+		var ws = new WebSocket('ws://'+location.host+location.pathname);
+	
+		ws.onclose = function(evt){
+		  console.log('WebSocketClosed!');
+		};
+
+		ws.onerror = function(evt){
+		  console.log('WebSocketError!');
+		};
+
+		ws.onmessage = function(evt){
+			console.log('room receive message');
+		};
+
+		ws.onopen = function(){
+			console.log('room page open');
+		};
+
 		var data = JSON.parse($data);
 		var arr = [];
 		for(var i=0,len=data.length;i<len;i++){
@@ -24,14 +42,6 @@ define([
 				}
 			});
 			arr.push(btn);
-		}
-
-		ws.onmessage = function(evt){
-			
-		}
-
-		ws.onopen = function(){
-			
 		}
 			
 		// 	if(!canStart && data.length == 2 ){

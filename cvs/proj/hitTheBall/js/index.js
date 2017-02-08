@@ -1,10 +1,10 @@
 define([
 	"../../../lib/tool/extend/triangle",
 	"../../../lib/tool/circle",
-	"../../../lib/server/ws",
+	//"../../../lib/server/ws",
 	"../../../outer/gctrl",
 	"../../../../node_modules/storage-ctrl"
-],function(triangle,circle,ws,gctrl,storageCtrl){
+],function(triangle,circle,gctrl,storageCtrl){
 	main.on("show","index",function(){
 		var frame = (main.getCurrentFrame()).cvs;
 		var screenWidth = (main.getCurrentFrame()).cvs.width;
@@ -14,6 +14,15 @@ define([
 		//后端输出的数据
 		var sData = JSON.parse($data);
 		new gctrl(frame);
+		var ws = new WebSocket('ws://'+location.host+location.pathname);
+	
+		ws.onclose = function(evt){
+		  console.log('WebSocketClosed!');
+		};
+
+		ws.onerror = function(evt){
+		  console.log('WebSocketError!');
+		};
 		/*
 			todo: 1、 适配机型，不同大小的屏幕如何无缝对战？ 
 				  2、 各自控制各自的按钮，红控红，蓝控蓝
