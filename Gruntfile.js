@@ -53,9 +53,20 @@ module.exports = function(grunt) {
                 }
             }
         },
+        /*jshint 语法检查*/
+        jshint: {
+            build: [
+                //'entry/card/js/*.js',
+                'cvs/lib/cvs.js',
+                //'cvs/proj/test/js/test.js'
+            ],
+            options: {
+                jshintrc: '.jshintrc'
+            }
+        },
         //
         webpack: {
-            snake: {
+            lit: {
                 // webpack options 
                 entry: {
                     //mainForClassical:"./cvs/proj/snake/mainForClassical",
@@ -70,7 +81,6 @@ module.exports = function(grunt) {
                 plugins: [
                     //uglifyJsPlugin,
                     devFlagPlugin
-                    //slarkPlugin
                 ],
                 stats: {
                     // Configure the console output 
@@ -118,11 +128,6 @@ module.exports = function(grunt) {
                     'cvs/proj/test/css/main.min.css': 'cvs/proj/test/css/main.css'
                 }
             },
-            testsc: {
-                files: {
-                    'dist/main.min.css': 'dist/main.css'
-                }
-            },
             snake: {
                 banner: '<%- banner %>',
                 files: {
@@ -142,17 +147,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        /*jshint 语法检查*/
-        jshint: {
-            build: [
-                //'entry/card/js/*.js',
-                'cvs/lib/cvs.js',
-                //'cvs/proj/test/js/test.js'
-            ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
         /* sass 打包 */
         sass: {
             options: {
@@ -164,11 +158,6 @@ module.exports = function(grunt) {
             nservice:{
                 files:{
                 	'<%= meta.distPath %>nodeServiceForIndex.css': 'nodeservice/sass/nodeServiceForIndex.scss'
-                }
-            },
-            testsc: {
-                files: {
-                    '<%= meta.distPath %>main.css': 'entry/testScript/main.scss'
                 }
             },
             base: {
@@ -203,16 +192,6 @@ module.exports = function(grunt) {
                     'cssmin:nservice'
                 ]
         	},
-            testsc: {
-                files: [
-                    'entry/**/scss/*.scss',
-                    //"sc/chooseCity/chooseCity.scss"
-                ],
-                tasks: [
-                    'sass:testsc',
-                    'cssmin:testsc'
-                ]
-            },
             snake: {
                 files: [
                     'cvs/proj/snake/sass/*.scss',
@@ -256,16 +235,16 @@ module.exports = function(grunt) {
     // service
     grunt.registerTask('service', ['connect', 'open', 'watch']);
 
-    // litServerPlus.js ： node js 的站点所需的静态文件
+    // litServerPlus.js ：站点所需的静态文件
     grunt.registerTask('nservice',['sass:nservice','cssmin:nservice','watch:nservice']);
     
     // package snake 项目
-    grunt.registerTask('snake', ['sass:snake', 'cssmin:snake', 'webpack:snake']);
+    grunt.registerTask('snake', ['sass:snake', 'cssmin:snake', 'webpack:lit']);
 
-    grunt.registerTask('ball', ['sass:hitBall', 'cssmin:hitBall', 'webpack:snake']);    
+    // package ball 项目
+    grunt.registerTask('hitball', ['sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);    
 
-    grunt.registerTask('testsc', 'sass:testsc');
-
-    grunt.registerTask('fastwork',['sass:toolStyle','cssmin:toolStyle','webpack:snake']);
+    // lit.com:8080 辅助工作的工具页面
+    grunt.registerTask('fastwork',['sass:toolStyle','cssmin:toolStyle','webpack:lit']);
 
 };
