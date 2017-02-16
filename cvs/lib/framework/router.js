@@ -27,11 +27,12 @@ define(function(){
 	*/
 	Router.prototype.match = function(url){
 		var o = null;
-		for(var i in this.routerArray){
-			if(url.search(this.routerArray[i].urlReg)>-1){
-				o = this.routerArray[i];
+		var _this = this;
+		_this.routerArray.forEach(function(item,i){
+			if(url.search(item.urlReg)>-1){
+				o = item;
 			}
-		}
+		});
 		return o;
 	}
 	

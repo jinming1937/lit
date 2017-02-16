@@ -13,24 +13,24 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block"],function(ma
 	if(location.port === "8089"){
 		main.router.addRouter({
 			index:0,
-			cvsName : "snake",
-			urlReg:/snake/
+			cvsName : "index",
+			urlReg:/\/snake\/snindex/
 		});
 		main.router.addRouter({
 			index:1,
 			cvsName : "classical",
-			urlReg:/classical/
+			urlReg:/\/snake\/classical/
 		});
 		main.router.addRouter({
 			index:2,
 			cvsName : "block",
-			urlReg:/block/
+			urlReg:/\/snake\/block/
 		});
 	}else{
 		main.router.addRouter({
 			index:0,
-			cvsName : "snake",
-			urlReg:/snake/
+			cvsName : "index",
+			urlReg:/snake\/snindex/
 		});
 		main.router.addRouter({
 			index:1,

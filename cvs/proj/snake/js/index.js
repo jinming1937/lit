@@ -3,8 +3,10 @@ define([
 	"../../../lib/tool/extend/triangle",
 	"../../../outer/gctrl"
 ],function(button,triangle,gctrl){
-	main.on("show","index",function(){
+	main.on("show","index",function(cvs){
 		new gctrl((main.getCurrentFrame()).cvs);
+		var dom =  (main.getCurrentFrame()).cvs.canvas;
+		dom.classList.add("right-base");
 		console.log("begin load index");
 		var xxxx= new button({
 			x:10,
