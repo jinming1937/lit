@@ -123,9 +123,9 @@ module.exports = function(grunt) {
                 	'<%= meta.distPath %>nodeServiceForIndex.css': '<%= meta.distPath %>nodeServiceForIndex.css'
                 }
             },
-            cvs: {
+            base: {
                 files: {
-                    'cvs/proj/test/css/main.min.css': 'cvs/proj/test/css/main.css'
+                    'dist/cvs/main.css': 'dist/cvs/base.css'
                 }
             },
             snake: {
@@ -162,7 +162,7 @@ module.exports = function(grunt) {
             },
             base: {
                 files: {
-                    'dist/base.css': 'cvs/sass/base.scss'
+                    'dist/cvs/main.css': 'cvs/sass/base.scss'
                 }
             },
             snake: {
