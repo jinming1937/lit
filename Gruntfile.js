@@ -71,8 +71,7 @@ module.exports = function(grunt) {
                 entry: {
                     //mainForClassical:"./cvs/proj/snake/mainForClassical",
                     mainForIndex: "./cvs/proj/snake/mainForIndex",
-                    mainForBall:"./cvs/proj/hitTheBall/mainForBall",
-                    toolScript:"./entry/fastwork/toolScript"
+                    mainForBall:"./cvs/proj/hitTheBall/mainForBall"
                 },
                 output: {
                     path: "dist/",
@@ -112,20 +111,39 @@ module.exports = function(grunt) {
             },
             //anotherName: {...}
         },
+        /* sass 打包 */
+        sass: {
+            options: {
+                banner: '<%= banner %>',
+                //sourcemap: 'none',
+                style: 'expanded',
+                unixNewlines: true
+            },
+            base: {
+                files: {
+                    'dist/cvs/base.css': 'cvs/sass/base.scss'
+                }
+            },
+            snake: {
+                files: {
+                    'dist/snake/css/main.css': 'cvs/proj/snake/sass/main.scss'
+                }
+            },
+            hitBall:{
+                files: {
+                    'dist/hitTheBall/css/main.css': 'cvs/proj/hitTheBall/sass/main.scss'
+                }
+            }
+        },
         //cssmin css 压缩
         cssmin: {
             options: {
                 stripBanners: true,
                 banner: '/*! <%-pkg.cssname%>-<%-pkg.version%>.css <%- grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-            nservice:{
-                files:{
-                	'<%= meta.distPath %>nodeServiceForIndex.css': '<%= meta.distPath %>nodeServiceForIndex.css'
-                }
-            },
             base: {
                 files: {
-                    'dist/cvs/main.css': 'dist/cvs/base.css'
+                    'dist/cvs/base.min.css': 'dist/cvs/base.css'
                 }
             },
             snake: {
@@ -139,60 +157,11 @@ module.exports = function(grunt) {
                 files: {
                     'dist/hitTheBall/css/main.css': 'dist/hitTheBall/css/main.css'
                 }
-            },
-            toolStyle:{
-                banner: '<%- banner %>',
-                files: {
-                    'dist/toolStyle.css': 'dist/toolStyle.css'
-                }
-            }
-        },
-        /* sass 打包 */
-        sass: {
-            options: {
-                banner: '<%= banner %>',
-                //sourcemap: 'none',
-                style: 'expanded',
-                unixNewlines: true
-            },
-            nservice:{
-                files:{
-                	'<%= meta.distPath %>nodeServiceForIndex.css': 'nodeservice/sass/nodeServiceForIndex.scss'
-                }
-            },
-            base: {
-                files: {
-                    'dist/cvs/main.css': 'cvs/sass/base.scss'
-                }
-            },
-            snake: {
-                files: {
-                    'dist/snake/css/main.css': 'cvs/proj/snake/sass/main.scss'
-                }
-            },
-            hitBall:{
-                files: {
-                    'dist/hitTheBall/css/main.css': 'cvs/proj/hitTheBall/sass/main.scss'
-                }
-            },
-            toolStyle:{
-                files: {
-                    'dist/toolStyle.css': 'entry/fastwork/toolStyle.scss'
-                }
             }
         },
         /*watch*/
         watch: {
-        	nservice:{
-        		files: [
-                    'nodeservice/sass/*.scss'
-                ],
-                tasks: [
-                    'sass:nservice',
-                    'cssmin:nservice'
-                ]
-        	},
-            snake: {
+            proj: {
                 files: [
                     'cvs/proj/snake/sass/*.scss',
                     'cvs/sass/*.scss'
@@ -234,17 +203,11 @@ module.exports = function(grunt) {
 
     // service
     grunt.registerTask('service', ['connect', 'open', 'watch']);
-
-    // litServerPlus.js ：站点所需的静态文件
-    grunt.registerTask('nservice',['sass:nservice','cssmin:nservice','watch:nservice']);
     
     // package snake 项目
-    grunt.registerTask('snake', ['sass:snake', 'cssmin:snake', 'webpack:lit']);
+    grunt.registerTask('snake', ['sass:base','cssmin:base','sass:snake', 'cssmin:snake', 'webpack:lit']);
 
     // package ball 项目
-    grunt.registerTask('hitball', ['sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);    
-
-    // lit.com:8080 辅助工作的工具页面
-    grunt.registerTask('fastwork',['sass:toolStyle','cssmin:toolStyle','webpack:lit']);
+    grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);
 
 };

@@ -14,8 +14,8 @@ define(["../../lib/main","./js/index","./js/room"],function(main){
 		//开发环境
 		main.router.addRouter({
 			index:0,
-			cvsName : "index",
-			urlReg:/index/
+			cvsName : "ball",
+			urlReg:/ball/
 		});
 		main.router.addRouter({
 			index:1,
@@ -25,7 +25,7 @@ define(["../../lib/main","./js/index","./js/room"],function(main){
 	}else{//正式环境
 		main.router.addRouter({
 			index:1,
-			cvsName : "index",
+			cvsName : "ball",
 			urlReg:/ball\/ball/
 		});
 		main.router.addRouter({

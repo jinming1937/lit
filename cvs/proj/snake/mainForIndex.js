@@ -9,12 +9,12 @@ require.config({
 	}
 });
 
-define(["../../lib/main","./js/index","./js/ProjStart","./js/block"],function(main){
+define(["../../lib/main","./js/index","./js/projStart","./js/block"],function(main){
 	if(location.port === "8089"){
 		main.router.addRouter({
 			index:0,
-			cvsName : "index",
-			urlReg:/index/
+			cvsName : "snake",
+			urlReg:/snake/
 		});
 		main.router.addRouter({
 			index:1,
@@ -29,8 +29,8 @@ define(["../../lib/main","./js/index","./js/ProjStart","./js/block"],function(ma
 	}else{
 		main.router.addRouter({
 			index:0,
-			cvsName : "index",
-			urlReg:/index/
+			cvsName : "snake",
+			urlReg:/snake/
 		});
 		main.router.addRouter({
 			index:1,
