@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-define(["../../lib/main","./js/index","./js/projStart","./js/block"],function(main){
+define(["../../lib/main","./js/index","./js/projStart","./js/block","./js/eatPoint"],function(main){
 	if(location.port === "8089"){
 		main.router.addRouter({
 			index:0,
@@ -25,6 +25,11 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block"],function(ma
 			index:2,
 			cvsName : "block",
 			urlReg:/\/snake\/block/
+		});
+		main.router.addRouter({
+			index:2,
+			cvsName : "eatPoint",
+			urlReg:/\/snake\/eatpoint/
 		});
 	}else{
 		main.router.addRouter({

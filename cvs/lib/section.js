@@ -13,8 +13,8 @@ function section() {
    }
    this.cl = function(w) {
       for (var i = 0; i < 10; i++) {
-         this.ctx.fillStyle = config.section.color;
-         this.ctx.fillRect(i * this.dic, 0, w, this.ctx.canvas.height);
+         //this.ctx.fillStyle = config.section.color;
+         this.ctx.clearRect(i * this.dic, 0, w, this.ctx.canvas.height);
       }
    };
    this.fullWin = function() {

@@ -1,3 +1,5 @@
+var button = require("../../../lib/tool/button");
+
 function draw() {
   var canvas = document.getElementById('canvas');
   if (canvas.getContext){
@@ -81,3 +83,18 @@ function roundedRect(ctx,x,y,width,height,radius){
   ctx.quadraticCurveTo(x,y,x,y+radius);
   ctx.stroke();
 }
+
+main.on("show","eatPoint",function(frame){
+  new button({
+    x:100,
+    y:100,
+    value:'首页',
+    backgroundColor:'#f00',
+    ontouchend:function(e){
+      main.open({
+        href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/snindex.html"
+      });
+    }
+  });
+
+});

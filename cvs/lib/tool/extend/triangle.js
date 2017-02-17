@@ -225,12 +225,12 @@ define([
 		var _this = this;
 		var _frame = _this.frame;
 		_frame.reRender();
-		_frame.cxt.save();
+		//_frame.cxt.save();
 		_frame.cxt.translate(o.x,o.y);
 		_frame.cxt.strokeStyle = _this.config.color || "#FFF";
 		_frame.cxt.rotate(_this.rotateAngle*Math.PI/180);
 		_this.draw(_frame);
-		_frame.cxt.restore();
+		//_frame.cxt.restore();
 	};
 	
 	return Triangle;

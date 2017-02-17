@@ -1,7 +1,8 @@
 define([
 	"../../../lib/tool/extend/triangle",
-	"../../../lib/tool/bar"
-],function(triangle,bar){
+	"../../../lib/tool/bar",
+	"../../../lib/tool/button",
+],function(triangle,bar,button){
 	main.on("show","block",function(frame){
 		/*  */
 		var RotateBar = new bar({
@@ -49,6 +50,18 @@ define([
 			color:"#F33",
 			ontouchmove:function(e){
 				console.log("moving block2");
+			}
+		});
+
+		new button({
+			x:100,
+			y:10,
+			value:'首页',
+			backgroundColor:'#f00',
+			ontouchend:function(e){
+				main.open({
+					href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/eatpoint.html"
+				});
 			}
 		});
 	});

@@ -200,12 +200,12 @@ define(function() {
             //		console.log("456");
             //	},0);	
             //}(_this.elementArray[i]));
-            _this.cxt.save();
+            //_this.cxt.save();//-------------------------------
             //_this.elementArray[i].hasRotate? 
             //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
             //    :
                   _this.elementArray[i].draw(_this.cxt);
-            _this.cxt.restore();
+            //_this.cxt.restore();//-----------------------------
         }
     };
 

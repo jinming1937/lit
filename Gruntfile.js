@@ -71,7 +71,7 @@ module.exports = function(grunt) {
                 entry: {
                     //mainForClassical:"./cvs/proj/snake/mainForClassical",
                     mainForIndex: "./cvs/proj/snake/mainForIndex",
-                    mainForBall:"./cvs/proj/hitTheBall/mainForBall"
+                    //mainForBall:"./cvs/proj/hitTheBall/mainForBall"
                 },
                 output: {
                     path: "dist/",
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
         open: {
             kitchen: {
                 /* 需要提前配置好host */
-                path: 'http://www.xiaozhiga.com:8089/cvs/proj/hitTheBall/index.html'
+                path: 'http://www.xiaozhiga.com:8089/cvs/proj/snake/snindex.html'
             }
         }
     });

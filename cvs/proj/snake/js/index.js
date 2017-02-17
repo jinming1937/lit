@@ -25,11 +25,11 @@ define([
 		new button({
 			x:100,
 			y:10,
-			value:'联网',
+			value:'蛇',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
 				main.open({
-					href:"http://localhost:8089/cvs/proj/snake/classical.html"
+					href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/classical.html"
 				});
 			}
 		});
@@ -40,7 +40,9 @@ define([
 			value:"-",
 			ontouchend:function(){
 				console.log('-');
-				main.section.fullWin();
+				main.open({
+					href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/block.html"
+				});
 				// ang.rotateAngle -= 5;
 				// ang.rotate();
 			}

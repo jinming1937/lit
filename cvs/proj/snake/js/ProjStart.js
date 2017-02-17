@@ -106,6 +106,17 @@ define([
 			btnRight.draw();
 			btnDown.draw();
 			btnSG.draw();
+			new Button({
+				x:100,
+				y:150,
+				value:'首页',
+				backgroundColor:'#f00',
+				ontouchend:function(e){
+					main.open({
+						href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/snindex.html"
+					});
+				}
+			});
 		}
 		screenDraw();
 		var stopFlag, isStop = false;
