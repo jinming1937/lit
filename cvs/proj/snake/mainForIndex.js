@@ -44,6 +44,7 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block"],function(ma
 		});
 	}
 	
-	main.init();
+	// main.init();
+	main._init();
 	console.log("ending");
 });

@@ -19,7 +19,7 @@ define([
 		});
 
 		xxxx.addWatching('touchend',function(){
-			console.log("this button is moving!!!  1111");
+			console.log("exec touchend");
 		},false)
 		
 		new button({
@@ -28,7 +28,7 @@ define([
 			value:'联网',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
-				main.visit({
+				main.open({
 					href:"http://localhost:8089/cvs/proj/snake/classical.html"
 				});
 			}
@@ -40,6 +40,7 @@ define([
 			value:"-",
 			ontouchend:function(){
 				console.log('-');
+				main.section.fullWin();
 				// ang.rotateAngle -= 5;
 				// ang.rotate();
 			}
