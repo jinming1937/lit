@@ -35,7 +35,7 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block","./js/eatPoi
 		main.router.addRouter({
 			index:0,
 			cvsName : "index",
-			urlReg:/snake\/snindex/
+			urlReg:/snake\/(index)?/
 		});
 		main.router.addRouter({
 			index:1,
