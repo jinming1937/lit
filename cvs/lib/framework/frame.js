@@ -32,22 +32,27 @@ define(function() {
         _this.catchElementTouchMove = null;
         _this.canvas.addEventListener("click", function(e) {
             _this.fire(e);
+            e.preventDefault();
         }, false);
 
         _this.canvas.addEventListener("touchstart", function(e) {
             _this.fire(e);
+            e.preventDefault();
         }, false);
 
         _this.canvas.addEventListener("touchmove", function(e) {
             _this.fire(e);
+            e.preventDefault();
         }, false);
 
         _this.canvas.addEventListener("touchend", function(e) {
             _this.fire(e);
+            e.preventDefault();
         }, false);
 
         _this.canvas.addEventListener("touchcancel", function(e) {
             _this.fire(e);
+            e.preventDefault();
         }, false);
     };
 
