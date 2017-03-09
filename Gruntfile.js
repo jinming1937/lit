@@ -73,6 +73,7 @@ module.exports = function(grunt) {
                     mainForIndex: "./cvs/proj/snake/mainForIndex",
                     //mainForBall:"./cvs/proj/hitTheBall/mainForBall"
                 },
+                banner:'<%= banner %>',
                 output: {
                     path: "dist/",
                     filename: "[name].js",

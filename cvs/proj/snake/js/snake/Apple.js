@@ -29,16 +29,20 @@ define(["../../../../lib/tool/element"],function(element){
 	/* 产生随机位置:排除掉蛇占据的位置 */
 	Apple.prototype.randomPixel =function(){
 		var _pixelArray = [].concat(this.pixelArray);
-		var snakeArray = [].concat(this.getBodyArray());
+		var snakeArray = this.getBodyArray();
 		var snakeTrueArray = [];
+		console.log(snakeArray);
 		for(var si=0,silen = snakeArray.length;si<silen;si++){
 			snakeTrueArray = snakeTrueArray.concat(snakeArray[si]);
 		}
-		for(var i = 0,leni=this.pixelArray.length;i<leni;i++){
+		for(var leni=this.pixelArray.length-1;leni>=0;leni--){
 			for(var j=0,lenj = snakeTrueArray.length;j<lenj;j++){
-				if(this.pixelArray[i][0] === snakeTrueArray[j][0] &&
-				   this.pixelArray[i][1] === snakeTrueArray[j][1]){
-					_pixelArray.splice(i,1);	
+				if(this.pixelArray[leni][0] === snakeTrueArray[j][0] &&
+				   this.pixelArray[leni][1] === snakeTrueArray[j][1] ){
+					_pixelArray.splice(leni,1);
+				}else if(this.pixelArray[leni][0] === this.pixelX &&
+				   		 this.pixelArray[leni][1] === this.pixelY){
+					_pixelArray.splice(leni,1);
 				}
 			} 
 		}

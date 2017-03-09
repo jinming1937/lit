@@ -36,20 +36,23 @@ define(["../../../../lib/tool/element"],function(element){
 			}
 		};
 	}
-	/* 弃用 */
+	
 	Snake.prototype.down = function(cbStopGame,cbDraw){
 		this.canMove(0,1,cbStopGame,cbDraw);
 	};
+	
 	Snake.prototype.up = function(cbStopGame,cbDraw){
 		this.canMove(0,-1,cbStopGame,cbDraw);
 	};
+	
 	Snake.prototype.left = function(cbStopGame,cbDraw){
 		this.canMove(-1,0,cbStopGame,cbDraw);
 	};
+	
 	Snake.prototype.right = function(cbStopGame,cbDraw){
 		this.canMove(1,0,cbStopGame,cbDraw);
 	};
-	/* 弃用 */
+	
 	Snake.prototype.canMove = function(directX,directY,cbStopGame,cbDraw){
 		var directObj = {
 			directX:this.directX,
