@@ -269,7 +269,7 @@ define([
 
 						for (; spX>0; spX--) {
 							arr.push({
-								x:1,
+								x: appleXY.x > snakeHeadXY.y? 1:-1,
 								y:0
 							});
 						};
@@ -283,7 +283,7 @@ define([
 						for (; spY>0;spY--) {
 							arr.push({
 								x:0,
-								y:1
+								y:appleXY.y >snakeHeadXY.y?1:-1
 							});
 						};
 					}
