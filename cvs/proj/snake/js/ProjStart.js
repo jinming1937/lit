@@ -4,7 +4,7 @@ define([
 	"./snake/Apple",
 	"../../../lib/tool/button",
 	"../../../outer/gctrl"
-	//"../../../outer/hand"
+	// "../../../outer/hand"
 ], function(Screen, Snake, Apple,Button,gctrl) {
 	main.on("show", "classical", function() {
 		new gctrl((main.getCurrentFrame()).cvs);
@@ -47,7 +47,11 @@ define([
 			height:50,
 			backgroundColor:'#f55',
 			ontouchend:function(e){
+				clearInterval(stopFlag);
+				isStop = true;
 				snake.canMove(-1, 0, stopGame, screenDraw);
+				starGame();
+				isStop = false;
 			}
 		});
 		var btnUp = new Button({
@@ -58,7 +62,11 @@ define([
 			height:50,
 			backgroundColor:'#f55',
 			ontouchend:function(e){
+				clearInterval(stopFlag);
+				isStop = true;
 				snake.canMove(0, -1, stopGame, screenDraw);
+				starGame();
+				isStop = false;
 			}
 		});
 		var btnRight = new Button({
@@ -69,7 +77,11 @@ define([
 			height:50,
 			backgroundColor:'#f55',
 			ontouchend:function(e){
+				clearInterval(stopFlag);
+				isStop = true;
 				snake.canMove(1, 0, stopGame, screenDraw);
+				starGame();
+				isStop = false;
 			}
 		});
 		var btnDown = new Button({
@@ -80,9 +92,15 @@ define([
 			height:50,
 			backgroundColor:'#f55',
 			ontouchend:function(e){
+				clearInterval(stopFlag);
+				isStop = true;
 				snake.canMove(0, 1, stopGame, screenDraw);
+				starGame();
+				isStop = false;
+
 			}
 		});
+
 		var btnSG = new Button({
 			x:300,
 			y:400,
@@ -94,6 +112,41 @@ define([
 				toggleGame();
 			}
 		});
+
+		window.onkeydown = function(e) {
+	        var key = e.keyCode;
+	        var flag = true;
+	        clearInterval(stopFlag);
+			isStop = true;
+	        switch (key) {
+	            case 37: //left
+	                // console.log("left");
+	                snake.canMove(-1, 0, stopGame, screenDraw);
+	                break;
+	            case 38: //up
+	                // console.log("up");
+	                snake.canMove(0, -1, stopGame, screenDraw);
+	                break;
+	            case 39: //right
+	                // console.log("right");
+	                snake.canMove(1, 0, stopGame, screenDraw);
+	                break;
+	            case 40: //down
+	                // console.log("down");
+	                snake.canMove(0, 1, stopGame, screenDraw);
+	                break;
+	            case 82: //r
+	                toggleGame();
+	                flag = false;
+	                break;
+	            case 83: //s
+	                toggleGame();
+	                flag = false;
+	                break;
+	        }
+	        flag? starGame():"";
+			if(flag) {isStop = false};
+	    };
 
 		function screenDraw() {
 			//frame.reRender();
@@ -148,5 +201,20 @@ define([
 			console.log("beforeHide");
 			stopGame();
 		});
+
+		window._snake = {
+			setPath : function(handleArray){
+				snake.canMove(handleArray[0].x, handleArray[0].y, stopGame, screenDraw);
+				console.log("x:"+handleArray[0].x+",y:"+ handleArray[0].y);
+				handleArray.shift();
+				if(handleArray.length <= 0){
+					clearTimeout(sTime);
+					return;
+				}
+				var sTime = setTimeout(function(){
+					_snake.setPath(handleArray);
+				},50/3);
+			}
+		}
 	});
 });

@@ -101,6 +101,27 @@ define(["../../../../lib/tool/element"],function(element){
 			direceX :this.bodyArray[0][0][2],
 			direceY :this.bodyArray[0][0][3],
 		};
+
+		/* 吃 */
+		if(applePixel.x === (snakeHeadPixel.x +x) && applePixel.y=== (snakeHeadPixel.y+y)){
+		   	this.randomApplePixel();
+			/* 向最后那一截的最后添加一个节 :
+			 * 好像有bug，因为如果这段代码放在移动之前（上面的if else），似乎更合理
+			 * 下面两行描述邮逻辑问题
+			 * 如果放在之后，那么，就是先移动了，后吃，但是可能呢找不到最后的一个截，因为上面删除了这个截
+			 * 可是测试过程中并没有发现bug
+			 * */
+			var bodyIndex = this.bodyArray.length - 1;
+			var _arr = this.bodyArray[bodyIndex];
+			var _arrLastIndex = _arr.length-1;
+			this.bodyArray[bodyIndex].push([
+				_arr[_arrLastIndex][0] - _arr[0][2],
+				_arr[_arrLastIndex][1] - _arr[0][3],
+				_arr[0][2],
+				_arr[0][3]
+			]);
+		}
+
 		/*如果方向改变，把头添加到一个新的截，再依次往这个截添加节*/
 		if(isChangeDirect){
 			/* 最后一个截，这里面最后一个节要出栈 */
@@ -134,25 +155,31 @@ define(["../../../../lib/tool/element"],function(element){
 		}
 		
 		/* 吃 */
-		if(applePixel.x === (snakeHeadPixel.x +x) && applePixel.y=== (snakeHeadPixel.y+y)){
-		   	this.randomApplePixel();
-			/* 向最后那一截的最后添加一个节 :
-			 * 好像有bug，因为如果这段代码放在移动之前（上面的if else），似乎更合理
-			 * 如果放在之后，那么，就是先移动了，后吃，但是可能呢找不到最后的一个截，因为上面删除了这个截
-			 * 可是测试过程中并没有发现bug
-			 * */
-			var bodyIndex = this.bodyArray.length - 1;
-			var _arr = this.bodyArray[bodyIndex];
-			var _arrLastIndex = _arr.length-1;
-			this.bodyArray[bodyIndex].push([
-				_arr[_arrLastIndex][0] - _arr[0][2],
-				_arr[_arrLastIndex][1] - _arr[0][3],
-				_arr[0][2],
-				_arr[0][3]
-			]);
-		}
+		// if(applePixel.x === (snakeHeadPixel.x +x) && applePixel.y=== (snakeHeadPixel.y+y)){
+		//    	this.randomApplePixel();
+		// 	/* 向最后那一截的最后添加一个节 :
+		// 	 * 好像有bug，因为如果这段代码放在移动之前（上面的if else），似乎更合理
+		// 	 * 下面两行描述邮逻辑问题
+		// 	 * 如果放在之后，那么，就是先移动了，后吃，但是可能呢找不到最后的一个截，因为上面删除了这个截
+		// 	 * 可是测试过程中并没有发现bug
+		// 	 * */
+		// 	var bodyIndex = this.bodyArray.length - 1;
+		// 	var _arr = this.bodyArray[bodyIndex];
+		// 	var _arrLastIndex = _arr.length-1;
+		// 	this.bodyArray[bodyIndex].push([
+		// 		_arr[_arrLastIndex][0] - _arr[0][2],
+		// 		_arr[_arrLastIndex][1] - _arr[0][3],
+		// 		_arr[0][2],
+		// 		_arr[0][3]
+		// 	]);
+		// }
 		cb && cb();
 	};
+
+	//
+	//auto
+	//
+
 
 	return Snake;
 });

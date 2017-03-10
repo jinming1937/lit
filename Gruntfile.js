@@ -79,7 +79,7 @@ module.exports = function(grunt) {
                     filename: "[name].js",
                 },
                 plugins: [
-                    uglifyJsPlugin,
+                    //uglifyJsPlugin,
                     devFlagPlugin
                 ],
                 stats: {

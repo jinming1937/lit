@@ -31,7 +31,6 @@ define(["../../../../lib/tool/element"],function(element){
 		var _pixelArray = [].concat(this.pixelArray);
 		var snakeArray = this.getBodyArray();
 		var snakeTrueArray = [];
-		console.log(snakeArray);
 		for(var si=0,silen = snakeArray.length;si<silen;si++){
 			snakeTrueArray = snakeTrueArray.concat(snakeArray[si]);
 		}
