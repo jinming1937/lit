@@ -195,7 +195,7 @@ define([
 				snake.canMove(undefined, undefined, stopGame, screenDraw);
 			}, 300);
 		}
-		starGame();
+		//starGame();
 		
 		main.on("beforeHide","classical",function(){
 			console.log("beforeHide");
@@ -204,6 +204,7 @@ define([
 
 		window._snake = {
 			setPath : function(handleArray){
+				if(handleArray.length === 0 ) return;
 				snake.canMove(handleArray[0].x, handleArray[0].y, stopGame, screenDraw);
 				console.log("x:"+handleArray[0].x+",y:"+ handleArray[0].y);
 				handleArray.shift();
@@ -214,6 +215,131 @@ define([
 				var sTime = setTimeout(function(){
 					_snake.setPath(handleArray);
 				},50/3);
+			},
+			execEat: function(){
+				var appleXY = {
+					x: apple.getPixel().x,
+					y: apple.getPixel().y
+				};
+				var snakeHeadXY = {
+					x: snake.bodyArray[0][0][0],
+					y: snake.bodyArray[0][0][1]
+				};
+				//蛇头单位向量
+				var snakeDirect = {
+					x:snake.bodyArray[0][0][2],
+					y:snake.bodyArray[0][0][3]
+				};
+				console.log("apple:x:"+appleXY.x +",y:"+appleXY.y);
+				console.log("snake:x:"+snakeHeadXY.x+",y:"+snakeHeadXY.y);
+				console.log("dX:"+snakeDirect.x + ",dY:"+snakeDirect.y);
+				var arr = [];
+				//向量蛇头－>目标
+				var aimV = {
+					x : appleXY.x - snakeHeadXY.x,
+					y : appleXY.y - snakeHeadXY.y
+				};
+				//向量点积
+				var result = aimV.x * snakeDirect.x + aimV.y * snakeDirect.y;
+				var spX , spY;
+				spX = Math.abs(appleXY.x - snakeHeadXY.x);
+				spY = Math.abs(appleXY.y - snakeHeadXY.y);
+				if(result > 0 ){// 大致同向
+					if(appleXY.y === snakeHeadXY.y){//完全水平同向
+						for (; spX>0; spX--) {
+							arr.push({
+								x:appleXY.x >snakeHeadXY.x? -1:1,
+								y:0
+							});
+						};
+					}else if(appleXY.x === snakeHeadXY.x){//完全垂直同向
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y:appleXY.y >snakeHeadXY.y? 1:-1
+							});
+						};
+					}else if(Math.abs(snakeDirect.x) > 0 && snakeDirect.y === 0){ //水平方向
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y: appleXY.y >snakeHeadXY.y? 1:-1
+							});
+						};
+
+						for (; spX>0; spX--) {
+							arr.push({
+								x:1,
+								y:0
+							});
+						};
+					}else if(Math.abs(snakeDirect.y) > 0 && snakeDirect.x === 0){ //垂直方向
+						for (; spX>0; spX--) {
+							arr.push({
+								x:appleXY.x >snakeHeadXY.x? 1:-1,
+								y:0
+							});
+						};
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y:1
+							});
+						};
+					}
+				} else if(result === 0){ //垂直
+					if(Math.abs(snakeDirect.x)> 0){ //水平方向
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y:appleXY.y >snakeHeadXY.y? 1:-1
+							});
+						};
+					}else if(Math.abs(snakeDirect.y)>0){//垂直方向
+						for (; spX>0; spX--) {
+							arr.push({
+								x:appleXY.x >snakeHeadXY.x? 1:-1 ,
+								y:0
+							});
+						};
+					}
+				} else { // 大致反向
+					if(appleXY.y === snakeHeadXY.y){//完全水平反向
+						console.log("no handler");
+					}else if(appleXY.x === snakeHeadXY.x){//完全垂直反向
+						console.log("no handler");
+					}else if(Math.abs(snakeDirect.x) > 0 && snakeDirect.y === 0){ //水平方向
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y:appleXY.y >snakeHeadXY.y? 1:-1
+							});
+						};
+
+						for (; spX>0; spX--) {
+							arr.push({
+								x:appleXY.x >snakeHeadXY.x? 1:-1,
+								y:0
+							});
+						};
+					}else if(Math.abs(snakeDirect.y) > 0 && snakeDirect.x === 0){ //垂直方向
+						for (; spX>0; spX--) {
+							arr.push({
+								x:appleXY.x >snakeHeadXY.x? 1:-1,
+								y:0
+							});
+						};
+						for (; spY>0;spY--) {
+							arr.push({
+								x:0,
+								y:appleXY.y >snakeHeadXY.y? 1:-1
+							});
+						};
+					}
+
+					
+				}
+				this.setPath(arr);
 			}
 		}
 	});
