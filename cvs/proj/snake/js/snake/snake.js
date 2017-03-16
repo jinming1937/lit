@@ -18,7 +18,7 @@ define(["../../../../lib/tool/element"],function(element){
 		this.directX = 1;
 		this.directY = 0;
 		this.frame.manage(this);
-		this.isEat = typeof config.isEat==="undefined"|| !config.isEat ? false:true;
+		this.isEat = typeof config.isEat==="undefined"|| config.isEat ? true:false;
 
 		this.draw = function(){
 			this.frame.cxt.fillStyle = "#F00";
