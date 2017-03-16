@@ -74,11 +74,12 @@ Main.prototype._init = function(_href){
 		//document.getElementsByClassName("cvs")[this.uniqFrame].setAttribute("id",cvsNum);
 		//document.getElementsByClassName("cvs")[this.uniqFrame].className = "cvs right-base";
 		//todo
-		var currentFrame = new frame({
-			canvas:document.getElementsByClassName("cvs")[0],
-			width:document.body.clientWidth,
-			height:document.body.clientHeight//width > height ? width:height
-		});
+		var currentFrame = this.frame;
+		// new frame({
+		// 	canvas:document.getElementsByClassName("cvs")[0],
+		// 	width:document.body.clientWidth,
+		// 	height:document.body.clientHeight//width > height ? width:height
+		// });
 		this.frameArray.push({
 			cvsNum : cvsNum,
 			cvs : currentFrame,
@@ -86,6 +87,7 @@ Main.prototype._init = function(_href){
 			currentLayerId : currentPage.cvsName
 		});
 		currentPage.cvs = currentFrame;
+		this.frame.clear();
 		this.show(currentPage);
 		var _this = this;
 		this.section.init(currentFrame.cxt,function(){

@@ -18,6 +18,7 @@ define(["../../../../lib/tool/element"],function(element){
 		this.directX = 1;
 		this.directY = 0;
 		this.frame.manage(this);
+		this.isEat = typeof config.isEat==="undefined"|| !config.isEat ? false:true;
 
 		this.draw = function(){
 			this.frame.cxt.fillStyle = "#F00";
@@ -36,7 +37,7 @@ define(["../../../../lib/tool/element"],function(element){
 			}
 		};
 	}
-	
+
 	Snake.prototype.down = function(cbStopGame,cbDraw){
 		this.canMove(0,1,cbStopGame,cbDraw);
 	};
@@ -114,12 +115,12 @@ define(["../../../../lib/tool/element"],function(element){
 			var bodyIndex = this.bodyArray.length - 1;
 			var _arr = this.bodyArray[bodyIndex];
 			var _arrLastIndex = _arr.length-1;
-			this.bodyArray[bodyIndex].push([
+			this.isEat? this.bodyArray[bodyIndex].push([
 				_arr[_arrLastIndex][0] - _arr[0][2],
 				_arr[_arrLastIndex][1] - _arr[0][3],
 				_arr[0][2],
 				_arr[0][3]
-			]);
+			]):"";
 		}
 
 		/*如果方向改变，把头添加到一个新的截，再依次往这个截添加节*/

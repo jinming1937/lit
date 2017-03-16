@@ -64,6 +64,28 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             }
         },
+        //复制文件
+        copy: {
+            snake: {
+                files: [
+                    { expand: true, cwd: 'cvs/proj/snake/',src: ['*.html'], dest: '<%= meta.distPath %>snake/' }
+                ]
+            },
+            js: {
+                files: [
+                    { expand: true, cwd: 'lib/', src: ['jquery.js'], dest: '<%= meta.distPath %>' },
+                ]
+            }
+        },
+        //删除文件夹
+        clean: {
+            snake: {
+                files: [{
+                    //删除snake
+                    src: 'dist/snake/'
+                }]
+            }
+        },
         //
         webpack: {
             lit: {
@@ -75,11 +97,11 @@ module.exports = function(grunt) {
                 },
                 banner:'<%= banner %>',
                 output: {
-                    path: "dist/",
+                    path: "dist/js/",
                     filename: "[name].js",
                 },
                 plugins: [
-                    //uglifyJsPlugin,
+                    uglifyJsPlugin,
                     devFlagPlugin
                 ],
                 stats: {
@@ -189,7 +211,7 @@ module.exports = function(grunt) {
         open: {
             kitchen: {
                 /* 需要提前配置好host */
-                path: 'http://www.xiaozhiga.com:8089/cvs/proj/snake/snindex.html'
+                path: 'http://www.xiaozhiga.com:8089/dist/snake/classical.html'
             }
         }
     });
@@ -203,10 +225,12 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // service
-    grunt.registerTask('service', ['connect', 'open', 'watch']);
+    grunt.registerTask('service', ['connect', 'watch']);
+    // sco
+    grunt.registerTask('sco', ['connect', 'open', 'watch']);    
     
     // package snake 项目
-    grunt.registerTask('snake', ['sass:base','cssmin:base','sass:snake', 'cssmin:snake', 'webpack:lit']);
+    grunt.registerTask('snake', ['clean:snake','sass:base','cssmin:base','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake']);
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);

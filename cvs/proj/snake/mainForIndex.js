@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-define(["../../lib/main","./js/index","./js/projStart","./js/block","./js/eatPoint"],function(main){
+define(["../../lib/main","./js/index","./js/projStart","./js/proSnake"],function(main){
 	if(location.port === "8089"){
 		main.router.addRouter({
 			index:0,
@@ -23,14 +23,19 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block","./js/eatPoi
 		});
 		main.router.addRouter({
 			index:2,
-			cvsName : "block",
-			urlReg:/\/snake\/block/
+			cvsName : "prosnake",
+			urlReg:/\/snake\/prosnake/
 		});
-		main.router.addRouter({
-			index:2,
-			cvsName : "eatPoint",
-			urlReg:/\/snake\/eatpoint/
-		});
+		// main.router.addRouter({
+		// 	index:2,
+		// 	cvsName : "block",
+		// 	urlReg:/\/snake\/block/
+		// });
+		// main.router.addRouter({
+		// 	index:2,
+		// 	cvsName : "eatPoint",
+		// 	urlReg:/\/snake\/eatpoint/
+		// });
 	}else{
 		main.router.addRouter({
 			index:0,
@@ -44,9 +49,14 @@ define(["../../lib/main","./js/index","./js/projStart","./js/block","./js/eatPoi
 		});
 		main.router.addRouter({
 			index:2,
-			cvsName : "block",
-			urlReg:/block/
+			cvsName : "prosnake",
+			urlReg:/\/snake\/prosnake/
 		});
+		// main.router.addRouter({
+		// 	index:2,
+		// 	cvsName : "block",
+		// 	urlReg:/block/
+		// });
 	}
 	
 	// main.init();
