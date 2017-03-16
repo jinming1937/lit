@@ -10,6 +10,7 @@ require("./static/usualValue");
  */
 function Main(){
 	//
+	var _this = this;
 	this.router = router;
 	EventPlus.call(this);
 	this.section = new section();
@@ -21,7 +22,10 @@ function Main(){
 	this.frame = new frame({
 		canvas:document.getElementsByClassName("cvs")[0],
 		width:document.body.clientWidth,
-		height:document.body.clientHeight//width > height ? width:height
+		height:document.body.clientHeight,//width > height ? width:height
+		getCurrentRouter: function(){
+			return _this.currentRouter;
+		}
 	});
 	this.openUrl = "";
 	this.historyArray = [];
@@ -65,6 +69,7 @@ Main.prototype.init = function(_href){
 Main.prototype._init = function(_href){
 	var strUrl = _href || location.href;
 	var currentPage = this.router.match(strUrl);
+	this.currentRouter = currentPage;
 	var cvsNum;
 	// var cvs;
 	if(currentPage){
@@ -91,6 +96,7 @@ Main.prototype._init = function(_href){
 		this.show(currentPage);
 		var _this = this;
 		this.section.init(currentFrame.cxt,function(){
+			_this.frame.destroyByPage(currentPage.cvsName);
 			_this._init(_this.openUrl);
 		});
 	}else{

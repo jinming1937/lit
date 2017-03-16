@@ -2,6 +2,8 @@ define([
     "../virtual/action",
     "../virtual/watch"
 ],function(Action,Watch) {
+    var uqid = 'un';
+    var num = 0;
     /**
      * 元素基类：提供公共方法、规范方法接口
      */
@@ -76,6 +78,17 @@ define([
             throw ("this function need overwrite");
         }
 
+        /**
+         * 元素唯一标识
+         * @type {String}
+         */
+        this.elementUqid = uqid+(++num);
+        /**
+         * 默认不允许移动该元素
+         * 必须在绑定thouchmove后，将其设为true,才可以移动该元素
+         * @type {Boolean}
+         */
+        this.allowMove = typeof config['ontouchmove'] === 'function'?true:false;
         /**
          * 元素由 frame 管理 
          */

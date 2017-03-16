@@ -15,6 +15,7 @@ define(function() {
         this.canvas = option.canvas;
         this.width = option.width || document.body.clientWidth;
         this.height = option.height || document.body.clientHeight;
+        this.getCurrentRouter = option.getCurrentRouter;
         this.resize(this.width, this.height);
         this.cxt = this.canvas.getContext("2d");
         this.context = this; //???
@@ -72,15 +73,15 @@ define(function() {
             var cacheElement = null;
             var cacheIndex = -1;
             /* 倒叙遍历 */
-            for (var i = _this.elementIndex - 1; i >= 0; i--) {
-                if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i])) {
-                    cacheElement = _this.elementArray[i];
+            for (var i = _this.elementArray.length - 1; i >= 0; i--) {
+                if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
+                    cacheElement = _this.elementArray[i].element;
                     /* 此处应该是绑定了move事件的元素才赋值 */
-                    if(_this.elementArray[i].hasOwnProperty("ontouchmove")){
+                    if(_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove){
                         cacheIndex = i;//移动这个元素，缓存这个索引
-                        _this.catchElementTouchMove = _this.elementArray[i];
+                        _this.catchElementTouchMove = _this.elementArray[i].element;
                     }
-                    if (!_this.elementArray[i].isUpEvent) { /* 是否允许穿透 */
+                    if (!_this.elementArray[i].element.isUpEvent) { /* 是否允许穿透 */
                         break;
                     }
                 }
@@ -176,12 +177,37 @@ define(function() {
     /**
      * @param {Object} element 元素对象
      * @param {Boolean} hasAddToArray 是否已经被frame管理
+     * todo :
+     * <1>对于多页面，frame 管理没有做页面区分，导致页面跳转，再跳回，重复渲染的时候，frame重复管理
+     * 而且，在画的时候，把重复管理的，全画出来，bug
+     * done : 
+     * <1> 20170316,2105
      */
     Frame.prototype.manage = function(element) {
         var _this = this;
-        _this.elementArray.push(element);
-        _this.elementIndex++;
+        var currentRouter = _this.getCurrentRouter();
+        //if(!_this.hasManageThisPage(currentRouter.cvsName)){/* 只要这个元素所在的页面，已经manage，则不再管理此元素 */
+            _this.elementArray.push({'element':element,'page':currentRouter.cvsName});
+            _this.elementIndex++;
+        //}
     };
+
+    /**
+     * 是否已经管理此页面
+     * @param  {[type]}  obj [description]
+     * @return {Boolean}     [description]
+     */
+    Frame.prototype.hasManageThisPage = function(page){
+        var flag = false,
+            _this = this;
+        for (var i =0,len = _this.elementArray.length; i < len; i++) {
+            if(page === _this.elementArray[i]['page']){
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
 
     /**
      * 销毁元素
@@ -192,11 +218,30 @@ define(function() {
     };
 
     /**
+     * 根据页面名，销毁当前页面的所有元素
+     * @return {[type]} [description]
+     */
+    Frame.prototype.destroyByPage = function(page){
+        var _this = this;
+        for (var len = _this.elementArray.length-1; 0 <= len; len--) {
+            if(page === _this.elementArray[len]['page']){
+                _this.elementArray.splice(len,1);
+            }
+        }
+    }
+
+    /**
      * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
+     * todo:
+     * <1>只画当前页面的元素
+     * done:
+     * <1> : 20170316,2105
+     * 
      */
     Frame.prototype.reRender = function() {
         var _this = this;
         this.clear();
+        var currentRouter = _this.getCurrentRouter();
         //这是个问题： 先new的元素 ，先画出来
         for (var i =0,len = this.elementArray.length; i < len; i++) {
             /* 异步画会重叠，导致“失帧” */
@@ -210,7 +255,9 @@ define(function() {
             //_this.elementArray[i].hasRotate? 
             //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
             //    :
-                  _this.elementArray[i].draw(_this.cxt);
+                  if(currentRouter.cvsName === _this.elementArray[i]['page']){
+                    _this.elementArray[i]['element'].draw(_this.cxt);
+                  }
             //_this.cxt.restore();//-----------------------------
         }
     };

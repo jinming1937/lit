@@ -48,9 +48,8 @@ define(function() {
 		 */
 		this.off = function(fnName) {
 			/* 数组是引用类型，删除元素要注意 */
-			var _arr = [].concat(this.eventArray);
-			for(var i in _arr) {
-				if(_arr[i].fnName === fnName) {
+			for(var i=this.eventArray.length -1;i>=0;i--) {/*倒叙删除 */
+				if(this.eventArray[i].fnName === fnName) {
 					this.eventArray.splice(i, 1);
 				}
 			}

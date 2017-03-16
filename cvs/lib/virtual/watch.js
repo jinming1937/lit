@@ -12,6 +12,7 @@ define(function(){
 	function Watching(){
 		this.eventArray = [];
 		this.addWatching = function(name,callBack,isUpEvent){
+			this.allowMove = name === "touchmove"||this.allowMove===true?true:false;
 			this.eventArray.push({
 				name:name,
 				fn:callBack,
@@ -19,14 +20,11 @@ define(function(){
 			});
 		};
 		this.removeWatching = function(name){
-			var _arr = [].concat(this.eventArray);
-			var _len = this.eventArray.length;
-			for(var i=0;i<_len;i++){
+			for(var i=this.eventArray.length-1;i>=0;i--){
 				if(name === this.eventArray[i].name){
-					_arr.splice(i,1);
+					this.eventArray.splice(i,1);
 				}
 			}
-			this.eventArray = _arr;
 		};
 		this.eventFire = function(e){
 			var _this = this;

@@ -2,7 +2,7 @@
 define(["../../../../lib/tool/element"],function(element){
 	/* 屏幕 */
 	function Screen(config){
-		//element.call(this);
+		element.call(this,config);
 		this.frame = (main.getCurrentFrame()).cvs;
 		this.pixelWidth = config.size||20;
 		this.pixelHeight = config.size||20;

@@ -6,6 +6,6 @@ define([
 	 * @return {[type]} [description]
 	 */
 	function textBox(){
-		element.call(this);
+		element.call(this,{});
 	}
 });

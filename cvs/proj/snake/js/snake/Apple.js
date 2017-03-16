@@ -1,14 +1,14 @@
 define(["../../../../lib/tool/element"],function(element){
 	/* 苹果 */
 	function Apple(config){
-		//element.call(this);
+		element.call(this,config);
 		this.frame = (main.getCurrentFrame()).cvs;
 		this.size = config.size || 20;
 		this.maxPixelX = config.maxPixelX;
 		this.maxPixelY = config.maxPixelY;
 		this.borderX = config.borderX;
 		this.borderY = config.borderY;
-		this.pixelArray = config.pixelArray;
+		this.pixelArray = config.pixelArray;/* 屏幕分辨率 */
 		this.getBodyArray = config.getBodyArray;
 		this.pixelX = parseInt((this.maxPixelX)*Math.random());
 		this.pixelY = parseInt((this.maxPixelY)*Math.random());
@@ -28,11 +28,11 @@ define(["../../../../lib/tool/element"],function(element){
 
 	/* 产生随机位置:排除掉蛇占据的位置 */
 	Apple.prototype.randomPixel =function(){
-		var _pixelArray = [].concat(this.pixelArray);
+		var _pixelArray = [].concat(this.pixelArray);/* 屏幕分辨率不能破坏，只能操作其副本 */
 		var snakeArray = this.getBodyArray();
 		var snakeTrueArray = [];
 		for(var si=0,silen = snakeArray.length;si<silen;si++){
-			snakeTrueArray = snakeTrueArray.concat(snakeArray[si]);
+			snakeTrueArray = snakeTrueArray.concat(snakeArray[si]);/* 拿到贪吃蛇身上每一个方块的坐标 */
 		}
 		for(var leni=this.pixelArray.length-1;leni>=0;leni--){
 			for(var j=0,lenj = snakeTrueArray.length;j<lenj;j++){
