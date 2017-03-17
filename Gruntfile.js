@@ -7,7 +7,11 @@ module.exports = function(grunt) {
 
     //====webpack begin
     var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false }
+        compress: { 
+            warnings: false,
+            drop_debugger: true,
+            drop_console: true
+        }
     });
 
     var devFlagPlugin = new webpack.DefinePlugin({
@@ -33,7 +37,10 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 stripBanners: true,
-                banner: '<%= banner %>' //'/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '<%= banner %>', //'/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
+                compress: {
+                    drop_console: true //删除console 命令
+                }
             },
             // cvs: {
             //     //打包压缩
@@ -229,7 +236,7 @@ module.exports = function(grunt) {
     grunt.registerTask('sco', ['connect', 'open', 'watch']);    
     
     // package snake 项目
-    grunt.registerTask('snake', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake','uglify:snake']);
+    grunt.registerTask('snake', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake']);// ,'uglify':'snake'
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);
