@@ -33,23 +33,23 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 stripBanners: true,
-                banner: '/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '<%= banner %>' //'/*! <%-pkg.jsname%>-<%-pkg.version%>.js <%- grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-            cvs: {
-                //打包压缩
-                //src:['entry/*.js'],
-                //dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
-                //分文件
-                files: {
-                    //'build/card.min.js': 'entry/card/js/card.js',
-                    //'build/tetris.min.js': 'entry/tetris/js/tetris.js',
-                    'cvs/lib/cvs.min.js': 'cvs/lib/cvs.js',
-                    'cvs/proj/test/js/test.min.js': 'cvs/proj/test/js/test.js'
-                }
-            },
+            // cvs: {
+            //     //打包压缩
+            //     //src:['entry/*.js'],
+            //     //dest:'build/<%-pkg.jsname%>-<%-pkg.version%>.js.min.js'
+            //     //分文件
+            //     files: {
+            //         //'build/card.min.js': 'entry/card/js/card.js',
+            //         //'build/tetris.min.js': 'entry/tetris/js/tetris.js',
+            //         'cvs/lib/cvs.min.js': 'cvs/lib/cvs.js',
+            //         'cvs/proj/test/js/test.min.js': 'cvs/proj/test/js/test.js'
+            //     }
+            // },
             snake: {
                 files: {
-                    "dist/main.min.js": "dist/main.js"
+                    "dist/js/mainForIndex.js": "dist/js/mainForIndex.js"
                 }
             }
         },
@@ -68,14 +68,14 @@ module.exports = function(grunt) {
         copy: {
             snake: {
                 files: [
-                    { expand: true, cwd: 'cvs/proj/snake/',src: ['*.html'], dest: '<%= meta.distPath %>snake/' }
-                ]
-            },
-            js: {
-                files: [
-                    { expand: true, cwd: 'lib/', src: ['jquery.js'], dest: '<%= meta.distPath %>' },
+                    { expand: true, cwd: 'proj/snake/',src: ['*.html'], dest: '<%= meta.distPath %>snake/' }
                 ]
             }
+            // js: {
+            //     files: [
+            //         { expand: true, cwd: 'lib/', src: ['jquery.js'], dest: '<%= meta.distPath %>' },
+            //     ]
+            // }
         },
         //删除文件夹
         clean: {
@@ -91,11 +91,10 @@ module.exports = function(grunt) {
             lit: {
                 // webpack options 
                 entry: {
-                    //mainForClassical:"./cvs/proj/snake/mainForClassical",
-                    mainForIndex: "./cvs/proj/snake/mainForIndex",
-                    //mainForBall:"./cvs/proj/hitTheBall/mainForBall"
+                    //mainForClassical:"./proj/snake/mainForClassical",
+                    mainForIndex: "./proj/snake/mainForIndex",
+                    //mainForBall:"./proj/hitTheBall/mainForBall"
                 },
-                banner:'<%= banner %>',
                 output: {
                     path: "dist/js/",
                     filename: "[name].js",
@@ -149,12 +148,12 @@ module.exports = function(grunt) {
             },
             snake: {
                 files: {
-                    'dist/snake/css/main.css': 'cvs/proj/snake/sass/main.scss'
+                    'dist/snake/css/main.css': 'proj/snake/main.scss'
                 }
             },
             hitBall:{
                 files: {
-                    'dist/hitTheBall/css/main.css': 'cvs/proj/hitTheBall/sass/main.scss'
+                    'dist/hitTheBall/css/main.css': 'proj/hitTheBall/sass/main.scss'
                 }
             }
         },
@@ -166,13 +165,13 @@ module.exports = function(grunt) {
             },
             base: {
                 files: {
-                    'dist/cvs/base.min.css': 'dist/cvs/base.css'
+                    'dist/cvs/base.css': 'dist/cvs/base.css'
                 }
             },
             snake: {
                 banner: '<%- banner %>',
                 files: {
-                    'dist/snake/css/main.min.css': 'dist/snake/css/main.css'
+                    'dist/snake/css/main.css': 'dist/snake/css/main.css'
                 }
             },
             hitBall:{
@@ -186,7 +185,7 @@ module.exports = function(grunt) {
         watch: {
             proj: {
                 files: [
-                    'cvs/proj/snake/sass/*.scss',
+                    'proj/snake/sass/*.scss',
                     'cvs/sass/*.scss'
                 ],
                 tasks: [
@@ -230,7 +229,7 @@ module.exports = function(grunt) {
     grunt.registerTask('sco', ['connect', 'open', 'watch']);    
     
     // package snake 项目
-    grunt.registerTask('snake', ['clean:snake','sass:base','cssmin:base','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake']);
+    grunt.registerTask('snake', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake','uglify:snake']);
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);

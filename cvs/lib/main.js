@@ -96,6 +96,7 @@ Main.prototype._init = function(_href){
 		this.show(currentPage);
 		var _this = this;
 		this.section.init(currentFrame.cxt,function(){
+			/* 转场，清理该页面的element */
 			_this.frame.destroyByPage(currentPage.cvsName);
 			_this._init(_this.openUrl);
 		});

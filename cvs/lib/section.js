@@ -11,6 +11,11 @@ function section() {
       this.dic = ctx.canvas.width / 10;
       this.cb = cb;
    }
+   /**
+    * 百叶窗 纵向
+    * @param  {[type]} w [description]
+    * @return {[type]}   [description]
+    */
    this.cl = function(w) {
       for (var i = 0; i < 10; i++) {
          this.ctx.fillStyle = config.section.color;

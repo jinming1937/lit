@@ -1,3 +1,4 @@
+/* 暂时不用了，现在用的是frame.js */
 define(function(){
 	console.log("loading cvs.js");
 	

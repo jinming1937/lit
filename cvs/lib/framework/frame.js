@@ -66,8 +66,11 @@ define(function() {
         var _this = this;
         /* 只有touchend事件，支持touchcancel */
         var hasCancel = false;
-        /* todo:多边形怎么办？touchmove 怎么办？此方法急需重新设计 */
-        /* 已解决： 2016-09-29 */
+        /** todo:
+         * <1>多边形怎么办？touchmove 怎么办？此方法急需重新设计
+         * done
+         * <1>: 2016-09-29 
+         * */
         /* 事件触发 */
         var f = function(ev) {
             var cacheElement = null;
@@ -181,19 +184,18 @@ define(function() {
      * <1>对于多页面，frame 管理没有做页面区分，导致页面跳转，再跳回，重复渲染的时候，frame重复管理
      * 而且，在画的时候，把重复管理的，全画出来，bug
      * done : 
-     * <1> 20170316,2105
+     * <1> 2017-03-16,21:05
      */
     Frame.prototype.manage = function(element) {
         var _this = this;
         var currentRouter = _this.getCurrentRouter();
-        //if(!_this.hasManageThisPage(currentRouter.cvsName)){/* 只要这个元素所在的页面，已经manage，则不再管理此元素 */
-            _this.elementArray.push({'element':element,'page':currentRouter.cvsName});
-            _this.elementIndex++;
-        //}
+        _this.elementArray.push({'element':element,'page':currentRouter.cvsName});
+        _this.elementIndex++;
     };
 
     /**
      * 是否已经管理此页面
+     * 
      * @param  {[type]}  obj [description]
      * @return {Boolean}     [description]
      */
@@ -233,10 +235,10 @@ define(function() {
     /**
      * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
      * todo:
-     * <1>只画当前页面的元素
+     * <1> : 只画当前页面的元素
      * done:
-     * <1> : 20170316,2105
-     * 
+     * <1> : 2017-03-16,21:05
+     * @return {[type]} [description]
      */
     Frame.prototype.reRender = function() {
         var _this = this;
@@ -255,9 +257,12 @@ define(function() {
             //_this.elementArray[i].hasRotate? 
             //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
             //    :
-                  if(currentRouter.cvsName === _this.elementArray[i]['page']){
-                    _this.elementArray[i]['element'].draw(_this.cxt);
-                  }
+          if(currentRouter.cvsName === _this.elementArray[i]['page']){
+            /**
+             * 如果在当前页面，则会把当前页面管理的element重绘
+             */
+            _this.elementArray[i]['element'].draw(_this.cxt);
+          }
             //_this.cxt.restore();//-----------------------------
         }
     };
