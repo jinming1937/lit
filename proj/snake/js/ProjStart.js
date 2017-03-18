@@ -115,41 +115,6 @@ define([
 		// 	}
 		// });
 
-		// window.onkeydown = function(e) {
-	 //        var key = e.keyCode;
-	 //        var flag = true;
-	 //        clearInterval(stopFlag);
-		// 	isStop = true;
-	 //        switch (key) {
-	 //            case 37: //left
-	 //                // console.log("left");
-	 //                snake.canMove(-1, 0, stopGame, screenDraw);
-	 //                break;
-	 //            case 38: //up
-	 //                // console.log("up");
-	 //                snake.canMove(0, -1, stopGame, screenDraw);
-	 //                break;
-	 //            case 39: //right
-	 //                // console.log("right");
-	 //                snake.canMove(1, 0, stopGame, screenDraw);
-	 //                break;
-	 //            case 40: //down
-	 //                // console.log("down");
-	 //                snake.canMove(0, 1, stopGame, screenDraw);
-	 //                break;
-	 //            case 82: //r
-	 //                toggleGame();
-	 //                flag = false;
-	 //                break;
-	 //            case 83: //s
-	 //                toggleGame();
-	 //                flag = false;
-	 //                break;
-	 //        }
-	 //        flag? starGame():"";
-		// 	if(flag) {isStop = false};
-	 //    };
-
 		function screenDraw() {
 			//frame.reRender();
 			frame.clear();
