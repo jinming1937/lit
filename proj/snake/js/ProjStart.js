@@ -1,14 +1,15 @@
 define([
+	"../../../cvs/lib/framework/core",
 	"./snake/ScreenBox",
 	"./snake/Snake",
 	"./snake/Apple",
 	"../../../cvs/lib/tool/button"
 	// "../../../outer/gctrl"
 	// "../../../outer/hand"
-], function(Screen, Snake, Apple,Button) {
-	main.on("show", "classical", function() {
-		// new gctrl((main.getCurrentFrame()).cvs);
-		var frame = (main.getCurrentFrame()).cvs;
+], function(core,Screen, Snake, Apple,Button) {
+	core.on("show", "classical", function() {
+		// new gctrl(core.frame);
+		var frame = core.frame;
 		var urlPath = location.origin+(location.port === '8089'?'/dist/':'/mb/');
 		console.log("begin load classical");
 		/* ------------------[start]------------------- */
@@ -135,7 +136,7 @@ define([
 					_snake.auto = false;
 					clearTimeout(_snake.sTime);
 					// console.log('xxxxx');
-					main.open({
+					core.open({
 						href:urlPath+"snake/snindex.html"
 					});
 				}
@@ -167,7 +168,7 @@ define([
 		}
 		//starGame();
 		
-		main.on("beforeHide","classical",function(){
+		core.on("beforeHide","classical",function(){
 			console.log("beforeHide");
 			stopGame();
 		});

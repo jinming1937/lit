@@ -5,7 +5,9 @@ define(function(){
 	* 1、对象继承 Watching, 获得其属性和方法
 	* 2、对象通过 addWatching, 添加事件监视
 	* 3、对象通过 eventFire, 触发事件
-	* 4、对象通过removeWatching，移除事件
+	* 4、对象通过 removeWatching，移除事件
+	* 观察者模式： 
+	* 	解藕元素对象与action，并且可以对同一元素对象重复绑定事件
 	*/
 
 	/* 事件监视 */

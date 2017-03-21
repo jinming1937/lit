@@ -2,8 +2,9 @@ define(function() {
 
 	/**
 	 * 事件处理
+	 * 监听者
 	 */
-	function EventsPlus() {
+	function Event() {
 		/**
 		 * 保存事件名和事件
 		 * @type {Array}
@@ -47,8 +48,8 @@ define(function() {
 		 * @param {String} fnName 事件名
 		 */
 		this.off = function(fnName) {
-			/* 数组是引用类型，删除元素要注意 */
-			for(var i=this.eventArray.length -1;i>=0;i--) {/*倒叙删除 */
+			var i=this.eventArray.length -1;
+			for(;i>=0;i--) {/*倒叙删除 */
 				if(this.eventArray[i].fnName === fnName) {
 					this.eventArray.splice(i, 1);
 				}
@@ -56,5 +57,5 @@ define(function() {
 		};
 	}
 
-	return EventsPlus;
+	return Event;
 });

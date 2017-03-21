@@ -77,6 +77,11 @@ module.exports = function(grunt) {
                 files: [
                     { expand: true, cwd: 'proj/snake/',src: ['*.html'], dest: '<%= meta.distPath %>snake/' }
                 ]
+            },
+            test :{
+                files: [
+                    { expand: true, cwd: 'proj/test/',src: ['*.html'], dest: '<%= meta.distPath %>test/' }
+                ]  
             }
             // js: {
             //     files: [
@@ -100,6 +105,7 @@ module.exports = function(grunt) {
                 entry: {
                     //mainForClassical:"./proj/snake/mainForClassical",
                     mainForIndex: "./proj/snake/mainForIndex",
+                    main : "./proj/test/main"
                     //mainForBall:"./proj/hitTheBall/mainForBall"
                 },
                 output: {
@@ -107,7 +113,7 @@ module.exports = function(grunt) {
                     filename: "[name].js",
                 },
                 plugins: [
-                    uglifyJsPlugin,
+                    //uglifyJsPlugin,
                     devFlagPlugin
                 ],
                 stats: {
@@ -240,5 +246,8 @@ module.exports = function(grunt) {
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);
+
+    // 测试cmd , amd 重复加载对象，是否保留对对象的修改
+    grunt.registerTask('test', ['webpack:lit','copy:test']);
 
 };

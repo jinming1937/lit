@@ -4,7 +4,7 @@ define([
 	/* 贪吃蛇 */
 	function Snake(config){
 		element.call(this,config);
-		this.frame = (main.getCurrentFrame()).cvs;
+		// this.frame = main.frame;
 		this.defaultLength = 4;
 		this.bodyArray = [[[2,0,1,0],[1,0,1,0],[0,0,1,0]]];//x,y,directX,directY
 		this.bodyLength = this.bodyArray.length;

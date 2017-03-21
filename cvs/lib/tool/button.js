@@ -16,7 +16,7 @@ define([
         
 
         this.value = config.value || "button";
-        //this.frame = (main.getCurrentFrame()).cvs; /* 抽到element */
+        //this.frame = main.frame; /* 抽到element */
         this.x = config.x || 0;
         this.y = config.y || 0;
         this.width = config.width || 80;

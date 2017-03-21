@@ -6,9 +6,9 @@ define([
 	"../../../../node_modules/storage-ctrl"
 ],function(triangle,circle,gctrl,storageCtrl){
 	main.on("show","index",function(){
-		var frame = (main.getCurrentFrame()).cvs;
-		var screenWidth = (main.getCurrentFrame()).cvs.width;
-		var screenHeight = (main.getCurrentFrame()).cvs.height;
+		var frame = main.frame;
+		var screenWidth = main.frame.width;
+		var screenHeight = main.frame.height;
 		var thisUser = storageCtrl.getCookieData("BCookieID");
 		var thisStdn = storageCtrl.getCookieData("stdn");
 		//后端输出的数据

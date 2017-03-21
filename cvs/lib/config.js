@@ -1,6 +1,6 @@
 
 var config = {
-	section:{
+	tween:{
 		//
 		color:'#000000'
 	} 

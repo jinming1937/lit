@@ -4,7 +4,6 @@ define([
 	/* 苹果 */
 	function Apple(config){
 		element.call(this,config);
-		this.frame = (main.getCurrentFrame()).cvs;
 		this.size = config.size || 20;
 		this.maxPixelX = config.maxPixelX;
 		this.maxPixelY = config.maxPixelY;

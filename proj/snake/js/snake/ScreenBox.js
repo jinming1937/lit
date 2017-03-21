@@ -4,7 +4,7 @@ define([
 	/* 屏幕 */
 	function Screen(config){
 		element.call(this,config);
-		this.frame = (main.getCurrentFrame()).cvs;
+		// this.frame = main.frame;
 		this.pixelWidth = config.size||20;
 		this.pixelHeight = config.size||20;
 		this.screenWidth = config.screenWidth || this.frame.width;

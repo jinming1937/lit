@@ -1,11 +1,12 @@
 define([
+	"../../../cvs/lib/framework/core",
 	"../../../cvs/lib/tool/button",
 	"../../../cvs/lib/tool/extend/triangle",
 	"../../../cvs/outer/gctrl"
-],function(button,triangle,gctrl){
-	main.on("show","index",function(cvs){
-		new gctrl((main.getCurrentFrame()).cvs);
-		var dom =  (main.getCurrentFrame()).cvs.canvas;
+],function(core,button,triangle,gctrl){
+	core.on("show","index",function(cvs){
+		new gctrl(core.frame);
+		var dom =  core.frame.canvas;
 		var urlPath = location.origin+(location.port === '8089'?'/dist/':'/mb/');
 		dom.classList.add("right-base");
 		console.log("begin load index");
@@ -29,7 +30,7 @@ define([
 			value:'蛇',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
-				main.open({
+				core.open({
 					href:urlPath+"snake/prosnake.html"
 				});
 			}
@@ -40,7 +41,7 @@ define([
 			value:'蛇',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
-				main.open({
+				core.open({
 					href:urlPath+"snake/classical.html"
 				});
 			}
@@ -52,7 +53,7 @@ define([
 		// 	value:"-",
 		// 	ontouchend:function(){
 		// 		console.log('-');
-		// 		main.open({
+		// 		core.open({
 		// 			href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/block.html"
 		// 		});
 		// 		// ang.rotateAngle -= 5;

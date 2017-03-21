@@ -1,4 +1,7 @@
-define(["../../../cvs/lib/cvs","../../../cvs/lib/server/server"],function(cvs,server){
+define([
+	"../../../cvs/lib/cvs",
+	"../../../cvs/lib/server/server"
+],function(cvs,server){
 	/* --------------------------[start defined]------------------------------- */
 	console.log("loading test,begin defined");
 	/* --------------------------[end defined]------------------------------- */

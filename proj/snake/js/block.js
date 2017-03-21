@@ -1,9 +1,10 @@
 define([
+	"../../../cvs/lib/framework/core",
 	"../../../cvs/lib/tool/extend/triangle",
 	"../../../cvs/lib/tool/bar",
 	"../../../cvs/lib/tool/button",
-],function(triangle,bar,button){
-	main.on("show","block",function(frame){
+],function(core,triangle,bar,button){
+	core.on("show","block",function(frame){
 		/*  */
 		var RotateBar = new bar({
 			x:20,
@@ -59,7 +60,7 @@ define([
 			value:'首页',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
-				main.open({
+				core.open({
 					href:"http://www.xiaozhiga.com:8089/cvs/proj/snake/eatpoint.html"
 				});
 			}

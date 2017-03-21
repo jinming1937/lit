@@ -9,57 +9,56 @@ require.config({
 	}
 });
 
-define(["../../cvs/lib/main","./js/index","./js/projStart","./js/proSnake"],function(main){
+define(["../../cvs/lib/framework/core","./js/index","./js/projStart","./js/proSnake"],function(core){
 	if(location.port === "8089"){
-		main.router.addRouter({
+		core.router.addRouter({
 			index:0,
 			cvsName : "index",
 			urlReg:/\/snake\/snindex/
 		});
-		main.router.addRouter({
+		core.router.addRouter({
 			index:1,
 			cvsName : "classical",
 			urlReg:/\/snake\/classical/
 		});
-		main.router.addRouter({
+		core.router.addRouter({
 			index:2,
 			cvsName : "prosnake",
 			urlReg:/\/snake\/prosnake/
 		});
-		// main.router.addRouter({
+		// core.router.addRouter({
 		// 	index:2,
 		// 	cvsName : "block",
 		// 	urlReg:/\/snake\/block/
 		// });
-		// main.router.addRouter({
+		// core.router.addRouter({
 		// 	index:2,
 		// 	cvsName : "eatPoint",
 		// 	urlReg:/\/snake\/eatpoint/
 		// });
 	}else{
-		main.router.addRouter({
+		core.router.addRouter({
 			index:0,
 			cvsName : "index",
 			urlReg:/snake\/(index)?/
 		});
-		main.router.addRouter({
+		core.router.addRouter({
 			index:1,
 			cvsName : "classical",
 			urlReg:/classical/
 		});
-		main.router.addRouter({
+		core.router.addRouter({
 			index:2,
 			cvsName : "prosnake",
 			urlReg:/\/snake\/prosnake/
 		});
-		// main.router.addRouter({
+		// core.router.addRouter({
 		// 	index:2,
 		// 	cvsName : "block",
 		// 	urlReg:/block/
 		// });
 	}
 	
-	// main.init();
-	main._init();
+	core.init();
 	console.log("ending");
 });
