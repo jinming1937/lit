@@ -1,4 +1,3 @@
-
 var frame = require("./frame"),
 	router = require("./router"),
 	events = require("./event"),

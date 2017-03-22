@@ -243,6 +243,7 @@ module.exports = function(grunt) {
     
     // package snake 项目
     grunt.registerTask('snake', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake']);// ,'uglify':'snake'
+    grunt.registerTask('snakes', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake','uglify:snake']);
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);

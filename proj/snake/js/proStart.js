@@ -42,80 +42,7 @@ define([
 				return snake.bodyArray;
 			}
 		});
-		// var btnLeft = new Button({
-		// 	x:20,
-		// 	y:400,
-		// 	value:'左',
-		// 	width:50,
-		// 	height:50,
-		// 	backgroundColor:'#f55',
-		// 	ontouchend:function(e){
-		// 		clearInterval(stopFlag);
-		// 		isStop = true;
-		// 		snake.canMove(-1, 0, stopGame, screenDraw);
-		// 		starGame();
-		// 		isStop = false;
-		// 	}
-		// });
-		// var btnUp = new Button({
-		// 	x:70,
-		// 	y:350,
-		// 	value:'上',
-		// 	width:50,
-		// 	height:50,
-		// 	backgroundColor:'#f55',
-		// 	ontouchend:function(e){
-		// 		clearInterval(stopFlag);
-		// 		isStop = true;
-		// 		snake.canMove(0, -1, stopGame, screenDraw);
-		// 		starGame();
-		// 		isStop = false;
-		// 	}
-		// });
-		// var btnRight = new Button({
-		// 	x:120,
-		// 	y:400,
-		// 	value:'右',
-		// 	width:50,
-		// 	height:50,
-		// 	backgroundColor:'#f55',
-		// 	ontouchend:function(e){
-		// 		clearInterval(stopFlag);
-		// 		isStop = true;
-		// 		snake.canMove(1, 0, stopGame, screenDraw);
-		// 		starGame();
-		// 		isStop = false;
-		// 	}
-		// });
-		// var btnDown = new Button({
-		// 	x:70,
-		// 	y:450,
-		// 	value:'下',
-		// 	width:50,
-		// 	height:50,
-		// 	backgroundColor:'#f55',
-		// 	ontouchend:function(e){
-		// 		clearInterval(stopFlag);
-		// 		isStop = true;
-		// 		snake.canMove(0, 1, stopGame, screenDraw);
-		// 		starGame();
-		// 		isStop = false;
-
-		// 	}
-		// });
-
-		// var btnSG = new Button({
-		// 	x:300,
-		// 	y:400,
-		// 	value:'s/g',
-		// 	width:50,
-		// 	height:50,
-		// 	backgroundColor:'#f55',
-		// 	ontouchend:function(e){
-		// 		toggleGame();
-		// 	}
-		// });
-
+		
 		function screenDraw() {
 			//frame.reRender();
 			frame.clear();
@@ -132,7 +59,7 @@ define([
 				y:frame.height - 20 - 30,
 				value:'首页',
 				backgroundColor:'#f00',
-				ontouchstart:function(e){
+				ontouchend:function(e){
 					_snake.auto = false;
 					clearTimeout(_snake.sTime);
 					// console.log('xxxxx');
@@ -251,7 +178,7 @@ define([
 
 						for (; spX>0; spX--) {
 							arr.push({
-								x: appleXY.x > snakeHeadXY.y? 1:-1,
+								x: appleXY.x > snakeHeadXY.x? 1:-1,
 								y:0
 							});
 						};
@@ -298,9 +225,6 @@ define([
 								y:snakeHeadXY.y> maxScreen.y/2? -1:1
 							});
 						}
-						//this.setPath(__arr);
-						//return false;
-						// console.log("no handler");
 					}else if(appleXY.x === snakeHeadXY.x){//完全垂直反向
 						if(snakeHeadXY.x === maxScreen.x || snakeHeadXY.x === 0){
 							arr.push({
@@ -313,9 +237,6 @@ define([
 								y:0
 							});
 						}
-						//this.setPath(__arr);
-						//return false;
-						// console.log("no handler");
 					}else if(Math.abs(snakeDirect.x) > 0 && snakeDirect.y === 0){ //水平方向
 						for (; spY>0;spY--) {
 							arr.push({
