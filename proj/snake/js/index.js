@@ -2,13 +2,12 @@ define([
 	"../../../cvs/lib/framework/core",
 	"../../../cvs/lib/tool/button",
 	"../../../cvs/lib/tool/extend/triangle",
-	"../../../cvs/outer/gctrl"
-],function(core,button,triangle,gctrl){
+	"../../../cvs/outer/gctrl",
+	"./clock"
+],function(core,button,triangle,gctrl,clock){
 	core.on("show","index",function(cvs){
 		new gctrl(core.frame);
-		var dom =  core.frame.canvas;
 		var urlPath = location.origin+(location.port === '8089'?'/dist/':'/mb/');
-		dom.classList.add("right-base");
 		console.log("begin load index");
 		var xxxx= new button({
 			x:10,
@@ -30,6 +29,7 @@ define([
 			value:'蛇',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
+				clearInterval(stopClock);
 				core.open({
 					href:urlPath+"snake/prosnake.html"
 				});
@@ -41,11 +41,24 @@ define([
 			value:'蛇',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
+				clearInterval(stopClock);
 				core.open({
 					href:urlPath+"snake/classical.html"
 				});
 			}
 		});
+
+		var myClock = new clock({
+			radius: 60,
+			positionX: core.frame.width /2,
+			positionY: core.frame.height /2,
+		});
+
+		var stopClock = setInterval(function () {
+			// myClock.clear();
+   //          myClock.draw();
+            core.frame.reRender();
+        },1000);
 
 		// new button({
 		// 	x:10,

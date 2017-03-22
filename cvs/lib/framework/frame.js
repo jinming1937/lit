@@ -258,10 +258,12 @@ define(function() {
             //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
             //    :
           if(currentRouter.cvsName === _this.elementArray[i]['page']){
+            _this.cxt.save();
             /**
              * 如果在当前页面，则会把当前页面管理的element重绘
              */
             _this.elementArray[i]['element'].draw(_this.cxt);
+            _this.cxt.restore();
           }
             //_this.cxt.restore();//-----------------------------
         }
