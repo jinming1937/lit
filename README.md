@@ -12,7 +12,7 @@
 
 #### 时间：2017-03-22<br/>
 >* 修复自动贪吃蛇bug： 偶尔走错路bug，导致撞墙等<br/>
->>		原因：蛇在水平方向，方向大致相同时，判断写错了一个字母，（x: appleXY.x > snakeHeadXY.x? 1:-1,)snakeHeadXY.x 写成了y<br/>
+>	* 原因：蛇在水平方向，方向大致相同时，判断写错了一个字母，（x: appleXY.x > snakeHeadXY.x? 1:-1,)snakeHeadXY.x 写成了y<br/>
 
 #### 时间: 2017-03-21<br/>
 >* 添加 Clock 时钟小插件<br/>
