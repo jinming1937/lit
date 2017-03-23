@@ -118,8 +118,8 @@ define([
             //frame.reRender();
             frame.clear();
             _screen.draw();
-            apple.draw();
             snake.draw();
+            apple.draw();
             btnLeft.draw();
             btnUp.draw();
             btnRight.draw();

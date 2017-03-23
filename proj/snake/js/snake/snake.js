@@ -18,7 +18,7 @@ define([
 		this.randomApplePixel = config.randomApplePixel;
 		this.directX = 1;
 		this.directY = 0;
-		this.frame.manage(this);
+		// this.frame.manage(this);
 		this.isEat = typeof config.isEat==="undefined"|| config.isEat ? true:false;
 
 		this.draw = function(){

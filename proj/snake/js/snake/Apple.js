@@ -11,9 +11,10 @@ define([
 		this.borderY = config.borderY;
 		this.pixelArray = config.pixelArray;/* 屏幕分辨率 */
 		this.getBodyArray = config.getBodyArray;
-		this.pixelX = parseInt((this.maxPixelX)*Math.random());
-		this.pixelY = parseInt((this.maxPixelY)*Math.random());
-		this.frame.manage(this);
+		// this.pixelX = parseInt((this.maxPixelX)*Math.random());
+		// this.pixelY = parseInt((this.maxPixelY)*Math.random());
+		this.randomPixel();
+		// this.frame.manage(this);
 		/* 渲染 */
 		this.draw = function(){
 			var _this = this;

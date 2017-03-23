@@ -24,7 +24,7 @@ define([
 				this.pixelArray.push([i,j]);
 			}
 		}
-		this.frame.manage(this);
+		// this.frame.manage(this);
 
 		/* 渲染屏幕 */
 		this.draw = function(){
