@@ -166,7 +166,7 @@ module.exports = function(grunt) {
             },
             hitBall:{
                 files: {
-                    'dist/hitTheBall/css/main.css': 'proj/hitTheBall/sass/main.scss'
+                    'dist/hitTheBall/css/main.css': 'proj/hitTheBall/main.scss'
                 }
             }
         },

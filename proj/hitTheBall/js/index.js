@@ -1,9 +1,8 @@
 define([
 	"../../../cvs/lib/tool/extend/triangle",
 	"../../../cvs/lib/tool/circle",
-	//"../../../lib/server/ws",
 	"../../../cvs/outer/gctrl",
-	"../../../../node_modules/storage-ctrl"
+	"../../../node_modules/storage-ctrl"
 ],function(triangle,circle,gctrl,storageCtrl){
 	main.on("show","index",function(){
 		var frame = main.frame;

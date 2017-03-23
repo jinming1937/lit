@@ -8,44 +8,25 @@ html,body{
     background-color: #FFFFFF;
     position: absolute;
     overflow: hidden;
-}
-
-ul,li{
-    list-style: none;
-}
-
-a{
-    text-decoration:none;
-}
-
-.box {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    overflow: hidden;
-    position: absolute;
-    .cvs {
-        background-color: #C0C0C0;
-        position: absolute;
+    ul{
+        li{
+            list-style: none;
+        }
     }
-    .right-base{
+    a{
+        text-decoration:none;
+    }
+    .box {
+        width: 100%;
+        height: 100%;
         top: 0;
-        right: 0;
-        transition: right 0.3s;
+        left: 0;
+        background-color: #fff;
+        overflow: hidden;
+        position: absolute;
+        .cvs {
+            background-color: #C0C0C0;
+            position: absolute;
+        }
     }
-    .center-to-left{
-        right:100%;
-    }
-    .center-to-right{
-        right: -100%;
-    }
-}
-.position-tips {
-    width: 100px;
-    height: 15px;
-    position: absolute;
-    z-index: 100;
-    background: #FFF;
 }

@@ -2,7 +2,6 @@ define([
 	"../../../cvs/lib/tool/button",
 	"../../../cvs/lib/tool/extend/triangle",
 	"../../../cvs/lib/tool/circle",
-	//"../../../lib/server/ws",
 	"../../../cvs/outer/gctrl"	
 ],function(button,triangle,circle,gctrl){
 	main.on("show","room",function(){
