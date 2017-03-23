@@ -165,6 +165,7 @@ define([
         starGame();
         
         core.on("beforeHide","classical",function(){
+            //竟然不好使。。。
             console.log("beforeHide");
             stopGame();
         });
