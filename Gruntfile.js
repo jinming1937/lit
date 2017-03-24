@@ -6,6 +6,13 @@ module.exports = function(grunt) {
     'use strict'
 
     //====webpack begin
+    var bannerPlugin = new webpack.BannerPlugin(
+            ' =====================================================\n' +
+            ' <%= pkg.name %> v<%= pkg.version %>\n' +
+            ' Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+            ' =====================================================\n'
+        );
+    
     var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
         compress: { 
             warnings: false,
@@ -113,7 +120,8 @@ module.exports = function(grunt) {
                     filename: "[name].js",
                 },
                 plugins: [
-                    uglifyJsPlugin,
+                    bannerPlugin,
+                    //uglifyJsPlugin,
                     devFlagPlugin
                 ],
                 stats: {
@@ -243,7 +251,6 @@ module.exports = function(grunt) {
     
     // package snake 项目
     grunt.registerTask('snake', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake']);// ,'uglify':'snake'
-    grunt.registerTask('snakes', ['clean:snake','sass:snake', 'cssmin:snake', 'webpack:lit' , 'copy:snake','uglify:snake']);
 
     // package ball 项目
     grunt.registerTask('hitball', ['sass:base','cssmin:base','sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);

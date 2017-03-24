@@ -68,8 +68,13 @@ define(function() {
         var hasCancel = false;
         /** todo:
          * <1>多边形怎么办？touchmove 怎么办？此方法急需重新设计
+         * <2>弧线组合的多边形怎么办？需要牺牲性能？应该用这个 
+         * context.isPointInPath & context.isPointInStroke
+         * 注意这两个方法，只能用在基于路径的绘图上，立即绘图方法（fillRect,strokeRect,fillText,strokeText ）总是返回false
+         * 注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
          * done
          * <1>: 2016-09-29 
+         * <2>: 
          * */
         /* 事件触发 */
         var f = function(ev) {
@@ -78,6 +83,7 @@ define(function() {
             /* 倒叙遍历 */
             for (var i = _this.elementArray.length - 1; i >= 0; i--) {
                 if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
+                // if(_this.elementArray[i]['element'].draw({ x: ev.clientX, y: ev.clientY })) {
                     cacheElement = _this.elementArray[i].element;
                     /* 此处应该是绑定了move事件的元素才赋值 */
                     if(_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove){
@@ -271,6 +277,12 @@ define(function() {
 
     /**
      * 触点是否在元素内部，通过给元素添加elementType ， 来区分元素类型，
+     * todo:
+     * <1>: 这里的判断不严谨，只考虑到了常见常规图形，没有考虑到组合复杂图形
+     *      而且，对于多边形需要知道其坐标，对于旋转，则需要进行大量旋转坐标运算
+     *           对于弧形线条组成的图形，不能用多边形来处理
+     * down:
+     * <1>: context.isPointInPath & context.isPointInStroke
      * @param {Object} position 触点坐标
      * @param {Object} element 元素
      */
@@ -320,17 +332,18 @@ define(function() {
 
             // 点与多边形顶点重合
             if ((sx === px && sy === py) || (tx === px && ty === py)) {
-                return 'on'
+                return true;
             }
 
             // 判断线段两端点是否在射线两侧
             if ((sy < py && ty >= py) || (sy >= py && ty < py)) {
-                // 线段上与射线 Y 坐标相同的点的 X 坐标
+                // 线段上与射线 y 坐标相同的点的 x 坐标
+                // 利用画三角形，影子长度比 等于 杆子长度比
                 var x = sx + (py - sy) * (tx - sx) / (ty - sy)
 
                 // 点在多边形的边上
                 if (x === px) {
-                    return 'on'
+                    return true;
                 }
 
                 // 射线穿过多边形的边界
