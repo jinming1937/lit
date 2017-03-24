@@ -5,6 +5,11 @@
  <br/>
  
 ### 更新<br/>
+#### 时间：2017-03-24<br/>
+>* 打包命令添加banner
+>* frame.js添加todo注释
+>* 新增分支reDesign: frame.js准备重构--element判断逻辑增强<br/>
+
 #### 时间：2017-03-23<br/>
 >* 项目清理<br/>
 >* 整理无用项目路径 : img，sass <br/>
