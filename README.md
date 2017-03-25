@@ -5,6 +5,13 @@
  <br/>
  
 ### 更新<br/>
+#### 时间：2017-03-25<br/>
+>* 更新frame.js 对元素的事件捕捉方式：改区域点击为isPointInPath
+> * 这样可以对多种形状（包括弧形边界）进行事件捕捉
+>* element 添加方法 stroke， fill , createPath 
+> * stroke, fill 提供空方法，可以给子类的接口
+> * createPath 重新创建了路径，并关闭，子类如果支持事件，必须重写，如果不支持，则不做处理
+
 #### 时间：2017-03-24<br/>
 >* 打包命令添加banner
 >* frame.js添加todo注释
