@@ -16,7 +16,10 @@ define([
         this.color = config.color || "#F00";
         this.backgroundColor = config.backgroundColor || "#F00";
         this.isUpEvent = config.isUpEvent || false;
-
+        this.createPath = function (argument) {
+            this.frame.cxt.beginPath();
+            this.frame.cxt.arc(parseInt(this.x), parseInt(this.y),this.radius,0,2*Math.PI);
+        }
         /**
          * 
          * @return {[type]} [description]
@@ -25,8 +28,7 @@ define([
         	var _this = this;
             var _frame = this.frame;
             _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
-            _frame.cxt.beginPath();
-            _frame.cxt.arc(parseInt(_this.x), parseInt(_this.y),_this.radius,0,2*Math.PI);
+            _this.createPath();
             _frame.cxt.fillStyle = _this.color || "#FFF";
 			_frame.cxt.fill();
         };

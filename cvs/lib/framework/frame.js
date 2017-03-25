@@ -6,7 +6,7 @@ define(function() {
      * 时间：2016-08-07
      * 作者：jinming1937@163.com
      */
-
+     
     /**
      * Frame : 框架，这里指视窗，一个html页面只有一个视窗
      * @param {Object} option [配置]
@@ -81,20 +81,28 @@ define(function() {
             var cacheElement = null;
             var cacheIndex = -1;
             /* 倒叙遍历 */
-            for (var i = _this.elementArray.length - 1; i >= 0; i--) {
-                if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
-                // if(_this.elementArray[i]['element'].draw({ x: ev.clientX, y: ev.clientY })) {
+            _this.elementArray.reverse().forEach(function (item , i) {
+                _this.cxt.save();
+                _this.elementArray[i]['element'].createPath();
+                if(_this.cxt.isPointInPath(ev.clientX, ev.clientY)) {
                     cacheElement = _this.elementArray[i].element;
                     /* 此处应该是绑定了move事件的元素才赋值 */
                     if(_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove){
                         cacheIndex = i;//移动这个元素，缓存这个索引
                         _this.catchElementTouchMove = _this.elementArray[i].element;
                     }
-                    if (!_this.elementArray[i].element.isUpEvent) { /* 是否允许穿透 */
-                        break;
-                    }
+                    // if (!_this.elementArray[i].element.isUpEvent) {  是否允许穿透 
+                    //     break;
+                    // }
                 }
-            }
+                _this.cxt.restore();
+            })
+            //for (var i = _this.elementArray.length - 1; i >= 0; i--) {
+                // if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
+                // (function (argument) {
+                    
+                // })();
+            // }
             if(cacheIndex > -1 && cacheElement){
                 //后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后
                 var _cacheElement = _this.elementArray.splice(cacheIndex,1);

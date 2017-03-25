@@ -11,6 +11,10 @@ define([
         this.positionY = config.positionX || 0;
         this.numerals = ['Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ','Ⅹ','Ⅺ','Ⅻ','Ⅰ','Ⅱ','Ⅲ']; 
         // this.frame.manage(this);
+        this.createPath = function (argument) {
+            this.frame.cxt.beginPath();
+            this.frame.cxt.arc(this.positionX,this.positionY,3,0,Math.PI*2);
+        }
         /* 渲染 */
         this.draw = function(){
             var _this = this;
@@ -18,8 +22,7 @@ define([
             var cxt = this.frame.cxt;
             cxt.lineWidth = 0.5;
             cxt.font = '8px Microsoft YaHei';
-            cxt.beginPath();
-            cxt.arc(this.positionX,this.positionY,3,0,Math.PI*2);
+            this.createPath();
             cxt.fillStyle = "#000000";
             cxt.fill();
             cxt.beginPath();

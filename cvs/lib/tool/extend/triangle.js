@@ -72,15 +72,18 @@ define([
             this.draw(this.frame);
             //this.rotate();
         };
+        this.createPath = function (argument) {
+        	this.frame.cxt.beginPath();
+			this.frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
+			this.frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
+			this.frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
+        }
 		this.draw = function(frm){
 			if(typeof frm !=="undefined" || !this.hasRotate){
 				var _this = this;
 				var _frame = _this.frame;
 				_frame.cxt.strokeStyle = _this.config.color || "#FFF";
-				_frame.cxt.beginPath();
-				_frame.cxt.moveTo(_this.positionXYArray[0].x,_this.positionXYArray[0].y);
-				_frame.cxt.lineTo(_this.positionXYArray[1].x,_this.positionXYArray[1].y);
-				_frame.cxt.lineTo(_this.positionXYArray[2].x,_this.positionXYArray[2].y);
+				_this.createPath();
 				//_frame.cxt.closePath();
 				//_frame.cxt.stroke();
 				_frame.cxt.fillStyle = _this.config.color || "#FFF";

@@ -15,6 +15,9 @@ define([
 		// this.pixelY = parseInt((this.maxPixelY)*Math.random());
 		this.randomPixel();
 		// this.frame.manage(this);
+		this.createPath = function (argument) {
+			this.frame.cxt.beginPath();
+		}
 		/* 渲染 */
 		this.draw = function(){
 			var _this = this;

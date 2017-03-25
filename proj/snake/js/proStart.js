@@ -42,6 +42,21 @@ define([
 				return snake.bodyArray;
 			}
 		});
+
+		var goHome = new Button({
+			x:frame.width - 20 - 80,
+			y:frame.height - 20 - 30,
+			value:'首页',
+			backgroundColor:'#f00',
+			ontouchend:function(e){
+				_snake.auto = false;
+				clearTimeout(_snake.sTime);
+				// console.log('xxxxx');
+				core.open({
+					href:urlPath+"snake/snindex.html"
+				});
+			}
+		});
 		
 		function screenDraw() {
 			//frame.reRender();
@@ -54,20 +69,7 @@ define([
 			// btnRight.draw();
 			// btnDown.draw();
 			// btnSG.draw();
-			new Button({
-				x:frame.width - 20 - 80,
-				y:frame.height - 20 - 30,
-				value:'首页',
-				backgroundColor:'#f00',
-				ontouchend:function(e){
-					_snake.auto = false;
-					clearTimeout(_snake.sTime);
-					// console.log('xxxxx');
-					core.open({
-						href:urlPath+"snake/snindex.html"
-					});
-				}
-			});
+			goHome.draw();
 		}
 		screenDraw();
 		var stopFlag, isStop = false;
@@ -100,7 +102,7 @@ define([
 			stopGame();
 		});
 
-		window._snake = {
+		var _snake = {
 			auto:false,
 			sTime: 0,
 			setPath : function(handleArray){

@@ -114,29 +114,31 @@ define([
             }
         });
 
+        var goHome = new Button({
+            x:frame.width - 20 - 80,
+            y:frame.height - 20 - 30,
+            value:'首页',
+            backgroundColor:'#f00',
+            ontouchend:function(e){
+                stopGame();
+                core.open({
+                    href:urlPath+"snake/snindex.html"
+                });
+            }
+        });
+
         function screenDraw() {
-            //frame.reRender();
-            frame.clear();
+            frame.reRender();
+            // frame.clear();
             _screen.draw();
             snake.draw();
             apple.draw();
-            btnLeft.draw();
-            btnUp.draw();
-            btnRight.draw();
-            btnDown.draw();
-            btnSG.draw();
-            new Button({
-                x:frame.width - 20 - 80,
-                y:frame.height - 20 - 30,
-                value:'首页',
-                backgroundColor:'#f00',
-                ontouchend:function(e){
-                    stopGame();
-                    core.open({
-                        href:urlPath+"snake/snindex.html"
-                    });
-                }
-            });
+            // btnLeft.draw();
+            // btnUp.draw();
+            // btnRight.draw();
+            // btnDown.draw();
+            // btnSG.draw();
+            // goHome.draw();
         }
         screenDraw();
         var stopFlag, isStop = false;

@@ -26,7 +26,7 @@ define([
 		new button({
 			x:100,
 			y:10,
-			value:'蛇',
+			value:'蛇-',
 			backgroundColor:'#f00',
 			ontouchend:function(e){
 				clearInterval(stopClock);

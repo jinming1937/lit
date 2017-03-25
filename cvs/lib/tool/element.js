@@ -101,7 +101,9 @@ define([
         };
 
         this.createPath = function (argument) {
-            
+            this.frame.cxt.beginPath();
+            this.frame.cxt.closePath();
+            // throw ("this function need overwrite");
         };
 
         /**
