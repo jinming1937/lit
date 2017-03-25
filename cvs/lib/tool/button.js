@@ -34,15 +34,10 @@ define([
          */
         this.ontouchmove = function(e) {
             if(typeof config.ontouchmove === "function") {
-                // if(config.strong){
-                    
-                //     this.eventFire(e); 
-                // }else{
-                    config.ontouchmove(e);
-                    this.eventFire(e);
-                    this.x = e.changedTouches[0].clientX - this.width/2;
-                    this.y = e.changedTouches[0].clientY - this.height/2;
-                // }
+                config.ontouchmove(e);
+                this.eventFire(e);
+                this.x = e.changedTouches[0].clientX - this.width/2;
+                this.y = e.changedTouches[0].clientY - this.height/2;
                 
                 this.positionXYArray = [];
                 this.initPositionXYArray();

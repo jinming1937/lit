@@ -80,19 +80,22 @@ define(function() {
         var f = function(ev) {
             var cacheElement = null;
             var cacheIndex = -1;
+            var isFireAim = false;
             /* 倒叙遍历 */
             _this.elementArray.reverse().forEach(function (item , i) {
                 _this.cxt.save();
                 _this.elementArray[i]['element'].createPath();
-                if(_this.cxt.isPointInPath(ev.clientX, ev.clientY)) {
+                if(_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
+                    isFireAim = true;
                     cacheElement = _this.elementArray[i].element;
                     /* 此处应该是绑定了move事件的元素才赋值 */
                     if(_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove){
                         cacheIndex = i;//移动这个元素，缓存这个索引
                         _this.catchElementTouchMove = _this.elementArray[i].element;
                     }
-                    // if (!_this.elementArray[i].element.isUpEvent) {  是否允许穿透 
-                    //     break;
+                    /*是否允许穿透*/ 
+                    // if (!_this.elementArray[i].element.isUpEvent) {  
+                        //break;
                     // }
                 }
                 _this.cxt.restore();

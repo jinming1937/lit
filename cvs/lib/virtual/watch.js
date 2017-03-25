@@ -22,6 +22,7 @@ define(function(){
 			});
 		};
 		this.removeWatching = function(name){
+			this.allowMove = name === "touchmove"||this.allowMove===true?false:true;
 			for(var i=this.eventArray.length-1;i>=0;i--){
 				if(name === this.eventArray[i].name){
 					this.eventArray.splice(i,1);
