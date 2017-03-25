@@ -90,7 +90,19 @@ define([
          */
         this.draw = function() {
             throw ("this function need overwrite");
-        }
+        };
+
+        this.stroke = function (argument) {
+            
+        };
+
+        this.fill = function (argument) {
+            
+        };
+
+        this.createPath = function (argument) {
+            
+        };
 
         /**
          * 元素唯一标识
