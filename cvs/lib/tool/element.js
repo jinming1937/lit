@@ -1,8 +1,9 @@
 define([
     "../framework/core",
     "../virtual/action",
-    "../virtual/watch"
-],function(core,Action,Watch) {
+    "../virtual/watch",
+    "../sys/style"
+],function(core,Action,Watch,style) {
     var uqid = 'un';
     var num = 0;
     /**
@@ -105,6 +106,24 @@ define([
             this.frame.cxt.closePath();
             // throw ("this function need overwrite");
         };
+
+        /**
+         * 类名
+         * @type {String}
+         */
+        this.className = "";
+
+        /**
+         * 类数组
+         * @type {Array}
+         */
+        this.classList = this.className.replace(/\s\s/g,' ').replace(/^\s/g,'').replace(/\s$/g,'').split(/\s/g);
+
+        /**
+         * 
+         * @type {style}
+         */
+        this.style = new style(config.className || "");
 
         /**
          * 元素唯一标识

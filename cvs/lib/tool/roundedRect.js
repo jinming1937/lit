@@ -8,11 +8,10 @@ define([
         this.width = config.width;
         this.height = config.height;
         this.cornerRadius = config.cornerRadius;
-        this.strokeStyle = config.strokeStyle;
-        this.fillStyle = config.fillStyle;
         this.fontColor = config.fontColor;
         this.fillText = config.fillText ||"";
         this.isUpEvent = config.isUpEvent || false;
+        this.className = config.className;
         this.ontouchmove = function(e) {
             if(typeof config.ontouchmove === "function") {
                 config.ontouchmove(e);
@@ -23,7 +22,6 @@ define([
                 this.draw();
             }
         };
-
         this.createPath = function() {
             var context = this.frame.cxt;
             var cornerX = this.cornerX,
@@ -43,18 +41,17 @@ define([
             } else {
                 context.arcTo(cornerX, cornerY,cornerX - cornerRadius, cornerY,cornerRadius);
             }
-        }
+        };
         this.draw = function() {
             var context = this.frame.cxt;
             this.createPath();
-            context.strokeStyle = this.strokeStyle;
-            context.fillStyle = this.fillStyle;
+            this.style.setStyle(context);
             context.stroke();
             context.fill();
             context.textAlign="center";
             context.textBaseline="middle";
             context.fillStyle = this.fontColor;
-            context.font = "15px Georgia";
+            context.font = "15px Microsoft YaHei";
             context.fillText(this.fillText, this.width/2+this.cornerX, this.height/2+this.cornerY);
         };
         this.draw();

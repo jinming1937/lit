@@ -57,10 +57,8 @@ define([
         });
 
         var moving = new roundedRect({
-        	strokeStyle:'#808080',
-        	strokeStyle: '#ff4c07',
-            fillStyle: '#ff4c07',
-            fontColor: '#000000',
+        	className:'button move',
+            fontColor: '#101010',
             cornerX: 10,
             cornerY: 10,
             width: 70,
@@ -82,9 +80,8 @@ define([
         })
 
         var snakeButton = new roundedRect({
-            strokeStyle: '#ff4c07',
-            fillStyle: '#ff4c07',
-            fontColor: '#000000',
+        	className :'button snake',
+            fontColor: '#101010',
             cornerX: 100,
             cornerY: 10,
             width: 90,
@@ -101,9 +98,8 @@ define([
         }, false);
 
         new roundedRect({
-            strokeStyle: '#ff4c07',
-            fillStyle: '#f00',
-            fontColor: '#000000',
+            className : "button snake-auto",
+            fontColor: '#101010',
             cornerX: 200,
             cornerY: 10,
             width: 90,
