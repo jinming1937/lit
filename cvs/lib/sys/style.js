@@ -9,15 +9,13 @@ define([
         ];
 
         var _this = this;
-        // (function() {
-            baseStyle.forEach(function (item, index) {
-                classList.forEach(function (ite,ind) {
-                    if(typeof cssjs[ite] !=='undefined'){
-                        _this[item] = cssjs[ite][item] || '';
-                    }
-                });
+        baseStyle.forEach(function (item, index) {
+            classList.forEach(function (ite,ind) {
+                if(typeof cssjs[ite] !=='undefined'){
+                    _this[item] = cssjs[ite][item] || '';
+                }
             });
-        // }());
+        });
 
         this.setStyle = function (cxt) {
             for(var item in this){

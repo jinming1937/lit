@@ -19,6 +19,7 @@ define([
         this.createPath = function (argument) {
             this.frame.cxt.beginPath();
             this.frame.cxt.arc(parseInt(this.x), parseInt(this.y),this.radius,0,2*Math.PI);
+            this.frame.cxt.closePath();
         }
         /**
          * 
@@ -27,10 +28,11 @@ define([
         this.draw = function(){
         	var _this = this;
             var _frame = this.frame;
-            _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
             _this.createPath();
             _frame.cxt.fillStyle = _this.color || "#FFF";
+            _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
 			_frame.cxt.fill();
+            _frame.cxt.stroke();
         };
 
         /**

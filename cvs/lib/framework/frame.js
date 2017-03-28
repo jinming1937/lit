@@ -74,7 +74,7 @@ define(function() {
          * 注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
          * done
          * <1>: 2016-09-29 
-         * <2>: 
+         * <2>: 2017-03-25
          * */
         /* 事件触发 */
         var f = function(ev) {
@@ -293,7 +293,7 @@ define(function() {
      *      而且，对于多边形需要知道其坐标，对于旋转，则需要进行大量旋转坐标运算
      *           对于弧形线条组成的图形，不能用多边形来处理
      * down:
-     * <1>: context.isPointInPath & context.isPointInStroke
+     * <1>: context.isPointInPath & context.isPointInStroke 2017-03-25 此方法暂时弃用
      * @param {Object} position 触点坐标
      * @param {Object} element 元素
      */
@@ -324,6 +324,7 @@ define(function() {
     };
 
     /**
+     * 2017-03-25 此策略暂时弃用
      * author : http://blog.csdn.net/jq_develop/article/details/44981127
      * @description 射线法判断点是否在多边形内部
      * @param {Object} p [待判断的点，格式：{ x: X坐标, y: Y坐标 }]

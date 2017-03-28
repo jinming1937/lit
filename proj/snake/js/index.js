@@ -50,76 +50,6 @@ define([
         //     }
         // });
 
-        var myClock = new clock({
-            radius: 60,
-            positionX: core.frame.width / 2,
-            positionY: core.frame.height / 2,
-        });
-
-        var moving = new roundedRect({
-        	className:'button move',
-            fontColor: '#101010',
-            cornerX: 10,
-            cornerY: 10,
-            width: 70,
-            height: 30,
-            cornerRadius: 8,
-            fillText: "move",
-            ontouchmove:function (e) {
-            	console.log('moving');
-            }
-        })
-
-        moving.addWatching('touchmove',function (e) {
-        	// console.log(e);
-        	console.log('addWatching for moving');
-        });
-
-        moving.addWatching('touchend',function (e) {
-        	console.log('moved');
-        })
-
-        var snakeButton = new roundedRect({
-        	className :'button snake',
-            fontColor: '#101010',
-            cornerX: 100,
-            cornerY: 10,
-            width: 90,
-            height: 30,
-            cornerRadius: 8,
-            fillText: "snake"
-        });
-        snakeButton.addWatching('touchend', function() {
-            console.log("hahaha");
-            clearInterval(stopClock);
-            core.open({
-                href: urlPath + "snake/prosnake.html"
-            });
-        }, false);
-
-        new roundedRect({
-            className : "button snake-auto",
-            fontColor: '#101010',
-            cornerX: 200,
-            cornerY: 10,
-            width: 90,
-            height: 30,
-            cornerRadius: 8,
-            fillText: "snake-auto",
-            ontouchend: function(e) {
-                clearInterval(stopClock);
-                core.open({
-                    href: urlPath + "snake/classical.html"
-                });
-            }
-        });
-
-        var stopClock = setInterval(function() {
-            // myClock.clear();
-            // myClock.draw();
-            core.frame.reRender();
-        }, 1000);
-
         // new button({
         // 	x:10,
         // 	y:50,
@@ -168,5 +98,75 @@ define([
         // 	y:360,
         // 	color:"#F00"
         // });
+        // 
+        var myClock = new clock({
+            radius: 60,
+            positionX: core.frame.width / 2,
+            positionY: core.frame.height / 2,
+        });
+
+        var moving = new roundedRect({
+        	className:'button move',
+            fontColor: '#101010',
+            cornerX: 10,
+            cornerY: 10,
+            width: 70,
+            height: 30,
+            cornerRadius: 8,
+            fillText: "move",
+            ontouchmove:function (e) {
+            	console.log('moving');
+            }
+        });
+
+        moving.addWatching('touchmove',function (e) {
+        	// console.log(e);
+        	console.log('addWatching for moving');
+        });
+
+        moving.addWatching('touchend',function (e) {
+        	console.log('moved');
+        });
+
+        var snakeButton = new roundedRect({
+        	className :'button snake',
+            fontColor: '#101010',
+            cornerX: 100,
+            cornerY: 10,
+            width: 90,
+            height: 30,
+            cornerRadius: 8,
+            fillText: "snake"
+        });
+        snakeButton.addWatching('touchend', function() {
+            console.log("hahaha");
+            clearInterval(stopClock);
+            core.open({
+                href: urlPath + "snake/prosnake.html"
+            });
+        }, false);
+
+        new roundedRect({
+            className : "button snake-auto",
+            fontColor: '#101010',
+            cornerX: 200,
+            cornerY: 10,
+            width: 90,
+            height: 30,
+            cornerRadius: 8,
+            fillText: "snake-auto",
+            ontouchend: function(e) {
+                clearInterval(stopClock);
+                core.open({
+                    href: urlPath + "snake/classical.html"
+                });
+            }
+        });
+
+        var stopClock = setInterval(function() {
+            // myClock.clear();
+            // myClock.draw();
+            core.frame.reRender();
+        }, 1000);
     });
 });
