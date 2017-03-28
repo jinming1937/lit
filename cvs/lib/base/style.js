@@ -1,5 +1,5 @@
 define([
-    '../css/cssjs'
+    './cssjs'
 ],function(cssjs) {
     var style = function(className) {
         //,'webkitImageSmoothingEnabled'

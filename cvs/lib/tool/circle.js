@@ -1,5 +1,5 @@
 define([
-    "./element"
+    "../base/element"
 ], function(Element) {
     console.log("load circle");
     function Circle(config) {

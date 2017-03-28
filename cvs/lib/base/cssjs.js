@@ -1,5 +1,6 @@
 define(function(){
-    var baseStyle = ['globalAlpha',
+    var baseStyle = [
+        'globalAlpha',
         'globalCompositeOperation', 
         'filter', 
         'imageSmoothingEnabled', 

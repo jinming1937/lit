@@ -1,11 +1,12 @@
 define([
     "../../../cvs/lib/framework/core",
     "../../../cvs/lib/tool/button",
-    "../../../cvs/lib/tool/extend/triangle",
-    "../../../cvs/lib/tool/roundedRect",
+    "../../../cvs/lib/tool/triangle",
+    "../../../cvs/lib/tool/roundRect",
     "../../../cvs/outer/gctrl",
+    "../../../cvs/outer/grid",
     "./clock"
-], function(core, button, triangle, roundedRect, gctrl, clock) {
+], function(core, button, triangle, roundedRect, gctrl, grid,clock) {
     core.on("show", "index", function(cvs) {
         new gctrl(core.frame);
         var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
@@ -167,6 +168,7 @@ define([
             // myClock.clear();
             // myClock.draw();
             core.frame.reRender();
+            // grid(core.frame.cxt,'lightgray',10,10);
         }, 1000);
     });
 });

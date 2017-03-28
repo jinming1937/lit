@@ -1,5 +1,5 @@
 define([
-	"../../../../cvs/lib/tool/element"
+	"../../../../cvs/lib/base/element"
 ],function(element){
 	/* 屏幕 */
 	function Screen(config){

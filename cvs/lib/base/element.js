@@ -2,7 +2,7 @@ define([
     "../framework/core",
     "../virtual/action",
     "../virtual/watch",
-    "../sys/style"
+    "./style"
 ],function(core,Action,Watch,style) {
     var uqid = 'un';
     var num = 0;

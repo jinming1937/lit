@@ -1,5 +1,5 @@
 define([
-    "../../../cvs/lib/tool/element"
+    "../../../cvs/lib/base/element"
 ],function(element){
     /* 时钟 */
     function Clock(config){

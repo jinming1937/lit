@@ -1,6 +1,6 @@
 define([
-	"../element",
-	"../../static/usualValue"
+	"../base/element",
+	"../static/usualValue"
 ],function(Element,MathPlugs){
 	/**
 	 * 三角形

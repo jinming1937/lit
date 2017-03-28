@@ -1,5 +1,5 @@
 define([
-	"../../../../cvs/lib/tool/element"
+	"../../../../cvs/lib/base/element"
 ],function(element){
 	/* 苹果 */
 	function Apple(config){

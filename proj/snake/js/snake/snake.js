@@ -1,5 +1,5 @@
 define([
-	"../../../../cvs/lib/tool/element"
+	"../../../../cvs/lib/base/element"
 ],function(element){
 	/* 贪吃蛇 */
 	function Snake(config){

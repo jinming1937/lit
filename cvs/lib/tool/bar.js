@@ -1,5 +1,5 @@
 define([
-	"./element"
+	"../base/element"
 ],function(element){
 	/* tool bar */
 
