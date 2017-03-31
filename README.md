@@ -5,6 +5,9 @@
  <br/>
  
 ### 更新<br/>
+#### 时间：2017-03-31<br/>
+>* 采用requestAnimationFrame 函数,更新转场tween.js
+
 #### 时间：2017-03-28<br/>
 >* 更新文件结构：把元素相关的文件放到/lib/base里
 >* 添加grid.js 辅助线

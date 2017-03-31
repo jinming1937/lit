@@ -109,7 +109,7 @@ define([
         var moving = new roundedRect({
         	className:'button move',
             fontColor: '#101010',
-            cornerX: 10,
+            cornerX: 300,
             cornerY: 10,
             width: 70,
             height: 30,
@@ -141,7 +141,7 @@ define([
         });
         snakeButton.addWatching('touchend', function() {
             console.log("hahaha");
-            clearInterval(stopClock);
+            stopFlag = true;
             core.open({
                 href: urlPath + "snake/prosnake.html"
             });
@@ -157,18 +157,41 @@ define([
             cornerRadius: 8,
             fillText: "snake-auto",
             ontouchend: function(e) {
-                clearInterval(stopClock);
+                stopFlag = true;
                 core.open({
                     href: urlPath + "snake/classical.html"
                 });
             }
         });
+        var lastTime = 0;
+        function getFps () {
+            var now = +new Date,
+                fps = 1000 / (now - lastTime);
+                lastTime = now;
+            return fps;
+        }
+        var lastFpsUpdateTime = 0,
+            lastFpsUpdate = 0,
+            stopFlag = false;
 
-        var stopClock = setInterval(function() {
-            // myClock.clear();
-            // myClock.draw();
+        function animationForIndex () {
+            var fps = 0,time = +new Date;
+            fps = getFps().toFixed();
+            if(time - lastFpsUpdateTime > 1000){
+                lastFpsUpdateTime = time;
+                lastFpsUpdate = fps;
+                console.log('update fps:'+fps);
+            }
             core.frame.reRender();
-            // grid(core.frame.cxt,'lightgray',10,10);
-        }, 1000);
+            core.frame.cxt.save();
+            core.frame.cxt.font = '15px Microsoft YaHei';
+            core.frame.cxt.fillStyle = 'rgba(233,233,248,0.3)';
+            core.frame.cxt.fillText(lastFpsUpdate+'fps',20,20);
+            core.frame.cxt.restore();
+            if(!stopFlag){
+                window.requestAnimationFrame(animationForIndex);
+            }
+        }
+        animationForIndex();
     });
 });
