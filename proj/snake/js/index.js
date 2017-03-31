@@ -183,11 +183,12 @@ define([
                 console.log('update fps:'+fps);
             }
             core.frame.reRender();
-            core.frame.cxt.save();
-            core.frame.cxt.font = '15px Microsoft YaHei';
-            core.frame.cxt.fillStyle = 'rgba(233,233,248,0.3)';
-            core.frame.cxt.fillText(lastFpsUpdate+'fps',20,20);
-            core.frame.cxt.restore();
+            // core.frame.cxt.save();
+            // core.frame.cxt.font = '15px Microsoft YaHei';
+            // core.frame.cxt.fillStyle = 'rgba(233,233,248,0.3)';
+            // core.frame.cxt.fillText(lastFpsUpdate+'fps',20,20);
+            // core.frame.cxt.restore();
+            // grid(core.frame.cxt,'gray',10,10);
             if(!stopFlag){
                 window.requestAnimationFrame(animationForIndex);
             }

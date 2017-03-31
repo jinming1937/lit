@@ -191,7 +191,8 @@ define(function() {
      */
     Frame.prototype.clear = function() {
         var _this = this;
-        _this.canvas.setAttribute("width", _this.width);
+        // _this.canvas.setAttribute("width", _this.width);
+        _this.cxt.clearRect(0,0,_this.width,_this.height);
     };
 
     /**
@@ -263,26 +264,12 @@ define(function() {
         var currentRouter = _this.getCurrentRouter();
         //这是个问题： 先new的元素 ，先画出来
         for (var i =0,len = this.elementArray.length; i < len; i++) {
-            /* 异步画会重叠，导致“失帧” */
-            //(function(ele){
-            //	setTimeout(function(){
-            //		ele.draw && ele.draw();
-            //		console.log("456");
-            //	},0);	
-            //}(_this.elementArray[i]));
-            //_this.cxt.save();//-------------------------------
-            //_this.elementArray[i].hasRotate? 
-            //    _this.elementArray[i].draw(!_this.elementArray[i].hasRotate)
-            //    :
           if(currentRouter.cvsName === _this.elementArray[i]['page']){
             _this.cxt.save();
-            /**
-             * 如果在当前页面，则会把当前页面管理的element重绘
-             */
+            /* 如果在当前页面，则会把当前页面管理的element重绘 */
             _this.elementArray[i]['element'].draw(_this.cxt);
             _this.cxt.restore();
           }
-            //_this.cxt.restore();//-----------------------------
         }
     };
 

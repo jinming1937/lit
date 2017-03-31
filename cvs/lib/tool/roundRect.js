@@ -45,6 +45,7 @@ define([
         this.draw = function() {
             var context = this.frame.cxt;
             this.createPath();
+            context.save();
             this.style.setStyle(context);
             context.stroke();
             context.fill();
@@ -53,6 +54,7 @@ define([
             context.fillStyle = this.fontColor;
             context.font = "15px Microsoft YaHei";
             context.fillText(this.fillText, this.width/2+this.cornerX, this.height/2+this.cornerY);
+            context.restore();
         };
         this.draw();
     }
