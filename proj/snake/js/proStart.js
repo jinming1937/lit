@@ -3,10 +3,11 @@ define([
 	"./snake/ScreenBox",
 	"./snake/Snake",
 	"./snake/Apple",
+	"../../../cvs/lib/tool/roundRect",
 	"../../../cvs/lib/tool/button"
 	// "../../../outer/gctrl"
 	// "../../../outer/hand"
-], function(core,Screen, Snake, Apple,Button) {
+], function(core, Screen, Snake, Apple, roundRect, Button) {
 	core.on("show", "classical", function() {
 		// new gctrl(core.frame);
 		var frame = core.frame;
@@ -43,21 +44,24 @@ define([
 			}
 		});
 
-		var goHome = new Button({
-			x:frame.width - 20 - 80,
-			y:frame.height - 20 - 30,
-			value:'首页',
-			backgroundColor:'#f00',
-			ontouchend:function(e){
-				_snake.auto = false;
+		var goHome = new roundRect({
+            className : "button goHome",
+            fontColor: '#101010',
+            cornerX: frame.width - 20 - 80,
+            cornerY: frame.height - 20 - 30,
+            width: 90,
+            height: 30,
+            cornerRadius: 8,
+            fillText: "HomePage",
+            ontouchend: function(e) {
+                _snake.auto = false;
 				clearTimeout(_snake.sTime);
 				// console.log('xxxxx');
 				core.open({
 					href:urlPath+"snake/snindex.html"
 				});
-			}
-		});
-		
+            }
+        });
 		function screenDraw() {
 			//frame.reRender();
 			frame.clear();

@@ -6,7 +6,7 @@ define([
     "../../../cvs/outer/gctrl",
     "../../../cvs/outer/grid",
     "./clock"
-], function(core, button, triangle, roundedRect, gctrl, grid,clock) {
+], function(core, button, triangle, roundRect, gctrl, grid,clock) {
     core.on("show", "index", function(cvs) {
         new gctrl(core.frame);
         var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
@@ -106,7 +106,7 @@ define([
             positionY: core.frame.height / 2,
         });
 
-        var moving = new roundedRect({
+        var moving = new roundRect({
         	className:'button move',
             fontColor: '#101010',
             cornerX: 300,
@@ -129,7 +129,7 @@ define([
         	console.log('moved');
         });
 
-        var snakeButton = new roundedRect({
+        var snakeButton = new roundRect({
         	className :'button snake',
             fontColor: '#101010',
             cornerX: 100,
@@ -147,7 +147,7 @@ define([
             });
         }, false);
 
-        new roundedRect({
+        new roundRect({
             className : "button snake-auto",
             fontColor: '#101010',
             cornerX: 200,

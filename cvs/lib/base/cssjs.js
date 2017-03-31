@@ -38,6 +38,14 @@ define(function(){
         'snake-auto':{
             strokeStyle : "#f00",
             fillStyle:"#f00"
+        },
+        'goHome':{
+            strokeStyle : "#f00",
+            fillStyle:"#f00"
+        },
+        'handColor':{
+            strokeStyle:'#ff5555',
+            fillStyle : '#ff5555'
         }
     };
     return cssjs;

@@ -113,9 +113,7 @@ define(function() {
             }
             if(cacheElement){
                 //触点有元素 ，执行这个元素的事件
-                //window.setTimeout(function() {
                 cacheElement.fire(e);
-                //}, 0);
             }
         };
         /* 事件过滤 */
@@ -189,10 +187,12 @@ define(function() {
     /**
      * 清理当前的画布
      */
-    Frame.prototype.clear = function() {
+    Frame.prototype.clear = function(x,y) {
         var _this = this;
+        x = typeof x !== 'number' ? 0:x;
+        y = typeof y !== 'number' ? 0:y;
         // _this.canvas.setAttribute("width", _this.width);
-        _this.cxt.clearRect(0,0,_this.width,_this.height);
+        _this.cxt.clearRect(x,y,_this.width,_this.height);
     };
 
     /**

@@ -22,6 +22,7 @@ define([
 		this.isEat = typeof config.isEat==="undefined"|| config.isEat ? true:false;
 
 		this.draw = function(){
+			this.frame.cxt.save();
 			this.frame.cxt.fillStyle = "#F00";
 			for(var i=0,len = this.bodyArray.length;i<len;i++){
 				for(var j=0,lenj = this.bodyArray[i].length;j<lenj;j++){
@@ -36,6 +37,7 @@ define([
 					);
 				}
 			}
+			this.frame.cxt.restore();
 		};
 	}
 

@@ -3,10 +3,10 @@ define([
     "./snake/ScreenBox",
     "./snake/Snake",
     "./snake/Apple",
-    "../../../cvs/lib/tool/button"
+    "../../../cvs/lib/tool/roundRect"
     // "../../../outer/gctrl"
     // "../../../outer/hand"
-], function(core,Screen, Snake, Apple,Button) {
+], function(core, Screen, Snake, Apple, roundRect) {
     core.on("show", "prosnake", function() {
         // new gctrl(core.frame);
         var frame = core.frame;
@@ -42,14 +42,16 @@ define([
                 return snake.bodyArray;
             }
         });
-        var btnLeft = new Button({
-            x:20,
-            y:400,
-            value:'左',
-            width:50,
-            height:50,
-            backgroundColor:'#f55',
-            ontouchend:function(e){
+        var btnLeft = new roundRect({
+            className : "button handColor",
+            fontColor: '#101010',
+            cornerX: 20,
+            cornerY: 400,
+            width: 50,
+            height: 50,
+            cornerRadius: 8,
+            fillText: "left",
+            ontouchend: function(e) {
                 clearInterval(stopFlag);
                 isStop = true;
                 snake.canMove(-1, 0, stopGame, screenDraw);
@@ -57,14 +59,16 @@ define([
                 isStop = false;
             }
         });
-        var btnUp = new Button({
-            x:70,
-            y:350,
-            value:'上',
-            width:50,
-            height:50,
-            backgroundColor:'#f55',
-            ontouchend:function(e){
+        var btnUp = new roundRect({
+            className : "button handColor",
+            fontColor: '#101010',
+            cornerX: 70,
+            cornerY: 350,
+            width: 50,
+            height: 50,
+            cornerRadius: 8,
+            fillText: "up",
+            ontouchend: function(e) {
                 clearInterval(stopFlag);
                 isStop = true;
                 snake.canMove(0, -1, stopGame, screenDraw);
@@ -72,14 +76,16 @@ define([
                 isStop = false;
             }
         });
-        var btnRight = new Button({
-            x:120,
-            y:400,
-            value:'右',
-            width:50,
-            height:50,
-            backgroundColor:'#f55',
-            ontouchend:function(e){
+        var btnRight = new roundRect({
+            className : "button handColor",
+            fontColor: '#101010',
+            cornerX: 120,
+            cornerY: 400,
+            width: 50,
+            height: 50,
+            cornerRadius: 8,
+            fillText: "right",
+            ontouchend: function(e) {
                 clearInterval(stopFlag);
                 isStop = true;
                 snake.canMove(1, 0, stopGame, screenDraw);
@@ -87,14 +93,16 @@ define([
                 isStop = false;
             }
         });
-        var btnDown = new Button({
-            x:70,
-            y:450,
-            value:'下',
-            width:50,
-            height:50,
-            backgroundColor:'#f55',
-            ontouchend:function(e){
+        var btnDown = new roundRect({
+            className : "button handColor",
+            fontColor: '#101010',
+            cornerX: 70,
+            cornerY: 450,
+            width: 50,
+            height: 50,
+            cornerRadius: 8,
+            fillText: "down",
+            ontouchend: function(e) {
                 clearInterval(stopFlag);
                 isStop = true;
                 snake.canMove(0, 1, stopGame, screenDraw);
@@ -102,24 +110,29 @@ define([
                 isStop = false;
             }
         });
-        var btnSG = new Button({
-            x:frame.width - 50 -20,
-            y:400,
-            value:'s/g',
-            width:50,
-            height:50,
-            backgroundColor:'#f55',
-            ontouchend:function(e){
+        var btnSG = new roundRect({
+            className : "button handColor",
+            fontColor: '#101010',
+            cornerX: frame.width - 50 -20,
+            cornerY: 400,
+            width: 50,
+            height: 50,
+            cornerRadius: 8,
+            fillText: "s/g",
+            ontouchend: function(e) {
                 toggleGame();
             }
         });
-
-        var goHome = new Button({
-            x:frame.width - 20 - 80,
-            y:frame.height - 20 - 30,
-            value:'首页',
-            backgroundColor:'#f00',
-            ontouchend:function(e){
+        var goHome = new roundRect({
+            className : "button goHome",
+            fontColor: '#101010',
+            cornerX: frame.width - 20 - 80,
+            cornerY: frame.height - 20 - 30,
+            width: 90,
+            height: 30,
+            cornerRadius: 8,
+            fillText: "HomePage",
+            ontouchend: function(e) {
                 stopGame();
                 core.open({
                     href:urlPath+"snake/snindex.html"
@@ -128,7 +141,7 @@ define([
         });
 
         function screenDraw() {
-            frame.reRender();
+            // frame.reRender();
             // frame.clear();
             _screen.draw();
             snake.draw();

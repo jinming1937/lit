@@ -45,6 +45,7 @@ define([
         this.draw = function() {
             var context = this.frame.cxt;
             this.createPath();
+            context.closePath();
             context.save();
             this.style.setStyle(context);
             context.stroke();

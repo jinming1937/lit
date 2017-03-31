@@ -21,13 +21,18 @@ define([
 		/* 渲染 */
 		this.draw = function(){
 			var _this = this;
-			this.frame.cxt.fillStyle = "#09bb07";
-			this.frame.cxt.fillRect(
-				_this.pixelX*_this.size+_this.borderX/2,
-				_this.pixelY*_this.size+_this.borderX/2,
-				_this.size,
-				_this.size
+			this.frame.cxt.save();
+			this.frame.cxt.beginPath();		
+			this.frame.cxt.arc(
+				_this.pixelX*_this.size+_this.borderX/2 + _this.size/2,
+				_this.pixelY*_this.size+_this.borderX/2 + _this.size/2,
+				_this.size / 2, 0, Math.PI * 2, 
+				false
 			);
+			this.frame.cxt.closePath();
+			this.frame.cxt.fillStyle = "#09bb07";
+			this.frame.cxt.fill();
+			this.frame.cxt.restore();
 		};
 	}
 
