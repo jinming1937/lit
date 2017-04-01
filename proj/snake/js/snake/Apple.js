@@ -26,7 +26,7 @@ define([
 			this.frame.cxt.arc(
 				_this.pixelX*_this.size+_this.borderX/2 + _this.size/2,
 				_this.pixelY*_this.size+_this.borderX/2 + _this.size/2,
-				_this.size / 2, 0, Math.PI * 2, 
+				_this.size / 2, 0, Math.PI * 2,
 				false
 			);
 			this.frame.cxt.closePath();

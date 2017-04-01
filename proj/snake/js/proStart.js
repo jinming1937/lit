@@ -73,7 +73,7 @@ define([
 			// btnRight.draw();
 			// btnDown.draw();
 			// btnSG.draw();
-			goHome.draw();
+			// goHome.draw();
 		}
 		screenDraw();
 		var stopFlag, isStop = false;

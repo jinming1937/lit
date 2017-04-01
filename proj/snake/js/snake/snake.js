@@ -28,13 +28,38 @@ define([
 				for(var j=0,lenj = this.bodyArray[i].length;j<lenj;j++){
 					if(i !== 0 || j !== 0){
 						this.frame.cxt.fillStyle = "#00F";
+						this.frame.cxt.fillRect(
+							this.bodyArray[i][j][0]*this.size+this.borderX/2,
+							this.bodyArray[i][j][1]*this.size+this.borderX/2,
+							this.size,
+							this.size
+						);
+					}else{
+						var directX = this.bodyArray[i][j][2],
+							directY = this.bodyArray[i][j][3];
+						this.frame.cxt.beginPath();
+						if(directX + directY > 0){
+							this.frame.cxt.moveTo(this.bodyArray[i][j][0]*this.size+this.borderX/2 ,
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2);
+							this.frame.cxt.quadraticCurveTo(
+											  this.bodyArray[i][j][0]*this.size+this.borderX/2+(directX===1? this.size*2:this.size/2),
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2+(directX===1? this.size/2:this.size*2),
+											  this.bodyArray[i][j][0]*this.size+this.borderX/2+(directX===1? 0:this.size),
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2+(directX===1? this.size:0));
+						}else{
+							this.frame.cxt.moveTo(this.bodyArray[i][j][0]*this.size+this.borderX/2+ this.size,
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2 + this.size);
+							this.frame.cxt.quadraticCurveTo(
+											  this.bodyArray[i][j][0]*this.size+this.borderX/2+(directX===0? this.size/2:-this.size),
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2+(directX===0? -this.size:this.size/2),
+											  this.bodyArray[i][j][0]*this.size+this.borderX/2+(directX===0? 0:this.size),
+											  this.bodyArray[i][j][1]*this.size+this.borderX/2+(directX===0? this.size:0));
+						}
+						
+						this.frame.cxt.closePath();
+						this.frame.cxt.fill();
 					}
-					this.frame.cxt.fillRect(
-						this.bodyArray[i][j][0]*this.size+this.borderX/2,
-						this.bodyArray[i][j][1]*this.size+this.borderX/2,
-						this.size,
-						this.size
-					);
+					
 				}
 			}
 			this.frame.cxt.restore();
