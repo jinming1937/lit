@@ -5,11 +5,11 @@
 // 	}
 // });
 
-define(["./js/testA","./js/testB","./js/testC","./js/testMdA","./js/testMdB","./js/testMdC","./js/testMdAll"],function(testA,testB,testC,testMdA,testMdB,testMdC){
-	console.log('testA testB testC ');
-    console.log("testA"+testA.pa);
-    console.log("testB"+testB.pa);
-    console.log("testC"+(new testC).pa);
+define(["./js/testA", "./js/testB", "./js/testC", "./js/testMdA", "./js/testMdB", "./js/testMdC", "./js/testMdAll"], function(testA, testB, TestC, testMdA, testMdB, testMdC) {
+    console.log('testA testB testC ');
+    console.log("testA" + testA.pa);
+    console.log("testB" + testB.pa);
+    console.log("testC" + (new TestC()).pa);
     console.log('testA testB testC ');
 
     console.log(testMdA.pa);

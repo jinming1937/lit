@@ -1,4 +1,4 @@
-define(function () {
+define(function() {
     /**
      * 画辅助线
      * @param  {[type]} context [description]
@@ -7,7 +7,7 @@ define(function () {
      * @param  {[type]} stepy   [description]
      * @return {[type]}         [description]
      */
-    function drawGrid(context,color, stepx, stepy) {
+    function drawGrid(context, color, stepx, stepy) {
         context.save();
         context.shadowColor = undefined;
         context.shadowOffsetX = 0;
@@ -17,19 +17,19 @@ define(function () {
         context.lineWidth = 0.5;
         // context.fillRect(0,0, context.canvas.width,context.canvas.height);
 
-        for (var i = stepx+0.5; i <context.canvas.width;i+=stepx) {
+        for (var i = stepx + 0.5; i < context.canvas.width; i += stepx) {
             context.beginPath();
-            context.moveTo(i,0);
+            context.moveTo(i, 0);
             context.lineTo(i, context.canvas.height);
             context.stroke();
-        };
+        }
 
-        for (var i = stepy+0.5; i < context.canvas.height; i+=stepy) {
+        for (var j = stepy + 0.5; j < context.canvas.height; j += stepy) {
             context.beginPath();
-            context.moveTo(0,i);
-            context.lineTo(context.canvas.width, i);
+            context.moveTo(0, j);
+            context.lineTo(context.canvas.width, j);
             context.stroke();
-        };
+        }
 
         context.restore();
     }

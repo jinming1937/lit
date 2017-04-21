@@ -6,7 +6,7 @@ define(function() {
      * 时间：2016-08-07
      * 作者：jinming1937@163.com
      */
-     
+
     /**
      * Frame : 框架，这里指视窗，一个html页面只有一个视窗
      * @param {Object} option [配置]
@@ -34,27 +34,27 @@ define(function() {
         _this.catchElementTouchMove = null;
         _this.canvas.addEventListener("click", function(e) {
             _this.fire(e);
-            isTencent ? e.preventDefault() :"" ;
+            isTencent ? e.preventDefault() : "";
         }, false);
 
         _this.canvas.addEventListener("touchstart", function(e) {
             _this.fire(e);
-            isTencent ? e.preventDefault() :"" ;
+            isTencent ? e.preventDefault() : "";
         }, false);
 
         _this.canvas.addEventListener("touchmove", function(e) {
             _this.fire(e);
-            isTencent ? e.preventDefault() :"" ;
+            isTencent ? e.preventDefault() : "";
         }, false);
 
         _this.canvas.addEventListener("touchend", function(e) {
             _this.fire(e);
-            isTencent ? e.preventDefault() :"" ;
+            isTencent ? e.preventDefault() : "";
         }, false);
 
         _this.canvas.addEventListener("touchcancel", function(e) {
             _this.fire(e);
-            isTencent ? e.preventDefault() :"" ;
+            isTencent ? e.preventDefault() : "";
         }, false);
     };
 
@@ -82,36 +82,36 @@ define(function() {
             var cacheIndex = -1;
             var isFireAim = false;
             /* 倒叙遍历 */
-            _this.elementArray.reverse().forEach(function (item , i) {
+            _this.elementArray.reverse().forEach(function(item, i) {
                 _this.cxt.save();
-                _this.elementArray[i]['element'].createPath();
-                if(_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
+                _this.elementArray[i].element.createPath();
+                if (_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
                     isFireAim = true;
                     cacheElement = _this.elementArray[i].element;
                     /* 此处应该是绑定了move事件的元素才赋值 */
-                    if(_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove){
-                        cacheIndex = i;//移动这个元素，缓存这个索引
+                    if (_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove) {
+                        cacheIndex = i; //移动这个元素，缓存这个索引
                         _this.catchElementTouchMove = _this.elementArray[i].element;
                     }
-                    /*是否允许穿透*/ 
+                    /*是否允许穿透*/
                     // if (!_this.elementArray[i].element.isUpEvent) {  
-                        //break;
+                    //break;
                     // }
                 }
                 _this.cxt.restore();
-            })
+            });
             //for (var i = _this.elementArray.length - 1; i >= 0; i--) {
-                // if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
-                // (function (argument) {
-                    
-                // })();
+            // if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
+            // (function (argument) {
+
+            // })();
             // }
-            if(cacheIndex > -1 && cacheElement){
+            if (cacheIndex > -1 && cacheElement) {
                 //后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后
-                var _cacheElement = _this.elementArray.splice(cacheIndex,1);
+                var _cacheElement = _this.elementArray.splice(cacheIndex, 1);
                 _this.elementArray.push(_cacheElement[0]);
             }
-            if(cacheElement){
+            if (cacheElement) {
                 //触点有元素 ，执行这个元素的事件
                 cacheElement.fire(e);
             }
@@ -187,12 +187,12 @@ define(function() {
     /**
      * 清理当前的画布
      */
-    Frame.prototype.clear = function(x,y) {
+    Frame.prototype.clear = function(x, y) {
         var _this = this;
-        x = typeof x !== 'number' ? 0:x;
-        y = typeof y !== 'number' ? 0:y;
+        x = typeof x !== 'number' ? 0 : x;
+        y = typeof y !== 'number' ? 0 : y;
         // _this.canvas.setAttribute("width", _this.width);
-        _this.cxt.clearRect(x,y,_this.width,_this.height);
+        _this.cxt.clearRect(x, y, _this.width, _this.height);
     };
 
     /**
@@ -207,7 +207,7 @@ define(function() {
     Frame.prototype.manage = function(element) {
         var _this = this;
         var currentRouter = _this.getCurrentRouter();
-        _this.elementArray.push({'element':element,'page':currentRouter.cvsName});
+        _this.elementArray.push({ 'element': element, 'page': currentRouter.cvsName });
         _this.elementIndex++;
     };
 
@@ -217,17 +217,17 @@ define(function() {
      * @param  {[type]}  obj [description]
      * @return {Boolean}     [description]
      */
-    Frame.prototype.hasManageThisPage = function(page){
+    Frame.prototype.hasManageThisPage = function(page) {
         var flag = false,
             _this = this;
-        for (var i =0,len = _this.elementArray.length; i < len; i++) {
-            if(page === _this.elementArray[i]['page']){
+        for (var i = 0, len = _this.elementArray.length; i < len; i++) {
+            if (page === _this.elementArray[i].page) {
                 flag = true;
                 break;
             }
         }
         return flag;
-    }
+    };
 
     /**
      * 销毁元素
@@ -241,14 +241,14 @@ define(function() {
      * 根据页面名，销毁当前页面的所有元素
      * @return {[type]} [description]
      */
-    Frame.prototype.destroyByPage = function(page){
+    Frame.prototype.destroyByPage = function(page) {
         var _this = this;
-        for (var len = _this.elementArray.length-1; 0 <= len; len--) {
-            if(page === _this.elementArray[len]['page']){
-                _this.elementArray.splice(len,1);
+        for (var len = _this.elementArray.length - 1; 0 <= len; len--) {
+            if (page === _this.elementArray[len].page) {
+                _this.elementArray.splice(len, 1);
             }
         }
-    }
+    };
 
     /**
      * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
@@ -263,13 +263,13 @@ define(function() {
         this.clear();
         var currentRouter = _this.getCurrentRouter();
         //这是个问题： 先new的元素 ，先画出来
-        for (var i =0,len = this.elementArray.length; i < len; i++) {
-          if(currentRouter.cvsName === _this.elementArray[i]['page']){
-            _this.cxt.save();
-            /* 如果在当前页面，则会把当前页面管理的element重绘 */
-            _this.elementArray[i]['element'].draw(_this.cxt);
-            _this.cxt.restore();
-          }
+        for (var i = 0, len = this.elementArray.length; i < len; i++) {
+            if (currentRouter.cvsName === _this.elementArray[i].page) {
+                _this.cxt.save();
+                /* 如果在当前页面，则会把当前页面管理的element重绘 */
+                _this.elementArray[i].element.draw(_this.cxt);
+                _this.cxt.restore();
+            }
         }
     };
 
@@ -296,13 +296,13 @@ define(function() {
                 break;
             case 1:
                 //圆形(判断触点与圆心的距离和半径相比)
-                bl = Math.pow((position.x - element.x),2) + Math.pow((position.y - element.y),2) - Math.pow(element.radius,2) <= 0 ? true:false;
+                bl = Math.pow((position.x - element.x), 2) + Math.pow((position.y - element.y), 2) - Math.pow(element.radius, 2) <= 0 ? true : false;
                 break;
             case 2:
                 //多边形
                 bl = rayCasting(position, element.positionXYArray);
                 break;
-            default :
+            default:
                 //不继承element 的元素
                 bl = false;
                 break;
@@ -321,13 +321,13 @@ define(function() {
     function rayCasting(p, poly) {
         var px = p.x,
             py = p.y,
-            flag = false
+            flag = false;
 
         for (var i = 0, l = poly.length, j = l - 1; i < l; j = i, i++) {
             var sx = poly[i].x,
                 sy = poly[i].y,
                 tx = poly[j].x,
-                ty = poly[j].y
+                ty = poly[j].y;
 
             // 点与多边形顶点重合
             if ((sx === px && sy === py) || (tx === px && ty === py)) {
@@ -338,7 +338,7 @@ define(function() {
             if ((sy < py && ty >= py) || (sy >= py && ty < py)) {
                 // 线段上与射线 y 坐标相同的点的 x 坐标
                 // 利用画三角形，影子长度比 等于 杆子长度比
-                var x = sx + (py - sy) * (tx - sx) / (ty - sy)
+                var x = sx + (py - sy) * (tx - sx) / (ty - sy);
 
                 // 点在多边形的边上
                 if (x === px) {
@@ -347,14 +347,14 @@ define(function() {
 
                 // 射线穿过多边形的边界
                 if (x > px) {
-                    flag = !flag
+                    flag = !flag;
                 }
             }
         }
 
         // 射线穿过多边形边界的次数为奇数时点在多边形内
         return flag;
-    };
+    }
 
     //	function ctrlHorizontal(){
     //		var width = document.body.clientWidth,
@@ -387,6 +387,6 @@ define(function() {
     //		}
     //		
     //	};
-    
+
     return Frame;
 });

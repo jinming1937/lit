@@ -1,5 +1,5 @@
-define(["./testC"],function(testC){
-    var o = new testC();
+define(["./testC"], function(TestC) {
+    var o = new TestC();
     o.pa = 'testMdC';
     return o;
 });

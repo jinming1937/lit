@@ -20,14 +20,16 @@ define(function() {
          * @return {[type]}         [description]
          */
         this.fire = function(fnName, context, bindObj) {
-            for(var i in this.eventArray) {
-                if(fnName === eventArray[i].fnName) {
+            var _this = this,
+                fun = function(eventObj, context) {
+                    window.setTimeout(function() {
+                        eventObj.fn.apply(context);
+                    }, 0);
+                };
+            for (var i in this.eventArray) {
+                if (fnName === eventArray[i].fnName) {
                     /* 同步转异步 */
-                    (function(eventObj, context) {
-                        window.setTimeout(function() {
-                            eventObj.fn.apply(context);
-                        }, 0);
-                    }(eventArray[i], context));
+                    fun(eventArray[i], context);
                 }
             }
         };
@@ -52,14 +54,14 @@ define(function() {
          * @param {String} fnName 事件名
          */
         this.off = function(fnName) {
-            var i=eventArray.length -1;
-            for(;i>=0;i--) {/*倒叙删除 */
-                if(eventArray[i].fnName === fnName) {
+            var i = eventArray.length - 1;
+            for (; i >= 0; i--) { /*倒叙删除 */
+                if (eventArray[i].fnName === fnName) {
                     eventArray.splice(i, 1);
                 }
             }
         };
     }
 
-    return new Events;
+    return new Events();
 });

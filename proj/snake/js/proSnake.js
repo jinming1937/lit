@@ -6,11 +6,11 @@ define([
     "../../../cvs/lib/tool/roundRect"
     // "../../../outer/gctrl"
     // "../../../outer/hand"
-], function(core, Screen, Snake, Apple, roundRect) {
+], function(core, Screen, Snake, Apple, RoundRect) {
     core.on("show", "prosnake", function() {
         // new gctrl(core.frame);
         var frame = core.frame;
-        var urlPath = location.origin+(location.port === '8089'?'/dist/':'/mb/');
+        var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
         console.log("begin load classical");
         /* ------------------[start]------------------- */
         var _screen = new Screen({
@@ -42,8 +42,8 @@ define([
                 return snake.bodyArray;
             }
         });
-        var btnLeft = new roundRect({
-            className : "button handColor",
+        var btnLeft = new RoundRect({
+            className: "button handColor",
             fontColor: '#101010',
             cornerX: 20,
             cornerY: 400,
@@ -59,8 +59,8 @@ define([
                 isStop = false;
             }
         });
-        var btnUp = new roundRect({
-            className : "button handColor",
+        var btnUp = new RoundRect({
+            className: "button handColor",
             fontColor: '#101010',
             cornerX: 70,
             cornerY: 350,
@@ -76,8 +76,8 @@ define([
                 isStop = false;
             }
         });
-        var btnRight = new roundRect({
-            className : "button handColor",
+        var btnRight = new RoundRect({
+            className: "button handColor",
             fontColor: '#101010',
             cornerX: 120,
             cornerY: 400,
@@ -93,8 +93,8 @@ define([
                 isStop = false;
             }
         });
-        var btnDown = new roundRect({
-            className : "button handColor",
+        var btnDown = new RoundRect({
+            className: "button handColor",
             fontColor: '#101010',
             cornerX: 70,
             cornerY: 450,
@@ -110,10 +110,10 @@ define([
                 isStop = false;
             }
         });
-        var btnSG = new roundRect({
-            className : "button handColor",
+        var btnSG = new RoundRect({
+            className: "button handColor",
             fontColor: '#101010',
-            cornerX: frame.width - 50 -20,
+            cornerX: frame.width - 50 - 20,
             cornerY: 400,
             width: 50,
             height: 50,
@@ -123,8 +123,8 @@ define([
                 toggleGame();
             }
         });
-        var goHome = new roundRect({
-            className : "button goHome",
+        var goHome = new RoundRect({
+            className: "button goHome",
             fontColor: '#101010',
             cornerX: frame.width - 20 - 80,
             cornerY: frame.height - 20 - 30,
@@ -135,7 +135,7 @@ define([
             ontouchend: function(e) {
                 stopGame();
                 core.open({
-                    href:urlPath+"snake/snindex.html"
+                    href: urlPath + "snake/snindex.html"
                 });
             }
         });
@@ -162,7 +162,7 @@ define([
         }
 
         function toggleGame() {
-            if(isStop) {
+            if (isStop) {
                 starGame();
                 isStop = false;
             } else {
@@ -178,8 +178,8 @@ define([
             }, 300);
         }
         starGame();
-        
-        core.on("beforeHide","classical",function(){
+
+        core.on("beforeHide", "classical", function() {
             //竟然不好使。。。
             console.log("beforeHide");
             stopGame();

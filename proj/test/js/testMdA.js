@@ -1,4 +1,4 @@
-define(["./testA"],function(testA){
-    testA['pa'] = 'testMdA';
+define(["./testA"], function(testA) {
+    testA.pa = 'testMdA';
     return testA;
 });

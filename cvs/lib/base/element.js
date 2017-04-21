@@ -3,7 +3,7 @@ define([
     "../virtual/action",
     "../virtual/watch",
     "./style"
-],function(core,Action,Watch,style) {
+], function(core, Action, Watch, Style) {
     var uqid = 'un';
     var num = 0;
     /**
@@ -93,15 +93,15 @@ define([
             throw ("this function need overwrite");
         };
 
-        this.stroke = function (argument) {
-            
+        this.stroke = function(argument) {
+
         };
 
-        this.fill = function (argument) {
-            
+        this.fill = function(argument) {
+
         };
 
-        this.createPath = function (argument) {
+        this.createPath = function(argument) {
             this.frame.cxt.beginPath();
             this.frame.cxt.closePath();
             // throw ("this function need overwrite");
@@ -117,25 +117,25 @@ define([
          * 类数组
          * @type {Array}
          */
-        this.classList = this.className.replace(/\s\s/g,' ').replace(/^\s/g,'').replace(/\s$/g,'').split(/\s/g);
+        this.classList = this.className.replace(/\s\s/g, ' ').replace(/^\s/g, '').replace(/\s$/g, '').split(/\s/g);
 
         /**
          * 
          * @type {style}
          */
-        this.style = new style(config.className || "");
+        this.style = new Style(config.className || "");
 
         /**
          * 元素唯一标识
          * @type {String}
          */
-        this.elementUqid = uqid+(++num);
+        this.elementUqid = uqid + (++num);
         /**
          * 默认不允许移动该元素
          * 必须在绑定thouchmove后，将其设为true,才可以移动该元素
          * @type {Boolean}
          */
-        this.allowMove = typeof config['ontouchmove'] === 'function'?true:false;
+        this.allowMove = typeof config.ontouchmove === 'function' ? true : false;
         /**
          * 元素由 frame 管理 
          */

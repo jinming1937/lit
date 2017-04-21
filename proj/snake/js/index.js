@@ -6,9 +6,9 @@ define([
     "../../../cvs/outer/gctrl",
     "../../../cvs/outer/grid",
     "./clock"
-], function(core, button, triangle, roundRect, gctrl, grid,clock) {
+], function(core, button, triangle, RoundRect, Gctrl, grid, Clock) {
     core.on("show", "index", function(cvs) {
-        new gctrl(core.frame);
+        new Gctrl(core.frame);
         var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
         console.log("begin load index");
         // var xxxx = new button({
@@ -37,7 +37,7 @@ define([
         // 		});
         // 	}
         // });
-        
+
         // new button({
         //     x: 100,
         //     y: 50,
@@ -100,14 +100,14 @@ define([
         // 	color:"#F00"
         // });
         // 
-        var myClock = new clock({
+        var myClock = new Clock({
             radius: 60,
             positionX: core.frame.width / 2,
             positionY: core.frame.height / 2,
         });
 
-        var moving = new roundRect({
-        	className:'button move',
+        var moving = new RoundRect({
+            className: 'button move',
             fontColor: '#101010',
             cornerX: 300,
             cornerY: 10,
@@ -115,22 +115,22 @@ define([
             height: 30,
             cornerRadius: 8,
             fillText: "move",
-            ontouchmove:function (e) {
-            	console.log('moving');
+            ontouchmove: function(e) {
+                console.log('moving');
             }
         });
 
-        moving.addWatching('touchmove',function (e) {
-        	// console.log(e);
-        	console.log('addWatching for moving');
+        moving.addWatching('touchmove', function(e) {
+            // console.log(e);
+            console.log('addWatching for moving');
         });
 
-        moving.addWatching('touchend',function (e) {
-        	console.log('moved');
+        moving.addWatching('touchend', function(e) {
+            console.log('moved');
         });
 
-        var snakeButton = new roundRect({
-        	className :'button snake',
+        var snakeButton = new RoundRect({
+            className: 'button snake',
             fontColor: '#101010',
             cornerX: 100,
             cornerY: 10,
@@ -147,8 +147,8 @@ define([
             });
         }, false);
 
-        new roundRect({
-            className : "button snake-auto",
+        new RoundRect({
+            className: "button snake-auto",
             fontColor: '#101010',
             cornerX: 200,
             cornerY: 10,
@@ -164,23 +164,25 @@ define([
             }
         });
         var lastTime = 0;
-        function getFps () {
-            var now = +new Date,
+
+        function getFps() {
+            var now = +new Date(),
                 fps = 1000 / (now - lastTime);
-                lastTime = now;
+            lastTime = now;
             return fps;
         }
         var lastFpsUpdateTime = 0,
             lastFpsUpdate = 0,
             stopFlag = false;
 
-        function animationForIndex () {
-            var fps = 0,time = +new Date;
+        function animationForIndex() {
+            var fps = 0,
+                time = +new Date();
             fps = getFps().toFixed();
-            if(time - lastFpsUpdateTime > 1000){
+            if (time - lastFpsUpdateTime > 1000) {
                 lastFpsUpdateTime = time;
                 lastFpsUpdate = fps;
-                console.log('update fps:'+fps);
+                console.log('update fps:' + fps);
             }
             core.frame.reRender();
             // core.frame.cxt.save();
@@ -189,7 +191,7 @@ define([
             // core.frame.cxt.fillText(lastFpsUpdate+'fps',20,20);
             // core.frame.cxt.restore();
             // grid(core.frame.cxt,'gray',10,10);
-            if(!stopFlag){
+            if (!stopFlag) {
                 window.requestAnimationFrame(animationForIndex);
             }
         }

@@ -2,6 +2,7 @@ define([
     "../base/element"
 ], function(Element) {
     console.log("load circle");
+
     function Circle(config) {
         Element.call(this, config);
         /**
@@ -16,22 +17,22 @@ define([
         this.color = config.color || "#F00";
         this.backgroundColor = config.backgroundColor || "#F00";
         this.isUpEvent = config.isUpEvent || false;
-        this.createPath = function (argument) {
+        this.createPath = function(argument) {
             this.frame.cxt.beginPath();
-            this.frame.cxt.arc(parseInt(this.x), parseInt(this.y),this.radius,0,2*Math.PI);
+            this.frame.cxt.arc(parseInt(this.x), parseInt(this.y), this.radius, 0, 2 * Math.PI);
             this.frame.cxt.closePath();
-        }
+        };
         /**
          * 
          * @return {[type]} [description]
          */
-        this.draw = function(){
-        	var _this = this;
+        this.draw = function() {
+            var _this = this;
             var _frame = this.frame;
             _this.createPath();
             _frame.cxt.fillStyle = _this.color || "#FFF";
             _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
-			_frame.cxt.fill();
+            _frame.cxt.fill();
             _frame.cxt.stroke();
         };
 
@@ -41,11 +42,11 @@ define([
          * @return {[type]}   [description]
          */
         this.ontouchmove = function(e) {
-            if(typeof config.ontouchmove === "function") {
-                if(config.strong){
+            if (typeof config.ontouchmove === "function") {
+                if (config.strong) {
                     config.ontouchmove(e);
-                    this.eventFire(e); 
-                }else{
+                    this.eventFire(e);
+                } else {
                     this.eventFire(e);
                     this.x = e.changedTouches[0].clientX;
                     this.y = e.changedTouches[0].clientY;
@@ -55,7 +56,7 @@ define([
         };
 
         this.draw();
-    } 
+    }
 
     return Circle;
 });

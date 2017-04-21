@@ -13,7 +13,7 @@ define([
          * @type {Number}
          */
         this.elementType = 2;
-        
+
 
         this.value = config.value || "button";
         //this.frame = main.frame; /* 抽到element */
@@ -33,12 +33,12 @@ define([
          * @return {[type]}   [description]
          */
         this.ontouchmove = function(e) {
-            if(typeof config.ontouchmove === "function") {
+            if (typeof config.ontouchmove === "function") {
                 config.ontouchmove(e);
                 this.eventFire(e);
-                this.x = e.changedTouches[0].clientX - this.width/2;
-                this.y = e.changedTouches[0].clientY - this.height/2;
-                
+                this.x = e.changedTouches[0].clientX - this.width / 2;
+                this.y = e.changedTouches[0].clientY - this.height / 2;
+
                 this.positionXYArray = [];
                 this.initPositionXYArray();
 
@@ -66,18 +66,18 @@ define([
                 _this.x + _this.width / 2 - _this.width / 4, //(_this.value.length*fontSize > _this.width?_this.width:_this.value.length*fontSize)/2,
                 _this.y + _this.height / 2 + fontSize / 2, //难道字自动适应从中间渲染，而不是从左上角（20 X 20 正方形的左上角）？
                 _this.width);
-        }
+        };
 
-        this.createPath = function (argument) {
+        this.createPath = function(argument) {
             var _this = this;
             var _frame = this.frame;
             _frame.cxt.beginPath();
             _frame.cxt.moveTo(parseInt(_this.x), parseInt(_this.y));
-            _frame.cxt.lineTo(parseInt(_this.x)+_this.width, parseInt(_this.y));
-            _frame.cxt.lineTo(parseInt(_this.x)+_this.width, parseInt(_this.y)+_this.height);
-            _frame.cxt.lineTo(parseInt(_this.x), parseInt(_this.y)+_this.height);
+            _frame.cxt.lineTo(parseInt(_this.x) + _this.width, parseInt(_this.y));
+            _frame.cxt.lineTo(parseInt(_this.x) + _this.width, parseInt(_this.y) + _this.height);
+            _frame.cxt.lineTo(parseInt(_this.x), parseInt(_this.y) + _this.height);
             _frame.cxt.closePath();
-        }
+        };
         this.draw();
     }
 
@@ -103,7 +103,7 @@ define([
             x: _this.x,
             y: _this.y + _this.height
         });
-    }
+    };
 
     return Button;
 });

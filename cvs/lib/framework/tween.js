@@ -12,7 +12,7 @@ define([
             this.ctx = ctx;
             this.dic = ctx.canvas.width / 10;
             this.cb = cb;
-        }
+        };
         /**
          * 百叶窗 纵向
          * @param  {[type]} w [description]
@@ -29,13 +29,13 @@ define([
             if (_this.wid <= _this.dic) {
                 _this.wid += 2;
                 _this.cl(_this.wid);
-                window.requestAnimationFrame(function(){_this.fullWin();});
+                window.requestAnimationFrame(function() { _this.fullWin(); });
             } else {
                 _this.wid = 1;
                 console.log('finish');
                 _this.cb && _this.cb();
             }
-        }
+        };
     }
     return Tween;
 });

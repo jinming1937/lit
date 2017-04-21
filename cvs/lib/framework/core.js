@@ -1,9 +1,9 @@
-var frame = require("./frame"),
+var Frame = require("./frame"),
     router = require("./router"),
     events = require("./event"),
     eventPlug = require("./events"),
-    section = require("./section");
-tween = require("./tween");
+    section = require("./section"),
+    Tween = require("./tween");
 
 /**
  * 全局程序入口
@@ -19,8 +19,8 @@ function Core() {
     var _this = this;
     this.collection = {};
     this.router = router;
-    this.tween = new tween();
-    this.frame = new frame({
+    this.tween = new Tween();
+    this.frame = new Frame({
         canvas: document.getElementsByClassName("cvs")[0],
         width: document.body.clientWidth,
         height: document.body.clientHeight, //width > height ? width:height
@@ -109,7 +109,7 @@ Core.prototype.open = function(obj) {
     this.openUrl = _href;
     var visitCvsName = this.router.match(_href).cvsName;
     this.tween.fullWin();
-}
+};
 
 /**
  * 注意： mian 是一个全局的程序入口，所以应该是一个单例

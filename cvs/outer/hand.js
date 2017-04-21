@@ -2,13 +2,14 @@ define(function() {
     var hand = {
         eventArray: [],
         fire: function(e) {
-            var _this = this;
-            for (var i = this.eventArray.length - 1; i >= 0; i--) {
-                (function(ii, ee) {
+            var _this = this,
+                fun = function(i, e) {
                     setTimeout(function() {
-                        _this.eventArray[ii].fn && _this.eventArray[ii].fn.apply(this, ee);
+                        _this.eventArray[i].fn && _this.eventArray[i].fn.apply(this, e);
                     }, 0);
-                }(i, e));
+                };
+            for (var i = this.eventArray.length - 1; i >= 0; i--) {
+                fun(i, e);
             }
         },
         off: function(name) {
