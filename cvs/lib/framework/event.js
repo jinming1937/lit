@@ -33,7 +33,7 @@ function Event() {
      * 绑定事件
      * @param {String} fnName
      * @param {String} cvsName
-     * @param {Object} fnObj
+     * @param {Function} fnObj
      */
     this.on = function(fnName, cvsName, fnObj) {
         this.eventArray.push({
