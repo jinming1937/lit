@@ -1,11 +1,9 @@
-define([
-    "./event"
-],function(events){
-    function Section(config){
-        events.call(this);
-        this.sectionName = config.sectionName;
-        this.callBack = config.callBack;
-    }
+var events = require("./event");
 
-    return Section;
-});
+function Section(config) {
+    events.call(this);
+    this.sectionName = config.sectionName;
+    this.callBack = config.callBack;
+}
+
+module.exports = Section;

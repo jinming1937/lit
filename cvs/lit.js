@@ -1,6 +1,3 @@
-define([
-    './lib/framework/core'
-], function(core) {
-    'use strict';
-    window.lit = window.lit || core;
-});
+'use strict';
+var core = require('./lib/framework/core');
+window.lit = window.lit || core;
