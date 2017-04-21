@@ -2,12 +2,9 @@ node_modules
 .sass-cache
 .DS_Store
 .project
+.vscode
 dist
 build
 backup
 static
 npm-debug.log
-cvs/lib/cvs.min.js
-cvs/proj/test/css/main.min.css
-
-cvs/proj/test/js/test.min.js
