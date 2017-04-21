@@ -3,8 +3,7 @@
  * 
  */
 console.log("start");
-var core = require
-require("../../cvs/lib/framework/core");
+var core = require("../../cvs/lib/framework/core");
 require("./js/index");
 require("./js/proStart");
 require("./js/proSnake");

@@ -24,22 +24,25 @@ main.on("show", "room", function() {
     };
 
     var data = JSON.parse($data);
-    var arr = [];
+    var arr = [],
+        fun = function(item, i) {
+            arr.push(new Button({
+                x: 100,
+                y: 20 * (i + 1) + 30 * i + 10,
+                height: 30,
+                width: 100,
+                value: item.roomId + ":" + num,
+                backgroundColor: '#f55',
+                ontouchend: function(e) {
+                    main.visit({
+                        href: "/ball/ball?roomId=" + item.roomId
+                    });
+                }
+            }));
+        };
     for (var i = 0, len = data.length; i < len; i++) {
         var num = data[i].userArray.length === 0 ? "(0vs0)" : data[i].userArray.length === 1 ? "(1vs0)" : "(1vs1)";
-        arr.push(new Button({
-            x: 100,
-            y: 20 * (i + 1) + 30 * i + 10,
-            height: 30,
-            width: 100,
-            value: data[i].roomId + ":" + num,
-            backgroundColor: '#f55',
-            ontouchend: function(e) {
-                main.visit({
-                    href: "/ball/ball?roomId=" + data[i].roomId
-                });
-            }
-        }));
+        fun(data[i], i);
     }
 
     // 	if(!canStart && data.length == 2 ){

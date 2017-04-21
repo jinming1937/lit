@@ -1,4 +1,4 @@
-var Element = require("../base/element"),
+var element = require("../base/element"),
     MathPlugs = require("../static/usualValue");
 /**
  * 三角形
@@ -10,7 +10,7 @@ var Element = require("../base/element"),
  * @param {Number} y 顶角y 坐标
  */
 function Triangle(config) {
-    Element.call(this, config);
+    element.call(this, config);
     this.elementType = 2;
     config.x = config.x || 0;
     config.y = config.y || 0;

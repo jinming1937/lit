@@ -1,4 +1,4 @@
-var Button = require("../../../cvs/lib/tool/button")
+var Button = require("../../../cvs/lib/tool/button");
 
 var main = window.main;
 

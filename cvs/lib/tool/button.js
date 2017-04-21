@@ -1,4 +1,4 @@
-var Element = require("../base/element");
+var element = require("../base/element");
 
 console.log("load button");
 /**
@@ -6,7 +6,7 @@ console.log("load button");
  * @param {[type]} config [config]
  */
 function Button(config) {
-    Element.call(this, config);
+    element.call(this, config);
     /**
      * [elementType 多边形的静态属性，这里应该再抽象一层,而且这个应该定义成枚举，这是个问题：多边形，todo：shape class]
      * @type {Number}
