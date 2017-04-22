@@ -67,6 +67,7 @@ core.on("show", "classical", function() {
         _screen.draw();
         apple.draw();
         snake.draw();
+        goHome.draw();
         // btnLeft.draw();
         // btnUp.draw();
         // btnRight.draw();

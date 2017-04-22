@@ -1,6 +1,11 @@
 var cssjs = require('./cssjs');
 
-var style = function(className) {
+/**
+ * 样式配置适配器
+ * 根据元素的样式名匹配cssjs中的样式
+ * @param {any} className 
+ */
+function style(className) {
     //,'webkitImageSmoothingEnabled'
     var classList = (className || '').replace(/\s\s/g, ' ').replace(/^\s/g, '').replace(/\s$/g, '').split(/\s/g);
     var baseStyle = [
@@ -23,5 +28,5 @@ var style = function(className) {
             }
         }
     };
-};
-module.export = style;
+}
+module.exports = style;

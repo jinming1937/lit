@@ -36,7 +36,8 @@ function Watching() {
             };
         for (var i = 0, len = this.eventArray.length; i < len; i++) {
             if (this.eventArray[i].name === e.type) {
-                fun(i, e);
+                // fun(i, e);
+                _this.eventArray[i].fn(e);
             }
         }
     };

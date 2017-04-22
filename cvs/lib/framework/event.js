@@ -16,6 +16,7 @@ function Event() {
      */
     this.fire = function(fnName, context) {
         var _this = this,
+            /* 同步转异步 */
             fun = function(eventObj, context) {
                 window.setTimeout(function() {
                     eventObj.fn(context.cvs);
@@ -23,8 +24,8 @@ function Event() {
             };
         for (var i in this.eventArray) {
             if (fnName === this.eventArray[i].fnName && context.cvsName === this.eventArray[i].cvsName) {
-                /* 同步转异步 */
-                fun(this.eventArray[i], context);
+                // fun(this.eventArray[i], context);
+                this.eventArray[i].fn(context.cvs);
             }
         }
     };

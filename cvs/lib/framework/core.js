@@ -1,7 +1,7 @@
 var Frame = require("./frame"),
     router = require("./router"),
-    events = require("./event"),
-    eventPlug = require("./events"),
+    eventPlug = require("./event"),
+    // events = require("./events"),
     section = require("./section"),
     Tween = require("./tween");
 
@@ -15,7 +15,7 @@ var Frame = require("./frame"),
  */
 function Core() {
     //
-    events.call(this);
+    eventPlug.call(this);
     var _this = this;
     this.collection = {};
     this.router = router;

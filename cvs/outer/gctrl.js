@@ -8,21 +8,22 @@ function gctrl(cvs) {
     node.style = {
         display: 'none'
     };
-    var fn = cvs.canvas.onclick;
-    cvs.canvas.onclick = function(e) {
-        fn && fn(e);
-        var x = e.clientX,
-            y = e.clientY;
+    cvs.canvas.addEventListener("touchstart", function(e) {
+        var x = e.touches[0].clientX,
+            y = e.touches[0].clientY,
+            screenX = cvs.canvas.width,
+            screenY = cvs.canvas.height;
         if (document.getElementsByClassName("position-tips").length === 0) {
             document.body.appendChild(node);
         }
+        // node.className += "tips-animat";
         node.style.display = "block";
-        node.style.left = (x + 5) + "px";
-        node.style.top = (y + 5) + 'px';
+        node.style.left = (screenX - x < 64 ? x - 64 : x) + "px";
+        node.style.top = (screenY - y < 14 ? y - 14 : y) + 'px';
         node.innerHTML = "x:" + x + ",y:" + y;
         window.setTimeout(function() {
             node.style.display = "none";
         }, 1000);
-    };
+    });
 }
 module.exports = gctrl;

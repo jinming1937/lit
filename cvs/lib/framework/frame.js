@@ -23,9 +23,13 @@ function Frame(option) {
     this.eventCtrl();
 }
 
-var isTencent = true;
+var isTencent = true,
+    useCapture = true;
 /**
  * 事件分发
+ * 有关于e.preventDefault() 和 useCapture 设为 false :
+ *      针对于的是Dom 和 Bom 对象，使其捕获的事件不会冒泡到DOM父级，以及document, windows上
+ * 对于内存的canvas element对象 要区分
  * @return {[type]} [description]
  */
 Frame.prototype.eventCtrl = function() {
@@ -34,27 +38,27 @@ Frame.prototype.eventCtrl = function() {
     _this.canvas.addEventListener("click", function(e) {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
-    }, false);
+    }, useCapture);
 
     _this.canvas.addEventListener("touchstart", function(e) {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
-    }, false);
+    }, useCapture);
 
     _this.canvas.addEventListener("touchmove", function(e) {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
-    }, false);
+    }, useCapture);
 
     _this.canvas.addEventListener("touchend", function(e) {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
-    }, false);
+    }, useCapture);
 
     _this.canvas.addEventListener("touchcancel", function(e) {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
-    }, false);
+    }, useCapture);
 };
 
 /**
@@ -72,8 +76,8 @@ Frame.prototype.fire = function(e) {
      * 注意这两个方法，只能用在基于路径的绘图上，立即绘图方法（fillRect,strokeRect,fillText,strokeText ）总是返回false
      * 注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
      * done
-     * <1>: 2016-09-29 
-     * <2>: 2017-03-25
+     * <1>: 2016-09-29 方案：射线法判断触点是否在多边形内部
+     * <2>: 2017-03-25 方案：context.isPointInPath & context.isPointInStroke
      * */
     /* 事件触发 */
     var f = function(ev) {

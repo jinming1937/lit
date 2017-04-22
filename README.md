@@ -5,6 +5,13 @@
  <br/>
  
 ### 更新<br/>
+#### 时间：2017-04-22<br/>
+>* 修改/cvs/lib/base/style.js module.export 拼写错误 => module.exports
+>* core.js 去掉events.js引用,原因：暂时未启用该文件
+>* event.js 去掉同步转异步,直接在for循环执行fire 触发对象绑定的方法
+>* frame.js 更新完善注释
+>* gctrl.js 优化取点器，优化对应的样式
+
 #### 时间：2017-04-21<br/>
 >* 更新规范：采用CMD规范
 >* 更新js:严格语法，优化代码

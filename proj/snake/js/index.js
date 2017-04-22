@@ -1,5 +1,5 @@
 var core = require("../../../cvs/lib/framework/core"),
-    Triangle = require("../../../cvs/lib/tool/extend/triangle"),
+    Triangle = require("../../../cvs/lib/tool/triangle"),
     Bar = require("../../../cvs/lib/tool/bar"),
     Button = require("../../../cvs/lib/tool/button"),
     RoundRect = require("../../../cvs/lib/tool/roundRect"),
@@ -181,15 +181,18 @@ core.on("show", "index", function(cvs) {
         if (time - lastFpsUpdateTime > 1000) {
             lastFpsUpdateTime = time;
             lastFpsUpdate = fps;
-            console.log('update fps:' + fps);
+            // console.log('update fps:' + fps);
         }
         core.frame.reRender();
-        // core.frame.cxt.save();
-        // core.frame.cxt.font = '15px Microsoft YaHei';
-        // core.frame.cxt.fillStyle = 'rgba(233,233,248,0.3)';
-        // core.frame.cxt.fillText(lastFpsUpdate+'fps',20,20);
-        // core.frame.cxt.restore();
-        // grid(core.frame.cxt,'gray',10,10);
+        /* fps start */
+        core.frame.cxt.save();
+        core.frame.cxt.font = '15px Microsoft YaHei';
+        core.frame.cxt.fillStyle = 'rgba(100,100,100,0.7)';
+        lastFpsUpdate !== "0" ? core.frame.cxt.fillText(lastFpsUpdate + 'fps', 20, 20) : "";
+        core.frame.cxt.restore();
+        /* fps end */
+        //grid(core.frame.cxt, 'gray', 10, 10); /* 画辅助线 */
+
         if (!stopFlag) {
             window.requestAnimationFrame(animationForIndex);
         }

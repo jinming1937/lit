@@ -109,10 +109,9 @@ module.exports = function(grunt) {
         webpack: {
             lit: {
                 // webpack options 
-                lib: {
+                entry: {
                     lit: "./cvs/lit",
-                    mainForIndex: "./proj/snake/mainForIndex",
-                    main: "./proj/test/main"
+                    mainForIndex: "./proj/snake/mainForIndex"
                 },
                 output: {
                     path: "dist/js/",
