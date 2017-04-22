@@ -5,9 +5,13 @@ var core = require("../../../cvs/lib/framework/core"),
     RoundRect = require("../../../cvs/lib/tool/roundRect"),
     Gctrl = require("../../../cvs/outer/gctrl"),
     grid = require("../../../cvs/outer/grid"),
-    Clock = require("./clock");
+    Clock = require("./clock"),
+    FpsWord = require("../../../cvs/lib/tool/word"),
+    Fps = require("../../../cvs/outer/fps"),
+    Animation = require("../../../cvs/outer/animation");
 core.on("show", "index", function(cvs) {
     new Gctrl(core.frame);
+    var animate = new Animation();
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load index");
     // var xxxx = new button({
@@ -140,7 +144,6 @@ core.on("show", "index", function(cvs) {
     });
     snakeButton.addWatching('touchend', function() {
         console.log("hahaha");
-        stopFlag = true;
         core.open({
             href: urlPath + "snake/prosnake.html"
         });
@@ -156,46 +159,25 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "snake-auto",
         ontouchend: function(e) {
-            stopFlag = true;
             core.open({
                 href: urlPath + "snake/classical.html"
             });
         }
     });
-    var lastTime = 0;
-
-    function getFps() {
-        var now = +new Date(),
-            fps = 1000 / (now - lastTime);
-        lastTime = now;
-        return fps;
-    }
-    var lastFpsUpdateTime = 0,
-        lastFpsUpdate = 0,
-        stopFlag = false;
-
-    function animationForIndex() {
-        var fps = 0,
-            time = +new Date();
-        fps = getFps().toFixed();
-        if (time - lastFpsUpdateTime > 1000) {
-            lastFpsUpdateTime = time;
-            lastFpsUpdate = fps;
-            // console.log('update fps:' + fps);
-        }
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: fps_text.getFps().toFixed()
+    });
+    var flagNum = false;
+    animate.setAnimation(function() {
         core.frame.reRender();
-        /* fps start */
-        core.frame.cxt.save();
-        core.frame.cxt.font = '15px Microsoft YaHei';
-        core.frame.cxt.fillStyle = 'rgba(100,100,100,0.7)';
-        lastFpsUpdate !== "0" ? core.frame.cxt.fillText(lastFpsUpdate + 'fps', 20, 20) : "";
-        core.frame.cxt.restore();
-        /* fps end */
-        //grid(core.frame.cxt, 'gray', 10, 10); /* 画辅助线 */
-
-        if (!stopFlag) {
-            window.requestAnimationFrame(animationForIndex);
-        }
-    }
-    animationForIndex();
+        var xfps = fps_text.getFps().toFixed();
+        fpsWord.word = flagNum ? xfps : fpsWord.word;
+        flagNum = false;
+    }, function() {
+        flagNum = true;
+    }, 1000);
 });

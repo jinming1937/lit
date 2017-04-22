@@ -2,12 +2,16 @@ var core = require("../../../cvs/lib/framework/core"),
     Screen = require("./snake/ScreenBox"),
     Snake = require("./snake/Snake"),
     Apple = require("./snake/Apple"),
-    RoundRect = require("../../../cvs/lib/tool/roundRect");
+    RoundRect = require("../../../cvs/lib/tool/roundRect"),
+    Fps = require("../../../cvs/outer/fps"),
+    FpsWord = require("../../../cvs/lib/tool/word"),
+    Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
 // "../../../outer/hand"
 
 core.on("show", "prosnake", function() {
     // new gctrl(core.frame);
+    var animate = new Animation();
     var frame = core.frame;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load classical");
@@ -51,10 +55,10 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "left",
         ontouchend: function(e) {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
-            snake.canMove(-1, 0, stopGame, screenDraw);
-            starGame();
+            snake.canMove(-1, 0, stopGame);
+            // starGame();
             isStop = false;
         }
     });
@@ -68,10 +72,10 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "up",
         ontouchend: function(e) {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
-            snake.canMove(0, -1, stopGame, screenDraw);
-            starGame();
+            snake.canMove(0, -1, stopGame);
+            // starGame();
             isStop = false;
         }
     });
@@ -85,10 +89,10 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "right",
         ontouchend: function(e) {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
-            snake.canMove(1, 0, stopGame, screenDraw);
-            starGame();
+            snake.canMove(1, 0, stopGame);
+            // starGame();
             isStop = false;
         }
     });
@@ -102,10 +106,10 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "down",
         ontouchend: function(e) {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
-            snake.canMove(0, 1, stopGame, screenDraw);
-            starGame();
+            snake.canMove(0, 1, stopGame);
+            // starGame();
             isStop = false;
         }
     });
@@ -139,24 +143,24 @@ core.on("show", "prosnake", function() {
         }
     });
 
-    function screenDraw() {
-        // frame.reRender();
-        // frame.clear();
-        _screen.draw();
-        snake.draw();
-        apple.draw();
-        // btnLeft.draw();
-        // btnUp.draw();
-        // btnRight.draw();
-        // btnDown.draw();
-        // btnSG.draw();
-        // goHome.draw();
-    }
-    screenDraw();
+    // function screenDraw() {
+    //     // frame.reRender();
+    //     // frame.clear();
+    //     _screen.draw();
+    //     snake.draw();
+    //     apple.draw();
+    //     // btnLeft.draw();
+    //     // btnUp.draw();
+    //     // btnRight.draw();
+    //     // btnDown.draw();
+    //     // btnSG.draw();
+    //     // goHome.draw();
+    // }
+    // screenDraw();
     var stopFlag, isStop = false;
 
     function stopGame() {
-        clearInterval(stopFlag);
+        animate.clearAnimation(stopFlag);
         isStop = true;
     }
 
@@ -165,15 +169,29 @@ core.on("show", "prosnake", function() {
             starGame();
             isStop = false;
         } else {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
         }
     }
 
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: fps_text.getFps().toFixed()
+    });
+
     function starGame() {
-        stopFlag = setInterval(function() {
-            screenDraw();
-            snake.canMove(undefined, undefined, stopGame, screenDraw);
+        var flagNum = true;
+        stopFlag = animate.setAnimation(function() {
+            core.frame.reRender();
+            var xfps = fps_text.getFps().toFixed();
+            fpsWord.word = flagNum ? xfps : fpsWord.word;
+            flagNum = false;
+        }, function() {
+            snake.canMove(undefined, undefined, stopGame);
+            flagNum = true;
         }, 300);
     }
     starGame();

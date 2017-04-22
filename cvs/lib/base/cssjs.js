@@ -45,6 +45,10 @@ var cssjs = {
     'handColor': {
         strokeStyle: '#ff5555',
         fillStyle: '#ff5555'
+    },
+    'fps': {
+        fillStyle: 'rgba(100,100,100,0.7)',
+        font: '15px Microsoft YaHei'
     }
 };
 module.exports = cssjs;

@@ -3,11 +3,15 @@ var core = require("../../../cvs/lib/framework/core"),
     Snake = require("./snake/Snake"),
     Apple = require("./snake/Apple"),
     RoundRect = require("../../../cvs/lib/tool/roundRect"),
-    Button = require("../../../cvs/lib/tool/button");
+    Button = require("../../../cvs/lib/tool/button"),
+    Fps = require("../../../cvs/outer/fps"),
+    FpsWord = require("../../../cvs/lib/tool/word"),
+    Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
 // "../../../outer/hand"
 core.on("show", "classical", function() {
     // new gctrl(core.frame);
+    var animate = new Animation();
     var frame = core.frame;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load classical");
@@ -41,7 +45,6 @@ core.on("show", "classical", function() {
             return snake.bodyArray;
         }
     });
-
     var goHome = new RoundRect({
         className: "button goHome",
         fontColor: '#101010',
@@ -61,25 +64,16 @@ core.on("show", "classical", function() {
         }
     });
 
-    function screenDraw() {
-        //frame.reRender();
-        frame.clear();
-        _screen.draw();
-        apple.draw();
-        snake.draw();
-        goHome.draw();
-        // btnLeft.draw();
-        // btnUp.draw();
-        // btnRight.draw();
-        // btnDown.draw();
-        // btnSG.draw();
-        // goHome.draw();
-    }
-    screenDraw();
+    // frame.clear();
+    //             _screen.draw();
+    //             apple.draw();
+    //             snake.draw();
+    //             goHome.draw();
+    // screenDraw();
     var stopFlag, isStop = false;
 
     function stopGame() {
-        clearInterval(stopFlag);
+        animate.clearAnimation(stopFlag);
         isStop = true;
     }
 
@@ -88,18 +82,33 @@ core.on("show", "classical", function() {
             starGame();
             isStop = false;
         } else {
-            clearInterval(stopFlag);
+            animate.clearAnimation(stopFlag);
             isStop = true;
         }
     }
 
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: fps_text.getFps().toFixed()
+    });
+
     function starGame() {
-        stopFlag = setInterval(function() {
-            screenDraw();
-            snake.canMove(undefined, undefined, stopGame, screenDraw);
-        }, 300);
+        var flagNum = true;
+        stopFlag = animate.setAnimation(function() {
+            core.frame.reRender();
+            var xfps = fps_text.getFps().toFixed();
+            fpsWord.word = flagNum ? xfps : fpsWord.word;
+            flagNum = false;
+        }, function() {
+            // snake.canMove(undefined, undefined, stopGame);
+            _snake.setPath();
+            flagNum = true;
+        }, 100);
     }
-    //starGame();
+    starGame();
 
     core.on("beforeHide", "classical", function() {
         console.log("beforeHide");
@@ -109,23 +118,24 @@ core.on("show", "classical", function() {
     var _snake = {
         auto: false,
         sTime: 0,
-        setPath: function(handleArray) {
-            if (handleArray.length === 0) {
+        setPath: function() {
+            if (_snake.arr.length === 0) {
                 return;
             }
-            snake.canMove(handleArray[0].x, handleArray[0].y, stopGame, screenDraw);
-            console.log("x:" + handleArray[0].x + ",y:" + handleArray[0].y);
-            handleArray.shift();
-            if (handleArray.length <= 0) {
-                clearTimeout(_snake.sTime);
-                setTimeout(function() {
-                    _snake.auto ? _snake.execEat() : "";
-                }, 100);
+            snake.canMove(_snake.arr[0].x, _snake.arr[0].y, stopGame);
+            console.log("x:" + _snake.arr[0].x + ",y:" + _snake.arr[0].y);
+            _snake.arr.shift();
+            if (_snake.arr.length <= 0) {
+                _snake.auto ? _snake.execEat() : "";
+                // clearTimeout(_snake.sTime);
+                // setTimeout(function() {
+                //     _snake.auto ? _snake.execEat() : "";
+                // }, 100);
                 return;
             }
-            _snake.sTime = setTimeout(function() {
-                _snake.setPath(handleArray);
-            }, 100);
+            // _snake.sTime = setTimeout(function() {
+            //     _snake.setPath(handleArray);
+            // }, 100);
         },
         execEat: function() {
             var appleXY = {
@@ -274,7 +284,8 @@ core.on("show", "classical", function() {
                 }
             }
             // return arr;
-            this.setPath(arr);
+            this.arr = arr;
+            this.setPath();
         }
     };
     _snake.auto = true;
