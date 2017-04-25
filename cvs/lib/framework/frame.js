@@ -30,7 +30,6 @@ var isTencent = true,
  * 有关于e.preventDefault() 和 useCapture 设为 false :
  *      针对于的是Dom 和 Bom 对象，使其捕获的事件不会冒泡到DOM父级，以及document, windows上
  * 对于内存的canvas element对象 要区分
- * @return {[type]} [description]
  */
 Frame.prototype.eventCtrl = function() {
     var _this = this;
@@ -62,14 +61,17 @@ Frame.prototype.eventCtrl = function() {
 };
 
 /**
- * 事件过滤
+ * 事件过滤 & 事件触发
  * @param {Object} e [event：事件参数]
  */
 Frame.prototype.fire = function(e) {
     var _this = this;
     /* 只有touchend事件，支持touchcancel */
     var hasCancel = false;
-    /** todo:
+
+    /**
+     * 事件触发
+     * todo:
      * <1>多边形怎么办？touchmove 怎么办？此方法急需重新设计
      * <2>弧线组合的多边形怎么办？需要牺牲性能？应该用这个 
      * context.isPointInPath & context.isPointInStroke
@@ -78,8 +80,8 @@ Frame.prototype.fire = function(e) {
      * done
      * <1>: 2016-09-29 方案：射线法判断触点是否在多边形内部
      * <2>: 2017-03-25 方案：context.isPointInPath & context.isPointInStroke
-     * */
-    /* 事件触发 */
+     * @param {Object} ev 包含有事件对象部分属性的对象
+     */
     var f = function(ev) {
         var cacheElement = null;
         var cacheIndex = -1;
@@ -104,11 +106,6 @@ Frame.prototype.fire = function(e) {
             }
             _this.cxt.restore();
         });
-        //for (var i = _this.elementArray.length - 1; i >= 0; i--) {
-        // if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
-        // (function (argument) {
-        // })();
-        // }
         if (cacheIndex > -1 && cacheElement) {
             //后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后
             var _cacheElement = _this.elementArray.splice(cacheIndex, 1);
@@ -137,7 +134,6 @@ Frame.prototype.fire = function(e) {
             break;
         case "touchmove":
             /**
-             * 
              * 如果这个首次touchstar，先去在elementArray 里面查找出发目标元素，如果查找到，就缓存下来，如果查找不到，就算了
              * 如果这个元素已经被缓存下来，touchmove 轮询到，触发的时候，直接去执行这个元素的touchmove
              */
@@ -189,6 +185,9 @@ Frame.prototype.resize = function(width, height) {
 
 /**
  * 清理当前的画布
+ * 采用canvas的上下文context的方法clearRect来清理
+ * @param {Number} x x坐标
+ * @param {Number} y y坐标
  */
 Frame.prototype.clear = function(x, y) {
     var _this = this;
@@ -199,13 +198,13 @@ Frame.prototype.clear = function(x, y) {
 };
 
 /**
- * @param {Object} element 元素对象
- * @param {Boolean} hasAddToArray 是否已经被frame管理
+ * 收集管理元素
  * todo :
  * <1>对于多页面，frame 管理没有做页面区分，导致页面跳转，再跳回，重复渲染的时候，frame重复管理
  * 而且，在画的时候，把重复管理的，全画出来，bug
  * done : 
  * <1> 2017-03-16,21:05
+ * @param {Object} element 元素对象
  */
 Frame.prototype.manage = function(element) {
     var _this = this;
@@ -216,9 +215,9 @@ Frame.prototype.manage = function(element) {
 
 /**
  * 是否已经管理此页面
- * 
- * @param  {[type]}  obj [description]
- * @return {Boolean}     [description]
+ * 遍历elementArray查找page
+ * @param {String} page 页面｜视窗｜页面元素
+ * @returns {Boolean} 是否存在
  */
 Frame.prototype.hasManageThisPage = function(page) {
     var flag = false,
@@ -242,7 +241,8 @@ Frame.prototype.destroy = function(element) {
 
 /**
  * 根据页面名，销毁当前页面的所有元素
- * @return {[type]} [description]
+ * 倒序遍历删除元素
+ * @param {String} page 页面名称
  */
 Frame.prototype.destroyByPage = function(page) {
     var _this = this;
@@ -259,7 +259,6 @@ Frame.prototype.destroyByPage = function(page) {
  * <1> : 只画当前页面的元素
  * done:
  * <1> : 2017-03-16,21:05
- * @return {[type]} [description]
  */
 Frame.prototype.reRender = function() {
     var _this = this;
@@ -277,14 +276,6 @@ Frame.prototype.reRender = function() {
         }
     });
     // console.log(str);
-    // for (var i = 0, len = this.elementArray.length; i < len; i++) {
-    //     if (currentRouter.cvsName === _this.elementArray[i].page) {
-    //         _this.cxt.save();
-    //         /* 如果在当前页面，则会把当前页面管理的element重绘 */
-    //         _this.elementArray[i].element.draw(_this.cxt);
-    //         _this.cxt.restore();
-    //     }
-    // }
 };
 
 /**
@@ -295,7 +286,7 @@ Frame.prototype.reRender = function() {
  *           对于弧形线条组成的图形，不能用多边形来处理
  * down:
  * <1>: context.isPointInPath & context.isPointInStroke 2017-03-25 
- * 此方法暂时弃用
+ * 2017-03-25 此方法暂时弃用
  * @param {Object} position 触点坐标
  * @param {Object} element 元素
  */
