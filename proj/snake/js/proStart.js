@@ -261,18 +261,17 @@ core.on("show", "classical", function() {
         className: 'fps',
         x: 20,
         y: 20,
-        word: fps_text.getFps().toFixed()
+        word: 0
     });
 
     function starGame() {
         var flagNum = true;
         stopFlag = animate.setAnimation(function() {
             core.frame.reRender();
-            var xfps = fps_text.getFps().toFixed();
+            var xfps = fps_text.getFps(+new Date()).toFixed();
             fpsWord.word = flagNum ? xfps : fpsWord.word;
             flagNum = false;
         }, function() {
-            // snake.canMove(undefined, undefined, stopGame);
             _snake.setPath();
             flagNum = true;
         }, 100);
