@@ -111,7 +111,7 @@ module.exports = function(grunt) {
                 // webpack options 
                 entry: {
                     lit: "./cvs/lit",
-                    mainForIndex: "./proj/snake/mainForSnake",
+                    mainForSnake: "./proj/snake/mainForSnake",
                     mainForBall: "./proj/ball/mainForBall"
                 },
                 output: {

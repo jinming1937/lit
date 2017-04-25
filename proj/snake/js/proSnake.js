@@ -55,11 +55,12 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "left",
         ontouchend: function(e) {
-            // animate.clearAnimation(stopFlag);
-            // isStop = true;
             snake.canMove(-1, 0, stopGame);
-            // starGame();
-            // isStop = false;
+            moveFlag = false;
+            if (isStop) {
+                starGame();
+                isStop = false;
+            }
         }
     });
     var btnUp = new RoundRect({
@@ -72,11 +73,12 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "up",
         ontouchend: function(e) {
-            // animate.clearAnimation(stopFlag);
-            // isStop = true;
             snake.canMove(0, -1, stopGame);
-            // starGame();
-            // isStop = false;
+            moveFlag = false;
+            if (isStop) {
+                starGame();
+                isStop = false;
+            }
         }
     });
     var btnRight = new RoundRect({
@@ -89,11 +91,12 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "right",
         ontouchend: function(e) {
-            // animate.clearAnimation(stopFlag);
-            // isStop = true;
             snake.canMove(1, 0, stopGame);
-            // starGame();
-            // isStop = false;
+            moveFlag = false;
+            if (isStop) {
+                starGame();
+                isStop = false;
+            }
         }
     });
     var btnDown = new RoundRect({
@@ -106,11 +109,12 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "down",
         ontouchend: function(e) {
-            // animate.clearAnimation(stopFlag);
-            // isStop = true;
             snake.canMove(0, 1, stopGame);
-            // starGame();
-            // isStop = false;
+            moveFlag = false;
+            if (isStop) {
+                starGame();
+                isStop = false;
+            }
         }
     });
     var btnSG = new RoundRect({
@@ -143,21 +147,9 @@ core.on("show", "prosnake", function() {
             });
         }
     });
-
-    // var ahha = new RoundRect({
-    //     className: "button goHome",
-    //     fontColor: '#101010',
-    //     cornerX: frame.width - 150,
-    //     cornerY: frame.height - 100,
-    //     width: 90,
-    //     height: 30,
-    //     cornerRadius: 8,
-    //     fillText: "HomePage",
-    //     ontouchmove: function(e) {
-    //         console.log("moving!!!");
-    //     }
-    // });
-    var stopFlag, isStop = false;
+    var stopFlag,
+        moveFlag = true,
+        isStop = false;
 
     function stopGame() {
         animate.clearAnimation(stopFlag);
@@ -190,9 +182,11 @@ core.on("show", "prosnake", function() {
             fpsWord.word = flagNum ? xfps : fpsWord.word;
             flagNum = false;
         }, function() {
+            // moveFlag ? snake.canMove(undefined, undefined, stopGame) : "";
             snake.canMove(undefined, undefined, stopGame);
+            moveFlag = true;
             flagNum = true;
-        }, 1000);
+        }, 500);
     }
     starGame();
 
