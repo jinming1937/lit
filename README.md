@@ -11,6 +11,7 @@
 >* 修改snake在页面主动draw方式，改为自动托管在frame的reRender中调用
 >* 修改贪吃蛇的颜色
 >* 修改hitTheBall名为ball,准备开发ball
+>* 更新Gruntfile.js 更新监听命令
 
 #### 时间：2017-04-22<br/>
 >* 修改/cvs/lib/base/style.js module.export 拼写错误 => module.exports

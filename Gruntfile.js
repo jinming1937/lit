@@ -43,12 +43,14 @@ module.exports = function(grunt) {
         /*jshint 语法检查*/
         jshint: {
             build: [
-                'cvs/**/*.js',
-                'proj/**/*.js',
+                'cvs/**/*.js'
             ],
             options: {
                 jshintrc: '.jshintrc'
-            }
+            },
+            lit: ['cvs/**/*.js'],
+            snake: ['proj/snake/**/*.js'],
+            ball: ['proj/ball/**/*.js']
         },
         //清理文件夹
         clean: {
@@ -171,11 +173,15 @@ module.exports = function(grunt) {
             proj: {
                 files: [
                     'cvs/sass/*.scss',
-                    'proj/**/*.scss'
+                    'proj/**/*.scss',
+                    'cvs/**/*.js',
                 ],
                 tasks: [
+                    'jshint:lit',
                     'sass:snake',
-                    'cssmin:snake'
+                    'cssmin:snake',
+                    'sass:ball',
+                    'cssmin:ball'
                 ]
             }
         },
@@ -212,8 +218,8 @@ module.exports = function(grunt) {
     grunt.registerTask('sco', ['connect', 'open', 'watch']);
 
     // package snake 项目
-    grunt.registerTask('snake', ['jshint', 'clean:snake', 'sass:snake', 'cssmin:snake', 'webpack:lit', 'copy:snake']);
+    grunt.registerTask('snake', ['jshint:snake', 'clean:snake', 'sass:snake', 'cssmin:snake', 'webpack:lit', 'copy:snake']);
 
     // package ball 项目
-    grunt.registerTask('ball', ['sass:ball', 'cssmin:ball', 'webpack:lit', 'copy:ball']);
+    grunt.registerTask('ball', ['jshint:ball', 'sass:ball', 'cssmin:ball', 'webpack:lit', 'copy:ball']);
 };
