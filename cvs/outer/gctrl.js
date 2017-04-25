@@ -20,7 +20,7 @@ function gctrl(cvs) {
         node.style.display = "block";
         node.style.left = (screenX - x < 64 ? x - 64 : x) + "px";
         node.style.top = (screenY - y < 14 ? y - 14 : y) + 'px';
-        node.innerHTML = "x:" + x + ",y:" + y;
+        node.innerHTML = "x:" + x.toFixed() + ",y:" + y.toFixed();
         window.setTimeout(function() {
             node.style.display = "none";
         }, 1000);

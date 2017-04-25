@@ -4,33 +4,33 @@
  */
 console.log("start");
 
-var main = require("../../cvs/lib/main");
+var core = require("../../cvs/lib/framework/core");
 require("./js/index");
 require("./js/room");
 if (location.port === "8089") {
     //开发环境
-    main.router.addRouter({
+    core.router.addRouter({
         index: 0,
         cvsName: "ball",
-        urlReg: /ball/
+        urlReg: /ball\/ball/
     });
-    main.router.addRouter({
+    core.router.addRouter({
         index: 1,
         cvsName: "room",
         urlReg: /ball\/room/
     });
 } else { //正式环境
-    main.router.addRouter({
+    core.router.addRouter({
         index: 1,
         cvsName: "ball",
         urlReg: /ball\/ball/
     });
-    main.router.addRouter({
+    core.router.addRouter({
         index: 0,
         cvsName: "room",
         urlReg: /ball\/room/
     });
 }
 
-main.init();
+core.init();
 console.log("ending");

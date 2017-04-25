@@ -1,10 +1,10 @@
-var Button = require("../../../cvs/lib/tool/button"),
-    triangle = require("../../../cvs/lib/tool/extend/triangle"),
+var core = require("../../../cvs/lib/framework/core"),
+    Button = require("../../../cvs/lib/tool/button"),
+    triangle = require("../../../cvs/lib/tool/triangle"),
     circle = require("../../../cvs/lib/tool/circle"),
     gctrl = require("../../../cvs/outer/gctrl");
-var main = window.main,
-    $data = window.$data;
-main.on("show", "room", function() {
+var $data = window.$data;
+core.on("show", "room", function() {
     var ws = new WebSocket('ws://' + location.host + location.pathname);
 
     ws.onclose = function(evt) {
@@ -34,7 +34,7 @@ main.on("show", "room", function() {
                 value: item.roomId + ":" + num,
                 backgroundColor: '#f55',
                 ontouchend: function(e) {
-                    main.visit({
+                    core.visit({
                         href: "/ball/ball?roomId=" + item.roomId
                     });
                 }

@@ -1,15 +1,17 @@
-var triangle = require("../../../cvs/lib/tool/extend/triangle"),
+var core = require("../../../cvs/lib/framework/core"),
+    triangle = require("../../../cvs/lib/tool/triangle"),
     Circle = require("../../../cvs/lib/tool/circle"),
     Gctrl = require("../../../cvs/outer/gctrl"),
-    storageCtrl = require("../../../node_modules/storage-ctrl");
-var main = window.main,
-    $data = window.$data;
-main.on("show", "index", function() {
-    var frame = main.frame;
-    var screenWidth = main.frame.width;
-    var screenHeight = main.frame.height;
+    storageCtrl = require("storage-ctrl");
+var $data = window.$data;
+core.on("show", "ball", function() {
+    var frame = core.frame;
+    var screenWidth = core.frame.width;
+    var screenHeight = core.frame.height;
     var thisUser = storageCtrl.getCookieData("BCookieID");
     var thisStdn = storageCtrl.getCookieData("stdn");
+    console.log("thisUser:" + thisUser);
+    console.log("thisStdn:" + thisStdn);
     //后端输出的数据
     var sData = JSON.parse($data);
     new Gctrl(frame);

@@ -84,8 +84,9 @@ Frame.prototype.fire = function(e) {
         var cacheElement = null;
         var cacheIndex = -1;
         var isFireAim = false;
+        var cacheElementArray = _this.elementArray.concat([]); //颠倒数组顺序
         /* 倒叙遍历 */
-        _this.elementArray.reverse().forEach(function(item, i) {
+        cacheElementArray.reverse().forEach(function(item, i) {
             _this.cxt.save();
             _this.elementArray[i].element.createPath();
             if (_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
@@ -106,7 +107,6 @@ Frame.prototype.fire = function(e) {
         //for (var i = _this.elementArray.length - 1; i >= 0; i--) {
         // if (_this.isInElementArea({ x: ev.clientX, y: ev.clientY }, _this.elementArray[i].element)) {
         // (function (argument) {
-
         // })();
         // }
         if (cacheIndex > -1 && cacheElement) {
@@ -265,15 +265,26 @@ Frame.prototype.reRender = function() {
     var _this = this;
     this.clear();
     var currentRouter = _this.getCurrentRouter();
+    // var str = "";
     //这是个问题： 先new的元素 ，先画出来
-    for (var i = 0, len = this.elementArray.length; i < len; i++) {
-        if (currentRouter.cvsName === _this.elementArray[i].page) {
+    this.elementArray.forEach(function(item, index) {
+        if (currentRouter.cvsName === item.page) {
             _this.cxt.save();
+            // str += item.element.constructor.name + "|";
             /* 如果在当前页面，则会把当前页面管理的element重绘 */
-            _this.elementArray[i].element.draw(_this.cxt);
+            item.element.draw(_this.cxt);
             _this.cxt.restore();
         }
-    }
+    });
+    // console.log(str);
+    // for (var i = 0, len = this.elementArray.length; i < len; i++) {
+    //     if (currentRouter.cvsName === _this.elementArray[i].page) {
+    //         _this.cxt.save();
+    //         /* 如果在当前页面，则会把当前页面管理的element重绘 */
+    //         _this.elementArray[i].element.draw(_this.cxt);
+    //         _this.cxt.restore();
+    //     }
+    // }
 };
 
 /**

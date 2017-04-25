@@ -5,6 +5,12 @@
  <br/>
  
 ### 更新<br/>
+#### 时间：2017-04-25<br/>
+>* 修改bug:frame.js fire函数中f方法颠倒元素顺序，导致元素按照非预期顺序渲染
+>* 修改snake自动循环模式：用requireAnimationFrame
+>* 修改snake在页面主动draw方式，改为自动托管在frame的reRender中调用
+>* 修改hitTheBall名为ball,准备开发ball
+
 #### 时间：2017-04-22<br/>
 >* 修改/cvs/lib/base/style.js module.export 拼写错误 => module.exports
 >* core.js 去掉events.js引用,原因：暂时未启用该文件

@@ -63,58 +63,6 @@ core.on("show", "classical", function() {
             });
         }
     });
-
-    // frame.clear();
-    //             _screen.draw();
-    //             apple.draw();
-    //             snake.draw();
-    //             goHome.draw();
-    // screenDraw();
-    var stopFlag, isStop = false;
-
-    function stopGame() {
-        animate.clearAnimation(stopFlag);
-        isStop = true;
-    }
-
-    function toggleGame() {
-        if (isStop) {
-            starGame();
-            isStop = false;
-        } else {
-            animate.clearAnimation(stopFlag);
-            isStop = true;
-        }
-    }
-
-    var fps_text = new Fps();
-    var fpsWord = new FpsWord({
-        className: 'fps',
-        x: 20,
-        y: 20,
-        word: fps_text.getFps().toFixed()
-    });
-
-    function starGame() {
-        var flagNum = true;
-        stopFlag = animate.setAnimation(function() {
-            core.frame.reRender();
-            var xfps = fps_text.getFps().toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-        }, function() {
-            // snake.canMove(undefined, undefined, stopGame);
-            _snake.setPath();
-            flagNum = true;
-        }, 100);
-    }
-    starGame();
-
-    core.on("beforeHide", "classical", function() {
-        console.log("beforeHide");
-        stopGame();
-    });
-
     var _snake = {
         auto: false,
         sTime: 0,
@@ -126,10 +74,10 @@ core.on("show", "classical", function() {
             console.log("x:" + _snake.arr[0].x + ",y:" + _snake.arr[0].y);
             _snake.arr.shift();
             if (_snake.arr.length <= 0) {
-                _snake.auto ? _snake.execEat() : "";
+                _snake.auto ? _snake.getPath() : "";
                 // clearTimeout(_snake.sTime);
                 // setTimeout(function() {
-                //     _snake.auto ? _snake.execEat() : "";
+                //     _snake.auto ? _snake.getPath() : "";
                 // }, 100);
                 return;
             }
@@ -137,7 +85,7 @@ core.on("show", "classical", function() {
             //     _snake.setPath(handleArray);
             // }, 100);
         },
-        execEat: function() {
+        getPath: function() {
             var appleXY = {
                 x: apple.getPixel().x,
                 y: apple.getPixel().y
@@ -289,5 +237,50 @@ core.on("show", "classical", function() {
         }
     };
     _snake.auto = true;
-    _snake.execEat();
+    _snake.getPath();
+
+    var stopFlag, isStop = false;
+
+    function stopGame() {
+        animate.clearAnimation(stopFlag);
+        isStop = true;
+    }
+
+    function toggleGame() {
+        if (isStop) {
+            starGame();
+            isStop = false;
+        } else {
+            animate.clearAnimation(stopFlag);
+            isStop = true;
+        }
+    }
+
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: fps_text.getFps().toFixed()
+    });
+
+    function starGame() {
+        var flagNum = true;
+        stopFlag = animate.setAnimation(function() {
+            core.frame.reRender();
+            var xfps = fps_text.getFps().toFixed();
+            fpsWord.word = flagNum ? xfps : fpsWord.word;
+            flagNum = false;
+        }, function() {
+            // snake.canMove(undefined, undefined, stopGame);
+            _snake.setPath();
+            flagNum = true;
+        }, 100);
+    }
+    starGame();
+
+    core.on("beforeHide", "classical", function() {
+        console.log("beforeHide");
+        stopGame();
+    });
 });

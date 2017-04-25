@@ -10,7 +10,7 @@ var core = require("../../../cvs/lib/framework/core"),
     Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation");
 core.on("show", "index", function(cvs) {
-    new Gctrl(core.frame);
+    // new Gctrl(core.frame);
     var animate = new Animation();
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load index");
@@ -144,6 +144,7 @@ core.on("show", "index", function(cvs) {
     });
     snakeButton.addWatching('touchend', function() {
         console.log("hahaha");
+        animate.clearAnimation(flagAnimate);
         core.open({
             href: urlPath + "snake/prosnake.html"
         });
@@ -159,6 +160,7 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "snake-auto",
         ontouchend: function(e) {
+            animate.clearAnimation(flagAnimate);
             core.open({
                 href: urlPath + "snake/classical.html"
             });
@@ -169,15 +171,16 @@ core.on("show", "index", function(cvs) {
         className: 'fps',
         x: 20,
         y: 20,
-        word: fps_text.getFps().toFixed()
+        word: 0
     });
     var flagNum = false;
-    animate.setAnimation(function() {
+    var flagAnimate = animate.setAnimation(function() {
         core.frame.reRender();
-        var xfps = fps_text.getFps().toFixed();
+        var xfps = fps_text.getFps(+new Date()).toFixed();
         fpsWord.word = flagNum ? xfps : fpsWord.word;
         flagNum = false;
     }, function() {
+        console.log(fpsWord.word);
         flagNum = true;
     }, 1000);
 });

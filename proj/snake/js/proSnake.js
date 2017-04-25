@@ -55,11 +55,11 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "left",
         ontouchend: function(e) {
-            animate.clearAnimation(stopFlag);
-            isStop = true;
+            // animate.clearAnimation(stopFlag);
+            // isStop = true;
             snake.canMove(-1, 0, stopGame);
             // starGame();
-            isStop = false;
+            // isStop = false;
         }
     });
     var btnUp = new RoundRect({
@@ -72,11 +72,11 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "up",
         ontouchend: function(e) {
-            animate.clearAnimation(stopFlag);
-            isStop = true;
+            // animate.clearAnimation(stopFlag);
+            // isStop = true;
             snake.canMove(0, -1, stopGame);
             // starGame();
-            isStop = false;
+            // isStop = false;
         }
     });
     var btnRight = new RoundRect({
@@ -89,11 +89,11 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "right",
         ontouchend: function(e) {
-            animate.clearAnimation(stopFlag);
-            isStop = true;
+            // animate.clearAnimation(stopFlag);
+            // isStop = true;
             snake.canMove(1, 0, stopGame);
             // starGame();
-            isStop = false;
+            // isStop = false;
         }
     });
     var btnDown = new RoundRect({
@@ -106,11 +106,11 @@ core.on("show", "prosnake", function() {
         cornerRadius: 8,
         fillText: "down",
         ontouchend: function(e) {
-            animate.clearAnimation(stopFlag);
-            isStop = true;
+            // animate.clearAnimation(stopFlag);
+            // isStop = true;
             snake.canMove(0, 1, stopGame);
             // starGame();
-            isStop = false;
+            // isStop = false;
         }
     });
     var btnSG = new RoundRect({
@@ -137,26 +137,26 @@ core.on("show", "prosnake", function() {
         fillText: "HomePage",
         ontouchend: function(e) {
             stopGame();
+            isStop = true;
             core.open({
                 href: urlPath + "snake/snindex.html"
             });
         }
     });
 
-    // function screenDraw() {
-    //     // frame.reRender();
-    //     // frame.clear();
-    //     _screen.draw();
-    //     snake.draw();
-    //     apple.draw();
-    //     // btnLeft.draw();
-    //     // btnUp.draw();
-    //     // btnRight.draw();
-    //     // btnDown.draw();
-    //     // btnSG.draw();
-    //     // goHome.draw();
-    // }
-    // screenDraw();
+    // var ahha = new RoundRect({
+    //     className: "button goHome",
+    //     fontColor: '#101010',
+    //     cornerX: frame.width - 150,
+    //     cornerY: frame.height - 100,
+    //     width: 90,
+    //     height: 30,
+    //     cornerRadius: 8,
+    //     fillText: "HomePage",
+    //     ontouchmove: function(e) {
+    //         console.log("moving!!!");
+    //     }
+    // });
     var stopFlag, isStop = false;
 
     function stopGame() {
@@ -179,20 +179,20 @@ core.on("show", "prosnake", function() {
         className: 'fps',
         x: 20,
         y: 20,
-        word: fps_text.getFps().toFixed()
+        word: 0
     });
 
     function starGame() {
         var flagNum = true;
         stopFlag = animate.setAnimation(function() {
             core.frame.reRender();
-            var xfps = fps_text.getFps().toFixed();
+            var xfps = fps_text.getFps(+new Date()).toFixed();
             fpsWord.word = flagNum ? xfps : fpsWord.word;
             flagNum = false;
         }, function() {
             snake.canMove(undefined, undefined, stopGame);
             flagNum = true;
-        }, 300);
+        }, 1000);
     }
     starGame();
 
@@ -200,5 +200,6 @@ core.on("show", "prosnake", function() {
         //竟然不好使。。。
         console.log("beforeHide");
         stopGame();
+        isStop = true;
     });
 });

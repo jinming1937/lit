@@ -1,5 +1,11 @@
 var element = require("../../../../cvs/lib/base/element");
 /* 屏幕 */
+
+/**
+ * 
+ * 
+ * @param {any} config 
+ */
 function Screen(config) {
     element.call(this, config);
     // this.frame = main.frame;
@@ -28,6 +34,26 @@ function Screen(config) {
     this.draw = function() {
         this.frame.cxt.fillStyle = "#ccc";
         this.frame.cxt.fillRect(this.borderX / 2, this.borderX / 2, this.pixelX * this.pixelWidth, this.pixelY * this.pixelHeight);
+        // this.paint();
+    };
+
+    /**
+     * 另一种画矩形背景的方式
+     */
+    this.paint = function() {
+        var cx = this.frame.cxt;
+        // cx.fillStyle = "#ccc";
+        cx.beginPath();
+        cx.moveTo(this.borderX / 2, this.borderX / 2);
+        cx.lineTo(this.pixelX * this.pixelWidth + this.borderX / 2, this.borderX / 2);
+        cx.lineTo(this.pixelX * this.pixelWidth + this.borderX / 2, this.pixelY * this.pixelHeight + this.borderX / 2);
+        cx.lineTo(this.borderX / 2, this.pixelY * this.pixelHeight + this.borderX / 2);
+        // cx.lineTo(this.borderX / 2, this.borderX / 2 + 300);
+        cx.closePath();
+        cx.fillStyle = "#ccc";
+        cx.strokeStyle = "#ccc";
+        cx.stroke();
+        cx.fill();
     };
 }
 

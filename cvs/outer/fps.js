@@ -4,8 +4,8 @@
  */
 var Fps = function() {
     var lastTime = 0;
-    this.getFps = function() {
-        var now = +new Date(),
+    this.getFps = function(jitNow) {
+        var now = jitNow,
             fps = 1000 / (now - lastTime);
         lastTime = now;
         return fps;

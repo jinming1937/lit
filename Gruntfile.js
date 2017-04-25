@@ -77,9 +77,9 @@ module.exports = function(grunt) {
                     'dist/snake/css/main.css': 'proj/snake/main.scss'
                 }
             },
-            hitBall: {
+            ball: {
                 files: {
-                    'dist/hitTheBall/css/main.css': 'proj/hitTheBall/main.scss'
+                    'dist/ball/css/main.css': 'proj/ball/main.scss'
                 }
             }
         },
@@ -99,9 +99,9 @@ module.exports = function(grunt) {
                     'dist/snake/css/main.css': 'dist/snake/css/main.css'
                 }
             },
-            hitBall: {
+            ball: {
                 files: {
-                    'dist/hitTheBall/css/main.css': 'dist/hitTheBall/css/main.css'
+                    'dist/ball/css/main.css': 'dist/ball/css/main.css'
                 }
             }
         },
@@ -111,7 +111,8 @@ module.exports = function(grunt) {
                 // webpack options 
                 entry: {
                     lit: "./cvs/lit",
-                    mainForIndex: "./proj/snake/mainForIndex"
+                    mainForIndex: "./proj/snake/mainForSnake",
+                    mainForBall: "./proj/ball/mainForBall"
                 },
                 output: {
                     path: "dist/js/",
@@ -159,9 +160,9 @@ module.exports = function(grunt) {
                     { expand: true, cwd: 'proj/snake/', src: ['*.html'], dest: '<%= meta.distPath %>snake/' }
                 ]
             },
-            test: {
+            ball: {
                 files: [
-                    { expand: true, cwd: 'proj/test/', src: ['*.html'], dest: '<%= meta.distPath %>test/' }
+                    { expand: true, cwd: 'proj/ball/', src: ['*.html'], dest: '<%= meta.distPath %>ball/' }
                 ]
             }
         },
@@ -214,9 +215,5 @@ module.exports = function(grunt) {
     grunt.registerTask('snake', ['jshint', 'clean:snake', 'sass:snake', 'cssmin:snake', 'webpack:lit', 'copy:snake']);
 
     // package ball 项目
-    grunt.registerTask('hitball', ['sass:base', 'cssmin:base', 'sass:hitBall', 'cssmin:hitBall', 'webpack:lit']);
-
-    // 测试cmd , amd 重复加载对象，是否保留对对象的修改
-    grunt.registerTask('test', ['webpack:lit', 'copy:test']);
-
+    grunt.registerTask('ball', ['sass:ball', 'cssmin:ball', 'webpack:lit', 'copy:ball']);
 };
