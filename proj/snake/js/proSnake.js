@@ -56,7 +56,7 @@ core.on("show", "prosnake", function() {
         fillText: "left",
         ontouchend: function(e) {
             snake.canMove(-1, 0, stopGame);
-            moveFlag = false;
+            timefor = +new Date();
             if (isStop) {
                 starGame();
                 isStop = false;
@@ -74,7 +74,7 @@ core.on("show", "prosnake", function() {
         fillText: "up",
         ontouchend: function(e) {
             snake.canMove(0, -1, stopGame);
-            moveFlag = false;
+            timefor = +new Date();
             if (isStop) {
                 starGame();
                 isStop = false;
@@ -92,7 +92,7 @@ core.on("show", "prosnake", function() {
         fillText: "right",
         ontouchend: function(e) {
             snake.canMove(1, 0, stopGame);
-            moveFlag = false;
+            timefor = +new Date();
             if (isStop) {
                 starGame();
                 isStop = false;
@@ -110,7 +110,7 @@ core.on("show", "prosnake", function() {
         fillText: "down",
         ontouchend: function(e) {
             snake.canMove(0, 1, stopGame);
-            moveFlag = false;
+            timefor = +new Date();
             if (isStop) {
                 starGame();
                 isStop = false;
@@ -148,7 +148,6 @@ core.on("show", "prosnake", function() {
         }
     });
     var stopFlag,
-        moveFlag = true,
         isStop = false;
 
     function stopGame() {
@@ -165,7 +164,7 @@ core.on("show", "prosnake", function() {
             isStop = true;
         }
     }
-
+    var timefor = new Date().getTime();
     var fps_text = new Fps();
     var fpsWord = new FpsWord({
         className: 'fps',
@@ -181,10 +180,12 @@ core.on("show", "prosnake", function() {
             var xfps = fps_text.getFps(+new Date()).toFixed();
             fpsWord.word = flagNum ? xfps : fpsWord.word;
             flagNum = false;
+            if (new Date().getTime() - timefor > 500) {
+                timefor = new Date().getTime();
+                snake.canMove(undefined, undefined, stopGame);
+            }
         }, function() {
-            // moveFlag ? snake.canMove(undefined, undefined, stopGame) : "";
-            snake.canMove(undefined, undefined, stopGame);
-            moveFlag = true;
+            // snake.canMove(undefined, undefined, stopGame);
             flagNum = true;
         }, 500);
     }
