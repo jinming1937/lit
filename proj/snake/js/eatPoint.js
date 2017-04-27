@@ -1,9 +1,17 @@
-var Button = require("../../../lib/tool/button");
+var core = require("../../../cvs/lib/framework/core"),
+    RoundRect = require("../../../cvs/lib/tool/roundRect"),
+    Fps = require("../../../cvs/outer/fps"),
+    FpsWord = require("../../../cvs/lib/tool/word"),
+    Animation = require("../../../cvs/outer/animation"),
+    canvasElemnet = require("../../../cvs/lib/base/canvasElement");
 
-function draw() {
-    var canvas = document.getElementById('canvas');
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
+var animate = new Animation();
+
+function Point(config) {
+    canvasElemnet.call(this, config);
+
+    this.draw = function() {
+        var ctx = core.frame.cxt;
 
         roundedRect(ctx, 12, 12, 150, 150, 15);
         roundedRect(ctx, 19, 19, 150, 150, 9);
@@ -65,8 +73,11 @@ function draw() {
         ctx.beginPath();
         ctx.arc(89, 102, 2, 0, Math.PI * 2, true);
         ctx.fill();
-    }
+
+    };
 }
+Point.prototype = canvasElemnet.prototype;
+Point.prototype.constructor = Point;
 
 // 封装的一个用于绘制圆角矩形的函数.
 
@@ -83,18 +94,105 @@ function roundedRect(ctx, x, y, width, height, radius) {
     ctx.quadraticCurveTo(x, y, x, y + radius);
     ctx.stroke();
 }
-var main = window.main;
-main.on("show", "eatPoint", function(frame) {
-    new Button({
-        x: 100,
-        y: 100,
-        value: '首页',
-        backgroundColor: '#f00',
+
+var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
+core.on("show", "eatPoint", function() {
+    var frame = core.frame;
+    console.log("eat point");
+    var pp = new Point();
+    var roundRect = new RoundRect({
+        className: 'button move',
+        fontColor: '#101010',
+        cornerX: 300,
+        cornerY: 10,
+        width: 70,
+        height: 30
+    });
+    roundRect.addWatching('touchmove', function(e) {
+        // console.log(e);
+        // roundRect. fireEvent(e);
+        roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
+        roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
+        console.log("hahahaha");
+        // roundRect.draw();
+    });
+    roundRect.ontouchmove = function(e) {
+        console.log("hahahaha2121212");
+    };
+    roundRect.ontouchmove = function(e) {
+        console.log("hahahaha2121212_______");
+    };
+    var roundRect_ = new RoundRect();
+    roundRect_.addWatching('touchmove', function(e) {
+        // console.log(e);
+        // roundRect. fireEvent(e);
+        roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
+        roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
+        console.log("hahahaha___");
+        // roundRect.draw();
+    });
+    roundRect_.addWatching('touchend', function(e) {
+        // console.log(e);
+        // roundRect. fireEvent(e);
+        roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
+        roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
+        console.log("end");
+        // roundRect.draw();
+    });
+    // roundRect_.ontouchmove = function(e) {
+    //     console.log("hahahaha___");
+    // };
+    var goHome = new RoundRect({
+        className: "button goHome",
+        fontColor: '#101010',
+        cornerX: frame.width - 20 - 80,
+        cornerY: frame.height - 20 - 30,
+        width: 90,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "HomePage",
         ontouchend: function(e) {
-            main.open({
-                href: "http://www.xiaozhiga.com:8089/cvs/proj/snake/snindex.html"
+            stopGame();
+            isStop = true;
+            core.open({
+                href: urlPath + "snake/snindex.html"
             });
         }
     });
+
+    var stopFlag,
+        isStop = false;
+
+    function stopGame() {
+        animate.clearAnimation(stopFlag);
+        isStop = true;
+    }
+
+    var timefor = new Date().getTime();
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: 0
+    });
+
+    function starGame() {
+        var flagNum = true;
+        stopFlag = animate.setAnimation(function() {
+            core.frame.reRender();
+            var xfps = fps_text.getFps(+new Date()).toFixed();
+            fpsWord.word = flagNum ? xfps : fpsWord.word;
+            flagNum = false;
+            if (new Date().getTime() - timefor > 500) {
+                timefor = new Date().getTime();
+                // snake.canMove(undefined, undefined, stopGame);
+            }
+        }, function() {
+            // snake.canMove(undefined, undefined, stopGame);
+            flagNum = true;
+        }, 500);
+    }
+    starGame();
 
 });

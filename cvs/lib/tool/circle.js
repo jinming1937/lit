@@ -43,9 +43,9 @@ function Circle(config) {
         if (typeof config.ontouchmove === "function") {
             if (config.strong) {
                 config.ontouchmove(e);
-                this.eventFire(e);
+                this.fireEvent(e);
             } else {
-                this.eventFire(e);
+                this.fireEvent(e);
                 this.x = e.changedTouches[0].clientX;
                 this.y = e.changedTouches[0].clientY;
             }

@@ -1,26 +1,26 @@
-var element = require("../base/element");
+var CanvasElement = require("../base/canvasElement");
 
-function roundedRect(config) {
-    element.call(this, config);
-    this.cornerX = config.cornerX;
-    this.cornerY = config.cornerY;
-    this.width = config.width;
-    this.height = config.height;
-    this.cornerRadius = config.cornerRadius;
-    this.fontColor = config.fontColor;
+function RoundedRect(config) {
+    config = config || {};
+    CanvasElement.call(this, config);
+    this.cornerX = config.cornerX || 20;
+    this.cornerY = config.cornerY || 20;
+    this.width = config.width || 70;
+    this.height = config.height || 30;
+    this.cornerRadius = config.cornerRadius || 8;
+    this.fontColor = config.fontColor || "#101010";
     this.fillText = config.fillText || "";
     this.isUpEvent = config.isUpEvent || false;
-    this.className = config.className;
-    this.ontouchmove = function(e) {
-        if (typeof config.ontouchmove === "function") {
-            config.ontouchmove(e);
-            this.eventFire(e);
-            this.cornerX = e.changedTouches[0].clientX - this.width / 2;
-            this.cornerY = e.changedTouches[0].clientY - this.height / 2;
-
-            this.draw();
-        }
-    };
+    this.className = config.className || "";
+    // this.ontouchmove = function(e) {
+    //     if (typeof config.ontouchmove === "function") {
+    //         config.ontouchmove(e);
+    //         this.fireEvent(e);
+    //         this.cornerX = e.changedTouches[0].clientX - this.width / 2;
+    //         this.cornerY = e.changedTouches[0].clientY - this.height / 2;
+    //         this.draw();
+    //     }
+    // };
     this.createPath = function() {
         var context = this.frame.cxt;
         var cornerX = this.cornerX,
@@ -61,4 +61,8 @@ function roundedRect(config) {
     };
     this.draw();
 }
-module.exports = roundedRect;
+
+RoundedRect.prototype = CanvasElement.prototype; /* 测试 */
+RoundedRect.prototype.coustructor = RoundedRect;
+
+module.exports = RoundedRect;

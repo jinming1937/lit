@@ -112,9 +112,9 @@ module.exports = function(grunt) {
             lit: {
                 // webpack options 
                 entry: {
-                    lit: "./cvs/lit",
+                    // lit: "./cvs/lit",
                     mainForSnake: "./proj/snake/mainForSnake",
-                    mainForBall: "./proj/ball/mainForBall"
+                    // mainForBall: "./proj/ball/mainForBall"
                 },
                 output: {
                     path: "dist/js/",

@@ -1,7 +1,7 @@
 var core = require("../../../cvs/lib/framework/core"),
     Triangle = require("../../../cvs/lib/tool/triangle"),
     Bar = require("../../../cvs/lib/tool/bar"),
-    Button = require("../../../cvs/lib/tool/button"),
+    // Button = require("../../../cvs/lib/tool/button"),
     RoundRect = require("../../../cvs/lib/tool/roundRect"),
     Gctrl = require("../../../cvs/outer/gctrl"),
     grid = require("../../../cvs/outer/grid"),
@@ -109,6 +109,23 @@ core.on("show", "index", function(cvs) {
         positionY: core.frame.height / 2,
     });
 
+    var eatPoint = new RoundRect({
+        className: 'button move',
+        fontColor: '#101010',
+        cornerX: 80,
+        cornerY: 100,
+        width: 110,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "eat point",
+        ontouchend: function(e) {
+            // console.log('moving');
+            core.open({
+                href: urlPath + "snake/eatpoint.html"
+            });
+        }
+    });
+
     var moving = new RoundRect({
         className: 'button move',
         fontColor: '#101010',
@@ -126,6 +143,8 @@ core.on("show", "index", function(cvs) {
     moving.addWatching('touchmove', function(e) {
         // console.log(e);
         console.log('addWatching for moving');
+        moving.cornerX = e.changedTouches[0].clientX - moving.width / 2;
+        moving.cornerY = e.changedTouches[0].clientY - moving.height / 2;
     });
 
     moving.addWatching('touchend', function(e) {

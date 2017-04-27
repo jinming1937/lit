@@ -191,7 +191,7 @@ core.on("show", "prosnake", function() {
     }
     starGame();
 
-    core.on("beforeHide", "classical", function() {
+    core.on("beforeShow", "classical", function() {
         //竟然不好使。。。
         console.log("beforeHide");
         stopGame();

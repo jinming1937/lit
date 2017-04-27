@@ -52,7 +52,7 @@ function Triangle(config) {
      */
     this.ontouchmove = function(e) {
         config.ontouchmove && config.ontouchmove(e);
-        this.eventFire(e);
+        this.fireEvent(e);
         if (!this.config.limit) {
             this.x = e.changedTouches[0].clientX - this.topToHeart.x;
             this.y = e.changedTouches[0].clientY - this.topToHeart.y;
