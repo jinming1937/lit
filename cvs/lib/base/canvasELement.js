@@ -1,5 +1,5 @@
 var core = require("../framework/core"),
-    Element = require("./element"),
+    element = require("./element"),
     ElementAction = require("./elementAction"),
     Style = require("./style");
 
@@ -8,7 +8,7 @@ var num = 0;
 
 function CanvasELement(config) {
     ElementAction.call(this);
-    Element.call(this);
+    element.call(this);
     /**
      * [elementConfig description]
      * @type {Object}

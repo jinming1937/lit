@@ -10,7 +10,7 @@
 function inheritPrototype(subClass, superClass) {
     var p = (function(o) {
         function F() {}
-        f.prototype = o;
+        F.prototype = o;
         return new F();
     }(superClass.prototype));
     p.constructor = subClass;

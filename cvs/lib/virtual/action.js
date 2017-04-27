@@ -58,22 +58,22 @@ Action.prototype.ontouchstart = function() {};
 function touchstart(e) {
     this.ontouchstart(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
-};
+}
 
 function touchmove(e) {
     this.ontouchmove(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
-};
+}
 
 function touchend(e) {
     this.ontouchend(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
-};
+}
 
 function touchcancel(e) {
     this.ontouchcancel(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
-};
+}
 
 // Action.prototype.touchstart = function(e) {
 //     this.ontouchstart && this.ontouchstart(e || this.eventContext);

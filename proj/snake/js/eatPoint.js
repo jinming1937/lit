@@ -108,18 +108,20 @@ core.on("show", "eatPoint", function() {
         width: 70,
         height: 30
     });
-    roundRect.addWatching('touchmove', function(e) {
-        // console.log(e);
-        // roundRect. fireEvent(e);
-        roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
-        roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
-        console.log("hahahaha");
-        // roundRect.draw();
-    });
+    // roundRect.addWatching('touchmove', function(e) {
+    //     // console.log(e);
+    //     // roundRect. fireEvent(e);
+    //     roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
+    //     roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
+    //     console.log("hahahaha");
+    //     // roundRect.draw();
+    // });
     roundRect.ontouchmove = function(e) {
         console.log("hahahaha2121212");
     };
     roundRect.ontouchmove = function(e) {
+        roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
+        roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
         console.log("hahahaha2121212_______");
     };
     var roundRect_ = new RoundRect();
