@@ -4,17 +4,35 @@
 /**
  * @description 寄生组合式继承
  * 
- * @param {any} subClass 子类
- * @param {any} superClass 父类
+ * @param {Object} subClass 子类
+ * @param {Object} superClass 父类
  */
+// function inheritPrototype(subClass, superClass) {
+//     var p = (function(o) {
+//         function F() {}
+//         F.prototype = o;
+//         return new F();
+//     }(superClass.prototype));
+//     p.constructor = subClass;
+//     subClass.prototype = p;
+//     return subClass;
+// }
+
+function inheritObject(o) {
+
+}
+
 function inheritPrototype(subClass, superClass) {
-    var p = (function(o) {
-        function F() {}
-        F.prototype = o;
-        return new F();
-    }(superClass.prototype));
+    function F() {}
+    F.prototype = superClass.prototype;
+    var p = new F(),
+        cacheSub = subClass.prototype;
     p.constructor = subClass;
     subClass.prototype = p;
+    for (var property in cacheSub) {
+        subClass.prototype[property] = cacheSub[property];
+    }
+    return subClass;
 }
 
 module.exports = inheritPrototype;

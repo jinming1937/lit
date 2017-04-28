@@ -1,8 +1,9 @@
-var CanvasElement = require("../base/canvasElement");
+var CanvasElementPackage = require("../base/canvasElement");
+var canvasElement = CanvasElementPackage.CanvasELement;
 
 function RoundedRect(config) {
     config = config || {};
-    CanvasElement.call(this, config);
+    // canvasElement.call(this, config);
     this.cornerX = config.cornerX || 20;
     this.cornerY = config.cornerY || 20;
     this.width = config.width || 70;
@@ -59,10 +60,17 @@ function RoundedRect(config) {
         context.fillText(this.fillText, this.width / 2 + this.cornerX, this.height / 2 + this.cornerY);
         context.restore();
     };
-    this.draw();
+
+    // this.draw();
 }
 
-RoundedRect.prototype = CanvasElement.prototype; /* 测试 */
-RoundedRect.prototype.coustructor = RoundedRect;
+// RoundedRect.prototype = new CanvasElement(); /* 测试 */
+// RoundedRect.prototype.coustructor = RoundedRect;
+RoundedRect.prototype.paint = function() {
+    console.log("paint");
+};
 
-module.exports = RoundedRect;
+module.exports = {
+    RoundedRect: CanvasElementPackage.inherit(RoundedRect, CanvasElementPackage.CanvasELement),
+    inherit: CanvasElementPackage.inherit
+};

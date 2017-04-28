@@ -1,3 +1,6 @@
+var ElementActionPackage = require("./elementAction");
+var uqid = 'un';
+var num = 0;
 /**
  * 元素基类：提供公共方法、规范方法接口
  * 注意：call 方式继承（对象冒充），如果基类中有引用类型的属性，则子类的实例会相互覆盖此属性
@@ -14,12 +17,24 @@
  * }
  * 或者用ES6
  */
-function Element() {
-
-
+function Ele() {
+    // ElementAction.call(this);
+    /**
+     * 元素唯一标识
+     * @type {String}
+     */
+    this.elementUqid = uqid + (++num);
 }
 
 // Element.prototype = new ElementAction();
 // Element.prototype.constructor = Element;
+// Ele.prototype = new ElementAction();
+// Ele.prototype.constructor = Ele;
+Ele.prototype.getElementById = function(Id) {
+    return {};
+};
 
-module.exports = Element;
+module.exports = {
+    Ele: ElementActionPackage.inherit(Ele, ElementActionPackage.ELementAction),
+    inherit: ElementActionPackage.inherit
+};

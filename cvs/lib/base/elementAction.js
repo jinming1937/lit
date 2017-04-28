@@ -1,7 +1,7 @@
-var Action = require("../virtual/action");
+var ActionPackage = require("../virtual/action");
 
 function ELementAction() {
-    Action.call(this);
+    // Action.call(this);
     /**
      * todo :
      * <1> : 时间：2017-04-27，这里有个问题，按道理来说，ontouchstart 可以被重写,元素的实例重写了此事件后，执行重写后的
@@ -58,7 +58,10 @@ function ELementAction() {
     // };
 }
 
-ELementAction.prototype = new Action();
-ELementAction.prototype.constructor = "ElementAction";
+// ELementAction.prototype = new Action();
+// ELementAction.prototype.constructor = "ElementAction";
 
-module.exports = ELementAction;
+module.exports = {
+    ELementAction: ActionPackage.inherit(ELementAction, ActionPackage.Action),
+    inherit: ActionPackage.inherit
+};

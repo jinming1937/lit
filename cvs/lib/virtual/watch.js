@@ -1,3 +1,4 @@
+var inherit = require("../common/inherit");
 /*
  * 实现方式：
  * 1、对象继承 Watching, 获得其属性和方法
@@ -11,7 +12,8 @@ var __eventArray = [];
 
 /* 事件监视 */
 function Watching() {
-    this.eventArray = [];
+    // this.__eventArray = [];
+    this.obj = { a: 123 };
 }
 
 /**
@@ -26,7 +28,7 @@ function Watching() {
  */
 Watching.prototype.addWatching = function(name, callBack, isUpEvent) {
     this.allowMove = name === "touchmove" || this.allowMove === true ? true : false;
-    this.eventArray.push({
+    __eventArray.push({
         name: name,
         fn: callBack,
         isUpEvent: isUpEvent ? true : false
@@ -40,9 +42,9 @@ Watching.prototype.addWatching = function(name, callBack, isUpEvent) {
  */
 Watching.prototype.removeWatching = function(name) {
     this.allowMove = name === "touchmove" || this.allowMove === true ? false : true;
-    for (var i = this.eventArray.length - 1; i >= 0; i--) {
-        if (name === this.eventArray[i].name) {
-            this.eventArray.splice(i, 1);
+    for (var i = __eventArray.length - 1; i >= 0; i--) {
+        if (name === __eventArray[i].name) {
+            __eventArray.splice(i, 1);
         }
     }
 };
@@ -58,11 +60,15 @@ Watching.prototype.fireEvent = function(event) {
     //         item.fn(event);
     //     }, 0);
     // }
-    for (var i = 0, len = this.eventArray.length; i < len; i++) {
-        if (this.eventArray[i].name === event.type) {
-            // fn(this.eventArray[i], event);
-            this.eventArray[i].fn(event);
+    for (var i = 0, len = __eventArray.length; i < len; i++) {
+        if (__eventArray[i].name === event.type) {
+            // fn(__eventArray[i], event);
+            __eventArray[i].fn.call(this, event); /* 注入实例，替换this */
+            console.log("fireEvent tf:" + new Date().getTime());
         }
     }
 };
-module.exports = Watching;
+module.exports = {
+    Watching: Watching,
+    inherit: inherit
+};

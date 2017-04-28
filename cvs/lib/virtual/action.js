@@ -1,11 +1,11 @@
-var Watching = require("./watch");
+var WatchingPackage = require("./watch");
 
 var __eventContext = null;
 /**
  * [Action 事件，进行事件传递]
  */
 function Action() {
-    Watching.call(this);
+    // Watching.Watching.call(this);
     /**
      * 缓存事件对象
      * @type {Object}
@@ -48,9 +48,11 @@ function Action() {
     //     }
     // };
 }
-Action.prototype = new Watching();
-Action.prototype.constructor = Action;
-Action.prototype.ontouchmove = function() {};
+// Action.prototype.constructor = Action;
+Action.prototype.ontouchmove = function(e) {
+    console.log(e);
+    console.log(this);
+};
 Action.prototype.ontouchend = function() {};
 Action.prototype.ontouchcancel = function() {};
 Action.prototype.ontouchstart = function() {};
@@ -63,6 +65,7 @@ function touchstart(e) {
 function touchmove(e) {
     this.ontouchmove(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
+    console.log("touchmove tf:" + new Date().getTime());
 }
 
 function touchend(e) {
@@ -100,18 +103,21 @@ Action.prototype.fire = function(e) {
     __eventContext = e;
     switch (e.type) {
         case "touchstart":
-            touchstart.call(this, e);
+            touchstart.call(this);
             break;
         case "touchmove":
-            touchmove.call(this, e);
+            touchmove.call(this);
             break;
         case "touchend":
-            touchend.call(this, e);
+            touchend.call(this);
             break;
         case "touchcancel":
-            touchcancel.call(this, e);
+            touchcancel.call(this);
             break;
     }
 };
 
-module.exports = Action;
+module.exports = {
+    Action: WatchingPackage.inherit(Action, WatchingPackage.Watching),
+    inherit: WatchingPackage.inherit
+};

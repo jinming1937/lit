@@ -1,14 +1,9 @@
 var core = require("../framework/core"),
-    element = require("./element"),
-    ElementAction = require("./elementAction"),
+    ElePackage = require("./element"),
     Style = require("./style");
 
-var uqid = 'un';
-var num = 0;
-
 function CanvasELement(config) {
-    ElementAction.call(this);
-    element.call(this);
+    // __Element.call(this);
     /**
      * [elementConfig description]
      * @type {Object}
@@ -34,20 +29,6 @@ function CanvasELement(config) {
         throw ("this function need overwrite");
     };
 
-    this.stroke = function(argument) {
-
-    };
-
-    this.fill = function(argument) {
-
-    };
-
-    this.createPath = function(argument) {
-        this.frame.cxt.beginPath();
-        this.frame.cxt.closePath();
-        // throw ("this function need overwrite");
-    };
-
     /**
      * 类名
      * @type {String}
@@ -67,22 +48,27 @@ function CanvasELement(config) {
     this.style = new Style(this.elementConfig.className || "");
 
     /**
-     * 元素唯一标识
-     * @type {String}
-     */
-    this.elementUqid = uqid + (++num);
-    /**
      * 默认不允许移动该元素
      * 必须在绑定thouchmove后，将其设为true,才可以移动该元素
      * @type {Boolean}
      */
     this.allowMove = typeof this.elementConfig.ontouchmove === 'function' ? true : false;
+
     /**
      * 元素由 frame 管理 
      */
     this.frame.manage(this);
-
 }
-CanvasELement.prototype = new ElementAction();
-CanvasELement.prototype.constructor = CanvasELement;
-module.exports = CanvasELement;
+// CanvasELement.prototype = new __Element();
+// CanvasELement.prototype.constructor = CanvasELement;
+CanvasELement.prototype.stroke = function(argument) {};
+CanvasELement.prototype.fill = function(argument) {};
+CanvasELement.prototype.createPath = function(argument) {
+    this.frame.cxt.beginPath();
+    this.frame.cxt.closePath();
+    // throw ("this function need overwrite");
+};
+module.exports = {
+    CanvasELement: ElePackage.inherit(CanvasELement, ElePackage.Ele),
+    inherit: ElePackage.inherit
+};
