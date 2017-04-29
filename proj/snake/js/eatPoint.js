@@ -16,7 +16,8 @@ core.on("show", "eatPoint", function() {
         cornerX: 300,
         cornerY: 10,
         width: 70,
-        height: 30
+        height: 30,
+        fillText: "rou"
     });
     // roundRect.addWatching('touchmove', function(e) {
     //     // console.log(e);
@@ -31,7 +32,7 @@ core.on("show", "eatPoint", function() {
         roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
         roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
         console.log("roundRect addWatching touchmove tf:" + new Date().getTime());
-        console.log(this);
+        console.log(this.fillText);
         console.log(roundRect);
     };
 
@@ -41,27 +42,28 @@ core.on("show", "eatPoint", function() {
         cornerX: 130,
         cornerY: 10,
         width: 70,
-        height: 30
+        height: 30,
+        fillText: "rou2"
     });
     roundRect2.addWatching("touchmove", function(e) {
         this.cornerX = e.changedTouches[0].clientX - this.width / 2;
         this.cornerY = e.changedTouches[0].clientY - this.height / 2;
         console.log("roundRect addWatching touchmove tf:" + new Date().getTime());
-        console.log(this);
+        console.log(this.fillText);
         console.log(roundRect2);
     });
 
     var roundRect_ = new RoundRect();
     roundRect_.addWatching('touchmove', function(e) {
         console.log("roundRect_ addWatching touchmove tf:" + new Date().getTime());
-        console.log(this);
+        console.log(this.fillText);
         console.log(roundRect_);
     });
     roundRect_.ontouchmove = function(e) {
         roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
         roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
         console.log("roundRect_ ontouchmove tf:" + new Date().getTime());
-        console.log(this);
+        console.log(this.fillText);
         console.log(roundRect_);
     };
     var goHome = new RoundRect({

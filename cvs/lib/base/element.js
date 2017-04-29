@@ -18,7 +18,7 @@ var num = 0;
  * 或者用ES6
  */
 function Ele() {
-    // ElementAction.call(this);
+    ElementActionPackage.ELementAction.call(this);
     /**
      * 元素唯一标识
      * @type {String}
@@ -33,8 +33,8 @@ function Ele() {
 Ele.prototype.getElementById = function(Id) {
     return {};
 };
-
+ElementActionPackage.inherit(Ele, ElementActionPackage.ELementAction);
 module.exports = {
-    Ele: ElementActionPackage.inherit(Ele, ElementActionPackage.ELementAction),
+    Ele: Ele,
     inherit: ElementActionPackage.inherit
 };

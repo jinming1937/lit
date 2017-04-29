@@ -5,7 +5,7 @@ var __eventContext = null;
  * [Action 事件，进行事件传递]
  */
 function Action() {
-    // Watching.Watching.call(this);
+    WatchingPackage.Watching.call(this);
     /**
      * 缓存事件对象
      * @type {Object}
@@ -49,10 +49,7 @@ function Action() {
     // };
 }
 // Action.prototype.constructor = Action;
-Action.prototype.ontouchmove = function(e) {
-    console.log(e);
-    console.log(this);
-};
+Action.prototype.ontouchmove = function() {};
 Action.prototype.ontouchend = function() {};
 Action.prototype.ontouchcancel = function() {};
 Action.prototype.ontouchstart = function() {};
@@ -116,8 +113,8 @@ Action.prototype.fire = function(e) {
             break;
     }
 };
-
+WatchingPackage.inherit(Action, WatchingPackage.Watching);
 module.exports = {
-    Action: WatchingPackage.inherit(Action, WatchingPackage.Watching),
+    Action: Action,
     inherit: WatchingPackage.inherit
 };

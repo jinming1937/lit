@@ -3,7 +3,7 @@ var core = require("../framework/core"),
     Style = require("./style");
 
 function CanvasELement(config) {
-    // __Element.call(this);
+    ElePackage.Ele.call(this);
     /**
      * [elementConfig description]
      * @type {Object}
@@ -14,6 +14,7 @@ function CanvasELement(config) {
      * @type {Number}
      */
     this.elementType = 0;
+
 
     /**
      * [frame 获取全局的canvas context(画布上下文)]
@@ -53,7 +54,6 @@ function CanvasELement(config) {
      * @type {Boolean}
      */
     this.allowMove = typeof this.elementConfig.ontouchmove === 'function' ? true : false;
-
     /**
      * 元素由 frame 管理 
      */
@@ -66,9 +66,9 @@ CanvasELement.prototype.fill = function(argument) {};
 CanvasELement.prototype.createPath = function(argument) {
     this.frame.cxt.beginPath();
     this.frame.cxt.closePath();
-    // throw ("this function need overwrite");
 };
+ElePackage.inherit(CanvasELement, ElePackage.Ele);
 module.exports = {
-    CanvasELement: ElePackage.inherit(CanvasELement, ElePackage.Ele),
+    CanvasELement: CanvasELement,
     inherit: ElePackage.inherit
 };

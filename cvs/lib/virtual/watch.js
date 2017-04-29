@@ -8,12 +8,12 @@ var inherit = require("../common/inherit");
  * 观察者模式： 
  * 	解藕元素对象与action，并且可以对同一元素对象重复绑定事件
  */
-var __eventArray = [];
 
 /* 事件监视 */
 function Watching() {
-    // this.__eventArray = [];
-    this.obj = { a: 123 };
+    var eventArray = [];
+    this.eventArray = [];
+    this.xx = { a: 2, b: 3 };
 }
 
 /**
@@ -27,8 +27,9 @@ function Watching() {
  * @param {Boolean} isUpEvent 是否阻止冒泡 
  */
 Watching.prototype.addWatching = function(name, callBack, isUpEvent) {
+    this.abc = { a: 2, b: 33 };
     this.allowMove = name === "touchmove" || this.allowMove === true ? true : false;
-    __eventArray.push({
+    this.eventArray.push({
         name: name,
         fn: callBack,
         isUpEvent: isUpEvent ? true : false
@@ -42,9 +43,9 @@ Watching.prototype.addWatching = function(name, callBack, isUpEvent) {
  */
 Watching.prototype.removeWatching = function(name) {
     this.allowMove = name === "touchmove" || this.allowMove === true ? false : true;
-    for (var i = __eventArray.length - 1; i >= 0; i--) {
-        if (name === __eventArray[i].name) {
-            __eventArray.splice(i, 1);
+    for (var i = this.eventArray.length - 1; i >= 0; i--) {
+        if (name === this.eventArray[i].name) {
+            this.eventArray.splice(i, 1);
         }
     }
 };
@@ -60,10 +61,10 @@ Watching.prototype.fireEvent = function(event) {
     //         item.fn(event);
     //     }, 0);
     // }
-    for (var i = 0, len = __eventArray.length; i < len; i++) {
-        if (__eventArray[i].name === event.type) {
-            // fn(__eventArray[i], event);
-            __eventArray[i].fn.call(this, event); /* 注入实例，替换this */
+    for (var i = 0, len = this.eventArray.length; i < len; i++) {
+        if (this.eventArray[i].name === event.type) {
+            // fn(this.eventArray[i], event);
+            this.eventArray[i].fn.call(this, event); /* 注入实例，替换this */
             console.log("fireEvent tf:" + new Date().getTime());
         }
     }

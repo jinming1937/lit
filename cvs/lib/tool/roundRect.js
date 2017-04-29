@@ -1,9 +1,9 @@
 var CanvasElementPackage = require("../base/canvasElement");
-var canvasElement = CanvasElementPackage.CanvasELement;
+var core = require("../framework/core");
 
 function RoundedRect(config) {
     config = config || {};
-    // canvasElement.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config); //调用父类构造函数帮助执行出始化
     this.cornerX = config.cornerX || 20;
     this.cornerY = config.cornerY || 20;
     this.width = config.width || 70;
@@ -69,8 +69,8 @@ function RoundedRect(config) {
 RoundedRect.prototype.paint = function() {
     console.log("paint");
 };
-
+CanvasElementPackage.inherit(RoundedRect, CanvasElementPackage.CanvasELement);
 module.exports = {
-    RoundedRect: CanvasElementPackage.inherit(RoundedRect, CanvasElementPackage.CanvasELement),
+    RoundedRect: RoundedRect,
     inherit: CanvasElementPackage.inherit
 };

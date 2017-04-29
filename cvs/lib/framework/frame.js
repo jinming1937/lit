@@ -34,15 +34,15 @@ var isTencent = true,
 Frame.prototype.eventCtrl = function() {
     var _this = this;
     _this.catchElementTouchMove = null;
-    _this.canvas.addEventListener("click", function(e) {
-        _this.fire(e);
-        isTencent ? e.preventDefault() : "";
-    }, useCapture);
+    // _this.canvas.addEventListener("click", function(e) {
+    //     _this.fire(e);
+    //     isTencent ? e.preventDefault() : "";
+    // }, useCapture);
 
-    _this.canvas.addEventListener("touchstart", function(e) {
-        _this.fire(e);
-        isTencent ? e.preventDefault() : "";
-    }, useCapture);
+    // _this.canvas.addEventListener("touchstart", function(e) {
+    //     _this.fire(e);
+    //     isTencent ? e.preventDefault() : "";
+    // }, useCapture);
 
     _this.canvas.addEventListener("touchmove", function(e) {
         _this.fire(e);
