@@ -284,7 +284,7 @@ Frame.prototype.reRender = function() {
  * <1>: 这里的判断不严谨，只考虑到了常见常规图形，没有考虑到组合复杂图形
  *      而且，对于多边形需要知道其坐标，对于旋转，则需要进行大量旋转坐标运算
  *           对于弧形线条组成的图形，不能用多边形来处理
- * down:
+ * done:
  * <1>: context.isPointInPath & context.isPointInStroke 2017-03-25 
  * 2017-03-25 此方法暂时弃用
  * @param {Object} position 触点坐标

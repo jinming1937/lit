@@ -1,8 +1,7 @@
 var WatchingPackage = require("./watch");
 
-var __eventContext = null;
 /**
- * [Action 事件，进行事件传递]
+ * [Action 事件，对frame中捕捉到的事件进行分发传递]
  */
 function Action() {
     WatchingPackage.Watching.call(this);
@@ -11,93 +10,60 @@ function Action() {
      * @type {Object}
      */
     this.eventContext = null;
-
-    // this.touchstart = function() {
-    //     this.ontouchstart && this.ontouchstart(this.eventContext);
-    // };
-    // this.touchmove = function() {
-    //     this.ontouchmove && this.ontouchmove(this.eventContext);
-    // };
-    // this.touchend = function() {
-    //     this.ontouchend && this.ontouchend(this.eventContext);
-    // };
-    // this.touchcancel = function() {
-    //     this.ontouchcancel && this.ontouchcancel(this.eventContext);
-    // };
-    // /**
-    //  * 触发事件
-    //  * @param  {[type]} e 事件类型
-    //  * @return {[type]}   [description]
-    //  */
-    // this.fire = function(e) {
-    //     var _this = this;
-    //     this.eventContext = e;
-    //     switch (e.type) {
-    //         case "touchstart":
-    //             _this.touchstart();
-    //             break;
-    //         case "touchmove":
-    //             _this.touchmove();
-    //             break;
-    //         case "touchend":
-    //             _this.touchend();
-    //             break;
-    //         case "touchcancel":
-    //             _this.touchcancel();
-    //             break;
-    //     }
-    // };
 }
-// Action.prototype.constructor = Action;
 Action.prototype.ontouchmove = function() {};
 Action.prototype.ontouchend = function() {};
 Action.prototype.ontouchcancel = function() {};
 Action.prototype.ontouchstart = function() {};
 
+/**
+ * 私有方法：touchstart
+ * 
+ * @param {Object} e 事件对象
+ */
 function touchstart(e) {
     this.ontouchstart(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
 }
 
+/**
+ * 私有方法：touchmove
+ * 
+ * @param {Object} e 事件对象
+ */
 function touchmove(e) {
     this.ontouchmove(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
     console.log("touchmove tf:" + new Date().getTime());
 }
 
+/**
+ * 私有方法：touchend
+ * 
+ * @param {Object} e 事件对象
+ */
 function touchend(e) {
     this.ontouchend(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
 }
 
+/**
+ * 私有方法：touchcancel
+ * 
+ * @param {Object} e 事件对象
+ */
 function touchcancel(e) {
     this.ontouchcancel(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
 }
 
-// Action.prototype.touchstart = function(e) {
-//     this.ontouchstart && this.ontouchstart(e || this.eventContext);
-//     this.fireEvent(e || this.eventContext || { type: "touchstart" });
-// };
-
-// Action.prototype.touchmove = function(e) {
-//     this.ontouchmove && this.ontouchmove(e || this.eventContext);
-//     this.fireEvent(e || this.eventContext || { type: "touchmove" });
-// };
-
-// Action.prototype.touchend = function(e) {
-//     this.ontouchend && this.ontouchend(e || this.eventContext);
-//     this.fireEvent(e || this.eventContext || { type: "touchend" });
-// };
-
-// Action.prototype.touchcancel = function(e) {
-//     this.ontouchcancel && this.ontouchcancel(e || this.eventContext);
-//     this.fireEvent(e || this.eventContext || { type: "touchcancel" });
-// };
-
+/**
+ * 触发事件分发
+ * 
+ * @param {Object} e 事件对象
+ */
 Action.prototype.fire = function(e) {
     this.eventContext = e;
-    __eventContext = e;
     switch (e.type) {
         case "touchstart":
             touchstart.call(this);

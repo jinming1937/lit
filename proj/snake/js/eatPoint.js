@@ -1,7 +1,7 @@
 var core = require("../../../cvs/lib/framework/core"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
-    // Fps = require("../../../cvs/outer/fps"),
-    // FpsWord = require("../../../cvs/lib/tool/word"),
+    Fps = require("../../../cvs/outer/fps"),
+    FpsWord = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 var animate = new Animation();
 
@@ -19,14 +19,11 @@ core.on("show", "eatPoint", function() {
         height: 30,
         fillText: "rou"
     });
-    // roundRect.addWatching('touchmove', function(e) {
-    //     // console.log(e);
-    //     // roundRect. fireEvent(e);
-    //     roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
-    //     roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
-    //     console.log("hahahaha");
-    //     // roundRect.draw();
-    // });
+    roundRect.addWatching('touchmove', function(e) {
+        roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
+        roundRect.cornerY = e.changedTouches[0].clientY - roundRect.height / 2;
+        console.log("hahahaha");
+    });
 
     roundRect.ontouchmove = function(e) {
         roundRect.cornerX = e.changedTouches[0].clientX - roundRect.width / 2;
@@ -91,29 +88,22 @@ core.on("show", "eatPoint", function() {
         animate.clearAnimation(stopFlag);
         isStop = true;
     }
-
-    // var timefor = new Date().getTime();
-    // var fps_text = new Fps();
-    // var fpsWord = new FpsWord({
-    //     className: 'fps',
-    //     x: 20,
-    //     y: 20,
-    //     word: 0
-    // });
+    var fps_text = new Fps();
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 20,
+        y: 20,
+        word: 0
+    });
 
     function starGame() {
         var flagNum = true;
         stopFlag = animate.setAnimation(function() {
             core.frame.reRender();
-            // var xfps = fps_text.getFps(+new Date()).toFixed();
-            // fpsWord.word = flagNum ? xfps : fpsWord.word;
-            // flagNum = false;
-            // if (new Date().getTime() - timefor > 500) {
-            //     timefor = new Date().getTime();
-            // snake.canMove(undefined, undefined, stopGame);
-            // }
+            var xfps = fps_text.getFps(+new Date()).toFixed();
+            fpsWord.word = flagNum ? xfps : fpsWord.word;
+            flagNum = false;
         }, function() {
-            // snake.canMove(undefined, undefined, stopGame);
             flagNum = true;
         }, 500);
     }
