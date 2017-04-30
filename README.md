@@ -22,6 +22,8 @@
 该元素的fire事件（fire是action原型中的方法，可以直接分发事件），于是直接执行了元素绑定事件内部的代码，所以流畅
 >* 解决rou2测试按钮作为移动元素不能被重置到frame.elementArray最后的问题
 >	* 原因：由于以前修改倒叙遍历，才用了forEach,但是循环内部还没有修改i（index,索引），导致逻辑错误
+>* 修复bug:_this.elementArray.push(_this.catchElementTouchMove); 添加的应该是elementArray的项，而不是元素
+
 #### 时间：2017-04-29<br/>
 >* 完善继承方式
 >* 添加在inherit添加备注,并制定类型编写规范

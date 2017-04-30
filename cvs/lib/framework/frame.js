@@ -99,7 +99,7 @@ Frame.prototype.fire = function(e) {
                 if (item.element.hasOwnProperty("ontouchmove") || item.element.allowMove) {
                     cacheIndex = i; //移动这个元素，缓存这个索引
                     /* 优化move事件，解决手指move移动很快的时候，"丢失"元素 */
-                    _this.catchElementTouchMove = item.element;
+                    _this.catchElementTouchMove = item;
                 }
                 /*是否允许穿透*/
                 // if (!_this.elementArray[i].element.isUpEvent) {  
@@ -140,8 +140,8 @@ Frame.prototype.fire = function(e) {
              * 因为touchstart总是最先执行，如果这个f函数轮询到该元素，发现该元素存在touchmove事件，就缓存下来，如果没有，就算了
              * 如果这个元素已经被缓存下来，touchmove 轮询到，触发的时候，直接去执行这个元素的touchmove
              */
-            _this.catchElementTouchMove ?
-                _this.catchElementTouchMove.fire(e) :
+            _this.catchElementTouchMove && _this.catchElementTouchMove.element ?
+                _this.catchElementTouchMove.element.fire(e) :
                 f({
                     clientX: e.changedTouches[0].clientX,
                     clientY: e.changedTouches[0].clientY,
