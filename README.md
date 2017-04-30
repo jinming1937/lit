@@ -6,7 +6,7 @@
  
 ### 问题<br/>
 #### 时间：2017-04-27<br/>
->* 神奇的问题实例化两个对象：一个addWatching,一个赋值on事件，但是这两个的move事件都不流畅，但是只要同时使用这两种方式就会很流畅
+>* 神奇的问题实例化两个对象：一个addWatching,一个赋值on事件，但是这两个的move事件都不流畅，但是只要同时使用这两种方式绑定事件就会很流畅
 >   * 这个问题暂时放在分支moveblock上<br/>已解决：查看更新：2017-05-01
 
 ### 小目标<br/>
@@ -23,6 +23,8 @@
 >* 解决rou2测试按钮作为移动元素不能被重置到frame.elementArray最后的问题
 >	* 原因：由于以前修改倒叙遍历，才用了forEach,但是循环内部还没有修改i（index,索引），导致逻辑错误
 >* 修复bug:_this.elementArray.push(_this.catchElementTouchMove); 添加的应该是elementArray的项，而不是元素
+>* 优化frame.js 私有触发事件函数f:如果touchstart时没有触发在可移动元素上，但是touchmove的时候，
+移动到了绑定touchmove事件的元素上，于是该元素不会被重置到其他元素之上
 
 #### 时间：2017-04-29<br/>
 >* 完善继承方式

@@ -73,13 +73,14 @@ Frame.prototype.fire = function(e) {
      * 事件触发
      * todo:
      * <1>多边形怎么办？touchmove 怎么办？此方法急需重新设计
-     * <2>弧线组合的多边形怎么办？需要牺牲性能？应该用这个 
-     * context.isPointInPath & context.isPointInStroke
-     * 注意这两个方法，只能用在基于路径的绘图上，立即绘图方法（fillRect,strokeRect,fillText,strokeText ）总是返回false
-     * 注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
+     * <2>弧线组合的多边形怎么办？需要牺牲性能？应该用这个 context.isPointInPath & context.isPointInStroke
+     *      注意这两个方法，只能用在基于路径的绘图上，立即绘图方法（fillRect,strokeRect,fillText,strokeText ）总是返回false
+     *      注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
+     * <3>: 2017-05-01 如果touchstart时没有触发在可移动元素上，但是touchmove的时候，移动到了绑定touchmove事件的元素上，于是该元素不会被重置到其他元素之上
      * done
      * <1>: 2016-09-29 方案：射线法判断触点是否在多边形内部
      * <2>: 2017-03-25 方案：context.isPointInPath & context.isPointInStroke
+     * <3>: 2017-05-01 方案：修改 && ev.type === "touchstart"，时期不只在touchstart阶段执行，而是第一次执行touchmove或touchstart的时候执行
      * @param {Object} ev 包含有事件对象部分属性的对象
      */
     var f = function(ev) {
@@ -108,9 +109,8 @@ Frame.prototype.fire = function(e) {
             }
             _this.cxt.restore();
         });
-        if (cacheIndex > -1 && _this.catchElementTouchMove && ev.type === "touchstart") {
+        if (cacheIndex > -1 && _this.catchElementTouchMove && (ev.type === "touchstart" || ev.type === "touchmove")) {
             /* 后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后 */
-            /* 只发生在touchstart处理阶段 */
             _this.elementArray.splice(_this.elementArray.length - 1 - cacheIndex, 1);
             _this.elementArray.push(_this.catchElementTouchMove);
         }
