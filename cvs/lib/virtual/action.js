@@ -34,7 +34,7 @@ function touchstart(e) {
 function touchmove(e) {
     this.ontouchmove(e || this.eventContext);
     this.fireEvent(e || this.eventContext);
-    console.log("touchmove tf:" + new Date().getTime());
+    console.log("action touchmove tf:" + new Date().getTime());
 }
 
 /**

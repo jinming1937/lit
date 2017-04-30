@@ -1,7 +1,7 @@
-var element = require("../base/element");
+var CanvasElementPackage = require("../base/canvasElement");
 
-function drawFps(config) {
-    element.call(this, config);
+function DrawWords(config) {
+    CanvasElementPackage.CanvasELement.call(this, config);
     this.x = config.x || 20;
     this.y = config.y || 20;
     this.word = config.word || "";
@@ -15,13 +15,11 @@ function drawFps(config) {
     };
 
     this.draw = function() {
-        ""; //实现element接口，但是留空
         var _this = this;
         this.frame.cxt.save();
         this.style.setStyle(this.frame.cxt);
         this.frame.cxt.fillText(_this.getWord(), _this.x, _this.y);
         this.frame.cxt.restore();
-        // console.log("345");
     };
     this.paint = function() {
         var _this = this;
@@ -31,7 +29,9 @@ function drawFps(config) {
         this.frame.cxt.restore();
         console.log("345");
     };
-
-    // this.draw();
 }
-module.exports = drawFps;
+CanvasElementPackage.inherit(DrawWords, CanvasElementPackage.CanvasELement);
+module.exports = {
+    DrawWords: DrawWords,
+    inherit: CanvasElementPackage.inherit
+};

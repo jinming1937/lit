@@ -1,7 +1,7 @@
 var core = require("../../../cvs/lib/framework/core"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     Fps = require("../../../cvs/outer/fps"),
-    FpsWord = require("../../../cvs/lib/tool/word"),
+    FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 var animate = new Animation();
 
@@ -89,7 +89,7 @@ core.on("show", "eatPoint", function() {
         isStop = true;
     }
     var fps_text = new Fps();
-    var fpsWord = new FpsWord({
+    var fpsWord = new FpsWordPackage.DrawWords({
         className: 'fps',
         x: 20,
         y: 20,

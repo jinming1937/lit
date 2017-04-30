@@ -59,7 +59,7 @@ Watching.prototype.fireEvent = function(event) {
     for (var i = 0, len = this.eventArray.length; i < len; i++) {
         if (this.eventArray[i].name === event.type) {
             this.eventArray[i].fn.call(this, event); /* 注入实例，替换this */
-            console.log("fireEvent tf:" + new Date().getTime());
+            console.log("watching fireEvent tf:" + new Date().getTime());
         }
     }
 };
