@@ -34,15 +34,15 @@ var isTencent = true,
 Frame.prototype.eventCtrl = function() {
     var _this = this;
     _this.catchElementTouchMove = null;
-    // _this.canvas.addEventListener("click", function(e) {
-    //     _this.fire(e);
-    //     isTencent ? e.preventDefault() : "";
-    // }, useCapture);
+    _this.canvas.addEventListener("click", function(e) {
+        _this.fire(e);
+        isTencent ? e.preventDefault() : "";
+    }, useCapture);
 
-    // _this.canvas.addEventListener("touchstart", function(e) {
-    //     _this.fire(e);
-    //     isTencent ? e.preventDefault() : "";
-    // }, useCapture);
+    _this.canvas.addEventListener("touchstart", function(e) {
+        _this.fire(e);
+        isTencent ? e.preventDefault() : "";
+    }, useCapture);
 
     _this.canvas.addEventListener("touchmove", function(e) {
         _this.fire(e);
@@ -90,14 +90,16 @@ Frame.prototype.fire = function(e) {
         /* 倒叙遍历 */
         cacheElementArray.reverse().forEach(function(item, i) {
             _this.cxt.save();
-            _this.elementArray[i].element.createPath();
+            item.element.createPath();
             if (_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
                 isFireAim = true;
-                cacheElement = _this.elementArray[i].element;
+                cacheElement = item.element;
                 /* 此处应该是绑定了move事件的元素才赋值 */
-                if (_this.elementArray[i].element.hasOwnProperty("ontouchmove") && _this.elementArray[i].element.allowMove) {
+                /* 这也就解释了为什么addWatching 且 ontouchmove= 添加事件的时候不会卡顿，单独添加的时候会卡顿 */
+                if (item.element.hasOwnProperty("ontouchmove") || item.element.allowMove) {
                     cacheIndex = i; //移动这个元素，缓存这个索引
-                    _this.catchElementTouchMove = _this.elementArray[i].element;
+                    /* 优化move事件，解决手指move移动很快的时候，"丢失"元素 */
+                    _this.catchElementTouchMove = item.element;
                 }
                 /*是否允许穿透*/
                 // if (!_this.elementArray[i].element.isUpEvent) {  
@@ -106,10 +108,11 @@ Frame.prototype.fire = function(e) {
             }
             _this.cxt.restore();
         });
-        if (cacheIndex > -1 && cacheElement) {
-            //后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后
-            var _cacheElement = _this.elementArray.splice(cacheIndex, 1);
-            _this.elementArray.push(_cacheElement[0]);
+        if (cacheIndex > -1 && _this.catchElementTouchMove && ev.type === "touchstart") {
+            /* 后new 的元素，先画出来，但是，move 的元素,要最先画出来,move 元素 移动到array最后 */
+            /* 只发生在touchstart处理阶段 */
+            _this.elementArray.splice(_this.elementArray.length - 1 - cacheIndex, 1);
+            _this.elementArray.push(_this.catchElementTouchMove);
         }
         if (cacheElement) {
             //触点有元素 ，执行这个元素的事件
@@ -134,7 +137,7 @@ Frame.prototype.fire = function(e) {
             break;
         case "touchmove":
             /**
-             * 如果这个首次touchstar，先去在elementArray 里面查找出发目标元素，如果查找到，就缓存下来，如果查找不到，就算了
+             * 因为touchstart总是最先执行，如果这个f函数轮询到该元素，发现该元素存在touchmove事件，就缓存下来，如果没有，就算了
              * 如果这个元素已经被缓存下来，touchmove 轮询到，触发的时候，直接去执行这个元素的touchmove
              */
             _this.catchElementTouchMove ?
@@ -144,7 +147,8 @@ Frame.prototype.fire = function(e) {
                     clientY: e.changedTouches[0].clientY,
                     type: e.type.toLowerCase()
                 });
-            _this.catchElementTouchMove ? this.reRender() : "";
+            /* 假设requestAnimationFrame 每分钟执行60次，人眼无法分辨，所以这个 this.reRender可以不用重复调用，完全托管给requestAnimationFrame */
+            // _this.catchElementTouchMove ? this.reRender() : "";
             break;
         case "touchend":
             hasCancel ?
