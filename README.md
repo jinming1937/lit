@@ -16,12 +16,12 @@
 ### 更新<br/>
 #### 时间：2017-05-01<br/>
 >* 解决addWatching 或者 ontouchmove= 添加事件的时候会卡顿问题
->   *原因：更新了继承方式（inherit＋call），去掉了元素构造函数原生的ontouch等事件，导致frame.js<br/>
-中f触发函数 item.element.hasOwnProperty("ontouchmove") && item.element.allowMove的判断<br/>
-必须要同时声明这两种绑定方式，才可以缓存move事件的元素，而缓存了move事件的元素，在move的时候直接执行<br/>
-该元素的fire事件（fire是action原型中的方法，可以直接分发事件），于是直接执行了元素绑定事件内部的代码，所流畅<br/>
+>	* 原因：更新了继承方式（inherit＋call），去掉了元素构造函数原生的ontouch等事件，导致frame.js
+中f触发函数 item.element.hasOwnProperty("ontouchmove") && item.element.allowMove的判断
+必须要同时声明这两种绑定方式，才可以缓存move事件的元素，而缓存了move事件的元素，在move的时候直接执行
+该元素的fire事件（fire是action原型中的方法，可以直接分发事件），于是直接执行了元素绑定事件内部的代码，所流畅
 >* 解决rou2测试按钮作为移动元素不能被重置到frame.elementArray最后的问题
->   *原因：由于以前修改倒叙遍历，才用了forEach,但是循环内部还没有修改i（index,索引），导致逻辑错误<br/>
+>	* 原因：由于以前修改倒叙遍历，才用了forEach,但是循环内部还没有修改i（index,索引），导致逻辑错误
 #### 时间：2017-04-29<br/>
 >* 完善继承方式
 >* 添加在inherit添加备注,并制定类型编写规范
