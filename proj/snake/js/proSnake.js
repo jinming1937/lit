@@ -2,9 +2,9 @@ var core = require("../../../cvs/lib/framework/core"),
     Screen = require("./snake/ScreenBox"),
     Snake = require("./snake/Snake"),
     Apple = require("./snake/Apple"),
-    RoundRect = require("../../../cvs/lib/tool/roundRect"),
+    RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     Fps = require("../../../cvs/outer/fps"),
-    FpsWord = require("../../../cvs/lib/tool/word"),
+    FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
 // "../../../outer/hand"
@@ -13,6 +13,8 @@ core.on("show", "prosnake", function() {
     // new gctrl(core.frame);
     var animate = new Animation();
     var frame = core.frame;
+    var RoundRect = RoundRectPackage.RoundedRect;
+    var FpsWord = FpsWordPackage.DrawWords;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load classical");
     /* ------------------[start]------------------- */
@@ -53,16 +55,16 @@ core.on("show", "prosnake", function() {
         width: 50,
         height: 50,
         cornerRadius: 8,
-        fillText: "left",
-        ontouchend: function(e) {
-            snake.canMove(-1, 0, stopGame);
-            timefor = +new Date();
-            if (isStop) {
-                starGame();
-                isStop = false;
-            }
-        }
+        fillText: "left"
     });
+    btnLeft.ontouchend = function(e) {
+        snake.canMove(-1, 0, stopGame);
+        timefor = +new Date();
+        if (isStop) {
+            starGame();
+            isStop = false;
+        }
+    };
     var btnUp = new RoundRect({
         className: "button handColor",
         fontColor: '#101010',
@@ -71,16 +73,16 @@ core.on("show", "prosnake", function() {
         width: 50,
         height: 50,
         cornerRadius: 8,
-        fillText: "up",
-        ontouchend: function(e) {
-            snake.canMove(0, -1, stopGame);
-            timefor = +new Date();
-            if (isStop) {
-                starGame();
-                isStop = false;
-            }
-        }
+        fillText: "up"
     });
+    btnUp.ontouchend = function(e) {
+        snake.canMove(0, -1, stopGame);
+        timefor = +new Date();
+        if (isStop) {
+            starGame();
+            isStop = false;
+        }
+    };
     var btnRight = new RoundRect({
         className: "button handColor",
         fontColor: '#101010',
@@ -89,16 +91,16 @@ core.on("show", "prosnake", function() {
         width: 50,
         height: 50,
         cornerRadius: 8,
-        fillText: "right",
-        ontouchend: function(e) {
-            snake.canMove(1, 0, stopGame);
-            timefor = +new Date();
-            if (isStop) {
-                starGame();
-                isStop = false;
-            }
-        }
+        fillText: "right"
     });
+    btnRight.ontouchend = function(e) {
+        snake.canMove(1, 0, stopGame);
+        timefor = +new Date();
+        if (isStop) {
+            starGame();
+            isStop = false;
+        }
+    };
     var btnDown = new RoundRect({
         className: "button handColor",
         fontColor: '#101010',
@@ -107,16 +109,16 @@ core.on("show", "prosnake", function() {
         width: 50,
         height: 50,
         cornerRadius: 8,
-        fillText: "down",
-        ontouchend: function(e) {
-            snake.canMove(0, 1, stopGame);
-            timefor = +new Date();
-            if (isStop) {
-                starGame();
-                isStop = false;
-            }
-        }
+        fillText: "down"
     });
+    btnDown.ontouchend = function(e) {
+        snake.canMove(0, 1, stopGame);
+        timefor = +new Date();
+        if (isStop) {
+            starGame();
+            isStop = false;
+        }
+    };
     var btnSG = new RoundRect({
         className: "button handColor",
         fontColor: '#101010',
@@ -125,11 +127,11 @@ core.on("show", "prosnake", function() {
         width: 50,
         height: 50,
         cornerRadius: 8,
-        fillText: "s/g",
-        ontouchend: function(e) {
-            toggleGame();
-        }
+        fillText: "s/g"
     });
+    btnSG.ontouchend = function(e) {
+        toggleGame();
+    };
     var goHome = new RoundRect({
         className: "button goHome",
         fontColor: '#101010',
@@ -138,15 +140,15 @@ core.on("show", "prosnake", function() {
         width: 90,
         height: 30,
         cornerRadius: 8,
-        fillText: "HomePage",
-        ontouchend: function(e) {
-            stopGame();
-            isStop = true;
-            core.open({
-                href: urlPath + "snake/snindex.html"
-            });
-        }
+        fillText: "HomePage"
     });
+    goHome.ontouchend = function(e) {
+        stopGame();
+        isStop = true;
+        core.open({
+            href: urlPath + "snake/snindex.html"
+        });
+    };
     var stopFlag,
         isStop = false;
 

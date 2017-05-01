@@ -1,13 +1,12 @@
-var element = require("../../../../cvs/lib/base/element");
-/* 屏幕 */
+var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 
 /**
- * 
+ * 屏幕
  * 
  * @param {any} config 
  */
 function Screen(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     // this.frame = main.frame;
     this.pixelWidth = config.size || 20;
     this.pixelHeight = config.size || 20;
@@ -65,4 +64,5 @@ Screen.prototype.getPixel = function() {
         y: _this.pixelY
     };
 };
+CanvasElementPackage.inherit(Screen, CanvasElementPackage.CanvasELement);
 module.exports = Screen;

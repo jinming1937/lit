@@ -1,5 +1,4 @@
 var CanvasElementPackage = require("../base/canvasElement");
-var core = require("../framework/core");
 
 function RoundedRect(config) {
     config = config || {};

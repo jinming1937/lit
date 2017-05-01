@@ -1,7 +1,8 @@
-var element = require("../../../../cvs/lib/base/element");
+var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
+
 /* 贪吃蛇 */
 function Snake(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     // this.frame = main.frame;
     this.defaultLength = 4;
     this.bodyArray = [
@@ -215,5 +216,5 @@ Snake.prototype.move = function(x, y, isChangeDirect, cb) {
 //auto
 //
 
-
+CanvasElementPackage.inherit(Snake, CanvasElementPackage.CanvasELement);
 module.exports = Snake;

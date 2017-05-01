@@ -2,10 +2,10 @@ var core = require("../../../cvs/lib/framework/core"),
     Screen = require("./snake/ScreenBox"),
     Snake = require("./snake/Snake"),
     Apple = require("./snake/Apple"),
-    RoundRect = require("../../../cvs/lib/tool/roundRect"),
+    RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     // Button = require("../../../cvs/lib/tool/button"),
     Fps = require("../../../cvs/outer/fps"),
-    FpsWord = require("../../../cvs/lib/tool/word"),
+    FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
 // "../../../outer/hand"
@@ -13,6 +13,8 @@ core.on("show", "classical", function() {
     // new gctrl(core.frame);
     var animate = new Animation();
     var frame = core.frame;
+    var FpsWord = FpsWordPackage.DrawWords;
+    var RoundRect = RoundRectPackage.RoundedRect;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
     console.log("begin load classical");
     /* ------------------[start]------------------- */
@@ -53,16 +55,16 @@ core.on("show", "classical", function() {
         width: 90,
         height: 30,
         cornerRadius: 8,
-        fillText: "HomePage",
-        ontouchend: function(e) {
-            _snake.auto = false;
-            clearTimeout(_snake.sTime);
-            // console.log('xxxxx');
-            core.open({
-                href: urlPath + "snake/snindex.html"
-            });
-        }
+        fillText: "HomePage"
     });
+    goHome.ontouchend = function(e) {
+        _snake.auto = false;
+        clearTimeout(_snake.sTime);
+        // console.log('xxxxx');
+        core.open({
+            href: urlPath + "snake/snindex.html"
+        });
+    };
     var _snake = {
         auto: false,
         sTime: 0,

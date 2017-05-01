@@ -1,7 +1,12 @@
-var element = require("../../../cvs/lib/base/element");
-/* 时钟 */
+var CanvasElementPackage = require("../../../cvs/lib/base/canvasElement");
+
+/**
+ * 时钟
+ * 
+ * @param {any} config 
+ */
 function Clock(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     /** @type {number} 半径 */
     this.radius = config.radius;
     /**/
@@ -73,6 +78,6 @@ function Clock(config) {
     this.clear = function() {
         this.frame.cxt.clearRect(this.positionX - this.radius - 5, this.positionY - this.radius - 5, this.radius * 2 + 10, this.radius * 2 + 10);
     };
-    this.draw();
+    // this.draw();
 }
 module.exports = Clock;

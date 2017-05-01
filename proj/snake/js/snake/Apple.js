@@ -1,7 +1,8 @@
-var element = require("../../../../cvs/lib/base/element");
+var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
+
 /* 苹果 */
 function Apple(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     this.size = config.size || 20;
     this.maxPixelX = config.maxPixelX;
     this.maxPixelY = config.maxPixelY;
@@ -71,4 +72,5 @@ Apple.prototype.getPixel = function() {
         y: _this.pixelY
     };
 };
+CanvasElementPackage.inherit(Apple, CanvasElementPackage.CanvasELement);
 module.exports = Apple;

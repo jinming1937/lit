@@ -64,15 +64,15 @@ core.on("show", "eatPoint", function() {
         width: 90,
         height: 30,
         cornerRadius: 8,
-        fillText: "HomePage",
-        ontouchend: function(e) {
-            stopGame();
-            isStop = true;
-            core.open({
-                href: urlPath + "snake/snindex.html"
-            });
-        }
+        fillText: "HomePage"
     });
+    goHome.ontouchend = function(e) {
+        stopGame();
+        isStop = true;
+        core.open({
+            href: urlPath + "snake/snindex.html"
+        });
+    };
 
     var stopFlag,
         isStop = false;

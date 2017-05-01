@@ -77,6 +77,7 @@ Frame.prototype.fire = function(e) {
      *      注意这两个方法，只能用在基于路径的绘图上，立即绘图方法（fillRect,strokeRect,fillText,strokeText ）总是返回false
      *      注意，在调用beginPath() 后，路径重置，与beginPath后的路径进行比较
      * <3>: 2017-05-01 如果touchstart时没有触发在可移动元素上，但是touchmove的时候，移动到了绑定touchmove事件的元素上，于是该元素不会被重置到其他元素之上
+     * <4>: 2017-05-01 对于绑定了touchend事件的元素,如果在此元素上move,会触发到action的fire方法上，是否可以阻止这样？
      * done
      * <1>: 2016-09-29 方案：射线法判断触点是否在多边形内部
      * <2>: 2017-03-25 方案：context.isPointInPath & context.isPointInStroke

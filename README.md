@@ -25,6 +25,7 @@
 >* 修复bug:_this.elementArray.push(_this.catchElementTouchMove); 添加的应该是elementArray的项，而不是元素
 >* 优化frame.js 私有触发事件函数f:如果touchstart时没有触发在可移动元素上，但是touchmove的时候，
 移动到了绑定touchmove事件的元素上，于是该元素不会被重置到其他元素之上
+>* 将修改继承方式更新到snake其他的文件中
 
 #### 时间：2017-04-29<br/>
 >* 完善继承方式
