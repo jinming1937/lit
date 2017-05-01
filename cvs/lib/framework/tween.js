@@ -2,8 +2,16 @@ var config = require("../config");
 
 /**
  * 场景切换补间动画
- * @param  {[type]} ctx [description]
- * @return {[type]}     [description]
+ * todo:
+ * <1>: 2017-05-01 这里的this.fullWin方法中window.requestAnimationFrame应该用统一的animation.js
+ * done:
+ * 
+ */
+
+
+/**
+ * 
+ * 
  */
 function Tween() {
     this.wid = 1;
@@ -14,7 +22,7 @@ function Tween() {
     };
     /**
      * 百叶窗 纵向
-     * @param  {[type]} w [description]
+     * @param  {Number} w 宽度
      * @return {[type]}   [description]
      */
     this.cl = function(w) {

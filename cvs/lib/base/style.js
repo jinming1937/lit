@@ -3,7 +3,7 @@ var cssjs = require('./cssjs');
 /**
  * 样式配置适配器
  * 根据元素的样式名匹配cssjs中的样式
- * @param {any} className 
+ * @param {String} className 
  */
 function style(className) {
     //,'webkitImageSmoothingEnabled'

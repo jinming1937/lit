@@ -1,4 +1,4 @@
-var element = require("../base/element");
+var CanvasElementPackage = require("../base/canvasElement");
 
 console.log("load button");
 /**
@@ -6,7 +6,7 @@ console.log("load button");
  * @param {[type]} config [config]
  */
 function Button(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     /**
      * [elementType 多边形的静态属性，这里应该再抽象一层,而且这个应该定义成枚举，这是个问题：多边形，todo：shape class]
      * @type {Number}
@@ -31,19 +31,19 @@ function Button(config) {
      * @param  {[type]} e [event]
      * @return {[type]}   [description]
      */
-    this.ontouchmove = function(e) {
-        if (typeof config.ontouchmove === "function") {
-            config.ontouchmove(e);
-            this.fireEvent(e);
-            this.x = e.changedTouches[0].clientX - this.width / 2;
-            this.y = e.changedTouches[0].clientY - this.height / 2;
+    // this.ontouchmove = function(e) {
+    //     if (typeof config.ontouchmove === "function") {
+    //         config.ontouchmove(e);
+    //         this.fireEvent(e);
+    //         this.x = e.changedTouches[0].clientX - this.width / 2;
+    //         this.y = e.changedTouches[0].clientY - this.height / 2;
 
-            this.positionXYArray = [];
-            this.initPositionXYArray();
+    //         this.positionXYArray = [];
+    //         this.initPositionXYArray();
 
-            this.draw();
-        }
-    };
+    //         this.draw();
+    //     }
+    // };
     /* element 继承的draw 必须重写 */
     this.draw = function() {
         var _this = this;
@@ -77,7 +77,7 @@ function Button(config) {
         _frame.cxt.lineTo(parseInt(_this.x), parseInt(_this.y) + _this.height);
         _frame.cxt.closePath();
     };
-    this.draw();
+    // this.draw();
 }
 
 /**
@@ -103,5 +103,8 @@ Button.prototype.initPositionXYArray = function() {
         y: _this.y + _this.height
     });
 };
-
-module.exports = Button;
+CanvasElementPackage.inherit(Button, CanvasElementPackage.CanvasELement);
+module.exports = {
+    Button: Button,
+    inherit: CanvasElementPackage.inherit
+};

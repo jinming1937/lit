@@ -17,6 +17,8 @@ function Core() {
     //
     eventPlug.call(this);
     var _this = this;
+    /* 防止转场动画时，重复点击跳转页面按钮，重复执行转场 */
+    this.isExecTween = false;
     this.collection = {};
     this.router = router;
     this.tween = new Tween();
@@ -51,6 +53,7 @@ Core.prototype.init = function(_href) {
             /* 转场，清理该页面的element */
             _this.frame.destroyByPage(currentPage.cvsName);
             _this.init(_this.openUrl);
+            _this.isExecTween = false;
         });
     } else {
         console.log("init error!!!");
@@ -105,6 +108,10 @@ Core.prototype.beforeHide = function(obj) {
  * @return {[type]}     [description]
  */
 Core.prototype.open = function(obj) {
+    if (this.isExecTween) {
+        return;
+    }
+    this.isExecTween = true;
     var _href = obj.href;
     this.openUrl = _href;
     var visitCvsName = this.router.match(_href).cvsName;

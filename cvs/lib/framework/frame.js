@@ -35,11 +35,13 @@ Frame.prototype.eventCtrl = function() {
     var _this = this;
     _this.catchElementTouchMove = null;
     _this.canvas.addEventListener("click", function(e) {
+        console.log("click");
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
     }, useCapture);
 
     _this.canvas.addEventListener("touchstart", function(e) {
+        console.log("touch");
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
     }, useCapture);

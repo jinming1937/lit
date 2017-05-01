@@ -1,3 +1,9 @@
+/**
+ * todo:
+ * <1>: 2017-05-01 应该分离到业务中去
+ * done:
+ * 
+ */
 var baseStyle = [
     'globalAlpha',
     'globalCompositeOperation',
