@@ -36,7 +36,7 @@ function Tween() {
         if (_this.wid <= _this.dic) {
             _this.wid += 2;
             _this.cl(_this.wid);
-            window.requestAnimationFrame(function() { _this.fullWin(); });
+            _this.req = window.requestAnimationFrame(function() { _this.fullWin(); });
         } else {
             _this.wid = 1;
             console.log('finish');

@@ -1,4 +1,4 @@
-var canvasElemnet = require("../../../cvs/lib/base/canvasElement");
+var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 // 封装的一个用于绘制圆角矩形的函数.
 
 function roundedRect(ctx, x, y, width, height, radius) {
@@ -16,7 +16,7 @@ function roundedRect(ctx, x, y, width, height, radius) {
 }
 
 function Point(config) {
-    canvasElemnet.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
 
     this.draw = function() {
         var ctx = this.frame.cxt;
@@ -84,7 +84,8 @@ function Point(config) {
 
     };
 }
-Point.prototype = canvasElemnet.prototype;
-Point.prototype.constructor = Point;
-
-module.exports = Point;
+CanvasElementPackage.inherit(Point, CanvasElementPackage.CanvasELement);
+module.exports = {
+    Point: Point,
+    inherit: CanvasElementPackage.inherit
+};

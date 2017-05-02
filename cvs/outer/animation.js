@@ -1,4 +1,12 @@
 /**
+ * todo:
+ * <1>: 2017-05-01 能不能整个框架用一个requireAnimationFrame 来作为页面定时器，
+ * <2>: 2017-05-01 还有每次转场前，都要清理当前页面的setAnimation，很麻烦，如何自动清理
+ * done:
+ * 
+ */
+
+/**
  * 提供对requestAnimationFrame的封装
  */
 function Animation() {

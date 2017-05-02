@@ -2,51 +2,15 @@ var core = require("../../../cvs/lib/framework/core"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
-    Animation = require("../../../cvs/outer/animation");
+    Animation = require("../../../cvs/outer/animation"),
+    PointPackage = require("./point/point");
 var animate = new Animation();
-
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 core.on("show", "eatPoint", function() {
     var frame = core.frame;
     console.log("eat point");
-    var RoundRect = RoundRectPackage.RoundedRect;
-    var roundRect = new RoundRect({
-        className: 'button move',
-        fontColor: '#101010',
-        cornerX: 300,
-        cornerY: 10,
-        width: 70,
-        height: 30,
-        fillText: "rou"
-    });
-    roundRect.addWatching('touchmove', function(e) {
-        this.cornerX = e.changedTouches[0].clientX - this.width / 2;
-        this.cornerY = e.changedTouches[0].clientY - this.height / 2;
-        console.log("roundRect addWatching tf:" + new Date().getTime());
-    });
-
-    roundRect.ontouchmove = function(e) {
-        console.log("roundRect ontouchmove tf:" + new Date().getTime());
-        console.log(roundRect.fillText);
-    };
-
-    var roundRect2 = new RoundRect({
-        className: 'button move',
-        fontColor: '#101010',
-        cornerX: 130,
-        cornerY: 10,
-        width: 70,
-        height: 30,
-        fillText: "rou2"
-    });
-    roundRect2.addWatching("touchmove", function(e) {
-        this.cornerX = e.changedTouches[0].clientX - this.width / 2;
-        this.cornerY = e.changedTouches[0].clientY - this.height / 2;
-        console.log("roundRect2 addWatching tf:" + new Date().getTime());
-        console.log(roundRect2.fillText);
-    });
-
-    var roundRect_ = new RoundRect();
+    var point = new PointPackage.Point();
+    var roundRect_ = new RoundRectPackage.RoundedRect();
     roundRect_.addWatching('touchmove', function(e) {
         console.log("roundRect_ addWatching tf:" + new Date().getTime());
     });
@@ -56,7 +20,7 @@ core.on("show", "eatPoint", function() {
         console.log("roundRect_ ontouchmove tf:" + new Date().getTime());
         console.log(roundRect_.fillText);
     };
-    var goHome = new RoundRect({
+    var goHome = new RoundRectPackage.RoundedRect({
         className: "button goHome",
         fontColor: '#101010',
         cornerX: frame.width - 20 - 80,

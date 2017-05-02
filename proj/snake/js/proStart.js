@@ -59,7 +59,7 @@ core.on("show", "classical", function() {
     });
     goHome.ontouchend = function(e) {
         _snake.auto = false;
-        clearTimeout(_snake.sTime);
+        stopGame();
         // console.log('xxxxx');
         core.open({
             href: urlPath + "snake/snindex.html"

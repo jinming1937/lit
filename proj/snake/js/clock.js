@@ -11,7 +11,7 @@ function Clock(config) {
     this.radius = config.radius;
     /**/
     this.positionX = config.positionX || 0;
-    this.positionY = config.positionX || 0;
+    this.positionY = config.positionY || 0;
     this.numerals = ['Ⅳ', 'Ⅴ', 'Ⅵ', 'Ⅶ', 'Ⅷ', 'Ⅸ', 'Ⅹ', 'Ⅺ', 'Ⅻ', 'Ⅰ', 'Ⅱ', 'Ⅲ'];
     // this.frame.manage(this);
     this.createPath = function(argument) {

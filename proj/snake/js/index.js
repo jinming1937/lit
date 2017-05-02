@@ -13,12 +13,12 @@ core.on("show", "index", function(cvs) {
     var RoundRect = RoundRectPackage.RoundedRect;
     var FpsWord = FpsWordPackage.DrawWords;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
-    console.log("begin load index");
+    console.log("begin load index" + core.frame.width / 2 + "-" + core.frame.height / 2);
     // 
     var myClock = new Clock({
         radius: 60,
         positionX: core.frame.width / 2,
-        positionY: core.frame.height / 2,
+        positionY: core.frame.width / 2,
     });
 
     var eatPoint = new RoundRect({
@@ -33,6 +33,7 @@ core.on("show", "index", function(cvs) {
     });
     eatPoint.ontouchend = function(e) {
         console.log("go eat point");
+        animate.clearAnimation(flagAnimate);
         core.open({
             href: urlPath + "snake/eatpoint.html"
         });
@@ -111,7 +112,7 @@ core.on("show", "index", function(cvs) {
         fpsWord.word = flagNum ? xfps : fpsWord.word;
         flagNum = false;
     }, function() {
-        console.log(fpsWord.word);
+        // console.log(fpsWord.word);
         flagNum = true;
     }, 1000);
 });
