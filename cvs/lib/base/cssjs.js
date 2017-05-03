@@ -4,26 +4,7 @@
  * done:
  * 
  */
-var baseStyle = [
-    'globalAlpha',
-    'globalCompositeOperation',
-    'filter',
-    'imageSmoothingEnabled',
-    'strokeStyle',
-    'fillStyle',
-    'shadowOffsetX',
-    'shadowOffsetY',
-    'shadowBlur',
-    'shadowColor',
-    'lineWidth',
-    'lineCap',
-    'lineJoin',
-    'miterLimit',
-    'lineDashOffset',
-    'font',
-    'textAlign',
-    'textBaseline'
-];
+
 var cssjs = {
     'button': {
         strokeStyle: '#FFFFFF',

@@ -1,5 +1,10 @@
 var CanvasElementPackage = require("../base/canvasElement");
 
+/**
+ * 圆角矩形
+ * 
+ * @param {Object} config 配置项
+ */
 function RoundedRect(config) {
     config = config || {};
     CanvasElementPackage.CanvasELement.call(this, config); //调用父类构造函数帮助执行出始化
@@ -12,15 +17,7 @@ function RoundedRect(config) {
     this.fillText = config.fillText || "";
     this.isUpEvent = config.isUpEvent || false;
     this.className = config.className || "";
-    // this.ontouchmove = function(e) {
-    //     if (typeof config.ontouchmove === "function") {
-    //         config.ontouchmove(e);
-    //         this.fireEvent(e);
-    //         this.cornerX = e.changedTouches[0].clientX - this.width / 2;
-    //         this.cornerY = e.changedTouches[0].clientY - this.height / 2;
-    //         this.draw();
-    //     }
-    // };
+
     this.createPath = function() {
         var context = this.frame.cxt;
         var cornerX = this.cornerX,

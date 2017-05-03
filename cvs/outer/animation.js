@@ -17,6 +17,8 @@ function Animation() {
      */
     this.clearAnimation = function(index) {
         arr[index] = false;
+        // window.cancelAnimationFrame(this.reqFlag);
+        // console.log(this.reqFlag);
     };
 
     /**
@@ -47,6 +49,7 @@ function Animation() {
 
             if (arr[flag]) {
                 window.requestAnimationFrame(animationForIndex);
+                // console.log(this.reqFlag);this.reqFlag = 
             }
         }
         animationForIndex();
