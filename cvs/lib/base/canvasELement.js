@@ -2,6 +2,11 @@ var core = require("../framework/core"),
     ElePackage = require("./element"),
     Style = require("./style");
 
+/**
+ * 画布元素
+ * 
+ * @param {Object} config 配置项
+ */
 function CanvasELement(config) {
     ElePackage.Ele.call(this);
     /**
@@ -59,8 +64,6 @@ function CanvasELement(config) {
      */
     this.frame.manage(this);
 }
-// CanvasELement.prototype = new __Element();
-// CanvasELement.prototype.constructor = CanvasELement;
 CanvasELement.prototype.stroke = function(argument) {};
 CanvasELement.prototype.fill = function(argument) {};
 CanvasELement.prototype.createPath = function(argument) {
