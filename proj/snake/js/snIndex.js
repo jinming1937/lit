@@ -13,7 +13,7 @@ core.on("show", "index", function(cvs) {
     var RoundRect = RoundRectPackage.RoundedRect;
     var FpsWord = FpsWordPackage.DrawWords;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
-    console.log("begin load index" + core.frame.width / 2 + "-" + core.frame.height / 2);
+    // console.log("begin load index" + core.frame.width / 2 + "-" + core.frame.height / 2);
     // 
     var myClock = new Clock({
         radius: 60,
@@ -24,8 +24,8 @@ core.on("show", "index", function(cvs) {
     var eatPoint = new RoundRect({
         className: 'button move',
         fontColor: '#101010',
-        cornerX: 80,
-        cornerY: 100,
+        cornerX: core.frame.width / 2 - 55,
+        cornerY: core.frame.height - 60,
         width: 110,
         height: 30,
         cornerRadius: 8,
@@ -67,8 +67,8 @@ core.on("show", "index", function(cvs) {
     var snakeButton = new RoundRect({
         className: 'button snake',
         fontColor: '#101010',
-        cornerX: 100,
-        cornerY: 10,
+        cornerX: core.frame.width / 2 - 45,
+        cornerY: core.frame.height - 120,
         width: 90,
         height: 30,
         cornerRadius: 8,
@@ -85,8 +85,8 @@ core.on("show", "index", function(cvs) {
     var snakeAuto = new RoundRect({
         className: "button snake-auto",
         fontColor: '#101010',
-        cornerX: 200,
-        cornerY: 10,
+        cornerX: core.frame.width / 2 - 45,
+        cornerY: core.frame.height - 180,
         width: 90,
         height: 30,
         cornerRadius: 8,

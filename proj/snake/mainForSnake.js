@@ -4,7 +4,7 @@
  */
 console.log("start");
 var core = require("../../cvs/lib/framework/core");
-require("./js/index");
+require("./js/snIndex");
 require("./js/proStart");
 require("./js/proSnake");
 require("./js/eatPoint");
@@ -34,6 +34,11 @@ if (location.port === "8089") {
         cvsName: "eatPoint",
         urlReg: /\/snake\/eatpoint/
     });
+    core.router.addRouter({
+        index: 2,
+        cvsName: "nineballs",
+        urlReg: /\/snake\/nineballs/
+    });
 } else {
     core.router.addRouter({
         index: 0,
@@ -60,6 +65,11 @@ if (location.port === "8089") {
     // 	cvsName : "block",
     // 	urlReg:/block/
     // });
+    core.router.addRouter({
+        index: 2,
+        cvsName: "nineballs",
+        urlReg: /\/snake\/nineballs/
+    });
 }
 
 core.init();
