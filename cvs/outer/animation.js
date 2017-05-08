@@ -17,17 +17,19 @@ function Animation() {
      */
     this.clearAnimation = function(index) {
         arr[index] = false;
-        // window.cancelAnimationFrame(this.reqFlag);
+        window.cancelAnimationFrame(this.reqFlag);
         // console.log(this.reqFlag);
     };
 
     /**
      * 每隔time长时间执行一下fn
-     * @param {Function} fn 回调函数
+     * @param {Function} fn 即时回调函数
+     * @param {Function} cbFn 每隔time时间回调函数
      * @param {Number} time 时间
      */
     this.setAnimation = function(fn, cbfn, time) {
-        var lastUpdateTime = 0,
+        var lastUpdateTime = +new Date() - 17,
+            lastTime = 0,
             flag = 0;
 
         if (typeof fn !== 'function') {
@@ -38,18 +40,18 @@ function Animation() {
         /**
          * 自执行
          */
-        function animationForIndex() {
+        function animationForIndex(startTime) {
             var timeFlag = +new Date();
-            fn && fn();
+            fn && fn((startTime - lastTime) / 1000);
 
             if (typeof time === "number" && !isNaN(time) && timeFlag - lastUpdateTime > time) {
                 lastUpdateTime = timeFlag;
-                cbfn && cbfn();
+                cbfn && cbfn((startTime - lastTime) / 1000);
             }
-
+            lastTime = startTime;
             if (arr[flag]) {
-                window.requestAnimationFrame(animationForIndex);
-                // console.log(this.reqFlag);this.reqFlag = 
+                this.reqFlag = window.requestAnimationFrame(animationForIndex);
+                // console.log(this.reqFlag);
             }
         }
         animationForIndex();
