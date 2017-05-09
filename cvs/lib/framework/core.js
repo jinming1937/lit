@@ -6,6 +6,10 @@ var Frame = require("./frame"),
     Tween = require("./tween");
 
 /**
+ * todo:
+ * <1>:根据手机/平板 设置是否全屏幕,暂时没有方法支持
+ * done:
+ * 
  * 全局程序入口
  * 单例
  * 初始化frame
@@ -118,8 +122,33 @@ Core.prototype.open = function(obj) {
     this.tween.fullWin();
 };
 
+// if (document.body.requestFullscreen) {
+//     document.body.requestFullscreen();
+// } else if (document.body.webkitRequestFullScreen) {
+//     document.body.webkitRequestFullScreen();
+// }
+// function ctrlHorizontal() {
+//     var width = document.body.clientWidth,
+//         height = document.body.clientHeight;
+//     var x = width > height;
+//     if (x) {
+//         core.frame.cxt.font = "40px Georgia";
+//         core.frame.cxt.fillStyle = "#000";
+//         core.frame.cxt.fillText(
+//             "抱歉，不支持横屏！！！",
+//             10,
+//             40,
+//             300);
+//         return true;
+//     }
+// }
+// /* resize */
+// window.onresize = function(e) {
+//     core.frame.resize(document.body.clientWidth, document.body.clientHeight);
+// };
+
 /**
  * 注意： mian 是一个全局的程序入口，所以应该是一个单例
  */
-var Core = new Core();
-module.exports = Core;
+var core = new Core();
+module.exports = core;
