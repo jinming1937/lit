@@ -285,42 +285,4 @@ Frame.prototype.reRender = function() {
     // console.log(str);
 };
 
-/**
- * 触点是否在元素内部，通过给元素添加elementType ， 来区分元素类型，
- * todo:
- * <1>: 这里的判断不严谨，只考虑到了常见常规图形，没有考虑到组合复杂图形
- *      而且，对于多边形需要知道其坐标，对于旋转，则需要进行大量旋转坐标运算
- *           对于弧形线条组成的图形，不能用多边形来处理
- * done:
- * <1>: context.isPointInPath & context.isPointInStroke 2017-03-25 
- * 2017-03-25 此方法暂时弃用
- * @param {Object} position 触点坐标
- * @param {Object} element 元素
- */
-// Frame.prototype.isInElementArea = function(position, element) {
-//     var bl = false;
-//     // if(typeof element.elementType === "undefined"){
-//     //     throw("element`s elementType property must exist!!!");
-//     // }
-//     switch (element.elementType) {
-//         case 0:
-//             //不绑定事件的元素
-//             bl = false;
-//             break;
-//         case 1:
-//             //圆形(判断触点与圆心的距离和半径相比)
-//             bl = Math.pow((position.x - element.x), 2) + Math.pow((position.y - element.y), 2) - Math.pow(element.radius, 2) <= 0 ? true : false;
-//             break;
-//         case 2:
-//             //多边形
-//             bl = rayCasting(position, element.positionXYArray);
-//             break;
-//         default:
-//             //不继承element 的元素
-//             bl = false;
-//             break;
-//     }
-//     return bl;
-// };
-
 module.exports = Frame;

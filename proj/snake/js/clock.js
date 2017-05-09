@@ -3,7 +3,7 @@ var CanvasElementPackage = require("../../../cvs/lib/base/canvasElement");
 /**
  * 时钟
  * 
- * @param {any} config 
+ * @param {Object} config 配置
  */
 function Clock(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
