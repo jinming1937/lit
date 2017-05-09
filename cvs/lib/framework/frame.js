@@ -297,30 +297,30 @@ Frame.prototype.reRender = function() {
  * @param {Object} position 触点坐标
  * @param {Object} element 元素
  */
-Frame.prototype.isInElementArea = function(position, element) {
-    var bl = false;
-    // if(typeof element.elementType === "undefined"){
-    //     throw("element`s elementType property must exist!!!");
-    // }
-    switch (element.elementType) {
-        case 0:
-            //不绑定事件的元素
-            bl = false;
-            break;
-        case 1:
-            //圆形(判断触点与圆心的距离和半径相比)
-            bl = Math.pow((position.x - element.x), 2) + Math.pow((position.y - element.y), 2) - Math.pow(element.radius, 2) <= 0 ? true : false;
-            break;
-        case 2:
-            //多边形
-            bl = rayCasting(position, element.positionXYArray);
-            break;
-        default:
-            //不继承element 的元素
-            bl = false;
-            break;
-    }
-    return bl;
-};
+// Frame.prototype.isInElementArea = function(position, element) {
+//     var bl = false;
+//     // if(typeof element.elementType === "undefined"){
+//     //     throw("element`s elementType property must exist!!!");
+//     // }
+//     switch (element.elementType) {
+//         case 0:
+//             //不绑定事件的元素
+//             bl = false;
+//             break;
+//         case 1:
+//             //圆形(判断触点与圆心的距离和半径相比)
+//             bl = Math.pow((position.x - element.x), 2) + Math.pow((position.y - element.y), 2) - Math.pow(element.radius, 2) <= 0 ? true : false;
+//             break;
+//         case 2:
+//             //多边形
+//             bl = rayCasting(position, element.positionXYArray);
+//             break;
+//         default:
+//             //不继承element 的元素
+//             bl = false;
+//             break;
+//     }
+//     return bl;
+// };
 
 module.exports = Frame;
