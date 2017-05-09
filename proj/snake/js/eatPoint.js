@@ -18,7 +18,6 @@ core.on("show", "eatPoint", function() {
         roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
         roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
         console.log("roundRect_ ontouchmove tf:" + new Date().getTime());
-        console.log(roundRect_.fillText);
     };
     var goHome = new RoundRectPackage.RoundedRect({
         className: "button goHome",

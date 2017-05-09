@@ -1,32 +1,10 @@
 var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
-// 封装的一个用于绘制圆角矩形的函数.
-
-function roundedRect(ctx, x, y, width, height, radius) {
-    ctx.beginPath();
-    ctx.moveTo(x, y + radius);
-    ctx.lineTo(x, y + height - radius);
-    ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
-    ctx.lineTo(x + width - radius, y + height);
-    ctx.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
-    ctx.lineTo(x + width, y + radius);
-    ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
-    ctx.lineTo(x + radius, y);
-    ctx.quadraticCurveTo(x, y, x, y + radius);
-    ctx.stroke();
-}
 
 function Point(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
 
     this.draw = function() {
         var ctx = this.frame.cxt;
-
-        roundedRect(ctx, 12, 12, 150, 150, 15);
-        roundedRect(ctx, 19, 19, 150, 150, 9);
-        roundedRect(ctx, 53, 53, 49, 33, 10);
-        roundedRect(ctx, 53, 119, 49, 16, 6);
-        roundedRect(ctx, 135, 53, 49, 33, 10);
-        roundedRect(ctx, 135, 119, 25, 49, 10);
 
         ctx.beginPath();
         ctx.arc(37, 37, 13, Math.PI / 7, -Math.PI / 7, false);
