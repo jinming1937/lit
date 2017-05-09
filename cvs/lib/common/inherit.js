@@ -1,4 +1,4 @@
-/**
+/*
  * 时间：2017-04-29
  * 作者：jinming1937@163.com
  * 1、在包里用 var ,function ,let , const 等声明的变量或常量为私有变量,子类无法继承(注意如果在构造函数外面声明，由于require CMD 特性，不会因为
@@ -21,10 +21,11 @@
  */
 
 /**
- * @description 寄生组合式继承：继承原型中的属性
+ * 寄生组合式继承：继承原型中的属性
  * 
  * @param {Object} subClass 子类
  * @param {Object} superClass 父类
+ * @returns {Object} subClass 子类
  */
 function inheritPrototype(subClass, superClass) {
     function F() {}
