@@ -1,4 +1,4 @@
-/**
+/*
  * Frame : 框架，这里指视窗，一个html页面只有一个视窗
  * 视窗作为canvas的代言人，负责把元素对象画出来，而这个元素对象既可以是一个屏幕，也可以是 一个个按钮 
  * 一个页面可以有多个屏幕，屏幕可以相互切换；
@@ -20,6 +20,7 @@ function Frame(option) {
     this.context = this; //???
     this.elementIndex = 0;
     this.elementArray = [];
+    this.cacheEleArr = [];
     this.eventCtrl();
 }
 

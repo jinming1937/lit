@@ -122,31 +122,6 @@ Core.prototype.open = function(obj) {
     this.tween.fullWin();
 };
 
-// if (document.body.requestFullscreen) {
-//     document.body.requestFullscreen();
-// } else if (document.body.webkitRequestFullScreen) {
-//     document.body.webkitRequestFullScreen();
-// }
-// function ctrlHorizontal() {
-//     var width = document.body.clientWidth,
-//         height = document.body.clientHeight;
-//     var x = width > height;
-//     if (x) {
-//         core.frame.cxt.font = "40px Georgia";
-//         core.frame.cxt.fillStyle = "#000";
-//         core.frame.cxt.fillText(
-//             "抱歉，不支持横屏！！！",
-//             10,
-//             40,
-//             300);
-//         return true;
-//     }
-// }
-// /* resize */
-// window.onresize = function(e) {
-//     core.frame.resize(document.body.clientWidth, document.body.clientHeight);
-// };
-
 /**
  * 注意： mian 是一个全局的程序入口，所以应该是一个单例
  */
