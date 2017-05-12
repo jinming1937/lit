@@ -3,22 +3,66 @@ var core = require("../../../cvs/lib/framework/core"),
     Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation"),
-    PointPackage = require("./point/point");
+    PointPackage = require("./point/point"),
+    BallPackage = require("./nineBalls/ball");
 var animate = new Animation();
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 core.on("show", "eatPoint", function() {
     var frame = core.frame;
     console.log("eat point");
-    var point = new PointPackage.Point();
-    var roundRect_ = new RoundRectPackage.RoundedRect();
-    roundRect_.addWatching('touchmove', function(e) {
-        console.log("roundRect_ addWatching tf:" + new Date().getTime());
+    var ball = new BallPackage.Ball({
+        x: 250,
+        y: 275,
+        radius: 100,
+        rouNum: 6,
+        xRate: 0.25,
+        yRate: 0.5,
+        bar: 150
     });
-    roundRect_.ontouchmove = function(e) {
-        roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
-        roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
-        console.log("roundRect_ ontouchmove tf:" + new Date().getTime());
-    };
+
+    var balls = new BallPackage.Ball({
+        x: 100,
+        y: 100,
+        radius: 80,
+        rouNum: 5,
+        xRate: 0.25,
+        yRate: 0.5,
+        bar: 100,
+        fillStyle: "rgba(255,177,216,0.8)"
+    });
+
+    ball.addWatching("touchmove", function(e) {
+        this.x = e.changedTouches[0].clientX; //- moving.width / 2;
+        this.y = e.changedTouches[0].clientY; //- moving.width / 2;
+    });
+
+    var ball3 = new BallPackage.Ball({
+        x: 100,
+        y: 400,
+        radius: 80,
+        rouNum: 7,
+        xRate: 0.75,
+        yRate: 0.8,
+        bar: 100,
+        fillStyle: "rgba(255,239,0,0.8)"
+    });
+
+
+    function delagateAction() {
+
+    }
+
+
+    // var point = new PointPackage.Point();
+    // var roundRect_ = new RoundRectPackage.RoundedRect();
+    // roundRect_.addWatching('touchmove', function(e) {
+    //     console.log("roundRect_ addWatching tf:" + new Date().getTime());
+    // });
+    // roundRect_.ontouchmove = function(e) {
+    //     roundRect_.cornerX = e.changedTouches[0].clientX - roundRect_.width / 2;
+    //     roundRect_.cornerY = e.changedTouches[0].clientY - roundRect_.height / 2;
+    //     console.log("roundRect_ ontouchmove tf:" + new Date().getTime());
+    // };
     var goHome = new RoundRectPackage.RoundedRect({
         className: "button goHome",
         fontColor: '#101010',
@@ -36,6 +80,15 @@ core.on("show", "eatPoint", function() {
             href: urlPath + "snake/snindex.html"
         });
     };
+    var rotateRate = 0;
+
+    function updateBall(fpx) {
+        rotateRate = (rotateRate + 36 * fpx > 360) ? (360 - rotateRate + 36 * fpx) : rotateRate + 36 * fpx;
+        ball.rotateRate = rotateRate * Math.PI * 2 / 360;
+        balls.rotateRate = -rotateRate * 2 * Math.PI * 2 / 360;
+        ball3.rotateRate = rotateRate * Math.PI * 2 / 360 * 3;
+        // ball.y = (ball.y + 20 * fpx) > core.frame.height + 100 ? -100 : (ball.y + 20 * fpx);
+    }
 
     var stopFlag,
         isStop = false;
@@ -51,15 +104,24 @@ core.on("show", "eatPoint", function() {
         y: 20,
         word: 0
     });
+    var lastTime = 0;
 
     function starGame() {
         var flagNum = true;
-        stopFlag = animate.setAnimation(function() {
+        stopFlag = animate.setAnimation(function(startTime) {
+            startTime = typeof startTime === "undefined" ? 16 : startTime;
+            var fpx = (startTime - lastTime) / 1000;
+            if (fpx >= 1) {
+                lastTime = startTime;
+                return;
+            }
+            updateBall(fpx);
             core.frame.reRender();
             var xfps = fps_text.getFps(+new Date()).toFixed();
             fpsWord.word = flagNum ? xfps : fpsWord.word;
             flagNum = false;
-        }, function() {
+            lastTime = startTime;
+        }, function(startTime) {
             flagNum = true;
         }, 500);
     }

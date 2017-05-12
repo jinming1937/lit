@@ -29,7 +29,7 @@ function Animation() {
      */
     this.setAnimation = function(fn, cbfn, time) {
         var lastUpdateTime = +new Date() - 17,
-            lastTime = 0,
+            // lastTime = 0,
             flag = 0;
 
         if (typeof fn !== 'function') {
@@ -42,13 +42,12 @@ function Animation() {
          */
         function animationForIndex(startTime) {
             var timeFlag = +new Date();
-            fn && fn((startTime - lastTime) / 1000);
+            fn && fn(startTime);
 
             if (typeof time === "number" && !isNaN(time) && timeFlag - lastUpdateTime > time) {
                 lastUpdateTime = timeFlag;
-                cbfn && cbfn((startTime - lastTime) / 1000);
+                cbfn && cbfn(startTime);
             }
-            lastTime = startTime;
             if (arr[flag]) {
                 this.reqFlag = window.requestAnimationFrame(animationForIndex);
                 // console.log(this.reqFlag);

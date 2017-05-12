@@ -95,7 +95,7 @@ Frame.prototype.fire = function(e) {
         /* 倒叙遍历 */
         cacheElementArray.reverse().forEach(function(item, i) {
             _this.cxt.save();
-            item.element.createPath();
+            item.element.createPath(_this.cxt);
             if (_this.cxt.isPointInPath(ev.clientX, ev.clientY) && !isFireAim) {
                 isFireAim = true;
                 cacheElement = item.element;

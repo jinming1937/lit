@@ -27,7 +27,7 @@ var cssjs = {
     },
     'goHome': {
         strokeStyle: "#f00",
-        fillStyle: "#f00"
+        fillStyle: "#f9b787"
     },
     'handColor': {
         strokeStyle: '#ff5555',
