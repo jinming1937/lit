@@ -14,6 +14,10 @@
 >* 预计6月份以后会用ES6重写部分模块
 
 ### 更新<br/>
+#### 时间：2017-05-12<br/>
+>* 添加风车
+>* 更新animation.js 修正传给回调函数的time
+
 #### 时间：2017-05-01<br/>
 >* 解决addWatching 或者 ontouchmove= 添加事件的时候会卡顿问题
 >	* 原因：更新了继承方式（inherit＋call），去掉了元素构造函数原生的ontouch等事件，导致frame.js
