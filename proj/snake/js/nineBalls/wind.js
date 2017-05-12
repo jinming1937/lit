@@ -1,6 +1,6 @@
 var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 
-function Ball(config) {
+function Windmill(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
     this.x = config.x || 0;
     this.y = config.y || 0;
@@ -56,8 +56,8 @@ function Ball(config) {
         context.restore();
     };
 }
-CanvasElementPackage.inherit(Ball, CanvasElementPackage.CanvasELement);
+CanvasElementPackage.inherit(Windmill, CanvasElementPackage.CanvasELement);
 module.exports = {
-    Ball: Ball,
+    Windmill: Windmill,
     inherit: CanvasElementPackage.inherit
 };

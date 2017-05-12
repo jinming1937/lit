@@ -3,14 +3,12 @@ var core = require("../../../cvs/lib/framework/core"),
     Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation"),
-    PointPackage = require("./point/point"),
-    BallPackage = require("./nineBalls/ball");
+    WindmillPackage = require("./nineBalls/wind");
 var animate = new Animation();
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
-core.on("show", "eatPoint", function() {
+core.on("show", "windmill", function() {
     var frame = core.frame;
-    console.log("eat point");
-    var ball = new BallPackage.Ball({
+    var ball = new WindmillPackage.Windmill({
         x: 250,
         y: 275,
         radius: 100,
@@ -20,7 +18,7 @@ core.on("show", "eatPoint", function() {
         bar: 150
     });
 
-    var balls = new BallPackage.Ball({
+    var balls = new WindmillPackage.Windmill({
         x: 100,
         y: 100,
         radius: 80,
@@ -36,7 +34,7 @@ core.on("show", "eatPoint", function() {
         this.y = e.changedTouches[0].clientY; //- moving.width / 2;
     });
 
-    var ball3 = new BallPackage.Ball({
+    var ball3 = new WindmillPackage.Windmill({
         x: 100,
         y: 400,
         radius: 80,
@@ -47,13 +45,6 @@ core.on("show", "eatPoint", function() {
         fillStyle: "rgba(255,239,0,0.8)"
     });
 
-
-    function delagateAction() {
-
-    }
-
-
-    // var point = new PointPackage.Point();
     // var roundRect_ = new RoundRectPackage.RoundedRect();
     // roundRect_.addWatching('touchmove', function(e) {
     //     console.log("roundRect_ addWatching tf:" + new Date().getTime());

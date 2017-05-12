@@ -21,7 +21,7 @@ core.on("show", "index", function(cvs) {
         positionY: core.frame.width / 2,
     });
 
-    var eatPoint = new RoundRect({
+    var windmill = new RoundRect({
         className: 'button move',
         fontColor: '#101010',
         cornerX: core.frame.width / 2 - 55,
@@ -29,13 +29,13 @@ core.on("show", "index", function(cvs) {
         width: 110,
         height: 30,
         cornerRadius: 8,
-        fillText: "eat point"
+        fillText: "windmill"
     });
-    eatPoint.ontouchend = function(e) {
-        console.log("go eat point");
+    windmill.ontouchend = function(e) {
+        console.log("go windmill");
         animate.clearAnimation(flagAnimate);
         core.open({
-            href: urlPath + "snake/eatpoint.html"
+            href: urlPath + "snake/windmill.html"
         });
     };
 

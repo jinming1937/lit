@@ -118,7 +118,11 @@ Core.prototype.open = function(obj) {
     this.isExecTween = true;
     var _href = obj.href;
     this.openUrl = _href;
-    var visitCvsName = this.router.match(_href).cvsName;
+    var aimRouter = this.router.match(_href);
+    if (!aimRouter) {
+        return;
+    }
+    var visitCvsName = aimRouter.cvsName;
     this.tween.fullWin();
 };
 
