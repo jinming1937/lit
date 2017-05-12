@@ -6,7 +6,7 @@ var ActionPackage = require("../virtual/action");
  */
 function ELementAction() {
     ActionPackage.Action.call(this);
-    /**
+    /*
      * todo :
      * <1> : 时间：2017-04-27，这里有个问题，按道理来说，ontouchstart 可以被重写,元素的实例重写了此事件后，执行重写后的
      * 但是，addWatching 添加的事件，不应该被重写，所以这里的this.fireEvent(e); 仍然应该在某处执行；这样的话，ontouchstart中

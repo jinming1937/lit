@@ -2,6 +2,15 @@ var core = require("../framework/core"),
     ElePackage = require("./element"),
     Style = require("./style");
 
+/*
+ * 整合一些公共属性,抽象／封装进来
+ * 不缩写，不改名，增加特定功能名前缀来区分重名属性
+ * 坐标 x, y 
+ * canvas context 样式 fillStyle, strokeStyle , lineWidth
+ * get , set 公共属性 : canvas context rotate, 角度
+ * 
+ */
+
 /**
  * 画布元素
  * 
