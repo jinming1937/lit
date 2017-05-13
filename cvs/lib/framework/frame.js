@@ -263,9 +263,11 @@ Frame.prototype.destroyByPage = function(page) {
 
 /**
  * 有移动元素移动的时候，frame 帮助自动渲染：主动调用元素的draw方法
- * todo:
+ * TODO:
  * <1> : 只画当前页面的元素
- * done:
+ * <2> : 这里应该是策略模式,但是由于reRender用elementArray集结了一组工具元素，所以，这里会多少有点耦合，比如某些工具元素不需要画出来，有些需要画两次（享元模式）
+ *          所以，还应该抽象一个方法draw出来，用这个方法来执行针对于单独某个工具元素的draw，用reRender来管理这个当前页面的对象及其所需要draw的次数
+ * DONE:
  * <1> : 2017-03-16,21:05
  */
 Frame.prototype.reRender = function() {
