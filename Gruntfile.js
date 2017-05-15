@@ -50,6 +50,7 @@ module.exports = function(grunt) {
             },
             lit: ['cvs/**/*.js'],
             snake: ['proj/snake/**/*.js'],
+            lego: ['proj/lego/**/*.js'],
             ball: ['proj/ball/**/*.js']
         },
         //清理文件夹
@@ -79,6 +80,11 @@ module.exports = function(grunt) {
                     'dist/snake/css/main.css': 'proj/snake/main.scss'
                 }
             },
+            lego: {
+                files: {
+                    'dist/lego/css/main.css': 'proj/lego/main.scss'
+                }
+            },
             ball: {
                 files: {
                     'dist/ball/css/main.css': 'proj/ball/main.scss'
@@ -101,6 +107,11 @@ module.exports = function(grunt) {
                     'dist/snake/css/main.css': 'dist/snake/css/main.css'
                 }
             },
+            lego: {
+                files: {
+                    'dist/lego/css/main.css': 'dist/lego/css/main.css'
+                }
+            },
             ball: {
                 files: {
                     'dist/ball/css/main.css': 'dist/ball/css/main.css'
@@ -114,7 +125,8 @@ module.exports = function(grunt) {
                 entry: {
                     // lit: "./cvs/lit",
                     mainForSnake: "./proj/snake/mainForSnake",
-                    // mainForBall: "./proj/ball/mainForBall"
+                    mainForLego: './proj/lego/mainForLego'
+                        // mainForBall: "./proj/ball/mainForBall"
                 },
                 output: {
                     path: "dist/js/",
@@ -165,6 +177,11 @@ module.exports = function(grunt) {
             ball: {
                 files: [
                     { expand: true, cwd: 'proj/ball/', src: ['*.html'], dest: '<%= meta.distPath %>ball/' }
+                ]
+            },
+            lego: {
+                files: [
+                    { expand: true, cwd: 'proj/lego/', src: ['*.html'], dist: '<%= meta.distPath %>lego/' }
                 ]
             }
         },
@@ -219,6 +236,9 @@ module.exports = function(grunt) {
 
     // package snake 项目
     grunt.registerTask('snake', ['jshint:snake', 'clean:snake', 'sass:snake', 'cssmin:snake', 'webpack:lit', 'copy:snake']);
+
+    // lego
+    grunt.registerTask('lego', ['jshint:lego', 'clean:lego', 'sass:lego', 'cssmin:lego', 'webpack:lit', 'copy:lego']);
 
     // package ball 项目
     grunt.registerTask('ball', ['jshint:ball', 'sass:ball', 'cssmin:ball', 'webpack:lit', 'copy:ball']);
