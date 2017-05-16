@@ -55,10 +55,20 @@ module.exports = function(grunt) {
         },
         //清理文件夹
         clean: {
+            all: {
+                files: [
+                    { src: 'dist/' }
+                ]
+            },
             snake: {
                 files: [
                     //清理snake
                     { src: 'dist/snake/' }
+                ]
+            },
+            lego: {
+                files: [
+                    { src: 'dist/lego/' }
                 ]
             }
         },
@@ -134,7 +144,7 @@ module.exports = function(grunt) {
                 },
                 plugins: [
                     bannerPlugin,
-                    uglifyJsPlugin,
+                    // uglifyJsPlugin,
                     devFlagPlugin
                 ],
                 stats: {
@@ -181,7 +191,7 @@ module.exports = function(grunt) {
             },
             lego: {
                 files: [
-                    { expand: true, cwd: 'proj/lego/', src: ['*.html'], dist: '<%= meta.distPath %>lego/' }
+                    { expand: true, cwd: 'proj/lego/', src: ['*.html'], dest: '<%= meta.distPath %>lego/' }
                 ]
             }
         },
@@ -233,6 +243,8 @@ module.exports = function(grunt) {
 
     // sco
     grunt.registerTask('sco', ['connect', 'open', 'watch']);
+
+    grunt.registerTask('cla', 'clean:all');
 
     // package snake 项目
     grunt.registerTask('snake', ['jshint:snake', 'clean:snake', 'sass:snake', 'cssmin:snake', 'webpack:lit', 'copy:snake']);
