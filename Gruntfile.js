@@ -200,15 +200,15 @@ module.exports = function(grunt) {
             proj: {
                 files: [
                     'cvs/sass/*.scss',
-                    'proj/**/*.scss',
-                    'cvs/**/*.js',
+                    // 'proj/**/*.scss',
+                    // 'cvs/**/*.js',
                 ],
                 tasks: [
-                    'jshint:lit',
-                    'sass:snake',
-                    'cssmin:snake',
-                    'sass:ball',
-                    'cssmin:ball'
+                    // 'jshint:lit',
+                    // 'sass:snake',
+                    // 'cssmin:snake',
+                    // 'sass:ball',
+                    // 'cssmin:ball'
                 ]
             }
         },

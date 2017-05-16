@@ -5,6 +5,8 @@ function DrawWords(config) {
     this.x = config.x || 20;
     this.y = config.y || 20;
     this.word = config.word || "";
+    this.fillStyle = config.fillStyle||"";
+    this.font = config.font||"";
 
     this.getWord = function() {
         return this.word;
@@ -14,11 +16,19 @@ function DrawWords(config) {
         this.word = word;
     };
 
-    this.draw = function() {
+    this.draw = function(context) {
         var _this = this;
         this.frame.cxt.save();
+        this.frame.cxt.textAlign = "center";
+        this.frame.cxt.textBaseline = "middle";
         this.style.setStyle(this.frame.cxt);
-        this.frame.cxt.fillText(_this.getWord(), _this.x, _this.y);
+        if(this.fillStyle){
+            this.frame.cxt.fillStyle =   this.fillStyle; 
+        }
+        if(this.font){
+            this.frame.cxt.font = this.font;
+        }        
+        this.frame.cxt.fillText(_this.getWord(), this.x, this.y);
         this.frame.cxt.restore();
     };
     this.paint = function() {
