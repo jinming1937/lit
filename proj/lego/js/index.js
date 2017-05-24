@@ -13,12 +13,11 @@ core.on("show", "index", function(cvs) {
 
 
 
-    var stopFlag,
-        isStop = false;
+    var stopFlag;
 
     function stopGame() {
         animate.clearAnimation(stopFlag);
-        isStop = true;
+        // isStop = true;
     }
     var fps_text = new Fps();
     var fpsWord = new FpsWordPackage.DrawWords({
