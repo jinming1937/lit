@@ -112,7 +112,6 @@ core.on("show", "index", function(cvs) {
         fpsWord.word = flagNum ? xfps : fpsWord.word;
         flagNum = false;
     }, function() {
-        // console.log(fpsWord.word);
         flagNum = true;
     }, 1000);
 });
