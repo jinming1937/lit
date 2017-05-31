@@ -2,8 +2,8 @@ var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 
 function Four(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
-    this.x = config.x || 0;
-    this.y = config.y || 0;
+    this.x = parseInt(config.x || 0);
+    this.y = parseInt(config.y || 0);
     this.radius = config.radius || 20;
     this.rouNum = config.rouNum || 4;
     this.xRate = config.xRate || 0.25;
