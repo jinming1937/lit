@@ -8,7 +8,6 @@ var core = require("../framework/core"),
  * 坐标 x, y 
  * canvas context 样式 fillStyle, strokeStyle , lineWidth
  * get , set 公共属性 : canvas context rotate, 角度
- * 
  */
 
 /**
@@ -23,12 +22,22 @@ function CanvasELement(config) {
      * @type {Object}
      */
     this.elementConfig = config || {};
+
+    /**
+     * 元素的坐标，移动该元素的时候，该坐标作为改变依据
+     */
+    this.x = parseInt(this.elementConfig.x || 0);
+    this.y = parseInt(this.elementConfig.y || 0);
+    /**
+     * 旋转角度：角度（0～360）
+     */
+    this.rotateAngle = parseInt(this.elementConfig.rotateAngle || 0);
+
     /**
      * [elementType 元素形状类型 1:圆形、圆环,2:多边形]
      * @type {Number}
      */
     this.elementType = 0;
-
 
     /**
      * [frame 获取全局的canvas context(画布上下文)]

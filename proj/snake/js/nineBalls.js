@@ -2,7 +2,7 @@ var core = require("../../../cvs/lib/framework/core"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation"),
-    RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
+    TrianglePackage = require("../../../cvs/lib/tool/triangle"),
     FourPackage = require("./nineBalls/four"),
     WallPackage = require("./nineBalls/wall"),
     PointPackage = require("./point/point");
@@ -113,9 +113,28 @@ core.on("show", "nineballs", function(cvs) {
     var radius = 0;
     var roundRate = 15;
 
+    var trigngle = new TrianglePackage.Triangle({
+        x: 150,
+        y: 150,
+        a: 180,
+        b: 180,
+        c: 100,
+        fillStyle: "rgba(100,100,250,0.8)"
+    });
+    trigngle.addWatching("touchmove", function(e) {
+        this.x = e.changedTouches[0].clientX;
+        this.y = e.changedTouches[0].clientY;
+    });
+
+    new PointPackage.Point({
+        x: 150,
+        y: 150
+    });
+
     function updateBall(fpx) {
         rotateRate = (rotateRate + 36 * fpx > 360) ? (360 - rotateRate + 36 * fpx) : rotateRate + 36 * fpx;
         fourArray.rotateRate = rotateRate * Math.PI * 2 / 360;
+        trigngle.rotateAngle = rotateRate;
         radius = (radius + roundRate * fpx > maxRaduisForThree) ? (maxRaduisForThree - radius + roundRate * fpx) : radius + roundRate * fpx;
         // fourArray.radius = radius;
         // lt.radius = radius;

@@ -1,128 +1,131 @@
-var element = require("../base/element"),
+var CanvasElementPackage = require("../base/canvasElement"),
     MathPlugs = require("../static/usualValue");
 /**
  * 三角形
- * @param {Number} a a
- * @param {Number} b b
- * @param {Number} c c
- * @param {Number} angle
- * @param {Number} x 顶角x 坐标
- * @param {Number} y 顶角y 坐标
  */
 function Triangle(config) {
-    element.call(this, config);
-    this.elementType = 2;
-    config.x = config.x || 0;
-    config.y = config.y || 0;
-    this.config = config;
-    this.x = config.x;
-    this.y = config.y;
-    this.positionXYArray = [];
+    CanvasElementPackage.CanvasELement.call(this, config);
+    this.positionXYArray = []; //存储坐标数组
+    this.fillStyle = config.fillStyle || "rgba(23,235,46,0.8)";
+    this.strokeStyle = config.strokeStyle || "rgba(23,235,46,0.8)";
     this.topToHeart = null;
-    this.rotateAngle = config.rotateAngle || 0;
-    this.hasRotate = false;
     /* 判断是否是三角形：
-     * 1 ： 任意两边之和大于第三边
+     * 1 ： 任意两边之和大于第三边，任意两边之差小于第三边
      * 2 ： 知道两边长，和其夹角
      */
-    //if(config.a + config.b > config.c && config.b + config.c > config.a && config.a +config.c > config.b){
-    if (typeof config.angle === "undefined") {
-        /* 任意两边和大于第三边 */
-        if (config.a + config.b > config.c && config.a + config.c > config.b && config.b + config.c > config.a) {
-            this.abc(config.a, config.b, config.c);
-        } else {
-            throw ("NOT A TRIANGLE!!!");
-        }
+    // if (typeof config.angle === "undefined") {
+    /* 任意两边和大于第三边 */
+    if (config.a + config.b > config.c && config.a + config.c > config.b && config.b + config.c > config.a) {
+        this.abc(config.a, config.b, config.c);
     } else {
-        if (config.angle > 0 && config.angle < 180) {
-            this.angleAb(config.a, config.b, config.angle);
-            config.c = Math.sqrt(Math.pow(config.b * MathPlugs.sin(config.angle), 2) + Math.pow(config.a - config.b * MathPlugs.cos(config.angle), 2));
-            this.config.c = config.c;
-        } else {
-            throw ("angle is not avilible");
-        }
+        throw ("NOT A TRIANGLE!!!");
     }
+    // } else {
+    //     if (config.angle > 0 && config.angle < 180) {
+    //         this.angleAb(config.a, config.b, config.angle);
+    //         config.c = Math.sqrt(Math.pow(config.b * MathPlugs.sin(config.angle), 2) + Math.pow(config.a - config.b * MathPlugs.cos(config.angle), 2));
+    //         this.config.c = config.c;
+    //     } else {
+    //         throw ("angle is not avilible");
+    //     }
+    // }
 
-    this.getTopToHeartPoint(config.a, config.b, config.c);
-
-    /**
-     * [ontouchmove ontouchmove]
-     * @param  {[type]} e [event]
-     * @return {[type]}   [description]
-     */
-    this.ontouchmove = function(e) {
-        config.ontouchmove && config.ontouchmove(e);
-        this.fireEvent(e);
-        if (!this.config.limit) {
-            this.x = e.changedTouches[0].clientX - this.topToHeart.x;
-            this.y = e.changedTouches[0].clientY - this.topToHeart.y;
-        } else {
-            if (e.changedTouches[0].clientX - this.topToHeart.x >= 20 && e.changedTouches[0].clientX - this.topToHeart.x <= this.frame.width - 20 * 2) {
-                this.x = e.changedTouches[0].clientX - this.topToHeart.x;
-            } else if (e.changedTouches[0].clientX - this.topToHeart.x < 20) {
-                this.x = 20;
-            } else if (e.changedTouches[0].clientX - this.topToHeart.x > this.frame.width - 20 * 2) {
-                this.x = this.frame.width - 20 * 2;
-            }
-        }
-
-        this.initPositionXYArray();
-        this.draw(this.frame);
-        //this.rotate();
+    this.createPath = function(context) {
+        context.save();
+        context.translate(this.x, this.y);
+        context.rotate(this.rotateAngle * Math.PI * 2 / 360);
+        context.beginPath();
+        context.moveTo(parseInt(this.positionXYArray[0].x), parseInt(this.positionXYArray[0].y));
+        context.lineTo(parseInt(this.positionXYArray[1].x), parseInt(this.positionXYArray[1].y));
+        context.lineTo(parseInt(this.positionXYArray[2].x), parseInt(this.positionXYArray[2].y));
+        context.closePath();
+        context.restore();
     };
-    this.createPath = function(argument) {
-        var _this = this;
-        this.frame.cxt.beginPath();
-        this.frame.cxt.moveTo(_this.positionXYArray[0].x, _this.positionXYArray[0].y);
-        this.frame.cxt.lineTo(_this.positionXYArray[1].x, _this.positionXYArray[1].y);
-        this.frame.cxt.lineTo(_this.positionXYArray[2].x, _this.positionXYArray[2].y);
+    this.draw = function(context) {
+        context.strokeStyle = this.strokeStyle;
+        context.fillStyle = this.fillStyle;
+        context.translate(this.x, this.y);
+        context.rotate(this.rotateAngle * Math.PI * 2 / 360);
+        context.beginPath();
+        context.moveTo(parseInt(this.positionXYArray[0].x), parseInt(this.positionXYArray[0].y));
+        context.lineTo(parseInt(this.positionXYArray[1].x), parseInt(this.positionXYArray[1].y));
+        context.lineTo(parseInt(this.positionXYArray[2].x), parseInt(this.positionXYArray[2].y));
+        context.closePath();
+        context.stroke();
+        context.fill();
     };
-    this.draw = function(frm) {
-        if (typeof frm !== "undefined" || !this.hasRotate) {
-            var _this = this;
-            var _frame = _this.frame;
-            _frame.cxt.strokeStyle = _this.config.color || "#FFF";
-            _this.createPath();
-            //_frame.cxt.closePath();
-            //_frame.cxt.stroke();
-            _frame.cxt.fillStyle = _this.config.color || "#FFF";
-            _frame.cxt.fill();
-        }
-    };
-    this.draw();
+    // this.draw();
 }
 
 /**
  * 根据三条边组成三角形
- * @param  {[type]} a [description]
- * @param  {[type]} b [description]
- * @param  {[type]} c [description]
- * @return {[type]}   [description]
+ * 条件 已知abc三边长，重心（三个顶角与对边中点的连线的交点）坐标(0,0)，a边（底边）与x轴平行，求三个顶角的坐标(ABC，A为顶点，顺时针标注，顶点的对边为小写的abc)
+ * 推导 a边上的高的平方:h*h=(a+b+c)(a+b-c)(a+c-b)(b+c-a)/(4*a*a)
+ * @param  {Number} a 数字
+ * @param  {Number} b 数字
+ * @param  {Number} c 数字
+ * @return {Array<Number>} positionXYArray
  */
 Triangle.prototype.abc = function(a, b, c) {
-    var _this = this;
+    var _this = this,
+        //边a上高的平方
+        hh,
+        Ax,
+        Bx,
+        Cx;
     this.positionXYArray = [];
-    /* 顶角坐标 */
-    _this.positionXYArray.push({
-        x: _this.x,
-        y: _this.y
+    hh = (a + b + c) * (a + b - c) * (a + c - b) * (b + c - a) / (4 * a * a);
+    console.log(hh);
+    if (b * b - hh > a * a) {
+        //高在三角形的外部
+        Ax = 1 / 3 * a + 2 / 3 * Math.sqrt(c * c - hh);
+        Bx = 1 / 2 * Ax;
+        Cx = -1 / 2 * Ax - a;
+    } else if (c * c - hh > a * a) {
+        //高在三角形的外部
+        Ax = 1 / 3 * a + 2 / 3 * Math.sqrt(b * b - hh);
+        Bx = -1 / 2 * Ax - a;
+        Cx = 1 / 2 * Ax;
+    } else if (b * b - hh === a * a) {
+        //高在三角形的c边上
+        Ax = 1 / 3 * a;
+        Bx = 1 / 3 * a;
+        Cx = -2 / 3 * a;
+    } else if (c * c - hh === a * a) {
+        //高在三角形的c边上
+        Ax = -1 / 3 * a;
+        Bx = -1 / 3 * a;
+        Cx = 2 / 3 * a;
+    } else if (b > c) {
+        //高在三角形的内部
+        Ax = 1 / 3 * a - 2 / 3 * Math.sqrt(c * c - hh);
+        Bx = Ax + Math.sqrt(c * c - hh);
+        Cx = Bx - a;
+    } else if (b < c) {
+        //高在三角形的内部
+        Ax = -1 / 3 * a - 2 / 3 * Math.sqrt(b * b - hh);
+        Bx = Ax - Math.sqrt(c * c - hh);;
+        Cx = Bx + a;
+    } else if (b === c) {
+        Ax = 0;
+        Bx = 1 / 2 * a;
+        Cx = -1 / 2 * a;
+    }
+    //A点坐标
+    this.positionXYArray.push({
+        x: Ax,
+        y: -2 / 3 * Math.sqrt(hh)
     });
-
-    _this.positionXYArray.push({
-        x: a + _this.x,
-        y: _this.y
+    //B点坐标
+    this.positionXYArray.push({
+        x: Bx,
+        y: 1 / 3 * Math.sqrt(hh)
     });
-    /**
-     * x*x + y*y = c*c
-     * (a-x)*(a-x) + y*y = b*b
-     * x > 0
-     * y > 0
-     */
-    _this.positionXYArray.push({
-        x: (a * a - b * b + c * c) / (2 * a) + _this.x,
-        y: Math.sqrt((b * b - (a - c) * (a - c)) * ((a + c) * (a + c) - b * b)) / (2 * a) + _this.y
-    });
-
+    //C点坐标
+    this.positionXYArray.push({
+        x: Cx,
+        y: 1 / 3 * Math.sqrt(hh)
+    })
     return _this.positionXYArray;
 };
 
@@ -154,38 +157,6 @@ Triangle.prototype.angleAb = function(a, b, angle) {
 };
 
 /**
- * 初始化重心
- * @return {[type]} [description]
- */
-Triangle.prototype.getTopToHeartPoint = function(a, b, c) {
-    ///建系
-    var _this = this;
-    var A = { x: 0, y: 0 },
-        B = { x: a, y: 0 },
-        C = {
-            x: (a * a - b * b + c * c) / (2 * a),
-            y: Math.sqrt((b * b - (a - c) * (a - c)) * ((a + c) * (a + c) - b * b)) / (2 * a)
-        };
-    /*
-     * BC 中点 (B + C)/2 
-     * 重心 (A+BC) * 2/3
-     * 也就是 (A + (B+C)/2 )*2/3 -> (B+C)/3
-     */
-    this.topToHeart = {
-        x: (3 * a * a - b * b + c * c) / (6 * a),
-        y: Math.sqrt((b * b - (a - c) * (a - c)) * ((a + c) * (a + c) - b * b)) / (6 * a)
-    };
-};
-
-/**
- * 
- * @return {[type]} [description]
- */
-Triangle.prototype.checkTriangle = function() {
-
-};
-
-/**
  * 
  * @return {[type]} [description]
  */
@@ -198,41 +169,8 @@ Triangle.prototype.initPositionXYArray = function() {
     }
 };
 
-/**
- * 
- * @return {[type]} [description]
- */
-Triangle.prototype.rotate = function() {
-    if (this.rotateAngle > 360) {
-        this.rotateAngle = 0;
-    } else if (this.rotateAngle < 0) {
-        this.rotateAngle = 360;
-    } else {
-        "";
-    }
-
-    var o = {
-        x: this.topToHeart.x + this.x,
-        y: this.topToHeart.y + this.y
-    };
-    if (!this.hasRotate) {
-        var _arr = this.positionXYArray;
-        for (var i = 0, len = this.positionXYArray.length; i < len; i++) {
-            this.positionXYArray[i].x = this.positionXYArray[i].x - o.x;
-            this.positionXYArray[i].y = this.positionXYArray[i].y - o.y;
-        }
-        this.hasRotate = true;
-    }
-
-    var _this = this;
-    var _frame = _this.frame;
-    _frame.reRender();
-    //_frame.cxt.save();
-    _frame.cxt.translate(o.x, o.y);
-    _frame.cxt.strokeStyle = _this.config.color || "#FFF";
-    _frame.cxt.rotate(_this.rotateAngle * Math.PI / 180);
-    _this.draw(_frame);
-    //_frame.cxt.restore();
+CanvasElementPackage.inherit(Triangle, CanvasElementPackage.CanvasELement);
+module.exports = {
+    Triangle: Triangle,
+    inherit: CanvasElementPackage.inherit
 };
-
-module.exports = Triangle;
