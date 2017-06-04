@@ -3,6 +3,7 @@ var core = require("../../../cvs/lib/framework/core"),
     Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation"),
     TrianglePackage = require("../../../cvs/lib/tool/triangle"),
+    CirclePackage = require("../../../cvs/lib/tool/circle"),
     FourPackage = require("./nineBalls/four"),
     WallPackage = require("./nineBalls/wall"),
     PointPackage = require("./point/point");
@@ -58,6 +59,8 @@ core.on("show", "nineballs", function(cvs) {
     //     fillStyle: "rgba(6,179,60,0.8)"
     // });
 
+
+
     var threeArray = [];
 
     function createThree(num) {
@@ -111,7 +114,8 @@ core.on("show", "nineballs", function(cvs) {
     // };
     var rotateRate = 0;
     var radius = 0;
-    var roundRate = 15;
+    var roundRate = 15,
+        cirFlag = false;
 
     var trigngle = new TrianglePackage.Triangle({
         x: 150,
@@ -126,16 +130,30 @@ core.on("show", "nineballs", function(cvs) {
         this.y = e.changedTouches[0].clientY;
     });
 
-    new PointPackage.Point({
-        x: 150,
-        y: 150
+    var cir = new CirclePackage.Circle({
+        x: 300,
+        y: 30,
+        radius: 20,
+        fillStyle: "rgba(100,100,250,0.8)",
+        strokeStyle: "rgba(100,100,250,0.8)"
     });
+
+    // new PointPackage.Point({
+    //     x: 150,
+    //     y: 150
+    // });
 
     function updateBall(fpx) {
         rotateRate = (rotateRate + 36 * fpx > 360) ? (360 - rotateRate + 36 * fpx) : rotateRate + 36 * fpx;
         fourArray.rotateRate = rotateRate * Math.PI * 2 / 360;
         trigngle.rotateAngle = rotateRate;
         radius = (radius + roundRate * fpx > maxRaduisForThree) ? (maxRaduisForThree - radius + roundRate * fpx) : radius + roundRate * fpx;
+        if (cir.radius + roundRate * fpx > maxRaduisForThree && cirFlag) {
+            cirFlag = false;
+        } else if (cir.radius - roundRate * fpx <= minRadiusForThree && !cirFlag) {
+            cirFlag = true;
+        }
+        cir.radius = cir.radius + (cirFlag ? 1 : (-1)) * (roundRate * fpx);
         // fourArray.radius = radius;
         // lt.radius = radius;
         // lb.radius = radius;

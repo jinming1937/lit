@@ -1,59 +1,34 @@
-var element = require("../base/element");
-console.log("load circle");
+var CanvasElementPackage = require("../base/canvasElement");
 
 function Circle(config) {
-    element.call(this, config);
+    CanvasElementPackage.CanvasELement.call(this, config);
     /**
      * [elementType 多边形的静态属性，这里应该再抽象一层,而且这个应该定义成枚举，这是个问题：多边形，todo：shape class]
      * @type {Number}
      */
     this.elementType = 1;
-    this.config = config || {};
-    this.x = config.x || 0; //
-    this.y = config.y || 0; //
     this.radius = config.radius || 80; //半径
-    this.color = config.color || "#F00";
-    this.backgroundColor = config.backgroundColor || "#F00";
-    this.isUpEvent = config.isUpEvent || false;
-    this.createPath = function(argument) {
-        this.frame.cxt.beginPath();
-        this.frame.cxt.arc(parseInt(this.x), parseInt(this.y), this.radius, 0, 2 * Math.PI);
-        this.frame.cxt.closePath();
+    this.fillStyle = config.fillStyle || "#F00";
+    this.strokeStyle = config.strokeStyle || "#F00";
+    this.createPath = function(context) {
+        context.beginPath();
+        context.arc(parseInt(this.x), parseInt(this.y), this.radius, 0, 2 * Math.PI);
+        context.closePath();
     };
     /**
      * 
-     * @return {[type]} [description]
      */
-    this.draw = function() {
-        var _this = this;
-        var _frame = this.frame;
-        _this.createPath();
-        _frame.cxt.fillStyle = _this.color || "#FFF";
-        _frame.cxt.strokeStyle = _this.backgroundColor || "#FFF";
-        _frame.cxt.fill();
-        _frame.cxt.stroke();
+    this.draw = function(context) {
+        this.createPath(context);
+        context.fillStyle = this.fillStyle;
+        context.strokeStyle = this.strokeStyle;
+        context.fill();
+        context.stroke();
     };
-
-    /**
-     * [ontouchmove ontouchmove]
-     * @param  {[type]} e [event]
-     * @return {[type]}   [description]
-     */
-    this.ontouchmove = function(e) {
-        if (typeof config.ontouchmove === "function") {
-            if (config.strong) {
-                config.ontouchmove(e);
-                this.fireEvent(e);
-            } else {
-                this.fireEvent(e);
-                this.x = e.changedTouches[0].clientX;
-                this.y = e.changedTouches[0].clientY;
-            }
-            this.draw();
-        }
-    };
-
-    this.draw();
 }
 
-module.exports = Circle;
+CanvasElementPackage.inherit(Circle, CanvasElementPackage.CanvasELement);
+module.exports = {
+    Circle: Circle,
+    inherit: CanvasElementPackage.inherit
+};
