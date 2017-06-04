@@ -117,7 +117,7 @@ core.on("show", "nineballs", function(cvs) {
     var roundRate = 15,
         cirFlag = false;
 
-    var trigngle = new TrianglePackage.Triangle({
+    var triangle = new TrianglePackage.Triangle({
         x: 150,
         y: 150,
         a: 180,
@@ -125,9 +125,11 @@ core.on("show", "nineballs", function(cvs) {
         c: 100,
         fillStyle: "rgba(100,100,250,0.8)"
     });
-    trigngle.addWatching("touchmove", function(e) {
+    triangle.addWatching("touchmove", function(e) {
         this.x = e.changedTouches[0].clientX;
         this.y = e.changedTouches[0].clientY;
+        pointForTriangel.x = this.x;
+        pointForTriangel.y = this.y;
     });
 
     var cir = new CirclePackage.Circle({
@@ -138,15 +140,15 @@ core.on("show", "nineballs", function(cvs) {
         strokeStyle: "rgba(100,100,250,0.8)"
     });
 
-    // new PointPackage.Point({
-    //     x: 150,
-    //     y: 150
-    // });
+    var pointForTriangel = new PointPackage.Point({
+        x: 150,
+        y: 150
+    });
 
     function updateBall(fpx) {
         rotateRate = (rotateRate + 36 * fpx > 360) ? (360 - rotateRate + 36 * fpx) : rotateRate + 36 * fpx;
         fourArray.rotateRate = rotateRate * Math.PI * 2 / 360;
-        trigngle.rotateAngle = rotateRate;
+        triangle.rotateAngle = rotateRate;
         radius = (radius + roundRate * fpx > maxRaduisForThree) ? (maxRaduisForThree - radius + roundRate * fpx) : radius + roundRate * fpx;
         if (cir.radius + roundRate * fpx > maxRaduisForThree && cirFlag) {
             cirFlag = false;
