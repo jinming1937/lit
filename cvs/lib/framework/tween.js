@@ -1,5 +1,3 @@
-var config = require("../config");
-
 /**
  * 场景切换补间动画
  * todo:
@@ -26,7 +24,7 @@ function Tween() {
      * @return {[type]}   [description]
      */
     this.cl = function(w) {
-        this.ctx.fillStyle = config.tween.color;
+        this.ctx.fillStyle = "#000000";
         for (var i = 0; i < 10; i++) {
             this.ctx.fillRect(i * this.dic, 0, w, this.ctx.canvas.height);
         }
