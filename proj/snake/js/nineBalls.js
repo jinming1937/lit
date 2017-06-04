@@ -4,13 +4,13 @@ var core = require("../../../cvs/lib/framework/core"),
     Animation = require("../../../cvs/outer/animation"),
     TrianglePackage = require("../../../cvs/lib/tool/triangle"),
     CirclePackage = require("../../../cvs/lib/tool/circle"),
+    ScreenPackage = require("../../../cvs/lib/tool/screen"),
     FourPackage = require("./nineBalls/four"),
-    WallPackage = require("./nineBalls/wall"),
     PointPackage = require("./point/point");
 var animate = new Animation();
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 core.on("show", "nineballs", function(cvs) {
-    new WallPackage.Wall({
+    new ScreenPackage.Screen({
         endX: cvs.canvas.width,
         endY: cvs.canvas.height,
         fillStyle: "#9bf3ae"
