@@ -1,6 +1,6 @@
 var core = require("../../../cvs/lib/framework/core"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
-    Fps = require("../../../cvs/outer/fps"),
+    // Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation"),
     TrianglePackage = require("../../../cvs/lib/tool/triangle"),
     CirclePackage = require("../../../cvs/lib/tool/circle"),
@@ -178,32 +178,19 @@ core.on("show", "nineballs", function(cvs) {
         animate.clearAnimation(stopFlag);
         isStop = true;
     }
-    var fps_text = new Fps();
     var fpsWord = new FpsWordPackage.DrawWords({
         className: 'fps',
         x: 20,
         y: 20,
         word: 0
     });
-    var lastTime = 0;
 
     function starGame() {
-        var flagNum = true;
-        stopFlag = animate.setAnimation(function(startTime) {
-            startTime = typeof startTime === "undefined" ? 16 : startTime;
-            var fpx = (startTime - lastTime) / 1000;
-            if (fpx >= 1) {
-                lastTime = startTime;
-                return;
-            }
-            updateBall(fpx);
+        stopFlag = animate.setAnimation(function(fps) {
+            updateBall(1 / fps);
             core.frame.reRender();
-            var xfps = fps_text.getFps(+new Date()).toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-            lastTime = startTime;
-        }, function(startTime) {
-            flagNum = true;
+        }, function(fps) {
+            fpsWord.word = fps;
         }, 500);
     }
     starGame();

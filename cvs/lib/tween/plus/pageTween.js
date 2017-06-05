@@ -1,15 +1,21 @@
 var TweenPackage = require("../tween");
 
-function PageTween(repeat) {
+function PageTween(animation, timeFlag) {
     TweenPackage.Tween.apply(this, arguments);
-    this.Repeat = repeat; //重复方式
+    this.animation = animation; //提供控制动画开始播放的时间函数
+    this.animationFlag = 0;
+    this.timeFlag = timeFlag || 1000;
 }
 
 PageTween.prototype.start = function() {
+    this.animationFlag = this.animation.setAnimation(function() {
 
+    }, function() {
+
+    }, this.timeFlag);
 };
 PageTween.prototype.finish = function() {
-
+    this.animation.clearAnimation(this.animationFlag);
 };
 
 TweenPackage.inherit(PageTween, TweenPackage.Tween);

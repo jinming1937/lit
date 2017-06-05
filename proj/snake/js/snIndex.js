@@ -5,7 +5,7 @@ var core = require("../../../cvs/lib/framework/core"),
     grid = require("../../../cvs/outer/grid"),
     Clock = require("./clock"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
-    Fps = require("../../../cvs/outer/fps"),
+    // Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation");
 core.on("show", "index", function(cvs) {
     // new Gctrl(core.frame);
@@ -98,20 +98,15 @@ core.on("show", "index", function(cvs) {
             href: urlPath + "snake/classical.html"
         });
     };
-    var fps_text = new Fps();
     var fpsWord = new FpsWord({
         className: 'fps',
         x: 20,
         y: 20,
         word: 0
     });
-    var flagNum = false;
     var flagAnimate = animate.setAnimation(function() {
         core.frame.reRender();
-        var xfps = fps_text.getFps(+new Date()).toFixed();
-        fpsWord.word = flagNum ? xfps : fpsWord.word;
-        flagNum = false;
-    }, function() {
-        flagNum = true;
+    }, function(fps) {
+        fpsWord.word = fps;
     }, 1000);
 });

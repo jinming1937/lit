@@ -99,21 +99,11 @@ core.on("show", "windmill", function() {
 
     function starGame() {
         var flagNum = true;
-        stopFlag = animate.setAnimation(function(startTime) {
-            startTime = typeof startTime === "undefined" ? 16 : startTime;
-            var fpx = (startTime - lastTime) / 1000;
-            if (fpx >= 1) {
-                lastTime = startTime;
-                return;
-            }
-            updateBall(fpx);
+        stopFlag = animate.setAnimation(function(fps, startTime) {
+            updateBall(1 / fps);
             core.frame.reRender();
-            var xfps = fps_text.getFps(+new Date()).toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-            lastTime = startTime;
-        }, function(startTime) {
-            flagNum = true;
+        }, function(fps, startTime) {
+            fpsWord.word = fps;
         }, 500);
     }
     starGame();

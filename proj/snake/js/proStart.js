@@ -4,7 +4,7 @@ var core = require("../../../cvs/lib/framework/core"),
     Apple = require("./snake/apple"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     // Button = require("../../../cvs/lib/tool/button"),
-    Fps = require("../../../cvs/outer/fps"),
+    // Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
@@ -258,7 +258,6 @@ core.on("show", "classical", function() {
         }
     }
 
-    var fps_text = new Fps();
     var fpsWord = new FpsWord({
         className: 'fps',
         x: 20,
@@ -267,15 +266,11 @@ core.on("show", "classical", function() {
     });
 
     function starGame() {
-        var flagNum = true;
         stopFlag = animate.setAnimation(function() {
             core.frame.reRender();
-            var xfps = fps_text.getFps(+new Date()).toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-        }, function() {
+        }, function(fps) {
+            fpsWord.word = fps;
             _snake.setPath();
-            flagNum = true;
         }, 100);
     }
     starGame();

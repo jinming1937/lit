@@ -3,7 +3,7 @@ var core = require("../../../cvs/lib/framework/core"),
     Snake = require("./snake/snake"),
     Apple = require("./snake/apple"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
-    Fps = require("../../../cvs/outer/fps"),
+    // Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation");
 // "../../../outer/gctrl"
@@ -59,7 +59,7 @@ core.on("show", "prosnake", function() {
     });
     btnLeft.ontouchend = function(e) {
         snake.canMove(-1, 0, stopGame);
-        timefor = +new Date();
+        // timefor = +new Date();
         if (isStop) {
             starGame();
             isStop = false;
@@ -77,7 +77,7 @@ core.on("show", "prosnake", function() {
     });
     btnUp.ontouchend = function(e) {
         snake.canMove(0, -1, stopGame);
-        timefor = +new Date();
+        // timefor = +new Date();
         if (isStop) {
             starGame();
             isStop = false;
@@ -95,7 +95,7 @@ core.on("show", "prosnake", function() {
     });
     btnRight.ontouchend = function(e) {
         snake.canMove(1, 0, stopGame);
-        timefor = +new Date();
+        // timefor = +new Date();
         if (isStop) {
             starGame();
             isStop = false;
@@ -113,7 +113,7 @@ core.on("show", "prosnake", function() {
     });
     btnDown.ontouchend = function(e) {
         snake.canMove(0, 1, stopGame);
-        timefor = +new Date();
+        // timefor = +new Date();
         if (isStop) {
             starGame();
             isStop = false;
@@ -166,8 +166,7 @@ core.on("show", "prosnake", function() {
             isStop = true;
         }
     }
-    var timefor = new Date().getTime();
-    var fps_text = new Fps();
+    // var timefor = new Date().getTime();
     var fpsWord = new FpsWord({
         className: 'fps',
         x: 20,
@@ -176,19 +175,11 @@ core.on("show", "prosnake", function() {
     });
 
     function starGame() {
-        var flagNum = true;
-        stopFlag = animate.setAnimation(function() {
+        stopFlag = animate.setAnimation(function(fps) {
             core.frame.reRender();
-            var xfps = fps_text.getFps(+new Date()).toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-            if (new Date().getTime() - timefor > 500) {
-                timefor = new Date().getTime();
-                snake.canMove(undefined, undefined, stopGame);
-            }
-        }, function() {
-            // snake.canMove(undefined, undefined, stopGame);
-            flagNum = true;
+        }, function(fps) {
+            fpsWord.word = fps;
+            snake.canMove(undefined, undefined, stopGame);
         }, 500);
     }
     starGame();

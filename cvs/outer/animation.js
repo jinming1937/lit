@@ -29,7 +29,7 @@ function Animation() {
      */
     this.setAnimation = function(fn, cbfn, time) {
         var lastUpdateTime = +new Date() - 17,
-            // lastTime = 0,
+            lastTime = 0,
             flag = 0;
 
         if (typeof fn !== 'function') {
@@ -41,17 +41,20 @@ function Animation() {
          * 自执行
          */
         function animationForIndex(startTime) {
-            var timeFlag = +new Date();
-            fn && fn(startTime);
+            var timeFlag = +new Date(),
+                fps;
+            startTime = typeof startTime === "undefined" ? 16 : startTime;
+            fps = parseInt(1000 / ((startTime - lastTime) || 16));
+            fps >= 10 && fn && fn(fps, startTime);
 
             if (typeof time === "number" && !isNaN(time) && timeFlag - lastUpdateTime > time) {
                 lastUpdateTime = timeFlag;
-                cbfn && cbfn(startTime);
+                fps >= 10 && cbfn && cbfn(fps, startTime);
             }
             if (arr[flag]) {
                 this.reqFlag = window.requestAnimationFrame(animationForIndex);
-                // console.log(this.reqFlag);
             }
+            lastTime = startTime;
         }
         animationForIndex();
         return flag;

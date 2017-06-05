@@ -1,5 +1,5 @@
 var core = require("../../../cvs/lib/framework/core"),
-    Fps = require("../../../cvs/outer/fps"),
+    // Fps = require("../../../cvs/outer/fps"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     Animation = require("../../../cvs/outer/animation"),
     ScreenPackage = require("./screen");
@@ -19,7 +19,7 @@ core.on("show", "index", function(cvs) {
         animate.clearAnimation(stopFlag);
         // isStop = true;
     }
-    var fps_text = new Fps();
+    // var fps_text = new Fps();
     var fpsWord = new FpsWordPackage.DrawWords({
         className: 'fps',
         x: 20,
@@ -30,29 +30,18 @@ core.on("show", "index", function(cvs) {
 
     new FpsWordPackage.DrawWords({
         // className: 'fps',
-        x: core.frame.width/2,
-        y: core.frame.height/2,
+        x: core.frame.width / 2,
+        y: core.frame.height / 2,
         word: 'Refuse Ctrl+C',
-        fillStyle:"rgba(9,175,239,1)",
-        font:"16px Palatino"
+        fillStyle: "rgba(9,175,239,1)",
+        font: "16px Palatino"
     });
 
     function starGame() {
-        var flagNum = true;
-        stopFlag = animate.setAnimation(function(startTime) {
-            startTime = typeof startTime === "undefined" ? 16 : startTime;
-            var fpx = (startTime - lastTime) / 1000;
-            if (fpx >= 1) {
-                lastTime = startTime;
-                return;
-            }
+        stopFlag = animate.setAnimation(function() {
             core.frame.reRender();
-            var xfps = fps_text.getFps(+new Date()).toFixed();
-            fpsWord.word = flagNum ? xfps : fpsWord.word;
-            flagNum = false;
-            lastTime = startTime;
-        }, function(startTime) {
-            flagNum = true;
+        }, function(fps) {
+            fpsWord.word = fps;
         }, 500);
     }
     starGame();
