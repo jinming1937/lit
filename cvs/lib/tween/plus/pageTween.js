@@ -8,9 +8,9 @@ function PageTween(animation, timeFlag) {
 }
 
 PageTween.prototype.start = function() {
-    this.animationFlag = this.animation.setAnimation(function() {
+    this.animationFlag = this.animation.setAnimation(function(fps) {
 
-    }, function() {
+    }, function(fps) {
 
     }, this.timeFlag);
 };

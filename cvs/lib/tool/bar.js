@@ -10,24 +10,19 @@ function Bar(config) {
     this.y = config.y || 0;
     this.width = config.width || 150;
     this.rotateAngle = config.rotateAngle || 0;
-    this.positionXYArray = [];
-    this.createPath = function(argument) {
+    this.createPath = function(context) {
         var _this = this;
-        this.frame.cxt.beginPath();
-        this.frame.cxt.moveTo(_this.x, _this.y);
-        this.frame.cxt.lineTo(_this.x + _this.width, _this.y);
-        this.frame.cxt.closePath();
+        context.beginPath();
+        context.moveTo(_this.x, _this.y);
+        context.lineTo(_this.x + _this.width, _this.y);
+        context.closePath();
     };
 
-    this.draw = function() {
-        var _this = this;
-        var _frame = _this.frame;
-        _frame.cxt.strokeStyle = _this.config.color || "#F34";
-        _this.createPath();
-        _frame.cxt.rotate(_this.rotateAngle * Math.PI / 180);
-        _frame.cxt.stroke();
-        _frame = null;
+    this.draw = function(context) {
+        context.strokeStyle = this.config.strokeStyle || "#F34";
+        this.createPath(context);
+        context.rotate(this.rotateAngle * Math.PI / 180);
+        context.stroke();
     };
-    this.draw();
 }
 module.exports = Bar;
