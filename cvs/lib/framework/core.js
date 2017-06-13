@@ -1,8 +1,6 @@
 var Frame = require("./frame"),
     router = require("./router"),
     eventPlug = require("./event"),
-    // events = require("./events"),
-    section = require("./section"),
     Tween = require("./tween");
 
 /**
@@ -122,7 +120,7 @@ Core.prototype.open = function(obj) {
     if (!aimRouter) {
         return;
     }
-    var visitCvsName = aimRouter.cvsName;
+    // var visitCvsName = aimRouter.cvsName;
     this.tween.fullWin();
 };
 

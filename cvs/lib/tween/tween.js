@@ -49,7 +49,7 @@ Tween.prototype.start = function() {
 };
 Tween.prototype.finish = function() {
 
-}
+};
 module.exports = {
     Tween: Tween,
     inherit: inherit

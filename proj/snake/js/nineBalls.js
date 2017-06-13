@@ -1,6 +1,5 @@
 var core = require("../../../cvs/lib/framework/core"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
-    // Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation"),
     TrianglePackage = require("../../../cvs/lib/tool/triangle"),
     CirclePackage = require("../../../cvs/lib/tool/circle"),
@@ -8,7 +7,7 @@ var core = require("../../../cvs/lib/framework/core"),
     FourPackage = require("./nineBalls/four"),
     PointPackage = require("./point/point");
 var animate = new Animation();
-var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
+// var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 core.on("show", "nineballs", function(cvs) {
     new ScreenPackage.Screen({
         endX: cvs.canvas.width,
@@ -171,12 +170,10 @@ core.on("show", "nineballs", function(cvs) {
         });
     }
 
-    var stopFlag,
-        isStop = false;
+    var stopFlag;
 
     function stopGame() {
         animate.clearAnimation(stopFlag);
-        isStop = true;
     }
     var fpsWord = new FpsWordPackage.DrawWords({
         className: 'fps',
