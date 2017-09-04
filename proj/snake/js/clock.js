@@ -23,7 +23,7 @@ function Clock(config) {
         var _this = this;
         var date = new Date();
         var cxt = this.frame.cxt;
-        cxt.lineWidth = 0.5;
+        //cxt.lineWidth = 0.5;
         cxt.font = '8px Microsoft YaHei';
         this.createPath();
         cxt.fillStyle = "#000000";

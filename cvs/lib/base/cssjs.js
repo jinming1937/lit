@@ -35,7 +35,7 @@ var cssjs = {
     },
     'fps': {
         fillStyle: 'rgba(100,100,100,0.7)',
-        font: '15px Microsoft YaHei'
+        font: '30px Microsoft YaHei'
     }
 };
 module.exports = cssjs;

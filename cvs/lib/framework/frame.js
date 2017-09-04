@@ -12,16 +12,19 @@
  */
 function Frame(option) {
     this.canvas = option.canvas;
-    this.width = option.width || document.body.clientWidth;
-    this.height = option.height || document.body.clientHeight;
+    this.device = option.device || 1;
+    this.width = (option.width || document.body.clientWidth);
+    this.height = (option.height || document.body.clientHeight);
     this.getCurrentRouter = option.getCurrentRouter;
     this.resize(this.width, this.height);
     this.cxt = this.canvas.getContext("2d");
+    this.proxyCxt = {};
     this.context = this; //???
     this.elementIndex = 0;
     this.elementArray = [];
     this.cacheEleArr = [];
     this.eventCtrl();
+    this.setProxyCxt();
 }
 
 var isTencent = true,
@@ -61,6 +64,71 @@ Frame.prototype.eventCtrl = function() {
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
     }, useCapture);
+};
+
+Frame.prototype.setProxyCxt = function(){
+    // var _this = this;
+    // this.proxyCxt.moveTo = function(x, y){
+    //     _this.cxt.moveTo(2*x,2*y);
+    // };
+    // this.proxyCxt.lineTo = function(x,y){
+    //     _this.cxt.lineTo(2*x,2*y);
+    // };
+    // this.proxyCxt.arc = function(x,y,radius,startAngle,endAngle,anticlockwise){
+    //     _this.cxt.arc(2*x,2*y,2*radius,startAngle,endAngle,anticlockwise||false);
+    // };
+    // this.proxyCxt.arcTo = function(x1,y1,x2,y2,radius){
+    //     _this.cxt.arcTo(2*x1,2*y1,2*x2,2*y2,2*radius);
+    // };
+    // this.proxyCxt.quadraticCurveTo = function(cpx,cpy,x,y){
+    //     _this.cxt.quadraticCurveTo(2*cpx,2*cpy,2*x,2*y);
+    // };
+    // this.proxyCxt.bezierCurveTo = function(cp1x,cp1y,cp2x,cp2y,x,y){
+    //     _this.cxt.bezierCurveTo(2*cp1x,2*cp1y,2*cp2x,2*cp2y,2*x,2*y);
+    // };
+    // this.proxyCxt.translate = function(x,y){
+    //     _this.cxt.translate(x/2,2*y);
+    // }
+    var __pro__ = {
+            moveTo:this.cxt.moveTo,
+            lineTo:this.cxt.lineTo,
+            arc: this.cxt.arc,
+            arcTo: this.cxt.arcTo,
+            quadraticCurveTo: this.quadraticCurveTo,
+            bezierCurveTo:this.bezierCurveTo,
+            translate:this.cxt.translate,
+            fillText:this.cxt.fillText,
+            clearRect:this.cxt.clearRect
+        },
+        _this = this,
+        device = this.device;
+    this.cxt.moveTo = function(x, y){
+        __pro__.moveTo.call(_this.cxt,device*x,device*y);
+    };
+    this.cxt.lineTo = function(x,y){
+        __pro__.lineTo.call(_this.cxt,device*x,device*y);
+    };
+    this.cxt.arc = function(x,y,radius,startAngle,endAngle,anticlockwise){
+        __pro__.arc.call(_this.cxt,device*x,device*y,device*radius,startAngle,endAngle,anticlockwise||false);
+    };
+    this.cxt.arcTo = function(x1,y1,xdevice,ydevice,radius){
+        __pro__.arcTo.call(_this.cxt,device*x1,device*y1,device*xdevice,device*ydevice,device*radius);
+    };
+    this.cxt.quadraticCurveTo = function(cpx,cpy,x,y){
+        __pro__.quadraticCurveTo.call(_this.cxt,device*cpx,device*cpy,device*x,device*y);
+    };
+    this.cxt.bezierCurveTo = function(cp1x,cp1y,cpdevicex,cpdevicey,x,y){
+        __pro__.bezierCurveTo.call(_this.cxt,device*cp1x,device*cp1y,device*cpdevicex,device*cpdevicey,device*x,device*y);
+    };
+    this.cxt.translate = function(x,y){
+        __pro__.translate.call(_this.cxt,device*x,device*y);
+    };
+    this.cxt.fillText = function(text,x,y,maxWidth){
+        __pro__.fillText.call(_this.cxt,device*x,device*y,maxWidth);
+    };
+    this.cxt.clearRect = function(x,y,w,h){
+        __pro__.clearRect.call(_this.cxt,device*x,device*y,device*w,device*h);
+    };
 };
 
 /**
@@ -187,8 +255,8 @@ Frame.prototype.resize = function(width, height) {
     var _this = this;
     _this.width = width || _this.width;
     _this.height = height || _this.height;
-    _this.canvas.setAttribute("width", _this.width);
-    _this.canvas.setAttribute("height", _this.height);
+    _this.canvas.setAttribute("width", _this.width * _this.device);
+    _this.canvas.setAttribute("height", _this.height * _this.device);
 };
 
 /**

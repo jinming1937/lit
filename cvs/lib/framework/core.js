@@ -30,7 +30,8 @@ function Core() {
         height: document.body.clientHeight, //width > height ? width:height
         getCurrentRouter: function() {
             return _this.currentRouter;
-        }
+        },
+        device:2
     });
     this.openUrl = "";
     this.historyArray = [];

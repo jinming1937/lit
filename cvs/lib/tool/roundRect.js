@@ -52,7 +52,7 @@ function RoundedRect(config) {
         context.textAlign = "center";
         context.textBaseline = "middle";
         context.fillStyle = this.fontColor;
-        context.font = "15px Microsoft YaHei";
+        context.font = "30px Microsoft YaHei";
         context.fillText(this.fillText, this.width / 2 + this.cornerX, this.height / 2 + this.cornerY);
         context.restore();
     };

@@ -100,13 +100,13 @@ core.on("show", "index", function(cvs) {
     };
     var fpsWord = new FpsWord({
         className: 'fps',
-        x: 20,
-        y: 20,
-        word: 0
+        x: 100,
+        y: 100,
+        word: 'fps:60'
     });
     var flagAnimate = animate.setAnimation(function() {
         core.frame.reRender();
     }, function(fps) {
-        fpsWord.word = fps;
+        fpsWord.word = 'fps:'+fps;
     }, 1000);
 });
