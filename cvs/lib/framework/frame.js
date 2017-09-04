@@ -98,7 +98,8 @@ Frame.prototype.setProxyCxt = function(){
             bezierCurveTo:this.bezierCurveTo,
             translate:this.cxt.translate,
             fillText:this.cxt.fillText,
-            clearRect:this.cxt.clearRect
+            clearRect:this.cxt.clearRect,
+            isPointInPath:this.cxt.isPointInPath
         },
         _this = this,
         device = this.device;
@@ -128,6 +129,9 @@ Frame.prototype.setProxyCxt = function(){
     };
     this.cxt.clearRect = function(x,y,w,h){
         __pro__.clearRect.call(_this.cxt,device*x,device*y,device*w,device*h);
+    };
+    this.cxt.isPointInPath = function(x,y,isFullRule){
+        return __pro__.isPointInPath.call(_this.cxt,x*device,y*device,isFullRule);
     };
 };
 
