@@ -33,7 +33,7 @@ core.on("show", "index", function(cvs) {
     });
     windmill.ontouchend = function(e) {
         console.log("go windmill");
-        animate.clearAnimation(flagAnimate);
+        // animate.clearAnimation(flagAnimate);
         core.open({
             href: urlPath + "snake/windmill.html"
         });
@@ -76,7 +76,7 @@ core.on("show", "index", function(cvs) {
     });
     snakeButton.addWatching('touchend', function() {
         console.log("hahaha");
-        animate.clearAnimation(flagAnimate);
+        // animate.clearAnimation(flagAnimate);
         core.open({
             href: urlPath + "snake/prosnake.html"
         });
@@ -93,7 +93,7 @@ core.on("show", "index", function(cvs) {
         fillText: "snake-auto"
     });
     snakeAuto.ontouchend = function(e) {
-        animate.clearAnimation(flagAnimate);
+        // animate.clearAnimation(flagAnimate);
         core.open({
             href: urlPath + "snake/classical.html"
         });
@@ -104,9 +104,10 @@ core.on("show", "index", function(cvs) {
         y: 100,
         word: 'fps:60'
     });
-    var flagAnimate = animate.setAnimation(function() {
-        core.frame.reRender();
-    }, function(fps) {
-        fpsWord.word = 'fps:'+fps;
-    }, 1000);
+    core.frame.reRender();
+    // var flagAnimate = animate.setAnimation(function() {
+    //     core.frame.reRender();
+    // }, function(fps) {
+    //     fpsWord.word = 'fps:'+fps;
+    // }, 1000);
 });

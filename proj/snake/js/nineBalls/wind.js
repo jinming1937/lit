@@ -38,7 +38,7 @@ function Windmill(config) {
         }
 
         context.save();
-        context.lineWidth = 0.5;
+        context.lineWidth = 1;
         context.strokeStyle = "#34543f";
         context.fillStyle = this.fillStyle;
         context.translate(this.x, this.y);

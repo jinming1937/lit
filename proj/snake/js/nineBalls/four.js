@@ -31,7 +31,7 @@ function Four(config) {
 }
 Four.prototype.drawCommentLine = function(context) {
     context.save();
-    context.lineWidth = 0.5;
+    context.lineWidth = 1;
     context.strokeStyle = this.strokeStyle;
     context.fillStyle = this.fillStyle;
     this.createPath(context);

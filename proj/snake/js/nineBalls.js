@@ -9,9 +9,12 @@ var core = require("../../../cvs/lib/framework/core"),
 var animate = new Animation();
 // var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 core.on("show", "nineballs", function(cvs) {
+    var width = core.frame.width,
+        height = core.frame.height;
+
     new ScreenPackage.Screen({
-        endX: cvs.canvas.width,
-        endY: cvs.canvas.height,
+        endX: width,
+        endY: height,
         fillStyle: "#9bf3ae"
     });
 
@@ -19,8 +22,8 @@ core.on("show", "nineballs", function(cvs) {
     var minRadiusForThree = 5;
 
     var lt = new FourPackage.Four({
-        x: cvs.canvas.width / 4,
-        y: cvs.canvas.height / 4,
+        x: width / 4,
+        y: height / 4,
         radius: maxRaduisForThree,
         rouNum: 3,
         xRate: 0,
@@ -29,8 +32,8 @@ core.on("show", "nineballs", function(cvs) {
     });
 
     var rt = new FourPackage.Four({
-        x: cvs.canvas.width / 4 * 3,
-        y: cvs.canvas.height / 4,
+        x: width / 4 * 3,
+        y: height / 4,
         radius: maxRaduisForThree,
         rouNum: 3,
         xRate: 0,
@@ -63,12 +66,12 @@ core.on("show", "nineballs", function(cvs) {
     var threeArray = [];
 
     function createThree(num) {
-        var cx = cvs.canvas.width / num;
+        var cx = width / num;
         for (var i = 0; i < num; i++) {
             threeArray.push({
                 three: new FourPackage.Four({
                     x: maxRaduisForThree + i * cx,
-                    y: cvs.canvas.height / 4 * 3,
+                    y: height / 4 * 3,
                     radius: maxRaduisForThree - i * maxRaduisForThree / num + 10,
                     rouNum: 3,
                     xRate: 0,
@@ -82,8 +85,8 @@ core.on("show", "nineballs", function(cvs) {
     createThree(10);
 
     var fourArray = new FourPackage.Four({
-        x: cvs.canvas.width / 2,
-        y: cvs.canvas.height / 2,
+        x: width / 2,
+        y: height / 2,
         radius: 40,
         xRate: 0,
         yRate: 0.4,

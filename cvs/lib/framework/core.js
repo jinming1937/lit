@@ -31,7 +31,7 @@ function Core() {
         getCurrentRouter: function() {
             return _this.currentRouter;
         },
-        device:2
+        device:window.devicePixelRatio
     });
     this.openUrl = "";
     this.historyArray = [];
