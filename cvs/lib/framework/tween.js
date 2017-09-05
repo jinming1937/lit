@@ -13,9 +13,11 @@
  */
 function Tween() {
     this.wid = 1;
-    this.init = function(ctx, cb) {
-        this.ctx = ctx;
-        this.dic = ctx.canvas.width / 10;
+    this.init = function(frame, cb) {
+        this.width = frame.width;
+        this.height = frame.height;
+        this.cxt = frame.cxt;
+        this.dic = frame.width / 10;
         this.cb = cb;
     };
     /**
@@ -24,9 +26,9 @@ function Tween() {
      * @return {[type]}   [description]
      */
     this.cl = function(w) {
-        this.ctx.fillStyle = "#000000";
+        this.cxt.fillStyle = "#000000";
         for (var i = 0; i < 10; i++) {
-            this.ctx.fillRect(i * this.dic, 0, w, this.ctx.canvas.height);
+            this.cxt.fillRect(i * this.dic, 0, w, this.height);
         }
     };
     this.fullWin = function() {

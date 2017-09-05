@@ -18,13 +18,12 @@ function Frame(option) {
     this.getCurrentRouter = option.getCurrentRouter;
     this.resize(this.width, this.height);
     this.cxt = this.canvas.getContext("2d");
-    this.proxyCxt = {};
+    this.setProxyCxt();
     this.context = this; //???
     this.elementIndex = 0;
     this.elementArray = [];
     this.cacheEleArr = [];
     this.eventCtrl();
-    this.setProxyCxt();
 }
 
 var isTencent = true,
@@ -66,38 +65,18 @@ Frame.prototype.eventCtrl = function() {
     }, useCapture);
 };
 
+//
 Frame.prototype.setProxyCxt = function(){
-    // var _this = this;
-    // this.proxyCxt.moveTo = function(x, y){
-    //     _this.cxt.moveTo(2*x,2*y);
-    // };
-    // this.proxyCxt.lineTo = function(x,y){
-    //     _this.cxt.lineTo(2*x,2*y);
-    // };
-    // this.proxyCxt.arc = function(x,y,radius,startAngle,endAngle,anticlockwise){
-    //     _this.cxt.arc(2*x,2*y,2*radius,startAngle,endAngle,anticlockwise||false);
-    // };
-    // this.proxyCxt.arcTo = function(x1,y1,x2,y2,radius){
-    //     _this.cxt.arcTo(2*x1,2*y1,2*x2,2*y2,2*radius);
-    // };
-    // this.proxyCxt.quadraticCurveTo = function(cpx,cpy,x,y){
-    //     _this.cxt.quadraticCurveTo(2*cpx,2*cpy,2*x,2*y);
-    // };
-    // this.proxyCxt.bezierCurveTo = function(cp1x,cp1y,cp2x,cp2y,x,y){
-    //     _this.cxt.bezierCurveTo(2*cp1x,2*cp1y,2*cp2x,2*cp2y,2*x,2*y);
-    // };
-    // this.proxyCxt.translate = function(x,y){
-    //     _this.cxt.translate(x/2,2*y);
-    // }
     var __pro__ = {
             moveTo:this.cxt.moveTo,
             lineTo:this.cxt.lineTo,
             arc: this.cxt.arc,
             arcTo: this.cxt.arcTo,
-            quadraticCurveTo: this.quadraticCurveTo,
-            bezierCurveTo:this.bezierCurveTo,
+            quadraticCurveTo: this.cxt.quadraticCurveTo,
+            bezierCurveTo:this.cxt.bezierCurveTo,
             translate:this.cxt.translate,
             fillText:this.cxt.fillText,
+            fillRect:this.cxt.fillRect,
             clearRect:this.cxt.clearRect,
             isPointInPath:this.cxt.isPointInPath
         },
@@ -126,6 +105,9 @@ Frame.prototype.setProxyCxt = function(){
     };
     this.cxt.fillText = function(text,x,y,maxWidth){
         __pro__.fillText.call(_this.cxt,device*x,device*y,maxWidth);
+    };
+    this.cxt.fillRect = function(x,y,w,h){
+        __pro__.fillRect.call(_this.cxt,device*x,device*y,device*w,device*h);
     };
     this.cxt.clearRect = function(x,y,w,h){
         __pro__.clearRect.call(_this.cxt,device*x,device*y,device*w,device*h);
