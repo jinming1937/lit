@@ -104,7 +104,7 @@ Frame.prototype.setProxyCxt = function(){
         __pro__.translate.call(_this.cxt,device*x,device*y);
     };
     this.cxt.fillText = function(text,x,y,maxWidth){
-        __pro__.fillText.call(_this.cxt,device*x,device*y,maxWidth);
+        __pro__.fillText.call(_this.cxt,text,device*x,device*y,maxWidth);
     };
     this.cxt.fillRect = function(x,y,w,h){
         __pro__.fillRect.call(_this.cxt,device*x,device*y,device*w,device*h);

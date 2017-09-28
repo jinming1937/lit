@@ -100,8 +100,8 @@ core.on("show", "index", function(cvs) {
     };
     var fpsWord = new FpsWord({
         className: 'fps',
-        x: 100,
-        y: 100,
+        x: 30,
+        y: 15,
         word: 'fps:60'
     });
     //core.frame.reRender();

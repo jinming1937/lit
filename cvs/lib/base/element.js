@@ -19,7 +19,7 @@ function Ele() {
 /**
  * 根据元素的ID，查找元素
  * 
- * @param {String} id 
+ * @param {String} id ID
  * @returns  
  */
 Ele.prototype.getElementById = function modu(id) {
