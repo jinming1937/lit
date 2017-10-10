@@ -52,6 +52,7 @@ Core.prototype.init = function(_href) {
         currentPage.cvs = currentFrame;
         this.frame.clear();
         this.show(currentPage);
+        console.log("core show");
         this.tween.init(currentFrame, function() {
             /* 转场，清理该页面的element */
             _this.frame.destroyByPage(currentPage.cvsName);

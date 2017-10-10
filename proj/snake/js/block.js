@@ -1,66 +1,110 @@
 var core = require("../../../cvs/lib/framework/core"),
-    Triangle = require("../../../cvs/lib/tool/extend/triangle"),
-    Bar = require("../../../cvs/lib/tool/bar"),
-    Button = require("../../../cvs/lib/tool/button");
-core.on("show", "block", function(frame) {
-    /*  */
-    var RotateBar = new Bar({
-        x: 20,
-        y: 33,
-        width: frame.width - 20 * 2 - 5 * Math.sqrt(2),
-        color: "#000",
-        onscroll: function(e) {
-            console.log(e);
-        }
-    });
-
-    var rotateTag = new Triangle({
-        a: 10 * Math.sqrt(2),
-        b: 10,
-        angle: 45,
-        x: 20,
-        y: 20,
-        color: "blue",
-        limit: true
-    });
-    rotateTag.addWatching("touchmove", function(e) {
-        console.log("haha");
-    });
+    RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
+    Gctrl = require("../../../cvs/outer/gctrl"),
+    grid = require("../../../cvs/outer/grid"),
+    FpsWordPackage = require("../../../cvs/lib/tool/word"),
+    Animation = require("../../../cvs/outer/animation");
+core.on("show", "block", function (cvs) {
+    console.log("lod :" + cvs);
+    var animate = new Animation();
+    var RoundRect = RoundRectPackage.RoundedRect;
+    var FpsWord = FpsWordPackage.DrawWords;
+    var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 
 
-    var block1 = new Triangle({
-        a: 100 * Math.sqrt(2),
-        b: 100,
-        angle: 45,
-        x: 50,
-        y: 50,
-        color: "#F00",
-        ontouchmove: function(e) {
-            console.log("moving block1");
-        }
-    });
 
-    var block2 = new Triangle({
-        a: 100,
-        b: 100 * Math.sqrt(2),
-        angle: 45,
-        x: 170,
-        y: 170,
-        color: "#F33",
-        ontouchmove: function(e) {
-            console.log("moving block2");
-        }
-    });
 
-    new Button({
-        x: 100,
-        y: 10,
-        value: '首页',
-        backgroundColor: '#f00',
-        ontouchend: function(e) {
-            core.open({
-                href: "http://www.xiaozhiga.com:8089/cvs/proj/snake/eatpoint.html"
-            });
-        }
+
+
+
+
+
+
+
+
+
+
+
+    var windmill = new RoundRect({
+        className: 'button move',
+        fontColor: '#101010',
+        cornerX: core.frame.width / 2 - 55,
+        cornerY: core.frame.height - 60,
+        width: 110,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "windmill"
     });
+    windmill.ontouchend = function (e) {
+        console.log("go windmill");
+        animate.clearAnimation(flagAnimate);
+        core.open({
+            href: urlPath + "snake/windmill.html"
+        });
+    };
+    var moving = new RoundRect({
+        className: 'button move',
+        fontColor: '#101010',
+        cornerX: 300,
+        cornerY: 10,
+        width: 70,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "move"
+    });
+    moving.ontouchmove = function (e) {
+        console.log('moving');
+    };
+    moving.addWatching('touchmove', function (e) {
+        console.log('addWatching for moving');
+        moving.cornerX = e.changedTouches[0].clientX - moving.width / 2;
+        moving.cornerY = e.changedTouches[0].clientY - moving.height / 2;
+    });
+    moving.addWatching('touchend', function (e) {
+        console.log('moved');
+    });
+    var snakeButton = new RoundRect({
+        className: 'button snake',
+        fontColor: '#101010',
+        cornerX: core.frame.width / 2 - 45,
+        cornerY: core.frame.height - 120,
+        width: 90,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "snake"
+    });
+    snakeButton.addWatching('touchend', function () {
+        console.log("hahaha");
+        animate.clearAnimation(flagAnimate);
+        core.open({
+            href: urlPath + "snake/prosnake.html"
+        });
+    }, false);
+    var snakeAuto = new RoundRect({
+        className: "button snake-auto",
+        fontColor: '#101010',
+        cornerX: core.frame.width / 2 - 45,
+        cornerY: core.frame.height - 180,
+        width: 90,
+        height: 30,
+        cornerRadius: 8,
+        fillText: "snake-auto"
+    });
+    snakeAuto.ontouchend = function (e) {
+        animate.clearAnimation(flagAnimate);
+        core.open({
+            href: urlPath + "snake/classical.html"
+        });
+    };
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 30,
+        y: 15,
+        word: 'fps:60'
+    });
+    var flagAnimate = animate.setAnimation(function () {
+        core.frame.reRender();
+    }, function (fps) {
+        fpsWord.word = 'fps:'+fps;
+    }, 1000);
 });

@@ -2,12 +2,15 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es6": true,
-        "node": true
+        "amd":true,
+        "es6": false,
+        "node": false,
+        "jquery":true
     },
     "parserOptions": {
+        "ecmaVersion": 3,
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": false
         },
         "sourceType": "module"
     },
@@ -18,6 +21,14 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "valid-typeof": "warn",
+        "default-case":"warn",
+        "no-prototype-builtins":"warn",
+        /* new : off warn error*/
+        /* 字符串双引号 */
+        //"quotes": ["warn", "double"],
+        "strict": "warn",
+        "eqeqeq": "warn",
+        "curly": "warn"
     }
 }
