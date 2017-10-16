@@ -39,12 +39,14 @@ Frame.prototype.eventCtrl = function() {
     _this.catchElementTouchMove = null;
     _this.canvas.addEventListener("click", function(e) {
         console.log("click");
+        console.log("x:"+e.clientX+",y:"+e.clientY);
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
     }, useCapture);
 
     _this.canvas.addEventListener("touchstart", function(e) {
         console.log("touch");
+        console.log("x:"+e.touches[0].clientX+",y:"+e.touches[0].clientY);
         _this.fire(e);
         isTencent ? e.preventDefault() : "";
     }, useCapture);
@@ -229,6 +231,9 @@ Frame.prototype.fire = function(e) {
              */
             hasCancel = true;
             break;
+        default :
+            // 空
+            break;
     }
 };
 
@@ -321,6 +326,7 @@ Frame.prototype.destroyByPage = function(page) {
  * <1> : 只画当前页面的元素
  * <2> : 这里应该是策略模式,但是由于reRender用elementArray集结了一组工具元素，所以，这里会多少有点耦合，比如某些工具元素不需要画出来，有些需要画两次（享元模式）
  *          所以，还应该抽象一个方法draw出来，用这个方法来执行针对于单独某个工具元素的draw，用reRender来管理这个当前页面的对象及其所需要draw的次数
+ * <3> : 不用做双缓冲，可否用离屏canvas 优化？
  * DONE:
  * <1> : 2017-03-16,21:05
  */

@@ -8,6 +8,10 @@ var core = require("../framework/core"),
  * 坐标 x, y 
  * canvas context 样式 fillStyle, strokeStyle , lineWidth
  * get , set 公共属性 : canvas context rotate, 角度
+ * todo:
+ * <1> 校验config， x,y 等为数字, 校验不通过 throw error
+ * done:
+ * 
  */
 
 /**

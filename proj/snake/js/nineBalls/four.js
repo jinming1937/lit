@@ -1,5 +1,10 @@
 var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 
+/**
+ * 四叶草
+ * 四叶草 & 三叶草
+ * @param {any} config 
+ */
 function Four(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
     this.x = parseInt(config.x || 0);

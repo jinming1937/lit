@@ -1,5 +1,10 @@
 var CanvasElementPackage = require("../../../../cvs/lib/base/canvasElement");
 
+/**
+ * 风车
+ * 风车
+ * @param {any} config 
+ */
 function Windmill(config) {
     CanvasElementPackage.CanvasELement.call(this, config);
     this.x = config.x || 0;
