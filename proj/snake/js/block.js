@@ -1,5 +1,4 @@
 var core = require("../../../cvs/lib/framework/core"),
-    RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
     Gctrl = require("../../../cvs/outer/gctrl"),
     BoxPackage = require("./block/box"),
     BlockPackage = require("./block/block"),
@@ -9,70 +8,99 @@ var core = require("../../../cvs/lib/framework/core"),
 core.on("show", "block", function (cvs) {
     console.log(cvs);
     var animate = new Animation();
-    var RoundRect = RoundRectPackage.RoundedRect;
     var FpsWord = FpsWordPackage.DrawWords;
     var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');
 
     var doublePadding = 30;//15px
     var borderLine = 2;
-    var boxEx = new BoxPackage.Box({
+    var baseScreen = new BoxPackage.Box({
         x:doublePadding,
         y:doublePadding,
         border:borderLine,
         width:cvs.width-doublePadding*2,
         height:cvs.width-doublePadding*2,
         pixelx:10,
-        pixely:10
+        pixely:10,
+        isStroke:true
     });
 
-    var boxLeft = new BoxPackage.Box({
+    /**
+     * 
+     */
+    var baseBlock = new BlockPackage.Block({
+        box:baseScreen,
+        blockIndex:0,
+        fillStyle:"rgba(212,87,236,0.5)"//'rgba(192,192,192,1)'
+    });
+
+    var leftBox = new BoxPackage.Box({
         x:doublePadding,
         y:cvs.width,//doublePadding,
         border:borderLine,
-        width:(cvs.width-doublePadding*2)/3,
-        height:(cvs.width-doublePadding*2)/3,
-        pixelx:5,
-        pixely:5,
-        strokeStyle:"rgba(192,192,192,1)"
+        width:(cvs.width-doublePadding*2)/1.5,
+        height:(cvs.width-doublePadding*2)/1.5,
+        pixelx:10,
+        pixely:10,
+        strokeStyle:"rgba(192,192,192,1)",
+        isStroke:false
     });
 
-    var blockLeft = new BlockPackage.Block({
-        screenObj:boxLeft
+
+    /// 不能用享元模式
+
+    var leftBlock = new BlockPackage.Block({
+        box:leftBox,
+        blockIndex:1,
+        isBase :false
     });
 
-    blockLeft.addWatching('touchstart', function(e){
+    leftBlock.addWatching('touchstart', function(e){
+        //alert("ddddd");
         console.log("resize lit screen");
-        blockLeft.firstTouchPosition = {
-            xLength : e.changedTouches[0].clientX - this.screenObj.x,
-            yLength : e.changedTouches[0].clientY - this.screenObj.y
+        leftBlock.firstTouchPosition = {
+            xLength : e.changedTouches[0].clientX - this.box.x,
+            yLength : e.changedTouches[0].clientY - this.box.y
         };
-        // this.screenObj.resetSize((cvs.width-doublePadding*2),(cvs.width-doublePadding*2));
+        this.box.resetSize({
+            width:cvs.width-doublePadding*2,
+            height:cvs.width-doublePadding*2
+        });
     });
 
-    blockLeft.addWatching('touchmove', function (e) {
+    leftBlock.addWatching('touchmove', function (e) {
         console.log('addWatching for moving');
-        // this.screenObj.width = (cvs.width-doublePadding*2);
-        // this.screenObj.height = (cvs.width-doublePadding*2);
 
-        this.screenObj.x = e.changedTouches[0].clientX - blockLeft.firstTouchPosition.xLength;//blockLeft.screenObj.width / 2;
-        this.screenObj.y = e.changedTouches[0].clientY - blockLeft.firstTouchPosition.yLength;//blockLeft.screenObj.height / 2;
-        // blockLeft.cornerX = e.changedTouches[0].clientX - blockLeft.width / 2;
-        // blockLeft.cornerY = e.changedTouches[0].clientY - blockLeft.height / 2;
+        this.box.x = e.changedTouches[0].clientX - leftBlock.firstTouchPosition.xLength;
+        this.box.y = e.changedTouches[0].clientY - leftBlock.firstTouchPosition.yLength;
     });
 
-    blockLeft.addWatching("touchend", function(e){
+    leftBlock.addWatching("touchend", function(e){
         console.log("courage lit screen");
-        this.screenObj.x = doublePadding;
-        this.screenObj.y = cvs.width;
-        this.screenObj.width = (cvs.width-doublePadding*2)/3;
-        this.screenObj.height = (cvs.width-doublePadding*2)/3;
+        var x = e.changedTouches[0].clientX - leftBlock.firstTouchPosition.xLength,
+            y = e.changedTouches[0].clientY - leftBlock.firstTouchPosition.yLength;
+        var arr = baseBlock.matchPosition({
+            block:this,
+            poi:{
+                x: e.changedTouches[0].clientX,
+                y: e.changedTouches[0].clientY
+            }});
+        if(arr && arr.length > 0){
+            baseBlock.putBlock(arr);
+            return;
+        }
+        this.box.x = doublePadding;
+        this.box.y = cvs.width;
+        this.box.resetSize({
+            width:(cvs.width-doublePadding*2)/1.5,
+            height:(cvs.width-doublePadding*2)/1.5
+        });
     });
 
-    // var blockLeft = new BlockPackage.Block({
+    // var leftBlock = new BlockPackage.Block({
         
     // });
 
-    // var blockLeft = new BlockPackage.Block({
+    // var leftBlock = new BlockPackage.Block({
         
     // });
 

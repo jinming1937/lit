@@ -20,6 +20,24 @@ var Box = function(config){
 
     // this.x += parseInt((config.width - this.width)/2);
     this.resetSize(config);
+    this.blockArray = [];
+    for(var x=0;x<this.pixelx;x++){
+        for(var y=0;y<this.pixely;y++){
+            var cx = (this.pixelWidth + this.border) * x + (this.pixelWidth/2 + this.border),
+                cy = (this.pixelHeight + this.border) * y + (this.pixelHeight/2 + this.border),
+                rx = (this.pixelWidth + this.border) * x + this.border,
+                ry = (this.pixelHeight + this.border) * y + this.border;
+            this.blockArray.push({
+                x:x,
+                y:y,
+                rx:rx, //
+                ry:ry,  //,
+                cx:cx,
+                cy:cy,
+                isUsed:false
+            });
+        }
+    }
 
     this.fillStyle = config.fillStyle || "rgba(212,87,236,0.5)";
     this.strokeStyle = config.strokeStyle || "rgba(127,127,127,1)";
@@ -32,13 +50,15 @@ var Box = function(config){
         for(var i=0;i<this.pixelx+1;i++){
             context.moveTo(this.x + i * (this.pixelWidth + this.border) + this.border,this.y);
             context.lineTo(this.x + i * (this.pixelWidth + this.border) + this.border,this.y + this.pixely * (this.pixelHeight+this.border));
+
         }
         for(var j=0;j<this.pixely+1;j++){
             context.moveTo(this.x + this.border,                                                this.y + j * (this.pixelHeight+this.border));
             context.lineTo(this.x + this.pixelx * (this.pixelWidth + this.border) + this.border,this.y + j * (this.pixelHeight+this.border));
         }
         context.closePath();
-        context.stroke();
+        config.isStroke?context.stroke():"";
+        // this.renderBlock(context);
     };
 };
 Box.prototype.resetSize = function(config){
@@ -63,6 +83,33 @@ Box.prototype.getPositionByPixel = function(x,y){
     };
 };
 
+Box.prototype.fixCurrentPosition = function(poi,x,y){
+    
+    var px = poi.x + x * (this.pixelWidth + this.border) + Math.ceil(this.border/2),
+        py = poi.y + y * (this.pixelWidth + this.border) + Math.ceil(this.border/2);
+    return {
+        x:px,
+        y:py
+    };
+};
+
+Box.prototype.matchPosition = function(posObj){
+    var x = posObj.poi.x,
+        y = posObj.poi.y,
+        hasMatch = false;
+
+    return hasMatch;
+};
+
+Box.prototype.renderBlock = function(context){
+    var o ;
+    this.blockArray.forEach(function(item){
+        context.moveTo(item.rx,item.ry);
+        context.lineTo();
+        context.lineTo();
+        context.lineTo();
+    },this);
+};
 
 Box.prototype.getPixel = function(){
     return {
