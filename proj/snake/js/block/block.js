@@ -77,8 +77,8 @@ Block.prototype.matchPosition = function(posObj){
     posObj.block.matchArray.forEach(function(blItem,blIndex){
         var centerPoi = posObj.block.box.fixCurrentPosition({x:x,y:y},blItem.indexXY.x,blItem.indexXY.y);
         _this.matchArray.forEach(function(_thisItem,_thisIndex){
-            if(Math.abs(_thisItem.centerPoi.x - centerPoi.x) < _this.box.pixelWidth/4 &&
-                Math.abs(_thisItem.centerPoi.y - centerPoi.y) < _this.box.pixelWidth/4){
+            if(Math.abs(_thisItem.centerPoi.x - centerPoi.x) < _this.box.pixelWidth/3 &&
+                Math.abs(_thisItem.centerPoi.y - centerPoi.y) < _this.box.pixelWidth/3){
                     hasMatch = true;
                     _this.hasBlockArray.push(_thisIndex);
                  }else{
