@@ -2,7 +2,7 @@
 
 >* 元素继承结构<br/>
 
-    inherit.js { inheritPrototype ： 提供继承 } 
+    inherit.js { inheritPrototype ： 提供继承 } 
         |
     watch.js { Watch & inherit ： 事件监视（addWatching, removeWatching, fire） }
         ||
@@ -16,16 +16,16 @@
         ||
     tool/*.js { * & inherit }
 
->* 样式注入<br/>
+>* 样式注入<br/>
 
-    cssjs.js { cssjs(Object) : 基础css样式，应分离到业务中去 }
+    cssjs.js { cssjs(Object) : 基础css样式，应分离到业务中去 }
         |
     style.js { 
-        Style(constructor) & setStyle(Function) & baseStyle : 
-        与cssjs中定义的样式结合，并生效到传入的context中 
+        Style(constructor) & setStyle(Function) & baseStyle : 
+        与cssjs中定义的样式结合，并生效到传入的context中 
     }
         |
-    canvasElement.js { style: new Style(className) ：以style属性关联cssjs中定义的样式 }
+    canvasElement.js { style: new Style(className) ：以style属性关联cssjs中定义的样式 }
 
 >* 元素与Frame结合,并处理路由转场<br/>
 
