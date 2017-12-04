@@ -1,3 +1,4 @@
+require('../../outer/combine');
 var Frame = require("./frame"),
     router = require("./router"),
     eventPlug = require("./event"),
@@ -72,27 +73,45 @@ Core.prototype.onPaint = function() {
 
 };
 
+Core.prototype.setSearch = function(obj,isBack){
+    var strUrl = location.href;
+    var search = location.search;
+    if (!isBack) {
+        strUrl += (search? '&':'?') + 'plugin='+obj.cvsName;
+        History.pushState({'plName':obj.cvsName},obj.title || document.title, strUrl);
+    } else {
+        if (search.match(new RegExp('plugin='+obj.cvsName,'g'))) {
+            strUrl = strUrl.replace(new RegExp('plugin='+obj.cvsName,'g'),'');
+        } else {
+
+        }
+        History.back();
+    }
+}
+
 /**
  * 页面展示方法
- * @param {Object} obj
+ * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.show = function(obj) {
     this.beforeShow(obj);
     this.fire("show", obj);
+    this.setSearch(obj,false);
 };
 
 /**
  * 页面转出执行的方法
- * @param {Object} obj
+ * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.hide = function(obj) {
     this.beforeHide(obj);
     this.fire("hide", obj);
+    this.setSearch(obj,true);
 };
 
 /**
  * 页面转入前执行的方法
- * @param {Object} obj
+ * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.beforeShow = function(obj) {
     this.fire("beforeShow", obj);
@@ -100,7 +119,7 @@ Core.prototype.beforeShow = function(obj) {
 
 /**
  * 页面转出前执行的方法
- * @param {Object} obj
+ * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.beforeHide = function(obj) {
     this.fire("beforeHide", obj);

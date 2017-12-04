@@ -50,3 +50,4 @@
 >* tool/*.js { 常用图形 }
 >* outer/*.js { 辅助工具 }
 >* sass/*.scss { 基础样式 }
+>* static/ususlValue.js { 常用数值 }
