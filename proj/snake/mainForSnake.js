@@ -13,19 +13,19 @@ require("../../cvs/outer/onresize");
 if (location.port === "8089") {
     core.router.addRouter({
         index: 0,
-        title: '时钟首页',
+        title: '小指嘎',
         cvsName: "index",
         urlReg: /\/snake\/snindex/
     });
     core.router.addRouter({
         index: 1,
-        title: '经典贪吃蛇',
+        title: '贪吃蛇',
         cvsName: "classical",
         urlReg: /\/snake\/classical/
     });
     core.router.addRouter({
         index: 2,
-        title: '自动贪吃蛇',
+        title: '贪吃蛇',
         cvsName: "prosnake",
         urlReg: /\/snake\/prosnake/
     });
@@ -50,19 +50,19 @@ if (location.port === "8089") {
 } else {
     core.router.addRouter({
         index: 0,
-        title: '时钟首页',
+        title: '小指嘎',
         cvsName: "index",
         urlReg: /\/snake\/(sindex)?/
     });
     core.router.addRouter({
         index: 1,
-        title: '经典贪吃蛇',
+        title: '贪吃蛇',
         cvsName: "classical",
         urlReg: /\/snake\/classical/
     });
     core.router.addRouter({
         index: 2,
-        title: '自动贪吃蛇',
+        title: '贪吃蛇',
         cvsName: "prosnake",
         urlReg: /\/snake\/prosnake/
     });
