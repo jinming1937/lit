@@ -2,7 +2,7 @@
  * 作者：jinming1937@163.com
  */
 console.log("start");
-var core = require("../../cvs/lib/framework/core");
+var core = require("../../cvs/lit");
 require("./js/snIndex");
 require("./js/proStart");
 require("./js/proSnake");

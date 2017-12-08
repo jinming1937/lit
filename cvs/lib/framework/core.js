@@ -29,10 +29,10 @@ function Core() {
         canvas: document.getElementsByClassName("cvs")[0],
         width: document.body.clientWidth,
         height: document.body.clientHeight, //width > height ? width:height
-        getCurrentRouter: function() {
+        getCurrentRouter: function () {
             return _this.currentRouter;
         },
-        device:window.devicePixelRatio
+        device: window.devicePixelRatio
     });
     this.openUrl = "";
     this.historyArray = [];
@@ -42,7 +42,7 @@ function Core() {
  * 初始化
  * 挂载路由信息
  */
-Core.prototype.init = function(_href) {
+Core.prototype.init = function (_href) {
     var _this = this;
     var strUrl = _href || location.href;
     var currentPage = this.router.match(strUrl);
@@ -54,11 +54,16 @@ Core.prototype.init = function(_href) {
         this.frame.clear();
         this.show(currentPage);
         console.log("core show");
-        this.tween.init(currentFrame, function() {
+        this.tween.init(currentFrame, function () {
             /* 转场，清理该页面的element */
             _this.frame.destroyByPage(currentPage.cvsName);
             _this.init(_this.openUrl);
             _this.isExecTween = false;
+            _this.setSearch({
+                title: _this.currentRouter.title,
+                cvsName: _this.currentRouter.cvsName,
+                href: _this.openUrl
+            });
         });
     } else {
         console.log("init error!!!");
@@ -69,68 +74,76 @@ Core.prototype.init = function(_href) {
  * 
  * @return {[type]} [description]
  */
-Core.prototype.onPaint = function() {
+Core.prototype.onPaint = function () {
 
 };
 
-Core.prototype.setSearch = function(obj,isBack){
-    var strUrl = location.href;
-    var search = location.search;
-    if (!isBack) {
-        strUrl += (search? '&':'?') + 'plugin='+obj.cvsName;
-        History.pushState({'plName':obj.cvsName},obj.title || document.title, strUrl);
-    } else {
-        if (search.match(new RegExp('plugin='+obj.cvsName,'g'))) {
-            strUrl = strUrl.replace(new RegExp('plugin='+obj.cvsName,'g'),'');
-        } else {
+Core.prototype.setSearch = function (routerObj) {
+    var strUrl = routerObj.href || location.href;
+    History.pushState({
+        'plName': routerObj.cvsName,
+    }, routerObj.title || document.title, strUrl);
 
-        }
-        History.back();
-    }
+    // if (search) {
+    //     if (search.match(new RegExp('plugin=' + routerObj.cvsName, 'g'))) {
+    //         // History.replaceState({
+    //         //     'plName': routerObj.cvsName
+    //         // }, routerObj.title || document.title, strUrl);
+    //         History.back();
+    //     } else {
+    //         strUrl += '&plugin=' + routerObj.cvsName;
+    //         History.pushState({
+    //             'plName': routerObj.cvsName
+    //         }, routerObj.title || document.title, strUrl);
+    //     }
+    // } else {
+    //     strUrl += '?plugin=' + routerObj.cvsName;
+    //     History.pushState({
+    //         'plName': routerObj.cvsName
+    //     }, routerObj.title || document.title, strUrl);
+    // }
 }
 
 /**
  * 页面展示方法
- * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
+ * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
-Core.prototype.show = function(obj) {
-    this.beforeShow(obj);
-    this.fire("show", obj);
-    this.setSearch(obj,false);
+Core.prototype.show = function (routerObj) {
+    this.beforeShow(routerObj);
+    this.fire("show", routerObj);
 };
 
 /**
  * 页面转出执行的方法
- * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
+ * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
-Core.prototype.hide = function(obj) {
-    this.beforeHide(obj);
-    this.fire("hide", obj);
-    this.setSearch(obj,true);
+Core.prototype.hide = function (routerObj) {
+    this.beforeHide(routerObj);
+    this.fire("hide", routerObj);
 };
 
 /**
  * 页面转入前执行的方法
- * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
+ * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
-Core.prototype.beforeShow = function(obj) {
-    this.fire("beforeShow", obj);
+Core.prototype.beforeShow = function (routerObj) {
+    this.fire("beforeShow", routerObj);
 };
 
 /**
  * 页面转出前执行的方法
- * @param {Object} obj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
+ * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
-Core.prototype.beforeHide = function(obj) {
-    this.fire("beforeHide", obj);
+Core.prototype.beforeHide = function (routerObj) {
+    this.fire("beforeHide", routerObj);
 };
 
 /**
  * 
- * @param  {[type]} obj [description]
+ * @param  {[type]} obj [description] { href:'', title:'' }
  * @return {[type]}     [description]
  */
-Core.prototype.open = function(obj) {
+Core.prototype.open = function (obj) {
     if (this.isExecTween) {
         return;
     }
@@ -141,12 +154,20 @@ Core.prototype.open = function(obj) {
     if (!aimRouter) {
         return;
     }
-    // var visitCvsName = aimRouter.cvsName;
     this.tween.fullWin();
 };
 
 /**
- * 注意： mian 是一个全局的程序入口，所以应该是一个单例
+ * 注意： core 是一个全局的程序入口，所以应该是一个单例
  */
 var core = new Core();
 module.exports = core;
+
+
+
+
+
+/**
+ * <1>页面转场 改变URL ， 插件转场改变 Search
+ * <2>页面转场 Open ,由core管理；插件转场 show,hide, 由frame管理
+ */
