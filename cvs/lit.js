@@ -1,6 +1,6 @@
 
 var core = require('./lib/framework/core');
-// window.lit = window.lit || core;
+window.lit = window.lit || core;
 
 /**
  * TODO

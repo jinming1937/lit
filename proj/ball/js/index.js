@@ -1,29 +1,33 @@
 var core = require("../../../cvs/lib/framework/core"),
-    triangle = require("../../../cvs/lib/tool/triangle"),
-    Circle = require("../../../cvs/lib/tool/circle"),
-    Gctrl = require("../../../cvs/outer/gctrl"),
-    storageCtrl = require("storage-ctrl");
+    // triangle = require("../../../cvs/lib/tool/triangle"),
+    CirclePackage = require("../../../cvs/lib/tool/circle"),
+    Gctrl = require("../../../cvs/outer/gctrl");
+    // storageCtrl = require("storage-ctrl");
 var $data = window.$data;
 core.on("show", "ball", function() {
     var frame = core.frame;
     var screenWidth = core.frame.width;
     var screenHeight = core.frame.height;
-    var thisUser = storageCtrl.getCookieData("BCookieID");
-    var thisStdn = storageCtrl.getCookieData("stdn");
-    console.log("thisUser:" + thisUser);
-    console.log("thisStdn:" + thisStdn);
+    var thisUser = 1;//storageCtrl.getCookieData("BCookieID");
+    var thisStdn = 2;//storageCtrl.getCookieData("stdn");
+    // console.log("thisUser:" + thisUser);
+    // console.log("thisStdn:" + thisStdn);
     //后端输出的数据
-    var sData = JSON.parse($data);
+    $data = {
+        color: 'blue',
+        bcolor: 'blue',
+    };
+    var sData = $data;//JSON.parse($data);
     new Gctrl(frame);
-    var ws = new WebSocket('ws://' + location.host + location.pathname);
+    // var ws = new WebSocket('ws://' + location.host + location.pathname);
 
-    ws.onclose = function(evt) {
-        console.log('WebSocketClosed!');
-    };
+    // ws.onclose = function(evt) {
+    //     console.log('WebSocketClosed!');
+    // };
 
-    ws.onerror = function(evt) {
-        console.log('WebSocketError!');
-    };
+    // ws.onerror = function(evt) {
+    //     console.log('WebSocketError!');
+    // };
     /*
     	todo: 1、 适配机型，不同大小的屏幕如何无缝对战？ 
     		  2、 各自控制各自的按钮，红控红，蓝控蓝
@@ -36,17 +40,17 @@ core.on("show", "ball", function() {
     var data = {};
     data = data || {};
     var canStart;
-    ws.onopen = function() {
-        var dt = {};
-        dt.x = screenWidth / 2;
-        dt.userID = thisUser;
-        dt.roomNum = 0;
-        dt.stdn = thisStdn;
-        dt.action = 'show';
-        ws.send(JSON.stringify(dt));
-    };
+    // ws.onopen = function() {
+    //     var dt = {};
+    //     dt.x = screenWidth / 2;
+    //     dt.userID = thisUser;
+    //     dt.roomNum = 0;
+    //     dt.stdn = thisStdn;
+    //     dt.action = 'show';
+    //     ws.send(JSON.stringify(dt));
+    // };
 
-    var red = new Circle({
+    var red = new CirclePackage.Circle({
         x: data.x || screenWidth / 2,
         y: screenHeight / 6 - 15,
         radius: 15,
@@ -55,7 +59,7 @@ core.on("show", "ball", function() {
         color: sData.color
     });
 
-    var blue = new Circle({
+    var blue = new CirclePackage.Circle({
         x: screenWidth / 2,
         y: screenHeight / 6 * 5 - 15,
         radius: 15,
@@ -84,33 +88,33 @@ core.on("show", "ball", function() {
         dt.roomNum = 0;
         dt.stdn = thisStdn;
         dt.action = "touch";
-        ws.send(JSON.stringify(dt));
+        // ws.send(JSON.stringify(dt));
         console.log("send message:" + dt.x);
         //cancelAnimationFrame(timeTip);
     });
 
-    ws.onmessage = function(evt) {
-        data = typeof evt.data === "string" ? JSON.parse(evt.data) : evt.data;
-        if (Math.pow(aimBall.x - red.x, 2) + Math.pow(aimBall.y - red.y, 2) - Math.pow(aimBall.radius + red.radius, 2) <= 0) {
-            red.x = red.x;
-        } else {
-            red.x = screenWidth - data.x;
-        }
+    // ws.onmessage = function(evt) {
+    //     data = typeof evt.data === "string" ? JSON.parse(evt.data) : evt.data;
+    //     if (Math.pow(aimBall.x - red.x, 2) + Math.pow(aimBall.y - red.y, 2) - Math.pow(aimBall.radius + red.radius, 2) <= 0) {
+    //         red.x = red.x;
+    //     } else {
+    //         red.x = screenWidth - data.x;
+    //     }
 
-        if (!canStart && data.length === 2) {
-            canStart = data.canStart;
-            setTimeout(function() {
-                start();
-            }, 1000);
-        }
-        //blue.x = data.x || blue.x;
-        //blue.y = data.y || blue.y;
-        console.log("receive message:" + data.x);
-    };
+    //     if (!canStart && data.length === 2) {
+    //         canStart = data.canStart;
+    //         setTimeout(function() {
+    //             start();
+    //         }, 1000);
+    //     }
+    //     //blue.x = data.x || blue.x;
+    //     //blue.y = data.y || blue.y;
+    //     console.log("receive message:" + data.x);
+    // };
 
 
     //球
-    var aimBall = new Circle({
+    var aimBall = new CirclePackage.Circle({
         x: screenWidth / 2,
         y: screenHeight / 2,
         radius: 16,

@@ -135,8 +135,8 @@ module.exports = function(grunt) {
                 entry: {
                     // lit: "./cvs/lit",
                     mainForSnake: "./proj/snake/mainForSnake",
-                    mainForLego: './proj/lego/mainForLego'
-                        // mainForBall: "./proj/ball/mainForBall"
+                    mainForLego: './proj/lego/mainForLego',
+                    mainForBall: "./proj/ball/mainForBall"
                 },
                 output: {
                     path: "dist/js/",
