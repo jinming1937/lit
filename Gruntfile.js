@@ -141,6 +141,8 @@ module.exports = function(grunt) {
                 output: {
                     path: "dist/js/",
                     filename: "[name].js",
+                    chunkFilename: "[name].js",
+                    publicPath: "../js/" //生成的html里的引用路径用 publicPath
                 },
                 plugins: [
                     bannerPlugin,
@@ -222,6 +224,12 @@ module.exports = function(grunt) {
                         //base:'xiaozhiga.com'  //??
                         //base: '192.168.30.90'
                 }
+            },
+            serverTwo: {
+                options: {
+                    port: 8090,
+                    base: ''
+                }
             }
         },
         /* open new link */
@@ -242,7 +250,8 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // sco
-    grunt.registerTask('sco', ['connect', 'open', 'watch']);
+    grunt.registerTask('sco', ['connect:server', 'watch']);//'open',
+    grunt.registerTask('se', ['connect:serverTwo', 'watch']);
 
     grunt.registerTask('cla', 'clean:all');
 

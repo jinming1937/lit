@@ -1,13 +1,13 @@
 var core = require("../../../cvs/lib/framework/core"),
     // Button = require("../../../cvs/lib/tool/button"),
     RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
-    Gctrl = require("../../../cvs/outer/gctrl"),
-    grid = require("../../../cvs/outer/grid"),
+    // Gctrl = require("../../../cvs/outer/gctrl"),
+    // grid = require("../../../cvs/outer/grid"),
     Clock = require("./clock"),
     FpsWordPackage = require("../../../cvs/lib/tool/word"),
     // Fps = require("../../../cvs/outer/fps"),
     Animation = require("../../../cvs/outer/animation");
-core.on("show", "index", function(cvs) {
+core.on("show", "index", function (cvs) {
     // new Gctrl(core.frame);
     var animate = new Animation();
     var RoundRect = RoundRectPackage.RoundedRect;
@@ -31,12 +31,15 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "windmill"
     });
-    windmill.ontouchend = function(e) {
+    windmill.ontouchend = function (e) {
         console.log("go windmill");
         animate.clearAnimation(flagAnimate);
-        core.open({
-            href: urlPath + "snake/windmill.html"
-        });
+        require.ensure('./windmill', function () {
+            require('./windmill');
+            core.open({
+                href: urlPath + "snake/windmill.html"
+            });
+        }, 'preWindmill');
     };
 
     var moving = new RoundRect({
@@ -49,18 +52,18 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "move"
     });
-    moving.ontouchmove = function(e) {
+    moving.ontouchmove = function (e) {
         console.log('moving');
     };
 
-    moving.addWatching('touchmove', function(e) {
+    moving.addWatching('touchmove', function (e) {
         // console.log(e);
         console.log('addWatching for moving');
         moving.cornerX = e.changedTouches[0].clientX - moving.width / 2;
         moving.cornerY = e.changedTouches[0].clientY - moving.height / 2;
     });
 
-    moving.addWatching('touchend', function(e) {
+    moving.addWatching('touchend', function (e) {
         console.log('moved');
     });
 
@@ -74,12 +77,15 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "snake"
     });
-    snakeButton.addWatching('touchend', function() {
+    snakeButton.addWatching('touchend', function () {
         console.log("hahaha");
         animate.clearAnimation(flagAnimate);
-        core.open({
-            href: urlPath + "snake/prosnake.html"
-        });
+        require.ensure(['./proSnake'],function() {
+            require('./proSnake');
+            core.open({
+                href: urlPath + "snake/prosnake.html"
+            });
+        }, 'preProsnake');
     }, false);
 
     var snakeAuto = new RoundRect({
@@ -92,11 +98,14 @@ core.on("show", "index", function(cvs) {
         cornerRadius: 8,
         fillText: "snake-auto"
     });
-    snakeAuto.ontouchend = function(e) {
+    snakeAuto.ontouchend = function (e) {
         animate.clearAnimation(flagAnimate);
-        core.open({
-            href: urlPath + "snake/classical.html"
-        });
+        require.ensure(['./proStart'],function() {
+            require('./proStart');// 如果不在此require一下， 加载的代码不会执行
+            core.open({
+                href: urlPath + "snake/classical.html"
+            });
+        }, 'preClassical');
     };
     var fpsWord = new FpsWord({
         className: 'fps',
@@ -105,9 +114,9 @@ core.on("show", "index", function(cvs) {
         word: 'fps:60'
     });
     //core.frame.reRender();
-    var flagAnimate = animate.setAnimation(function() {
+    var flagAnimate = animate.setAnimation(function () {
         core.frame.reRender();
-    }, function(fps) {
-        fpsWord.word = 'fps:'+fps;
+    }, function (fps) {
+        fpsWord.word = 'fps:' + fps;
     }, 1000);
 });
