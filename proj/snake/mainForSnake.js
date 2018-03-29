@@ -4,10 +4,10 @@
 console.log("start");
 var core = require("../../cvs/lit");
 require("./js/snIndex");
-// require("./js/proStart");
-// require("./js/proSnake");
+require("./js/proStart");
+require("./js/proSnake");
 require("./js/block");
-// require("./js/windmill");
+require("./js/windmill");
 require("./js/nineBalls");
 require("../../cvs/outer/onresize");
 if (location.port === "8089") {

@@ -207,7 +207,7 @@ Frame.prototype.fire = function(e) {
                     clientY: e.changedTouches[0].clientY,
                     type: e.type.toLowerCase()
                 });
-            /* 假设requestAnimationFrame 每分钟执行60次，人眼无法分辨，所以这个 this.reRender可以不用重复调用，完全托管给requestAnimationFrame */
+            /* 假设requestAnimationFrame 每miao钟执行60次，人眼无法分辨，所以这个 this.reRender可以不用重复调用，完全托管给requestAnimationFrame */
             // _this.catchElementTouchMove ? this.reRender() : "";
             break;
         case "touchend":

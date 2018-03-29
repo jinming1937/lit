@@ -1,10 +1,17 @@
 var core = require("../../../cvs/lib/framework/core"),
     // triangle = require("../../../cvs/lib/tool/triangle"),
     CirclePackage = require("../../../cvs/lib/tool/circle"),
-    Gctrl = require("../../../cvs/outer/gctrl");
+    Gctrl = require("../../../cvs/outer/gctrl"),
     // storageCtrl = require("storage-ctrl");
+    // Button = require("../../../cvs/lib/tool/button"),
+    // Gctrl = require("../../../cvs/outer/gctrl"),
+    // grid = require("../../../cvs/outer/grid"),
+    FpsWordPackage = require("../../../cvs/lib/tool/word"),
+    // Fps = require("../../../cvs/outer/fps"),
+    Animation = require("../../../cvs/outer/animation");
 var $data = window.$data;
 core.on("show", "ball", function() {
+    var FpsWord = FpsWordPackage.DrawWords;
     var frame = core.frame;
     var screenWidth = core.frame.width;
     var screenHeight = core.frame.height;
@@ -214,5 +221,21 @@ core.on("show", "ball", function() {
             start();
         });
     }
+
+    var animate = new Animation();
+
+    var fpsWord = new FpsWord({
+        className: 'fps',
+        x: 30,
+        y: 15,
+        word: 'fps:60'
+    });
+    var flagAnimate = animate.setAnimation(function () {
+        core.frame.reRender();
+    }, function (fps) {
+        fpsWord.word = 'fps:' + fps;
+    }, 1000);
+
+
 
 });
