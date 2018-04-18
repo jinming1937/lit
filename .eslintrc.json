@@ -24,9 +24,6 @@
         "valid-typeof": "warn",
         "default-case":"warn",
         "no-prototype-builtins":"warn",
-        /* new : off warn error*/
-        /* 字符串双引号 */
-        //"quotes": ["warn", "double"],
         "strict": "warn",
         "eqeqeq": "warn",
         "curly": "warn"
