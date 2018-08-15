@@ -20,7 +20,6 @@ function Four(config) {
     this.drawType = config.drawType || "quadraticCurveTo";
     this.gradientArray = config.gradientArray || [];
     this.createPath = function(context) {
-        console.log(1)
         context.translate(this.x, this.y);
         context.beginPath();
         context.rotate(this.rotateRate);
@@ -40,7 +39,6 @@ Four.prototype.drawCommentLine = function(context) {
     context.save();
     context.lineWidth = 1;
     context.strokeStyle = this.strokeStyle;
-    context.fillStyle = this.fillStyle;
     this.createPath(context);
     if(this.gradientArray.length > 0){
       var grd = context.createRadialGradient(0,0,5,0,0,this.radius + 50);
@@ -48,6 +46,8 @@ Four.prototype.drawCommentLine = function(context) {
         grd.addColorStop(this.gradientArray[i].rate,this.gradientArray[i].color);
       }
       context.fillStyle = grd;
+    } else {
+      context.fillStyle = this.fillStyle;
     }
     context.stroke()
     context.fill();

@@ -41,28 +41,6 @@ core.on("show", "nineballs", function(cvs) {
         fillStyle: "rgba(6,179,60,0.8)"
     });
 
-    // var lb = new FourPackage.Four({
-    //     x: cvs.canvas.width / 4,
-    //     y: cvs.canvas.height / 4 * 3,
-    //     radius: maxRaduisForThree,
-    //     rouNum: 3,
-    //     xRate: 0,
-    //     yRate: 0.3,
-    //     fillStyle: "rgba(6,179,60,0.8)"
-    // });
-
-    // var rb = new FourPackage.Four({
-    //     x: cvs.canvas.width / 4 * 3,
-    //     y: cvs.canvas.height / 4 * 3,
-    //     radius: maxRaduisForThree,
-    //     rouNum: 3,
-    //     xRate: 0,
-    //     yRate: 0.3,
-    //     fillStyle: "rgba(6,179,60,0.8)"
-    // });
-
-
-
     var threeArray = [];
 
     function createThree(num) {
