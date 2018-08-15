@@ -86,9 +86,9 @@ function CanvasELement(config) {
      */
     this.frame.manage(this);
 }
-CanvasELement.prototype.stroke = function(argument) {};
-CanvasELement.prototype.fill = function(argument) {};
-CanvasELement.prototype.createPath = function(argument) {
+CanvasELement.prototype.stroke = function() {};
+CanvasELement.prototype.fill = function() {};
+CanvasELement.prototype.createPath = function() {
     this.frame.cxt.beginPath();
     this.frame.cxt.closePath();
 };

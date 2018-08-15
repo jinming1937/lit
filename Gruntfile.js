@@ -3,7 +3,7 @@
 var webpack = require('webpack');
 //
 module.exports = function (grunt) {
-  'use strict'
+  
 
   //====webpack begin
   var bannerPlugin = new webpack.BannerPlugin(
@@ -225,18 +225,12 @@ module.exports = function (grunt) {
           //base: '192.168.30.90'
         }
       },
-      serverTwo: {
-        options: {
-          port: 8090,
-          base: ''
-        }
-      }
     },
     /* open new link */
     open: {
       kitchen: {
         /* 需要提前配置好host */
-        path: 'http://m.xiaozhiga.com:8089/dist/snake/classical.html'
+        path: 'http://m.lit.com:8089/dist/snake/classical.html'
       }
     }
   });
@@ -251,7 +245,6 @@ module.exports = function (grunt) {
 
   // sco
   grunt.registerTask('sco', ['connect:server', 'watch']);//'open',
-  grunt.registerTask('se', ['connect:serverTwo', 'watch']);
 
   grunt.registerTask('cla', 'clean:all');
 
