@@ -18,7 +18,9 @@ function Four(config) {
     this.fillStyle = config.fillStyle || "rgba(212,87,236,0.5)";
     this.strokeStyle = config.strokeStyle || "rgba(212,87,236,0.5)";
     this.drawType = config.drawType || "quadraticCurveTo";
+    this.gradientArray = config.gradientArray || [];
     this.createPath = function(context) {
+        console.log(1)
         context.translate(this.x, this.y);
         context.beginPath();
         context.rotate(this.rotateRate);
@@ -40,7 +42,14 @@ Four.prototype.drawCommentLine = function(context) {
     context.strokeStyle = this.strokeStyle;
     context.fillStyle = this.fillStyle;
     this.createPath(context);
-    context.stroke();
+    if(this.gradientArray.length > 0){
+      var grd = context.createRadialGradient(0,0,5,0,0,this.radius + 50);
+      for(var i=0,len = this.gradientArray.length;i<len;i++){
+        grd.addColorStop(this.gradientArray[i].rate,this.gradientArray[i].color);
+      }
+      context.fillStyle = grd;
+    }
+    context.stroke()
     context.fill();
     context.restore();
 };

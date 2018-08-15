@@ -119,45 +119,46 @@ core.on("show", "nineballs", function(cvs) {
     var roundRate = 15,
         cirFlag = false;
 
-    var triangle = new TrianglePackage.Triangle({
-        x: 150,
-        y: 150,
-        a: 180,
-        b: 180,
-        c: 100,
-        fillStyle: "rgba(100,100,250,0.8)"
-    });
-    triangle.addWatching("touchmove", function(e) {
-        this.x = e.changedTouches[0].clientX;
-        this.y = e.changedTouches[0].clientY;
-        pointForTriangel.x = this.x;
-        pointForTriangel.y = this.y;
-    });
+    // var triangle = new TrianglePackage.Triangle({
+    //     x: 150,
+    //     y: 150,
+    //     a: 180,
+    //     b: 180,
+    //     c: 100,
+    //     fillStyle: "rgba(100,100,250,0.8)"
+    // });
+    // triangle.addWatching("touchmove", function(e) {
+    //     this.x = e.changedTouches[0].clientX;
+    //     this.y = e.changedTouches[0].clientY;
+    //     pointForTriangel.x = this.x;
+    //     pointForTriangel.y = this.y;
+    // });
 
-    var cir = new CirclePackage.Circle({
-        x: 300,
-        y: 30,
-        radius: 20,
-        fillStyle: "rgba(100,100,250,0.8)",
-        strokeStyle: "rgba(100,100,250,0.8)"
-    });
+    // var cir = new CirclePackage.Circle({
+    //     x: 300,
+    //     y: 30,
+    //     radius: 20,
+    //     fillStyle: "rgba(100,100,250,0.8)",
+    //     strokeStyle: "rgba(100,100,250,0.8)"
+    // });
 
-    var pointForTriangel = new PointPackage.Point({
-        x: 150,
-        y: 150
-    });
+    // var pointForTriangel = new PointPackage.Point({
+    //     x: 150,
+    //     y: 150
+    // });
 
     function updateBall(fpx) {
         rotateRate = (rotateRate + 36 * fpx > 360) ? (360 - rotateRate + 36 * fpx) : rotateRate + 36 * fpx;
         fourArray.rotateRate = rotateRate * Math.PI * 2 / 360;
-        triangle.rotateAngle = rotateRate;
+        // triangle.rotateAngle = rotateRate;
         radius = (radius + roundRate * fpx > maxRaduisForThree) ? (maxRaduisForThree - radius + roundRate * fpx) : radius + roundRate * fpx;
-        if (cir.radius + roundRate * fpx > maxRaduisForThree && cirFlag) {
-            cirFlag = false;
-        } else if (cir.radius - roundRate * fpx <= minRadiusForThree && !cirFlag) {
-            cirFlag = true;
-        }
-        cir.radius = cir.radius + (cirFlag ? 1 : (-1)) * (roundRate * fpx);
+        // if (cir.radius + roundRate * fpx > maxRaduisForThree && cirFlag) {
+        //     cirFlag = false;
+        // } else if (cir.radius - roundRate * fpx <= minRadiusForThree && !cirFlag) {
+        //     cirFlag = true;
+        // }
+        // cir.radius = cir.radius + (cirFlag ? 1 : (-1)) * (roundRate * fpx);
+
         // fourArray.radius = radius;
         // lt.radius = radius;
         // lb.radius = radius;

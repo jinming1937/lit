@@ -9,6 +9,7 @@ require("./js/proSnake");
 require("./js/block");
 require("./js/windmill");
 require("./js/nineBalls");
+require("./js/five");
 require("../../cvs/outer/onresize");
 if (location.port === "8089") {
     core.router.addRouter({
@@ -47,6 +48,12 @@ if (location.port === "8089") {
         cvsName: "nineballs",
         urlReg: /\/snake\/nineballs/
     });
+    core.router.addRouter({
+        index: 5,
+        title: '梅花',
+        cvsName: "five",
+        urlReg: /\/snake\/five/
+    });
 } else {
     core.router.addRouter({
         index: 0,
@@ -83,6 +90,12 @@ if (location.port === "8089") {
         title: '9环',
         cvsName: "nineballs",
         urlReg: /\/snake\/nineballs/
+    });
+    core.router.addRouter({
+      index: 5,
+      title: '梅花',
+      cvsName: "five",
+      urlReg: /\/snake\/five/
     });
 }
 

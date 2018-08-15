@@ -202,8 +202,9 @@ module.exports = function (grunt) {
       proj: {
         files: [
           'cvs/sass/*.scss',
-          // 'proj/**/*.scss',
-          // 'cvs/**/*.js',
+          'proj/**/*.scss',
+          'cvs/**/*.js',
+          'proj/**/*.js',
         ],
         tasks: [
           // 'jshint:lit',
@@ -211,6 +212,7 @@ module.exports = function (grunt) {
           // 'cssmin:snake',
           // 'sass:ball',
           // 'cssmin:ball'
+          'webpack:lit'
         ]
       }
     },
