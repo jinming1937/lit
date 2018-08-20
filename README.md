@@ -62,10 +62,8 @@
 >* 代码结构整理 -> cvs/README.md
 #### 时间：2017-09-28
 >* 解决文字丢失bug：frame.js 重写fillText方法时, text 参数丢失
-
 #### 时间：2017-09-05
 >* 加入超级抗锯齿:重写 context 的画图方法，跟据浏览器device来成比例计算出 x, y  width ,height等
-
 #### 时间：2017-06-05
 >* 优化animation，提供fps，修正以前计算的fps逻辑
 >* 优化众多页面的fps调用
@@ -73,11 +71,9 @@
 >* 添加四叶草，和风车类似
 >* 砍掉lib/config.js,剥离tween.js 转场
 >* 添加转场动画管理库：准备使用基本／扩展的图形进行可扩展个性化转场
-
 #### 时间：2017-05-12
 >* 添加风车
 >* 更新animation.js 修正传给回调函数的time
-
 #### 时间：2017-05-01
 >* 解决addWatching 或者 ontouchmove= 添加事件的时候会卡顿问题
 >   * 原因：更新了继承方式（inherit＋call），去掉了元素构造函数原生的ontouch等事件，导致frame.js
