@@ -1,6 +1,6 @@
 // 全局挂载
 
-require('./history');
+// require('./history');
 // 事件
 // require('./');
 // window.his = his;

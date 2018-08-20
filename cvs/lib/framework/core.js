@@ -1,8 +1,9 @@
-require('../../outer/combine');
+// require('../../outer/combine');
 var Frame = require("./frame"),
-    router = require("./router"),
-    eventPlug = require("./event"),
-    Tween = require("./tween");
+  router = require("./router"),
+  eventPlug = require("./event"),
+  Animation = require('../../outer/animation'),
+  Tween = require("./tween");
 
 /**
  * todo:
@@ -17,25 +18,35 @@ var Frame = require("./frame"),
  * Core
  */
 function Core() {
-    //
-    eventPlug.call(this);
-    var _this = this;
-    /* 防止转场动画时，重复点击跳转页面按钮，重复执行转场 */
-    this.isExecTween = false;
-    this.collection = {};
-    this.router = router;
-    this.tween = new Tween();
-    this.frame = new Frame({
-        canvas: document.getElementsByClassName("cvs")[0],
-        width: document.body.clientWidth,
-        height: document.body.clientHeight, //width > height ? width:height
-        getCurrentRouter: function () {
-            return _this.currentRouter;
-        },
-        device: window.devicePixelRatio
-    });
-    this.openUrl = "";
-    this.historyArray = [];
+  //
+  eventPlug.call(this);
+  var _this = this;
+  /* 防止转场动画时，重复点击跳转页面按钮，重复执行转场 */
+  this.isExecTween = false;
+  this.collection = {};
+  this.router = router;
+  this.animate = new Animation();
+  this.tween = new Tween();
+  this.frame = new Frame({
+    canvas: document.getElementsByClassName("cvs")[0],
+    width: document.body.clientWidth,
+    height: document.body.clientHeight, //width > height ? width:height
+    getCurrentRouter: function () {
+      return _this.currentRouter;
+    },
+    device: window.devicePixelRatio
+  });
+  this.openUrl = "";
+  this.historyArray = [];
+  this.byHis = false;
+  window.addEventListener("popstate", function (e) {
+    var state = e.state;
+    this.byHis = true;
+    // 跳转
+    // _this.init(window.location.href);
+    // state.plName
+    _this.open({ href: window.location.href }, this.byHis);
+  });
 }
 
 /**
@@ -43,31 +54,31 @@ function Core() {
  * 挂载路由信息
  */
 Core.prototype.init = function (_href) {
-    var _this = this;
-    var strUrl = _href || location.href;
-    var currentPage = this.router.match(strUrl);
-    this.currentRouter = currentPage;
-    if (currentPage) {
-        //todo
-        var currentFrame = this.frame;
-        currentPage.cvs = currentFrame;
-        this.frame.clear();
-        this.show(currentPage);
-        console.log("core show");
-        this.tween.init(currentFrame, function () {
-            /* 转场，清理该页面的element */
-            _this.frame.destroyByPage(currentPage.cvsName);
-            _this.init(_this.openUrl);
-            _this.isExecTween = false;
-            _this.setSearch({
-                title: _this.currentRouter.title,
-                cvsName: _this.currentRouter.cvsName,
-                href: _this.openUrl
-            });
-        });
-    } else {
-        console.log("init error!!!");
-    }
+  var _this = this;
+  var strUrl = _href || location.href;
+  var currentPage = this.router.match(strUrl);
+  this.currentRouter = currentPage;
+  if (currentPage) {
+    //todo
+    var currentFrame = this.frame;
+    currentPage.cvs = currentFrame;
+    this.frame.clear();
+    this.show(currentPage);
+    console.log("core show");
+    this.tween.init(currentFrame, function () {
+      /* 转场，清理该页面的element */
+      _this.frame.destroyByPage(currentPage.cvsName);
+      _this.init(_this.openUrl);
+      _this.isExecTween = false;
+      _this.setSearch({
+        title: _this.currentRouter.title,
+        cvsName: _this.currentRouter.cvsName,
+        href: _this.openUrl
+      });
+    });
+  } else {
+    console.log("init error!!!");
+  }
 };
 
 /**
@@ -79,29 +90,35 @@ Core.prototype.onPaint = function () {
 };
 
 Core.prototype.setSearch = function (routerObj) {
-    var strUrl = routerObj.href || location.href;
-    History.pushState({
-        'plName': routerObj.cvsName,
+  var strUrl = routerObj.href || location.href;
+  if (this.byHis) {
+    // history.replaceState({
+    //   'plName': routerObj.cvsName,
+    // }, routerObj.title || document.title, strUrl);
+  } else {
+    history.pushState({
+      'plName': routerObj.cvsName,
     }, routerObj.title || document.title, strUrl);
+  }
 
-    // if (search) {
-    //     if (search.match(new RegExp('plugin=' + routerObj.cvsName, 'g'))) {
-    //         // History.replaceState({
-    //         //     'plName': routerObj.cvsName
-    //         // }, routerObj.title || document.title, strUrl);
-    //         History.back();
-    //     } else {
-    //         strUrl += '&plugin=' + routerObj.cvsName;
-    //         History.pushState({
-    //             'plName': routerObj.cvsName
-    //         }, routerObj.title || document.title, strUrl);
-    //     }
-    // } else {
-    //     strUrl += '?plugin=' + routerObj.cvsName;
-    //     History.pushState({
-    //         'plName': routerObj.cvsName
-    //     }, routerObj.title || document.title, strUrl);
-    // }
+  // if (search) {
+  //     if (search.match(new RegExp('plugin=' + routerObj.cvsName, 'g'))) {
+  //         // History.replaceState({
+  //         //     'plName': routerObj.cvsName
+  //         // }, routerObj.title || document.title, strUrl);
+  //         History.back();
+  //     } else {
+  //         strUrl += '&plugin=' + routerObj.cvsName;
+  //         History.pushState({
+  //             'plName': routerObj.cvsName
+  //         }, routerObj.title || document.title, strUrl);
+  //     }
+  // } else {
+  //     strUrl += '?plugin=' + routerObj.cvsName;
+  //     History.pushState({
+  //         'plName': routerObj.cvsName
+  //     }, routerObj.title || document.title, strUrl);
+  // }
 }
 
 /**
@@ -109,8 +126,8 @@ Core.prototype.setSearch = function (routerObj) {
  * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.show = function (routerObj) {
-    this.beforeShow(routerObj);
-    this.fire("show", routerObj);
+  this.beforeShow(routerObj);
+  this.fire("show", routerObj);
 };
 
 /**
@@ -118,8 +135,8 @@ Core.prototype.show = function (routerObj) {
  * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.hide = function (routerObj) {
-    this.beforeHide(routerObj);
-    this.fire("hide", routerObj);
+  this.beforeHide(routerObj);
+  this.fire("hide", routerObj);
 };
 
 /**
@@ -127,7 +144,8 @@ Core.prototype.hide = function (routerObj) {
  * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.beforeShow = function (routerObj) {
-    this.fire("beforeShow", routerObj);
+  this.animate.clearAnimation();
+  this.fire("beforeShow", routerObj);
 };
 
 /**
@@ -135,7 +153,7 @@ Core.prototype.beforeShow = function (routerObj) {
  * @param {Object} routerObj { index: 0, title:'xxxx',cvsName: "index", urlReg: /\/snake\/snindex/ }
  */
 Core.prototype.beforeHide = function (routerObj) {
-    this.fire("beforeHide", routerObj);
+  this.fire("beforeHide", routerObj);
 };
 
 /**
@@ -143,18 +161,19 @@ Core.prototype.beforeHide = function (routerObj) {
  * @param  {[type]} obj [description] { href:'', title:'' }
  * @return {[type]}     [description]
  */
-Core.prototype.open = function (obj) {
-    if (this.isExecTween) {
-        return;
-    }
-    this.isExecTween = true;
-    var _href = obj.href;
-    this.openUrl = _href;
-    var aimRouter = this.router.match(_href);
-    if (!aimRouter) {
-        return;
-    }
-    this.tween.fullWin();
+Core.prototype.open = function (obj, byHis) {
+  this.byHis = byHis || false;
+  if (this.isExecTween) {
+    return;
+  }
+  this.isExecTween = true;
+  var _href = obj.href;
+  this.openUrl = _href;
+  var aimRouter = this.router.match(_href);
+  if (!aimRouter) {
+    return;
+  }
+  this.tween.fullWin();
 };
 
 /**
