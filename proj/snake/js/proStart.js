@@ -5,8 +5,7 @@ var core = require("../../../cvs/lib/framework/core"),
   RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
   // Button = require("../../../cvs/lib/tool/button"),
   // Fps = require("../../../cvs/outer/fps"),
-  FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  Animation = require("../../../cvs/outer/animation");
+  FpsWordPackage = require("../../../cvs/lib/tool/word");
 // "../../../outer/gctrl"
 // "../../../outer/hand"
 core.on("show", "classical", function () {

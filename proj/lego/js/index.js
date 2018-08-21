@@ -1,7 +1,6 @@
 var core = require("../../../cvs/lib/framework/core"),
   // Fps = require("../../../cvs/outer/fps"),
   FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  Animation = require("../../../cvs/outer/animation"),
   ScreenPackage = require("./screen");
 var animate = core.animate;
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');

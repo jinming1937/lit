@@ -3,8 +3,7 @@ var core = require("../../../cvs/lib/framework/core"),
   BoxPackage = require("./block/box"),
   BlockPackage = require("./block/block"),
   grid = require("../../../cvs/outer/grid"),
-  FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  Animation = require("../../../cvs/outer/animation");
+  FpsWordPackage = require("../../../cvs/lib/tool/word");
 core.on("show", "block", function (cvs) {
   console.log(cvs);
   var animate = core.animate;

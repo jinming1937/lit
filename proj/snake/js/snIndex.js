@@ -4,9 +4,8 @@ var core = require("../../../cvs/lib/framework/core"),
   // Gctrl = require("../../../cvs/outer/gctrl"),
   // grid = require("../../../cvs/outer/grid"),
   Clock = require("./clock"),
-  FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  // Fps = require("../../../cvs/outer/fps"),
-  Animation = require("../../../cvs/outer/animation");
+  FpsWordPackage = require("../../../cvs/lib/tool/word");
+// Fps = require("../../../cvs/outer/fps"),
 core.on("show", "index", function (cvs) {
   // new Gctrl(core.frame);
   var animate = core.animate;

@@ -2,7 +2,6 @@ var core = require("../../../cvs/lib/framework/core"),
   RoundRectPackage = require("../../../cvs/lib/tool/roundRect"),
   Fps = require("../../../cvs/outer/fps"),
   FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  Animation = require("../../../cvs/outer/animation"),
   WindmillPackage = require("./nineBalls/wind");
 var animate = core.animate;
 var urlPath = location.origin + (location.port === '8089' ? '/dist/' : '/mb/');

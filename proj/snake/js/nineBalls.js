@@ -1,6 +1,5 @@
 var core = require("../../../cvs/lib/framework/core"),
   FpsWordPackage = require("../../../cvs/lib/tool/word"),
-  Animation = require("../../../cvs/outer/animation"),
   TrianglePackage = require("../../../cvs/lib/tool/triangle"),
   CirclePackage = require("../../../cvs/lib/tool/circle"),
   ScreenPackage = require("../../../cvs/lib/tool/screen"),
