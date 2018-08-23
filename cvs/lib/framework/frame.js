@@ -38,15 +38,15 @@ Frame.prototype.eventCtrl = function () {
   var _this = this;
   _this.catchElementTouchMove = null;
   _this.canvas.addEventListener("click", function (e) {
-    console.log("click");
-    console.log("x:" + e.clientX + ",y:" + e.clientY);
+    // console.log("click");
+    // console.log("x:" + e.clientX + ",y:" + e.clientY);
     _this.fire(e);
     isTencent ? e.preventDefault() : "";
   }, useCapture);
 
   _this.canvas.addEventListener("touchstart", function (e) {
-    console.log("touch");
-    console.log("x:" + e.touches[0].clientX + ",y:" + e.touches[0].clientY);
+    // console.log("touch");
+    // console.log("x:" + e.touches[0].clientX + ",y:" + e.touches[0].clientY);
     _this.fire(e);
     isTencent ? e.preventDefault() : "";
   }, useCapture);
@@ -327,8 +327,10 @@ Frame.prototype.destroyByPage = function (page) {
  * <2> : 这里应该是策略模式,但是由于reRender用elementArray集结了一组工具元素，所以，这里会多少有点耦合，比如某些工具元素不需要画出来，有些需要画两次（享元模式）
  *          所以，还应该抽象一个方法draw出来，用这个方法来执行针对于单独某个工具元素的draw，用reRender来管理这个当前页面的对象及其所需要draw的次数
  * <3> : 不用做双缓冲，可否用离屏canvas 优化？
+ * <4> : 先new的元素先画出来这是不妥的，应该默认一个zindex，没有默认相同，是0，想要层级的时候需要业务手动加
  * DONE:
  * <1> : 2017-03-16,21:05
+ * <4> : 元素的顺序不应该更改，不过渲染的顺序应该可控:zindex排序
  */
 Frame.prototype.reRender = function () {
   var _this = this;
@@ -336,7 +338,10 @@ Frame.prototype.reRender = function () {
   var currentRouter = _this.getCurrentRouter();
   // var str = "";
   //这是个问题： 先new的元素 ，先画出来
-  this.elementArray.forEach(function (item, index) {
+
+  this.elementArray.sort(function (first, next) {
+    return (first.element.zindex || 0) > (next.element.zindex || 0);// -, 0, +
+  }).forEach(function (item, index) {
     if (currentRouter.cvsName === item.page) {
       _this.cxt.save();
       // str += item.element.constructor.name + "|";

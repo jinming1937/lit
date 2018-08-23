@@ -96,6 +96,12 @@ Core.prototype.setSearch = function (routerObj) {
     //   'plName': routerObj.cvsName,
     // }, routerObj.title || document.title, strUrl);
   } else {
+    /**
+     * todo 1、去history栈里搜索历史，如果没有则pushState, 如果有，则go() 
+     * back open goto 
+     * 
+     */
+
     history.pushState({
       'plName': routerObj.cvsName,
     }, routerObj.title || document.title, strUrl);

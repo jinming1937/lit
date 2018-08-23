@@ -35,6 +35,8 @@ core.on("show", "five", function (cvs) {
     // fillStyle: "rgba(201,124,209,0.8)"
   });
 
+  // var fourArray = new test(width, height).render();
+
   var rotateRate = 0;
   var radius = 0;
   var roundRate = 15,
@@ -76,3 +78,27 @@ core.on("show", "five", function (cvs) {
   }
   star();
 });
+// class test {
+//   constructor(width, height) {
+//     this.width = width
+//     this.height = height;
+//   }
+//   render() {
+//     const arr = [
+//       { rate: 0, color: '#8d0bc2' },
+//       { rate: 0.7, color: '#cd85f1' },
+//       { rate: 1, color: '#debef3' },
+//     ];
+//     return (
+//       <FourPackage.Four
+//         x={this.width / 2}
+//         y={this.height / 2}
+//         radius={40}
+//         rouNum={5}
+//         xRate={0.1}
+//         yRate={0.5}
+//         gradientArray={arr}
+//       />
+//     )
+//   }
+// }
