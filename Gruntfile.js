@@ -3,7 +3,7 @@
 var webpack = require('webpack');
 //
 module.exports = function (grunt) {
-  
+
 
   //====webpack begin
   var bannerPlugin = new webpack.BannerPlugin(
@@ -193,7 +193,8 @@ module.exports = function (grunt) {
       },
       lego: {
         files: [
-          { expand: true, cwd: 'proj/lego/', src: ['*.html'], dest: '<%= meta.distPath %>lego/' }
+          { expand: true, cwd: 'proj/lego/', src: ['*.html'], dest: '<%= meta.distPath %>lego/' },
+          { expand: true, cwd: 'proj/lego/img', src: ['*.png', '*.jpg'], dest: '<%= meta.distPath %>lego/img' }
         ]
       }
     },

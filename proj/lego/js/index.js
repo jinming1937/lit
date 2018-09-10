@@ -30,9 +30,9 @@ core.on("show", "index", function (cvs) {
     }, 500);
   }
 
-  screen = new ScreenPackage.Screen({
-    fillStyle: "#000000"
-  });
+  // screen = new ScreenPackage.Screen({
+  //   fillStyle: "#000000"
+  // });
 
   fpsWord = new FpsWordPackage.DrawWords({
     className: 'fps',
@@ -77,9 +77,9 @@ core.on("show", "index", function (cvs) {
     strokeStyle: '#FFFFFF'
   });
 
-  screen.addWatching('touchmove', function (e) {
-    console.log('addWatching for moving', e);
-  });
+  // screen.addWatching('touchmove', function (e) {
+  //   console.log('addWatching for moving', e);
+  // });
 
   starGame();
 });
