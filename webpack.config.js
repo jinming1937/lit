@@ -14,9 +14,12 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
+      template: './proj/snake/snindex.html',
       title: 'Development'
     })
   ],
+  mode: 'development',
+  // mode: 'production',
   output: {
     filename: 'mainForSnake.js',
     path: absulatePath
@@ -33,9 +36,14 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
-          'scss-loader',
-          'css-loader',
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
+          { loader: 'sass-loader' }
         ]
       }
     ]

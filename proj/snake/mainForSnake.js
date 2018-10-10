@@ -2,10 +2,6 @@
  * 作者：jinming1937@163.com
  */
 require('./main.scss');
-// import './main.scss';
-// require('./test.css');
-// require('./main.js');
-// require('../../cvs/sass/base.scss');
 
 //npm install node-sass --save-dev 
 console.log("start");
