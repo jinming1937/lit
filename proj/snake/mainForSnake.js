@@ -14,12 +14,12 @@ require("./js/windmill");
 require("./js/nineBalls");
 require("./js/five");
 require("../../cvs/outer/onresize");
-if (location.port === "8089") {
+if (location.port === "8080") {
   core.router.addRouter({
     index: 0,
     title: '小指嘎',
     cvsName: "index",
-    urlReg: /\/snake\/snindex/
+    urlReg: /(\/snake\/snindex)?/
   });
   core.router.addRouter({
     index: 1,
