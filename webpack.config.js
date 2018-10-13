@@ -36,13 +36,10 @@ module.exports = {
   // mode: 'development',
   mode: 'production',
   output: {
-    // filename: 'mainForSnake.js',
-    path: absulatePath,
-
     filename: '[name].js',
-    // path: path.resolve(__dirname, '../dist/hotel/' + branch),
+    path: absulatePath,
     chunkFilename: '[name].js',
-    // publicPath: '//' + publicPath + '/' + branch,
+    publicPath: path.resolve(__dirname, '../dist/js/'),
     sourceMapFilename: '[file].map',
   },
   module: {

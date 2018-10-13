@@ -3,6 +3,7 @@ node_modules
 .DS_Store
 .project
 .vscode
+.uglify
 dist
 build
 backup
