@@ -24,7 +24,7 @@ module.exports = {
     filename: '[name].js',
     path: absulatePath,
     chunkFilename: '[name].js',
-    publicPath: absulatePath, //
+    // publicPath: absulatePath, //
     sourceMapFilename: '[file].map',
   },
   module: {
