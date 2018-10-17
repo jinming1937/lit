@@ -15,7 +15,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: './proj/snake/snindex.html',
-      title: 'Development'
+      title: '小指嘎'
     }),
   ],
   mode: 'development',
@@ -23,8 +23,8 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: absulatePath,
-    // chunkFilename: '[name].js',
-    // publicPath: path.resolve(__dirname, '../dist/js/'),
+    chunkFilename: '[name].js',
+    publicPath: absulatePath, //
     sourceMapFilename: '[file].map',
   },
   module: {
