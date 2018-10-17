@@ -1,11 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const FastUglifyJsPlugin = require('fast-uglifyjs-plugin');
-
-
 const absulatePath = path.resolve(__dirname, 'dist');
-
 
 module.exports = {
   entry: {
@@ -21,25 +17,14 @@ module.exports = {
       template: './proj/snake/snindex.html',
       title: 'Development'
     }),
-    new FastUglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // drop_console: true,
-        drop_debugger: true,
-        drop_console: true,//console
-        // pure_funcs: ['console.log']//移除console
-      },
-      debug: false,
-      // workerNum: os.cpus().length,
-    }),
   ],
-  // mode: 'development',
-  mode: 'production',
+  mode: 'development',
+  // mode: 'production',
   output: {
     filename: '[name].js',
     path: absulatePath,
-    chunkFilename: '[name].js',
-    publicPath: path.resolve(__dirname, '../dist/js/'),
+    // chunkFilename: '[name].js',
+    // publicPath: path.resolve(__dirname, '../dist/js/'),
     sourceMapFilename: '[file].map',
   },
   module: {
