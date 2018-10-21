@@ -26,7 +26,7 @@ function Core() {
   this.collection = {};
   this.router = router;
   this.animate = new Animation();
-  this.tween = new Tween();
+  this.tween = new Tween(this.animate);
   this.frame = new Frame({
     canvas: document.getElementsByClassName("cvs")[0],
     width: document.body.clientWidth,
