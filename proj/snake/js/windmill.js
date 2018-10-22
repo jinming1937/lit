@@ -14,7 +14,8 @@ core.on("show", "windmill", function () {
     rouNum: 6,
     xRate: 0.25,
     yRate: 0.5,
-    bar: 150
+    bar: 150,
+    zindex: 100,
   });
 
   var balls = new WindmillPackage.Windmill({

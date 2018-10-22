@@ -40,9 +40,6 @@ function Tween(animation) {
       if (_this.wid < _this.dic) {
         _this.wid += 2;
         _this.cl(_this.wid);
-        // window.requestAnimationFrame(function () {
-        //   _this.fullWin();
-        // });
       } else {
         _this.animation.clearAnimation();
         _this.wid = 1;

@@ -49,7 +49,8 @@ core.on("show", "index", function (cvs) {
     width: 70,
     height: 30,
     cornerRadius: 8,
-    fillText: "move"
+    fillText: "move",
+    zindex: 100,
   });
   moving.ontouchmove = function (e) {
     console.log('moving');

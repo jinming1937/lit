@@ -21,7 +21,6 @@ function Animation() {
     this.__flag = index || this.__flag;
     arr[this.__flag] = false;
     window.cancelAnimationFrame(this.reqFlag);
-    // console.log(this.reqFlag);
   };
 
   /**
