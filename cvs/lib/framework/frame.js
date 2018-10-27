@@ -45,18 +45,20 @@ Frame.prototype.eventCtrl = function () {
   }, useCapture);
 
   _this.canvas.addEventListener("touchstart", function (e) {
-    // console.log("touch");
+    console.log("touch start");
     // console.log("x:" + e.touches[0].clientX + ",y:" + e.touches[0].clientY);
     _this.fire(e);
     isTencent ? e.preventDefault() : "";
   }, useCapture);
 
   _this.canvas.addEventListener("touchmove", function (e) {
+    console.log("touch move");
     _this.fire(e);
     isTencent ? e.preventDefault() : "";
   }, useCapture);
 
   _this.canvas.addEventListener("touchend", function (e) {
+    console.log("touch end");
     _this.fire(e);
     isTencent ? e.preventDefault() : "";
   }, useCapture);
@@ -157,7 +159,7 @@ Frame.prototype.fire = function (e) {
         cacheElement = item.element;
         /* 此处应该是绑定了move事件的元素才赋值 */
         /* 这也就解释了为什么addWatching 且 ontouchmove= 添加事件的时候不会卡顿，单独添加的时候会卡顿 */
-        if (item.element.hasOwnProperty("ontouchmove") || item.element.allowMove) {
+        if (Object.prototype.hasOwnProperty.call(item.element, "ontouchmove") || item.element.allowMove) {
           cacheIndex = i; //移动这个元素，缓存这个索引
           /* 优化move事件，解决手指move移动很快的时候，"丢失"元素 */
           _this.catchElementTouchMove = item;
@@ -303,7 +305,7 @@ Frame.prototype.hasManageThisPage = function (page) {
  * @param {Object} element 被销毁的元素
  */
 Frame.prototype.destroy = function (element) {
-
+  return this.elementArray.pop(element);
 };
 
 /**
@@ -341,7 +343,7 @@ Frame.prototype.reRender = function () {
 
   this.elementArray.sort(function (first, next) {
     return (first.element.zindex || 0) > (next.element.zindex || 0);// -, 0, +
-  }).forEach(function (item, index) {
+  }).forEach(function (item) {
     if (currentRouter.cvsName === item.page) {
       _this.cxt.save();
       // str += item.element.constructor.name + "|";
@@ -350,11 +352,10 @@ Frame.prototype.reRender = function () {
       _this.cxt.restore();
     }
   });
-  // console.log(str);
 };
 
 Frame.prototype.outputImg = function (imgType) {
-  var imgURI = this.canvas.toDataURL("img/" + imgType);
+  return this.canvas.toDataURL("img/" + imgType);
 }
 
 module.exports = Frame;

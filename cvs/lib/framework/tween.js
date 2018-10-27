@@ -43,7 +43,6 @@ function Tween(animation) {
       } else {
         _this.animation.clearAnimation();
         _this.wid = 1;
-        console.log('finish', _this.times);
         _this.times = 0;
         _this.cb && _this.cb();
       }
