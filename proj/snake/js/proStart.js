@@ -72,7 +72,7 @@ core.on("show", "classical", function () {
         return;
       }
       snake.canMove(_snake.arr[0].x, _snake.arr[0].y, stopGame);
-      console.log("x:" + _snake.arr[0].x + ",y:" + _snake.arr[0].y);
+      // console.log("x:" + _snake.arr[0].x + ",y:" + _snake.arr[0].y);
       _snake.arr.shift();
       if (_snake.arr.length <= 0) {
         _snake.auto ? _snake.getPath() : "";
@@ -104,11 +104,10 @@ core.on("show", "classical", function () {
         x: _screen.pixelX,
         y: _screen.pixelY
       };
-      console.log("apple:x:" + appleXY.x + ",y:" + appleXY.y);
-      console.log("snake:x:" + snakeHeadXY.x + ",y:" + snakeHeadXY.y);
-      console.log("dX:" + snakeDirect.x + ",dY:" + snakeDirect.y);
+      // console.log("apple:x:" + appleXY.x + ",y:" + appleXY.y);
+      // console.log("snake:x:" + snakeHeadXY.x + ",y:" + snakeHeadXY.y);
+      // console.log("dX:" + snakeDirect.x + ",dY:" + snakeDirect.y);
       var arr = [];
-      var __arr = [];
       //向量蛇头－>目标
       var aimV = {
         x: appleXY.x - snakeHeadXY.x,
@@ -116,7 +115,7 @@ core.on("show", "classical", function () {
       };
       //向量点积
       var result = aimV.x * snakeDirect.x + aimV.y * snakeDirect.y;
-      console.log(result);
+      // console.log(result);
       var spX, spY;
       spX = Math.abs(appleXY.x - snakeHeadXY.x);
       spY = Math.abs(appleXY.y - snakeHeadXY.y);

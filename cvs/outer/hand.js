@@ -1,61 +1,63 @@
 var hand = {
-    eventArray: [],
-    fire: function(e) {
-        var _this = this,
-            fun = function(i, e) {
-                setTimeout(function() {
-                    _this.eventArray[i].fn && _this.eventArray[i].fn.apply(this, e);
-                }, 0);
-            };
-        for (var i = this.eventArray.length - 1; i >= 0; i--) {
-            fun(i, e);
-        }
-    },
-    off: function(name) {
-        var i = this.eventArray.length - 1;
-        for (; i >= 0; i--) {
-            if (name === this.eventArray[i].name) {
-                this.eventArray.splice(i, 1);
-            }
-        }
-    },
-    on: function(name, fn) {
-        this.eventArray.push({ name: name, fn: fn });
+  eventArray: [],
+  fire: function (e) {
+    var _this = this,
+      fun = function (i, e) {
+        setTimeout(function () {
+          _this.eventArray[i].fn && _this.eventArray[i].fn.apply(this, e);
+        }, 0);
+      };
+    for (var i = this.eventArray.length - 1; i >= 0; i--) {
+      fun(i, e);
     }
-};
-window.onkeydown = function(e) {
-    var key = e.keyCode;
-    switch (key) {
-        case 37: //left
-            console.log("left");
-            hand.fire(e);
-            break;
-        case 38: //up
-            console.log("up");
-            hand.fire(e);
-            break;
-        case 39: //right
-            console.log("right");
-            hand.fire(e);
-            break;
-        case 40: //down
-            console.log("down");
-            hand.fire(e);
-            break;
-        case 82: //r
-            console.log("r");
-            break;
-        case 83: //s
-            console.log("s");
-            break;
+  },
+  off: function (name) {
+    var i = this.eventArray.length - 1;
+    for (; i >= 0; i--) {
+      if (name === this.eventArray[i].name) {
+        this.eventArray.splice(i, 1);
+      }
     }
+  },
+  on: function (name, fn) {
+    this.eventArray.push({ name: name, fn: fn });
+  }
+};
+window.onkeydown = function (e) {
+  var key = e.keyCode;
+  switch (key) {
+    case 37: //left
+      console.log("left");
+      hand.fire(e);
+      break;
+    case 38: //up
+      console.log("up");
+      hand.fire(e);
+      break;
+    case 39: //right
+      console.log("right");
+      hand.fire(e);
+      break;
+    case 40: //down
+      console.log("down");
+      hand.fire(e);
+      break;
+    case 82: //r
+      console.log("r");
+      break;
+    case 83: //s
+      console.log("s");
+      break;
+    default:
+      break;
+  }
 };
 
-window.onkeypress = function(e) {
+window.onkeypress = function (e) {
 
 };
 
-window.onkeyup = function(e) {
+window.onkeyup = function (e) {
 
 };
 

@@ -6,17 +6,17 @@ var Frame = require("./frame"),
   Tween = require("./tween");
 
 /**
- * todo:
- * <1>:根据手机/平板 设置是否全屏幕,暂时没有方法支持
- * done:
- * 
- * 全局程序入口
- * 单例
- * 初始化frame
- * 挂载路由信息
- * 挂载页面对象 
- * Core
- */
+* todo:
+* <1>:根据手机/平板 设置是否全屏幕,暂时没有方法支持
+* done:
+* 
+* 全局程序入口
+* 单例
+* 初始化frame
+* 挂载路由信息
+* 挂载页面对象 
+* Core
+*/
 function Core() {
   //
   eventPlug.call(this);
@@ -26,7 +26,7 @@ function Core() {
   this.collection = {};
   this.router = router;
   this.animate = new Animation();
-  this.tween = new Tween(this.animate);
+  this.tween = new Tween(new Animation());
   this.frame = new Frame({
     canvas: document.getElementsByClassName("cvs")[0],
     width: document.body.clientWidth,
@@ -168,10 +168,12 @@ Core.prototype.beforeHide = function (routerObj) {
  * @return {[type]}     [description]
  */
 Core.prototype.open = function (obj, byHis) {
+  console.log('open', this.isExecTween);
   this.byHis = byHis || false;
   if (this.isExecTween) {
     return;
   }
+  console.log('open', this.isExecTween);
   this.isExecTween = true;
   var _href = obj.href;
   this.openUrl = _href;

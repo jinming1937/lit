@@ -36,6 +36,7 @@ function Tween(animation) {
   };
   this.fullWin = function () {
     var _this = this;
+    console.log('fulwin??');
     this.animation.setAnimation(function () {
       if (_this.wid < _this.dic) {
         _this.wid += 2;

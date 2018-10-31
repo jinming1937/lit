@@ -12,14 +12,16 @@
  * 提供对requestAnimationFrame的封装
  */
 function Animation() {
-  var arr = [];
+  this.isExecAnimation = false;
   this.__flag = 0;
+  this.reqFlag = 0;
   /**
    * 停止
    */
   this.clearAnimation = function (index) {
     this.__flag = index || this.__flag;
-    arr[this.__flag] = false;
+    this.isExecAnimation = false;
+    console.log(this.reqFlag);
     window.cancelAnimationFrame(this.reqFlag);
   };
 
@@ -31,14 +33,14 @@ function Animation() {
    */
   this.setAnimation = function (fn, cbfn, time) {
     var lastUpdateTime = +new Date() - 17,
-      lastTime = 0,
-      flag = 0;
+      _this = this,
+      lastTime = 0;
 
     if (typeof fn !== 'function') {
       throw ("params list error: there need a function as the first param!");
     }
-    arr.push(true);
-    flag = arr.length - 1;
+    this.__flag++;
+    this.isExecAnimation = true;
     /**
      * 自执行
      */
@@ -53,13 +55,13 @@ function Animation() {
         lastUpdateTime = timeFlag;
         fps >= 10 && cbfn && cbfn(fps, startTime);
       }
-      if (arr[flag]) {
-        this.reqFlag = window.requestAnimationFrame(animationForIndex);
+      if (_this.isExecAnimation) {
+        _this.reqFlag = window.requestAnimationFrame(animationForIndex);
       }
       lastTime = startTime;
     }
     animationForIndex();
-    return this.__flag = flag;
+    return this.__flag;
   };
 }
 module.exports = Animation;
