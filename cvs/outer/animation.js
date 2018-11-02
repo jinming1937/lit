@@ -21,7 +21,6 @@ function Animation() {
   this.clearAnimation = function (index) {
     this.__flag = index || this.__flag;
     this.isExecAnimation = false;
-    console.log(this.reqFlag);
     window.cancelAnimationFrame(this.reqFlag);
   };
 

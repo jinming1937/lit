@@ -168,12 +168,10 @@ Core.prototype.beforeHide = function (routerObj) {
  * @return {[type]}     [description]
  */
 Core.prototype.open = function (obj, byHis) {
-  console.log('open', this.isExecTween);
   this.byHis = byHis || false;
   if (this.isExecTween) {
     return;
   }
-  console.log('open', this.isExecTween);
   this.isExecTween = true;
   var _href = obj.href;
   this.openUrl = _href;
