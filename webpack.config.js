@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const absulatePath = path.resolve(__dirname, 'dist');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     contentBase: './dist'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: './proj/snake/snindex.html',
       title: '小指嘎'
@@ -37,7 +37,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.less$/,
         use: [
           { loader: 'style-loader' },
           {
@@ -46,7 +46,7 @@ module.exports = {
             //   modules: true
             // } 导致样式名变更
           },
-          { loader: 'sass-loader' }
+          { loader: 'less-loader' }
         ]
       }
     ]

@@ -1,7 +1,7 @@
 /**
  * 作者：jinming1937@163.com
  */
-require('./main.scss');
+require('./main.less');
 
 //npm install node-sass --save-dev 
 console.log("start");
